@@ -81,7 +81,7 @@ ColumnLimit:	80
 # 描述具有特殊意义的注释的正则表达式，它不应该被分割为多行或以其它方式改变
 CommentPragmas:	'^ IWYU pragma:'
 # 构造函数的初始化列表要么都在同一行，要么都各自一行
-ConstructorInitializerAllOnOneLineOrOnePerLine:	false
+ConstructorInitializerAllOnOneLineOrOnePerLine:	true
 # 构造函数的初始化列表的缩进宽度
 ConstructorInitializerIndentWidth:	4
 # 延续的行的缩进宽度
@@ -144,7 +144,7 @@ PointerAlignment:	Left
 # 允许重新排版注释
 ReflowComments:	true
 # 允许排序#include
-SortIncludes:	true
+SortIncludes:	false
 # 在C风格类型转换后添加空格
 SpaceAfterCStyleCast:	false
 # 在赋值运算符之前添加空格

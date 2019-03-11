@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : cv_mat
+#key : cv_mat
+#contributor : 
+# --
+const cv::Mat& frame

@@ -1,15 +1,15 @@
-;; -*- mode: emacs-lisp -*-
-;; This file is loaded by Spacemacs at startup.
-;; It must be stored in your home directory.
 
+
+;; It must be stored in your home directory.
 ;; 设置垃圾回收，在Windows下，emacs25版本会频繁出发垃圾回收，所以需要设置
 (when (eq system-type 'windows-nt)
   (setq gc-cons-threshold (* 512 1024 1024))
   (setq gc-cons-percentage 0.5)
   (run-with-idle-timer 15 t #'garbage-collect)
   ;; 显示垃圾回收信息，这个可以作为调试用
-  ;; (setq garbage-collection-messages t)
+  (setq garbage-collection-messages t)
 )
+(setq inhibit-compacting-font-caches t) ; Don’t compact font caches during GC.
 
 (defun dotspacemacs/layers ()
   "Layer configuration:
@@ -18,7 +18,7 @@ This function should only modify configuration layer settings."
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
-   dotspacemacs-distribution 'spacemacs
+   dotspacemacs-distribution 'spacemacs-base
 
    ;; Lazy installation of layers (i.e. layers are installed only when a file
    ;; with a supported type is opened). Possible values are `all', `unused'
@@ -42,32 +42,45 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(markdown
+   '(restclient
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     helm
-     ;; ivy
+     ;; themes-megapack
      auto-completion
-     ;; (auto-completion :variable
-     ;;                  company-minimum-prefix-length 4
-     ;;                  )
+     (helm
+      :variables
+      helm-position 'bottom
+      helm-swoop-split-direction 'split-window-horizontally)
+     gtags
      ;; better-defaults
      emacs-lisp
      ;; git
      markdown
      neotree
-     ;; org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     cmake
+     org
+     (shell :variables
+            shell-default-shell '"Windows PowerShell"
+            shell-default-height 30
+            shell-default-position 'bottom)
      ;; spell-checking
      ;; syntax-checking
-     ;; version-control
-     themes-megapack
-     )
+     version-control
+     lsp
+     ;; lsp-c-c++
+     ;; lsp-clangd-c-c++
+     ;; lsp-ccls
+     (c-c++ :variables
+           c-c++-backend 'lsp-ccls)
+     ;; (c-c++)
+     (go :variables go-backend 'lsp)
+     ;; go
+     jz-tool
+     ;; restclient
+     web-beautify)
 
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -77,15 +90,21 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
-                                      lsp-mode
-                                      lsp-ui
-                                      cquery
-                                      company-lsp
-                                      helm-xref
-                                      htmlize
-                                      cmake-mode
-                                      clang-format
-   )
+                                      ;; lsp-clangd
+                                      ;; eglot
+                                      ;; dakrone-light-theme
+                                      ;; sr-speedbar
+                                      evil-multiedit
+                                      evil-snipe
+                                      flycheck
+                                      winum
+                                      ;;window-number
+                                      ;; tommyh-theme
+                                      ;; find-file-in-project
+                                      ;; color-theme-modern
+                                      ;; vscode-icon
+                                      ;; ccls
+                                      )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -109,10 +128,6 @@ before layer configuration.
 It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
-  (setq configuration-layer-elpa-archives
-     '(("melpa-cn" ."http://elpa.emacs-china.org/melpa/")
-       ("org-cn"   ."http://elpa.emacs-china.org/org/")
-       ("gnu-cn"   ."http://elpa.emacs-china.org/gnu/")))
   (setq-default
    ;; If non-nil then enable support for the portable dumper. You'll need
    ;; to compile Emacs 27 from source following the instructions in file
@@ -212,8 +227,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(dracula
-                         dracula)
+   dotspacemacs-themes '(leuven)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
@@ -230,10 +244,18 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("-outline-宋体-normal-normal-normal-*-12-*-*-*-p-*-iso8859-1"
-                               :size 15
-                               :weight normal
-                               :width normal)
+   ;; dotspacemacs-default-font '("-outline-Consolas-normal-normal-normal-mono-20-*-*-*-c-*-iso8859-1"
+   ;;                             :size 16
+   ;;                             :weight normal
+   ;;                             :width normal)
+    dotspacemacs-default-font '("-outline-宋体-normal-normal-normal-*-12-*-*-*-p-*-iso8859-1"
+                                :size 16
+                                :weight normal
+                                :width normal)
+   ;;dotspacemacs-default-font '("-outline-微软雅黑-normal-normal-normal-sans-16----p--iso8859-1"
+   ;;                            :size 16
+   ;;                            :weight normal
+   ;;                            :width normal)
 
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
@@ -265,21 +287,6 @@ It should only modify the values of Spacemacs settings."
    ;; works in the GUI. (default nil)
    dotspacemacs-distinguish-gui-tab nil
 
-   ;; If non-nil `Y' is remapped to `y$' in Evil states. (default nil)
-   dotspacemacs-remap-Y-to-y$ nil
-
-   ;; If non-nil, the shift mappings `<' and `>' retain visual state if used
-   ;; there. (default t)
-   dotspacemacs-retain-visual-state-on-shift t
-
-   ;; If non-nil, `J' and `K' move lines up and down when in visual mode.
-   ;; (default nil)
-   dotspacemacs-visual-line-move-text nil
-
-   ;; If non-nil, inverse the meaning of `g' in `:substitute' Evil ex-command.
-   ;; (default nil)
-   dotspacemacs-ex-substitute-global nil
-
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
 
@@ -309,26 +316,9 @@ It should only modify the values of Spacemacs settings."
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
 
-   ;; If non-nil, `helm' will try to minimize the space it uses. (default nil)
-   dotspacemacs-helm-resize nil
-
-   ;; if non-nil, the helm header is hidden when there is only one source.
-   ;; (default nil)
-   dotspacemacs-helm-no-header nil
-
-   ;; define the position to display `helm', options are `bottom', `top',
-   ;; `left', or `right'. (default 'bottom)
-   dotspacemacs-helm-position 'bottom
-
-   ;; Controls fuzzy matching in helm. If set to `always', force fuzzy matching
-   ;; in all non-asynchronous sources. If set to `source', preserve individual
-   ;; source settings. Else, disable fuzzy matching in all sources.
-   ;; (default 'always)
-   dotspacemacs-helm-use-fuzzy 'always
-
-   ;; If non-nil, the paste transient-state is enabled. While enabled, pressing
-   ;; `p' several times cycles through the elements in the `kill-ring'.
-   ;; (default nil)
+   ;; If non-nil, the paste transient-state is enabled. While enabled, after you
+   ;; paste something, pressing `C-j' and `C-k' several times cycles through the
+   ;; elements in the `kill-ring'. (default nil)
    dotspacemacs-enable-paste-transient-state nil
 
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
@@ -382,7 +372,9 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil show the color guide hint for transient state keys. (default t)
    dotspacemacs-show-transient-state-color-guide t
 
-   ;; If non-nil unicode symbols are displayed in the mode line. (default t)
+   ;; If non-nil unicode symbols are displayed in the mode line.
+   ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
+   ;; the value to quoted `display-graphic-p'. (default t)
    dotspacemacs-mode-line-unicode-symbols t
 
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
@@ -426,6 +418,13 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
    dotspacemacs-enable-server nil
+
+   ;; Set the emacs server socket location.
+   ;; If nil, uses whatever the Emacs default is, otherwise a directory path
+   ;; like \"~/.emacs.d/server\". It has no effect if
+   ;; `dotspacemacs-enable-server' is nil.
+   ;; (default nil)
+   dotspacemacs-server-socket-dir nil
 
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
@@ -475,17 +474,13 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil)
    dotspacemacs-pretty-docs nil))
 
-(defun jz-custom-key-map ()
-  ;; find definition
-  (local-set-key  (kbd "M-g M-d") 'xref-find-definitions)
-  ;; list function
-  (local-set-key  (kbd "M-g M-l") 'lsp-ui-imenu)
-  (local-set-key  (kbd "M-g M-k") 'lsp-ui-imenu--kill)
-  ;; find symbol
-  (local-set-key  (kbd "M-g M-s") 'xref-find-apropos)
-  (local-set-key  (kbd "M-g M-b") 'clang-format-buffer)
-  (local-set-key  (kbd "M-g M-r") 'clang-format-region)
-  )
+(defun dotspacemacs/user-env ()
+  "Environment variables setup.
+This function defines the environment variables for your Emacs session. By
+default it calls `spacemacs/load-spacemacs-env' which loads the environment
+variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
+See the header of this file for more information."
+  (spacemacs/load-spacemacs-env))
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
@@ -493,40 +488,77 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-    (setq c-basic-offset 4)
-    (setq tab-width 4)
-    (setq default-tab-width 4)
-    (setq indent-tabs-mode t)
-    (add-hook 'c++-mode-hook
-              '(lambda ()
-                 (setq tab-width 4)
-                 (setq indent-tabs-mode t)
-                 (setq c-basic-offset 4)))
-    (setq c-default-style "linux")
-
-    ;; 卡顿解决
-    (when (eq system-type 'windows-nt)
-      (setq gc-cons-threshold (* 512 1024 1024))
-      (setq gc-cons-percentage 0.5)
-      (run-with-idle-timer 15 t #'garbage-collect)
-      ;; 显示垃圾回收信息，这个可以作为调试用;;
-      (setq garbage-collection-messages t))
-
-
-    ;;触发字符数
-    (setq company-minimum-prefix-length 4)
-
-
-
-
+(setq configuration-layer-elpa-archives '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
+                                          ("org-cn" . "http://elpa.emacs-china.org/org/")
+                                          ("gnu-cn" . "http://elpa.emacs-china.org/gnu/")))
+;; (add-to-list 'eglot-server-programs '((c++ mode c-mode) . (eglot-cquery "cquery")))
   )
 
 (defun dotspacemacs/user-load ()
   "Library to load while dumping.
-This function is called while dumping Spacemacs configuration. You can
-`require' or `load' the libraries of your choice that will be included
-in the dump."
+This function is called only while dumping Spacemacs configuration. You can
+`require' or `load' the libraries of your choice that will be included in the
+dump."
   )
+
+(defun jz-eglot-completion ()
+  (interactive )
+  (company-abort)
+  (call-interactively 'company-lsp)
+  )
+
+(defun jz-evil-multi-edit-match-next ()
+  (interactive)
+  (evil-multiedit-match-and-next)
+  (evil-multiedit-next)
+  )
+
+(defun jz-evil-multi-edit-match-prev ()
+  (interactive)
+  (evil-multiedit-match-and-prev)
+  (evil-multiedit-prev)
+  )
+(defun jz-evil-multi-edit-skip-current ()
+  (interactive)
+  (evil-multiedit-toggle-or-restrict-region)
+  )
+
+(defun jz-lsp-ui-sideline-disable ()
+  (lsp-ui-sideline-enable nil))
+
+
+(setq projectile-globally-ignored-directories
+  '(".idea"
+    ".ensime_cache"
+    ".eunit"
+    ".git"
+    ".hg"
+    ".fslckout"
+    "_FOSSIL_"
+    ".bzr"
+    "_darcs"
+    ".tox"
+    ".svn"
+    "build"
+    ".stack-work"))
+
+(defcustom lsp-eldoc-hook'(lsp-hover)
+  "Hooks to run for eldoc."
+  :type 'hook
+  :group 'lsp-mode)
+
+(defvar c-c++-lsp-initialization-options '(:highlight (:largeFileSize 1))
+  "Extra initialisation parameters to pass to the lsp backend. See
+https://github.com/MaskRay/ccls/blob/master/src/config.hh
+for details. N.B. This is remapped to cquery-extra-init-params when using cquery backend")
+
+(defvar c-c++-lsp-args '("--log-file=d:/1.log")
+  "Extra args to pass to the backend. E.g. to log to file.
+https://github.com/MaskRay/ccls/wiki/Emacs for details. N.B. this is remapped to cquery-extra-args when using cquery backend")
+
+(defvar ggtags-highlight-tag-delay nil)
+
+(add-to-list 'load-path "D:/home/.emacs.d/themes")
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
@@ -534,70 +566,105 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-    (global-company-mode)
-    (require 'semantic)
-  (require 'srecode)
-  (add-hook 'c++-mode-hook 'semantic-mode)
-  (add-hook 'c++-mode-hook 'srecode-minor-mode)
 
-  ;; cquery
-  (require 'cquery)
-  (require 'lsp-ui)
-  ;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-  ;; (lsp-ui-sideline-toggle-symbols-info)
-  (require 'lsp-imenu)
-  (add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
+  (require 'helm-swoop)
+  (require 'evil-multiedit)
+  (require 'evil-snipe)
+  (require 'lsp-mode)
+  (add-hook 'c++-mode-hook #'lsp)
+  (add-hook 'c-mode-hook #'lsp)
 
+  (add-hook 'c++-mode-hook #'hs-minor-mode)
+  (add-hook 'c-mode-hook #'hs-minor-mode)
+  (add-hook 'go-mode-hook #'hs-minor-mode)
+  (electric-pair-mode 1)
+  (require 'lsp-mode)
+  (require 'flycheck)
+  (add-hook 'c++-mode-hook 'flycheck-mode)
+  (add-hook 'c-mode-hook 'flycheck-mode)
 
-  ;; jz's key map
-  (add-hook 'c-mode-common-hook 'jz-custom-key-map)
-  ;; color
-  ;; (setq cquery-sem-highlight-method 'font-lock)
-  ;; alternatively, (setq cquery-sem-highlight-method 'overlay)
-
-  ;; For rainbow semantic highlighting
-  ;; (cquery-use-default-rainbow-sem-highlight)
-
-
-
-  (use-package helm-xref
+  (use-package lsp-ui
     :ensure t
-    :init (setq xref-show-xrefs-function 'helm-xref-show-xrefs))
-  ;; (require 'ivy-xref)
-  ;; (setq xref-show-xrefs-function 'ivy-xref-show-xrefs)
-  (setq cquery-executable "j:/path/jz-cquery/bin/cquery.exe")
-  (defun cquery//enable ()
-    (condition-case nil
-        (lsp-cquery-enable)
-      (user-error nil)))
-  (push 'company-lsp company-backends)
-  ;; (setq-default
-  ;;  dotspacemacs-configuration-layers
-  ;;  '((auto-completion :variables
-  ;;                     spacemacs-default-company-backends '(company-files company-capf company-lsp))))
-  (use-package company-lsp
-    :defer t
+    :commands lsp-ui-mode
     :init
-    (setq company-quickhelp-delay 0)
-    ;; Language servers have better idea filtering and sorting,
-    ;; don't filter results on the client side.
-    (setq company-transformers nil
-          company-lsp-async t
-          company-lsp-cache-candidates nil))
-  (use-package cquery
-    :commands lsp-cquery-enable
-    :init (add-hook 'c-mode-common-hook #'cquery//enable))
-  ;; Also see lsp-project-whitelist lsp-project-blacklist cquery-root-matchers
-  ;; completion
-  (setq cquery-extra-init-params '(
-                                   :index (:comments 2)
-                                   :cacheFormat "json"
-                                          :completion (
-                                                       :detailedLabel t
-                                                       )
-                                   :extraClangArguments ("--driver-mode=cl")))
-  ;; (setq cquery-extra-init-params '(:extraClangArguments ("--driver-mode=cl")))
-  (setq cquery-extra-args '("--log-file=j:/cquery-log/cq.log"))
+    (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+    :config
+    (setq lsp-ui-peek-enable t)
+    (setq lsp-ui-doc-enable nil)
+    (setq lsp-ui-imenu-enable t)
+    (setq lsp-ui-flycheck-enable t)
+    (setq lsp-ui-sideline-enable nil)
+    (setq lsp-ui-sideline-ignore-duplicate t))
+
+
+
+  (require 'winum)
+  (winum-mode 1)
+
+  ;; (add-hook 'go-mode-hook #'lsp-mode)
+  (setenv "GTAGSTHROUGH" "true")
+  ;; (setenv "GTAGSLIBPATH"
+  ;;         "d:/msys64/mingw64/x86_64-w64-mingw32/include;d:/msys64/mingw64/include/c++/8.2.0")
+  (setenv "GOPATH" "C:/Users/lenovo/go")
+  (setenv "PATH" "D:/msys64/mingw64/bin;D:/msys64/usr/bin;C:/Windows/System32;C:/Windows;$GOPATH/bin;D:/Program Files/LLVM\bin")
+
+  (defun company-lsp--client-capabilities ()
+    "Return the extra client capabilities supported by company-lsp."
+    (when company-lsp-enable-snippet
+      '(:textDocument (:completion (:completionItem (:snippetSupport t))))))
+
+
+  ;; Match the word under cursor (i.e. make it an edit region). Consecutive presses will
+  ;; incrementally add the next unmatched match.
+  ;; (define-key evil-normal-state-map (kbd "M-d") 'jz-evil-multi-edit-match-next)
+  ;; ;; Match selected region.
+  ;; (define-key evil-visual-state-map (kbd "M-d") 'jz-evil-multi-edit-match-next)
+  ;; ;; Insert marker at point
+  ;; (define-key evil-insert-state-map (kbd "M-d") 'jz-evil-multi-edit-match-next)
+  ;; ;; Same as M-d but in reverse.
+  ;; (define-key evil-normal-state-map (kbd "C-M-d") 'jz-evil-multi-edit-match-prev)
+  ;; (define-key evil-visual-state-map (kbd "C-M-d") 'jz-evil-multi-edit-match-prev)
+  ;; (define-key evil-motion-state-map (kbd "RET") 'jz-evil-multi-edit-skip-current)
+
+  (define-key evil-normal-state-map (kbd "C-j") 'next-line)
+  (define-key evil-normal-state-map (kbd "C-k") 'previous-line)
+  (define-key evil-insert-state-map (kbd "C-j") 'next-line)
+  (define-key evil-insert-state-map (kbd "C-k") 'previous-line)
+  (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
+  (define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
+  (define-key evil-normal-state-map (kbd "C-e") 'end-of-line)
+  (define-key evil-normal-state-map (kbd "C-a") 'beginning-of-line)
+  (define-key evil-normal-state-map (kbd "C-f") 'forward-char)
+  (define-key evil-normal-state-map (kbd "C-b") 'backward-char)
+
+
+  (require 'helm)
+  (require 'helm-ag)
+  (require 'ivy)
+  (defun jz-helm-ag-persistent-action ()
+    (interactive)
+    (call-interactively 'helm-ag--persistent-action))
+
+  (define-key helm-map (kbd "C-j") 'helm-next-line)
+  (define-key helm-map (kbd "C-k") 'helm-previous-line)
+  (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
+  (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
+  ;; (define-key helm-map (kbd "<tab>") 'jz-helm-ag-persistent-action)
+
+
+
+
+  ;; 解决evil viw等命令无法包含下划线
+  (with-eval-after-load 'evil
+    (defalias #'forward-evil-word #'forward-evil-symbol))
+
+  (evil-snipe-mode 1)
+  (evil-snipe-override-mode 1)
+  ;; helm buffer display filename lenght
+  (setq helm-buffer-max-length 56)
+
+  ;; (global-set-key (kbd "C-,") 'ivy-restrict-to-matches)
+  ;; (global-set-key (kbd "C-,") 'helm-make-reset-cache)
 
   )
 
@@ -613,9 +680,69 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
+ '(blink-cursor-mode nil)
+ '(column-number-mode t)
+ '(company-quickhelp-color-background "#e8e8e8")
+ '(company-quickhelp-color-foreground "#444444")
+ '(custom-safe-themes
+   (quote
+    ("19b9349a6b442a2b50e5b82be9de45034f9b08fa36909e0b1be09433234610bb" default)))
+ '(display-line-numbers-type (quote relative))
+ '(evil-want-Y-yank-to-eol nil)
+ '(fci-rule-color "#eeeeee")
+ '(global-display-line-numbers-mode t)
+ '(helm-split-window-inside-p t)
+ '(hl-todo-keyword-faces
+   (quote
+    (("TODO" . "#dc752f")
+     ("NEXT" . "#dc752f")
+     ("THEM" . "#2d9574")
+     ("PROG" . "#4f97d7")
+     ("OKAY" . "#4f97d7")
+     ("DONT" . "#f2241f")
+     ("FAIL" . "#f2241f")
+     ("DONE" . "#86dc2f")
+     ("NOTE" . "#b1951d")
+     ("KLUDGE" . "#b1951d")
+     ("HACK" . "#b1951d")
+     ("TEMP" . "#b1951d")
+     ("FIXME" . "#dc752f")
+     ("XXX" . "#dc752f")
+     ("XXXX" . "#dc752f")
+     ("???" . "#dc752f"))))
+ '(nrepl-message-colors
+   (quote
+    ("#8f4e8b" "#8f684e" "#c3a043" "#397460" "#54ab8e" "#20a6ab" "#3573b1" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag ace-jump-helm-line zenburn-theme zen-and-art-theme yasnippet-snippets ws-butler winum white-sand-theme which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme symon sunny-day-theme sublime-themes subatomic256-theme subatomic-theme string-inflection spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smex seti-theme reverse-theme restart-emacs request rebecca-theme rainbow-delimiters railscasts-theme purple-haze-theme professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el password-generator paradox overseer organic-green-theme org-plus-contrib org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme nameless mustang-theme move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme madhat2r-theme macrostep lush-theme lsp-ui lorem-ipsum link-hint light-soap-theme kaolin-themes jbeans-theme jazz-theme ivy-xref ivy-purpose ivy-hydra ir-black-theme inkpot-theme indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-xref helm-make hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gh-md gandalf-theme fuzzy font-lock+ flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eziam-theme eyebrowse expand-region exotica-theme evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu espresso-theme elisp-slime-nav editorconfig dumb-jump dracula-theme doom-themes django-theme diminish define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme cquery counsel-projectile company-statistics company-lsp column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized cmake-mode clues-theme clean-aindent-mode clang-format cherry-blossom-theme centered-cursor-mode busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme ace-window ace-link ac-ispell))))
+    (leuven-theme emacs-leuven-theme doneburn-theme multiple-cursors org-present org-pomodoro alert log4e gntp org-mime org-download org-brain htmlize helm-org-rifle gnuplot evil-org symbol-overlay helm-ctest cmake-mode cmake-ide levenshtein google-c-style disaster cquery company-rtags rtags company-c-headers clang-format ccls flycheck-rtags flycheck git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter diff-hl browse-at-remote evil-easymotion avy counsel swiper auto-indent-mode smartparens window-number helm-rtags wgrep smex ivy-yasnippet ivy-xref ivy-rtags ivy-purpose ivy-hydra counsel-gtags lsp-clangd yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package tommyh-theme toc-org symon string-inflection sr-speedbar spaceline-all-the-icons shell-pop restclient-helm restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file ob-restclient ob-http neotree nameless multi-term move-text mmm-mode markdown-toc macrostep lsp-ui lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-gtags helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gh-md ggtags fuzzy font-lock+ flx-ido find-file-in-project fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-numbers evil-nerd-commenter evil-multiedit evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish define-word counsel-projectile company-statistics company-restclient company-lsp company-go column-enforce-mode clean-aindent-mode centered-cursor-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell)))
+ '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
+ '(tab-width 4)
+ '(tool-bar-mode nil)
+ '(vc-annotate-background "#f9f9f9")
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#844880")
+     (40 . "#8f4e8b")
+     (60 . "#8f684e")
+     (80 . "#cfb56e")
+     (100 . "#c3a043")
+     (120 . "#c3a043")
+     (140 . "#2a5547")
+     (160 . "#397460")
+     (180 . "#3b7863")
+     (200 . "#438972")
+     (220 . "#4c9a80")
+     (240 . "#54ab8e")
+     (260 . "#20a6ab")
+     (280 . "#234d76")
+     (300 . "#295989")
+     (320 . "#2e659c")
+     (340 . "#3573b1")
+     (360 . "#DC8CC3"))))
+ '(vc-annotate-very-old-color "#DC8CC3"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
