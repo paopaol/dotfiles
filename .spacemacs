@@ -1,7 +1,6 @@
 
-
 ;; It must be stored in your home directory.
-;; 设置垃圾回收，在Windows下，emacs25版本会频繁出发垃圾回收，所以需要设置
+;; 设置垃圾回收，在Windows下，emacs25版本会频繁出发垃圾回收，所以需要设�?
 (when (eq system-type 'windows-nt)
   (setq gc-cons-threshold (* 512 1024 1024))
   (setq gc-cons-percentage 0.5)
@@ -42,7 +41,9 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(restclient
+   '(html
+     ;; javascript
+     restclient
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -53,6 +54,7 @@ This function should only modify configuration layer settings."
      (helm
       :variables
       helm-position 'bottom
+      helm-split-window-inside-p t
       helm-swoop-split-direction 'split-window-horizontally)
      gtags
      ;; better-defaults
@@ -70,16 +72,11 @@ This function should only modify configuration layer settings."
      ;; syntax-checking
      version-control
      lsp
-     ;; lsp-c-c++
-     ;; lsp-clangd-c-c++
-     ;; lsp-ccls
      (c-c++ :variables
+           c-c++-default-mode-for-headers 'c++-mode
            c-c++-backend 'lsp-ccls)
-     ;; (c-c++)
      (go :variables go-backend 'lsp)
-     ;; go
      jz-tool
-     ;; restclient
      web-beautify)
 
    ;; List of additional packages that will be installed without being
@@ -250,7 +247,7 @@ It should only modify the values of Spacemacs settings."
    ;;                             :width normal)
     dotspacemacs-default-font '("-outline-宋体-normal-normal-normal-*-12-*-*-*-p-*-iso8859-1"
                                 :size 16
-                                :weight normal
+                                :weight bold
                                 :width normal)
    ;;dotspacemacs-default-font '("-outline-微软雅黑-normal-normal-normal-sans-16----p--iso8859-1"
    ;;                            :size 16
@@ -406,7 +403,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-smartparens-strict-mode nil
 
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
-   ;; over any automatically added closing parenthesis, bracket, quote, etc…
+   ;; over any automatically added closing parenthesis, bracket, quote, etc�?
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
    dotspacemacs-smart-closing-parenthesis nil
 
@@ -433,7 +430,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
    ;; (default '("rg" "ag" "pt" "ack" "grep"))
-   dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+   dotspacemacs-search-tools '("rg" "ag")
 
    ;; Format specification for setting the frame title.
    ;; %a - the `abbreviated-file-name', or `buffer-name'
@@ -501,6 +498,10 @@ This function is called only while dumping Spacemacs configuration. You can
 dump."
   )
 
+
+
+
+
 (defun jz-eglot-completion ()
   (interactive )
   (company-abort)
@@ -527,6 +528,8 @@ dump."
   (lsp-ui-sideline-enable nil))
 
 
+
+
 (setq projectile-globally-ignored-directories
   '(".idea"
     ".ensime_cache"
@@ -541,6 +544,10 @@ dump."
     ".svn"
     "build"
     ".stack-work"))
+
+
+
+
 
 (defcustom lsp-eldoc-hook'(lsp-hover)
   "Hooks to run for eldoc."
@@ -560,6 +567,12 @@ https://github.com/MaskRay/ccls/wiki/Emacs for details. N.B. this is remapped to
 
 (add-to-list 'load-path "D:/home/.emacs.d/themes")
 
+
+
+
+
+
+
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
@@ -567,7 +580,26 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
-  (require 'helm-swoop)
+(setq org-agenda-files (list "D:/root/home/workspace/task"))
+(setq org-agenda-custom-commands
+        '(
+          ("w" . "任务安排")
+          ("wa" "重要且紧急的任务" tags-todo "+PRIORITY=\"A\"")
+          ("wb" "重要且不紧急的任务" tags-todo "-Weekly-Monthly-Daily+PRIORITY=\"B\"")
+          ("wc" "不重要且紧急的任务" tags-todo "+PRIORITY=\"C\"")
+          ("b" "Blog" tags-todo "BLOG")
+          ("p" . "项目安排")
+          ("pw" tags-todo "PROJECT+WORK+CATEGORY=\"cocos2d-x\"")
+          ("pl" tags-todo "PROJECT+DREAM+CATEGORY=\"zilongshanren\"")
+          ("W" "Weekly Review"
+           ((stuck "") ;; review stuck projects as designated by org-stuck-projects
+            (tags-todo "PROJECT") ;; review all projects (assuming you use todo keywords to designate projects)
+            ))))
+
+  ;; (require 'ivy)
+  ;; (define-key ivy-minibuffer-map (kbd "<tab>") 'ivy-call-and-recenter)
+
+  ;; (require 'helm-swoop)
   (require 'evil-multiedit)
   (require 'evil-snipe)
   (require 'lsp-mode)
@@ -637,13 +669,13 @@ before packages are loaded."
   (define-key evil-normal-state-map (kbd "C-f") 'forward-char)
   (define-key evil-normal-state-map (kbd "C-b") 'backward-char)
 
+  (require 'helm-ag)
+
+  (define-key helm-ag-mode-map (kbd "o") 'jz-helm-ag-preview-file)
+
 
   (require 'helm)
-  (require 'helm-ag)
   (require 'ivy)
-  (defun jz-helm-ag-persistent-action ()
-    (interactive)
-    (call-interactively 'helm-ag--persistent-action))
 
   (define-key helm-map (kbd "C-j") 'helm-next-line)
   (define-key helm-map (kbd "C-k") 'helm-previous-line)
@@ -712,13 +744,25 @@ This function is called at the very end of Spacemacs initialization."
      ("XXX" . "#dc752f")
      ("XXXX" . "#dc752f")
      ("???" . "#dc752f"))))
+ '(markdown-command
+   "c:/ProgramData/chocolatey/bin/pandoc.exe --quiet --toc --standalone  --highlight-style=zenburn")
+ '(markdown-css-paths
+   (quote
+    ("D:/root/home/workspace/jz/GitHub/markdown-css-themes/markdown8.css")))
  '(nrepl-message-colors
    (quote
     ("#8f4e8b" "#8f684e" "#c3a043" "#397460" "#54ab8e" "#20a6ab" "#3573b1" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (leuven-theme emacs-leuven-theme doneburn-theme multiple-cursors org-present org-pomodoro alert log4e gntp org-mime org-download org-brain htmlize helm-org-rifle gnuplot evil-org symbol-overlay helm-ctest cmake-mode cmake-ide levenshtein google-c-style disaster cquery company-rtags rtags company-c-headers clang-format ccls flycheck-rtags flycheck git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter diff-hl browse-at-remote evil-easymotion avy counsel swiper auto-indent-mode smartparens window-number helm-rtags wgrep smex ivy-yasnippet ivy-xref ivy-rtags ivy-purpose ivy-hydra counsel-gtags lsp-clangd yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package tommyh-theme toc-org symon string-inflection sr-speedbar spaceline-all-the-icons shell-pop restclient-helm restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file ob-restclient ob-http neotree nameless multi-term move-text mmm-mode markdown-toc macrostep lsp-ui lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-gtags helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gh-md ggtags fuzzy font-lock+ flx-ido find-file-in-project fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-numbers evil-nerd-commenter evil-multiedit evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish define-word counsel-projectile company-statistics company-restclient company-lsp company-go column-enforce-mode clean-aindent-mode centered-cursor-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell)))
+    (format-all web-mode tagedit slim-mode scss-mode sass-mode pug-mode impatient-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data add-node-modules-path treemacs-projectile treemacs-evil treemacs pfuture wgrep-helm ivy prettier-js livid-mode skewer-mode simple-httpd json-navigator hierarchy json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern tern simple-bookmarks evil-fringe-mark leuven-theme emacs-leuven-theme doneburn-theme multiple-cursors org-present org-pomodoro alert log4e gntp org-mime org-download org-brain htmlize helm-org-rifle gnuplot evil-org symbol-overlay helm-ctest cmake-mode cmake-ide levenshtein google-c-style disaster cquery company-rtags rtags company-c-headers clang-format ccls flycheck-rtags flycheck git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter diff-hl browse-at-remote evil-easymotion avy counsel swiper auto-indent-mode smartparens window-number helm-rtags wgrep smex ivy-yasnippet ivy-xref ivy-rtags ivy-purpose ivy-hydra counsel-gtags lsp-clangd yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package tommyh-theme toc-org symon string-inflection sr-speedbar spaceline-all-the-icons shell-pop restclient-helm restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file ob-restclient ob-http neotree nameless multi-term move-text markdown-toc macrostep lsp-ui lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-gtags helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gh-md ggtags fuzzy font-lock+ flx-ido find-file-in-project fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-numbers evil-nerd-commenter evil-multiedit evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish define-word counsel-projectile company-statistics company-restclient company-lsp company-go column-enforce-mode clean-aindent-mode centered-cursor-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell)))
  '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
+ '(safe-local-variable-values
+   (quote
+    ((project-root . ".")
+     (javascript-backend . tern)
+     (javascript-backend . lsp)
+     (go-backend . go-mode)
+     (go-backend . lsp))))
  '(tab-width 4)
  '(tool-bar-mode nil)
  '(vc-annotate-background "#f9f9f9")
@@ -748,5 +792,5 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(which-func ((t (:foreground "Blue1" :weight bold)))))
 )

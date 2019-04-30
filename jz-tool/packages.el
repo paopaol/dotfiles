@@ -35,12 +35,20 @@
     evil-commentary
     evil-surround
     evil-easymotion
+    evil-fringe-mark
+    evil-args
     rainbow-delimiters
     symbol-overlay
     expand-region
     google-translate
     multiple-cursors
     leuven-theme
+    wgrep-helm
+    treemacs
+    treemacs-evil
+    treemacs-projectile
+    format-all
+    markdown-mode
     helm-gtags)
   "The list of Lisp packages required by the jz-tool layer.
 
@@ -90,8 +98,9 @@ Each entry is either:
       (spacemacs/set-leader-keys-for-major-mode mode
         "oo" #'jz-toggle-cpp-h
         "hd" #'helm-gtags-dwim
-        "fb" #'jz-clang-format-buffer
+        "fb" #'jz-clang-format
         "bq" #'jz-lsp-shutdown-workspace
+        "yy" #'cpp-short-func-to-long-func
         "bs" #'jz-lsp-start-workspace)
       (setq ffip-use-rust-fd t)
       (setq ffip-project-file '(".svn" ".hg" ".git" ".projectile"))
@@ -152,8 +161,8 @@ Each entry is either:
 (defun jz-tool/init-evil-easymotion ()
   (use-package evil-easymotion
     :config
-    (define-key evil-normal-state-map (kbd "f") 'avy-goto-char-2-below)
-    (define-key evil-normal-state-map (kbd "F") 'avy-goto-char-2-above)
+    ;; (define-key evil-normal-state-map (kbd "f") 'evil-avy-goto-char-2-below)
+    ;; (define-key evil-normal-state-map (kbd "F") 'evil-avy-goto-char-2-above)
     ))
 (defun jz-tool/init-symbol-overlay ()
   (use-package symbol-overlay
@@ -215,5 +224,75 @@ Each entry is either:
     )
   )
 
+(defun jz-tool/init-evil-args ()
+  (use-package evil-args
+    :config
+    ;; bind evil-args text objects
+    (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+    (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
-;;; packages.el ends here
+    ;; bind evil-forward/backward-args
+    (define-key evil-normal-state-map "L" 'evil-forward-arg)
+    (define-key evil-normal-state-map "H" 'evil-backward-arg)
+    (define-key evil-motion-state-map "L" 'evil-forward-arg)
+    (define-key evil-motion-state-map "H" 'evil-backward-arg)
+
+    ;; bind evil-jump-out-args
+    (define-key evil-normal-state-map "K" 'evil-jump-out-args)
+    ))
+
+(defun jz-tool/init-evil-fringe-mark ()
+  (use-package evil-fringe-mark
+    :ensure t
+    :config
+    (global-evil-fringe-mark-mode)))
+
+(defun jz-tool/init-wgrep-helm ()
+  (use-package wgrep-helm
+    :ensure t
+    :config
+    (setq wgrep-auto-save-buffer t)))
+
+(defun jz-tool/init-treemacs ()
+  (use-package treemacs
+    :ensure t
+    :config
+    (spacemacs/set-leader-keys
+      "0" #'jz-win-0
+      "f t" #'treemacs)
+    (define-key treemacs-mode-map "K" 'treemacs-goto-parent-node)
+    (define-key treemacs-mode-map "r" 'treemacs-rename)
+    (define-key treemacs-mode-map "d" 'treemacs-delete)
+    (define-key treemacs-mode-map "c" 'treemacs-create-file)
+    (define-key treemacs-mode-map "C" 'treemacs-create-dir)))
+
+(defun jz-tool/init-treemacs-evil ()
+  (use-package treemacs-evil
+    :ensure t))
+
+(defun jz-tool/init-treemacs-projectile ()
+  (use-package treemacs-projectile
+    :ensure t))
+(defun jz-tool/init-format-all ()
+  (use-package format-all
+    :ensure t))
+
+
+(defun my-mmm-markdown-auto-class (lang &optional submode)
+ ;;Define a mmm-mode class for LANG in `markdown-mode' using SUBMODE.
+ ;;If SUBMODE is not provided, use `LANG-mode' by default."
+ (let ((class (intern (concat "markdown-" lang)))
+       (submode (or submode (intern (concat lang "-mode"))))
+       (front (concat "^```" lang "[\n\r]+"))
+       (back "^```"))
+   (mmm-add-classes (list (list class :submode submode :front front :back back)))
+   (mmm-add-mode-ext-class 'markdown-mode nil class)))
+
+
+(defun jz-tool/post-init-markdown-mode ()
+  (use-package markdown-mode
+    :config
+    (setq markdown-fontify-code-blocks-natively t)
+    ))
+
+; packages.el ends here

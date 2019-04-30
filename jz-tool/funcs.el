@@ -1,3 +1,4 @@
+;;(require 'mmm-mode)
 
 (defun jz-toggle-cpp-h ()
   (interactive)
@@ -24,7 +25,7 @@
   (call-interactively 'company-lsp)
   )
 
-(defun jz-clang-format-buffer ()
+(defun jz-clang-format ()
   (interactive)
   (call-interactively 'clang-format-buffer))
 
@@ -37,6 +38,9 @@
   (call-interactively 'lsp-shutdown-workspace))
 
 
+(defun jz-win-0 ()
+  (interactive)
+  (treemacs-select-window))
 
 (defun jz-win-1 ()
   (interactive)
@@ -70,6 +74,14 @@
       (call-interactively 'evil-commentary)
     (call-interactively 'evil-commentary-line)))
 
+(defun jz-helm-ag-preview-file ()
+  (interactive)
+  (let ((ag-win-num))
+    (setq ag-win-num (winum-get-number))
+    (helm-ag-mode-jump-other-window)
+    (hl-line-mode)
+    (winum-select-window-by-number ag-win-num)))
+
 
 
 (defun jz-comment-and-yank-down ()
@@ -95,3 +107,15 @@
 (defun jz-open-200-jz ()
   (interactive)
   (start-process "open-folder" nil "explorer" (encode-coding-string "\\\\192.168.16.200\\中转文件1号定时清空\\jz" 'cp936)))
+
+
+(defun cpp-short-func-to-long-func ()
+  (interactive)
+  (lsp-hover)
+  (kill-new (concat lsp--eldoc-saved-message ";")))
+
+
+
+
+
+
