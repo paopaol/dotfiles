@@ -4,7 +4,7 @@
 (when (eq system-type 'windows-nt)
   (setq gc-cons-threshold (* 512 1024 1024))
   (setq gc-cons-percentage 0.5)
-  (run-with-idle-timer 15 t #'garbage-collect)
+  (run-with-idle-timer 30 t #'garbage-collect)
   ;; 显示垃圾回收信息，这个可以作为调试用
   (setq garbage-collection-messages t)
 )
@@ -65,7 +65,7 @@ This function should only modify configuration layer settings."
      cmake
      org
      (shell :variables
-            shell-default-shell '"Windows PowerShell"
+            ;; shell-default-shell "cmd"
             shell-default-height 30
             shell-default-position 'bottom)
      ;; spell-checking
@@ -95,7 +95,6 @@ This function should only modify configuration layer settings."
                                       evil-snipe
                                       flycheck
                                       winum
-                                      ivy
                                       ;;window-number
                                       ;; tommyh-theme
                                       ;; find-file-in-project
@@ -225,7 +224,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-light)
+   dotspacemacs-themes '(leuven)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
@@ -503,7 +502,6 @@ dump."
 
 
 
-
 (defun jz-eglot-completion ()
   (interactive )
   (company-abort)
@@ -549,10 +547,6 @@ dump."
 
 
 
-(defcustom lsp-enable-symbol-highlighting nil
-  "Highlight references of the symbol at point."
-  :type 'boolean
-  :group 'lsp-mode)
 
 
 (defcustom lsp-eldoc-hook'(lsp-hover)
@@ -564,14 +558,13 @@ dump."
   "Extra initialisation parameters to pass to the lsp backend. See
 https://github.com/MaskRay/ccls/blob/master/src/config.hh
 for details. N.B. This is remapped to cquery-extra-init-params when using cquery backend")
-
-(defvar c-c++-lsp-args '("--log-file=/tmp/1.log")
-  "Extra args to pass to the backend. E.g. to log to file.
-https://github.com/MaskRay/ccls/wiki/Emacs for details. N.B. this is remapped to cquery-extra-args when using cquery backend")
+(if (eq system-type 'windows-nt)
+  (defvar c-c++-lsp-args '("--log-file=d:/1.log"))
+  (defvar c-c++-lsp-args '("--log-file=/tmp/1.log"))
+)
 
 (defvar ggtags-highlight-tag-delay nil)
 
-;; (add-to-list 'load-path "D:/home/.emacs.d/themes")
 
 
 
@@ -586,21 +579,6 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
-;; (setq org-agenda-files (list "D:/root/home/workspace/task"))
-;; (setq org-agenda-custom-commands
-;;         '(
-;;           ("w" . "任务安排")
-;;           ("wa" "重要且紧急的任务" tags-todo "+PRIORITY=\"A\"")
-;;           ("wb" "重要且不紧急的任务" tags-todo "-Weekly-Monthly-Daily+PRIORITY=\"B\"")
-;;           ("wc" "不重要且紧急的任务" tags-todo "+PRIORITY=\"C\"")
-;;           ("b" "Blog" tags-todo "BLOG")
-;;           ("p" . "项目安排")
-;;           ("pw" tags-todo "PROJECT+WORK+CATEGORY=\"cocos2d-x\"")
-;;           ("pl" tags-todo "PROJECT+DREAM+CATEGORY=\"zilongshanren\"")
-;;           ("W" "Weekly Review"
-;;            ((stuck "") ;; review stuck projects as designated by org-stuck-projects
-;;             (tags-todo "PROJECT") ;; review all projects (assuming you use todo keywords to designate projects)
-;;             ))))
 
   ;; (require 'ivy)
   ;; (define-key ivy-minibuffer-map (kbd "<tab>") 'ivy-call-and-recenter)
@@ -609,6 +587,7 @@ before packages are loaded."
   (require 'evil-multiedit)
   (require 'evil-snipe)
   (require 'lsp-mode)
+  (require 'lsp)
   (add-hook 'c++-mode-hook #'lsp)
   (add-hook 'c-mode-hook #'lsp)
 
@@ -621,20 +600,18 @@ before packages are loaded."
   (add-hook 'c++-mode-hook 'flycheck-mode)
   (add-hook 'c-mode-hook 'flycheck-mode)
 
-  (require 'lsp-ui)
-  (require 'lsp)
-  ;; (use-package lsp-ui
-  ;;   :ensure t
-  ;;   :commands lsp-ui-mode
-  ;;   :init
-  ;;   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-  ;;   :config
-  ;;   (setq lsp-ui-peek-mode nil)
-  ;;   (setq lsp-ui-doc-mode nil)
-  ;;   (setq lsp-ui-imenu-enable nil)
-  ;;   (setq lsp-ui-flycheck-enable t)
-  ;;   (setq lsp-ui-sideline-mode nil)
-  ;;   (setq lsp-ui-sideline-ignore-duplicate t))
+  (use-package lsp-ui
+    :ensure t
+    :commands lsp-ui-mode
+    :init
+    (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+    :config
+    (setq lsp-ui-peek-enable t)
+    (setq lsp-ui-doc-enable nil)
+    (setq lsp-ui-imenu-enable t)
+    (setq lsp-ui-flycheck-enable t)
+    (setq lsp-ui-sideline-enable nil)
+    (setq lsp-ui-sideline-ignore-duplicate t))
 
 
 
@@ -645,9 +622,11 @@ before packages are loaded."
   (setenv "GTAGSTHROUGH" "true")
   ;; (setenv "GTAGSLIBPATH"
   ;;         "d:/msys64/mingw64/x86_64-w64-mingw32/include;d:/msys64/mingw64/include/c++/8.2.0")
-  ;; (setenv "GOPATH" "C:/Users/lenovo/go")
-  (setenv "PATH" "/usr/bin:/bin")
-
+(if (eq system-type 'windows-nt)
+  (progn
+    (setenv "GOPATH" "C:/Users/lenovo/go")
+    (setenv "PATH" "D:/msys64/mingw64/bin;D:/msys64/usr/bin;C:/Windows/System32;C:/Windows;$GOPATH/bin;D:/Program Files/LLVM\bin")))
+ 
   (defun company-lsp--client-capabilities ()
     "Return the extra client capabilities supported by company-lsp."
     (when company-lsp-enable-snippet
@@ -720,16 +699,89 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
+ '(blink-cursor-mode nil)
+ '(column-number-mode t)
+ '(company-backends (quote (company-dabbrev-code)))
+ '(company-quickhelp-color-background "#e8e8e8")
+ '(company-quickhelp-color-foreground "#444444")
+ '(custom-safe-themes
+   (quote
+    ("19b9349a6b442a2b50e5b82be9de45034f9b08fa36909e0b1be09433234610bb" default)))
+ '(display-line-numbers-type (quote relative))
+ '(evil-want-Y-yank-to-eol nil)
+ '(fci-rule-color "#eeeeee")
+ '(global-display-line-numbers-mode t)
+ '(helm-split-window-inside-p t)
+ '(hl-todo-keyword-faces
+   (quote
+    (("TODO" . "#dc752f")
+     ("NEXT" . "#dc752f")
+     ("THEM" . "#2d9574")
+     ("PROG" . "#4f97d7")
+     ("OKAY" . "#4f97d7")
+     ("DONT" . "#f2241f")
+     ("FAIL" . "#f2241f")
+     ("DONE" . "#86dc2f")
+     ("NOTE" . "#b1951d")
+     ("KLUDGE" . "#b1951d")
+     ("HACK" . "#b1951d")
+     ("TEMP" . "#b1951d")
+     ("FIXME" . "#dc752f")
+     ("XXX" . "#dc752f")
+     ("XXXX" . "#dc752f")
+     ("???" . "#dc752f"))))
+ '(lsp-enable-on-type-formatting nil)
  '(lsp-enable-symbol-highlighting nil)
- '(lsp-ui-doc-enable nil)
- '(lsp-ui-sideline-enable nil)
  '(lsp-ui-sideline-show-symbol nil)
+ '(markdown-command
+   "c:/ProgramData/chocolatey/bin/pandoc.exe --quiet --toc --standalone  --highlight-style=zenburn")
+ '(markdown-css-paths
+   (quote
+    ("D:/root/home/workspace/jz/GitHub/markdown-css-themes/markdown8.css")))
+ '(nrepl-message-colors
+   (quote
+    ("#8f4e8b" "#8f684e" "#c3a043" "#397460" "#54ab8e" "#20a6ab" "#3573b1" "#DC8CC3")))
  '(package-selected-packages
-   '(monokai-pro-theme xterm-color web-mode web-beautify tagedit slim-mode shell-pop scss-mode sass-mode restclient-helm pug-mode org-present org-pomodoro alert log4e gntp org-mime org-download org-brain ob-restclient ob-http multi-term impatient-mode simple-httpd helm-rtags helm-gtags helm-ctest helm-css-scss haml-mode google-c-style godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter ggtags flycheck-rtags evil-snipe evil-org evil-multiedit eshell-z eshell-prompt-extras esh-help emmet-mode disaster diff-hl company-web web-completion-data company-rtags rtags company-restclient restclient know-your-http-well company-go go-mode company-c-headers cmake-ide levenshtein browse-at-remote zenburn-theme zen-and-art-theme yasnippet-snippets ws-butler winum white-sand-theme which-key volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme symon sunny-day-theme sublime-themes subatomic256-theme subatomic-theme string-inflection spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme restart-emacs request rebecca-theme rainbow-delimiters railscasts-theme purple-haze-theme professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el password-generator paradox overseer organic-green-theme org-plus-contrib org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme nameless mustang-theme move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme madhat2r-theme macrostep lush-theme lsp-ui lorem-ipsum link-hint light-soap-theme kaolin-themes jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gh-md gandalf-theme fuzzy font-lock+ flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eziam-theme eyebrowse expand-region exotica-theme evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu espresso-theme elisp-slime-nav editorconfig dumb-jump dracula-theme doom-themes django-theme diminish define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme cquery counsel-projectile company-statistics company-lsp column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized cmake-mode clues-theme clean-aindent-mode clang-format cherry-blossom-theme centered-cursor-mode busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme ace-window ace-link ace-jump-helm-line ac-ispell)))
+   (quote
+    (format-all web-mode tagedit slim-mode scss-mode sass-mode pug-mode impatient-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data add-node-modules-path treemacs-projectile treemacs-evil treemacs pfuture wgrep-helm ivy prettier-js livid-mode skewer-mode simple-httpd json-navigator hierarchy json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern tern simple-bookmarks evil-fringe-mark leuven-theme emacs-leuven-theme doneburn-theme multiple-cursors org-present org-pomodoro alert log4e gntp org-mime org-download org-brain htmlize helm-org-rifle gnuplot evil-org symbol-overlay helm-ctest cmake-mode cmake-ide levenshtein google-c-style disaster cquery company-rtags rtags company-c-headers clang-format ccls flycheck-rtags flycheck git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter diff-hl browse-at-remote evil-easymotion avy counsel swiper auto-indent-mode smartparens window-number helm-rtags wgrep smex ivy-yasnippet ivy-xref ivy-rtags ivy-purpose ivy-hydra counsel-gtags lsp-clangd yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package tommyh-theme toc-org symon string-inflection sr-speedbar spaceline-all-the-icons shell-pop restclient-helm restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file ob-restclient ob-http neotree nameless multi-term move-text markdown-toc macrostep lsp-ui lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-gtags helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gh-md ggtags fuzzy font-lock+ flx-ido find-file-in-project fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-numbers evil-nerd-commenter evil-multiedit evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish define-word counsel-projectile company-statistics company-restclient company-lsp company-go column-enforce-mode clean-aindent-mode centered-cursor-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell)))
+ '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
+ '(safe-local-variable-values
+   (quote
+    ((project-root . ".")
+     (javascript-backend . tern)
+     (javascript-backend . lsp)
+     (go-backend . go-mode)
+     (go-backend . lsp))))
+ '(tab-width 4)
+ '(tool-bar-mode nil)
+ '(vc-annotate-background "#f9f9f9")
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#844880")
+     (40 . "#8f4e8b")
+     (60 . "#8f684e")
+     (80 . "#cfb56e")
+     (100 . "#c3a043")
+     (120 . "#c3a043")
+     (140 . "#2a5547")
+     (160 . "#397460")
+     (180 . "#3b7863")
+     (200 . "#438972")
+     (220 . "#4c9a80")
+     (240 . "#54ab8e")
+     (260 . "#20a6ab")
+     (280 . "#234d76")
+     (300 . "#295989")
+     (320 . "#2e659c")
+     (340 . "#3573b1")
+     (360 . "#DC8CC3"))))
+ '(vc-annotate-very-old-color "#DC8CC3"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(which-func ((t (:foreground "Blue1" :weight bold)))))
 )
