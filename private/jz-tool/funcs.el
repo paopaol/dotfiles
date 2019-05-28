@@ -119,7 +119,16 @@
   (kill-new (concat lsp--eldoc-saved-message ";")))
 
 
-
-
+(defun jz-upper-camel-case ()
+  (interactive)
+  (if (use-region-p)
+      (progn
+        (let* ((selection (buffer-substring-no-properties (region-beginning) (region-end)))
+            (camel (s-upper-camel-case selection)))
+        (save-restriction
+          (narrow-to-region (region-beginning) (region-end))
+          (goto-char (point-min))
+          (while (search-forward selection nil t)
+            (replace-match camel)))))))
 
 

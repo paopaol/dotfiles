@@ -48,6 +48,7 @@
     treemacs-evil
     treemacs-projectile
     format-all
+    monokai-theme
     markdown-mode
     helm-gtags)
   "The list of Lisp packages required by the jz-tool layer.
@@ -295,4 +296,7 @@ Each entry is either:
     (setq markdown-fontify-code-blocks-natively t)
     ))
 
+(defun jz-tool/init-monokai-theme ()
+  (use-package monokai-theme
+    :ensure t))
 ; packages.el ends here
