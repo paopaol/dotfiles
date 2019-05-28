@@ -111,7 +111,11 @@
 
 (defun cpp-short-func-to-long-func ()
   (interactive)
+  (beginning-of-line)
+  (evil-snipe-f 1 "(")
+  (backward-char)
   (lsp-hover)
+  (sleep-for 1)
   (kill-new (concat lsp--eldoc-saved-message ";")))
 
 
