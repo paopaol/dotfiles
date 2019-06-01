@@ -112,11 +112,12 @@
 (defun cpp-short-func-to-long-func ()
   (interactive)
   (beginning-of-line)
-  (evil-snipe-f 1 "(")
+  (search-forward "(" (line-end-position) nil nil)
+  (backward-char)
   (backward-char)
   (lsp-hover)
-  (sleep-for 1)
-  (kill-new (concat lsp--eldoc-saved-message ";")))
+  (sleep-for 0 200)
+  (kill-new (concat "\n" lsp--eldoc-saved-message ";\n")))
 
 
 (defun jz-upper-camel-case ()
@@ -130,5 +131,18 @@
           (goto-char (point-min))
           (while (search-forward selection nil t)
             (replace-match camel)))))))
+
+(defun move-cursor-to-window ($buffer-name)
+  "switch cursour to a window, which this window now shown a buffer named $buffer-name"
+  (dolist (num '(1 2 3 4 5 6 7 8 9))
+    (winum-select-window-by-number num)
+    (if (string= (buffer-name) $buffer-name)
+        (return))))
+
+(defun jz-google-translate-at-point ()
+  (interactive)
+  (call-interactively #'google-translate-at-point)
+  (move-cursor-to-window "*Google Translate*"))
+
 
 

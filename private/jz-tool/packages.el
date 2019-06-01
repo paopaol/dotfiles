@@ -199,7 +199,7 @@ Each entry is either:
 
     :config
     (spacemacs/set-leader-keys
-      "W g t" #'google-translate-at-point
+      "W g t" #'jz-google-translate-at-point
       "W g T" #'google-translate-query-translate)
     ))
 

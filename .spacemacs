@@ -224,7 +224,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(leuven)
+   dotspacemacs-themes '(spacemacs-dark)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
@@ -594,7 +594,11 @@ before packages are loaded."
   (add-hook 'c++-mode-hook #'hs-minor-mode)
   (add-hook 'c-mode-hook #'hs-minor-mode)
   (add-hook 'go-mode-hook #'hs-minor-mode)
-  (electric-pair-mode 1)
+  (add-hook 'c++-mode-hook #'electric-pair-local-mode)
+  (add-hook 'c-mode-hook #'electric-pair-local-mode)
+  (add-hook 'go-mode-hook #'electric-pair-local-mode)
+  (add-hook 'emacs-lisp-mode-hook #'electric-pair-local-mode)
+  (add-hook 'common-lisp-mode-hook #'electric-pair-local-mode)
   (require 'lsp-mode)
   (require 'flycheck)
   (add-hook 'c++-mode-hook 'flycheck-mode)
@@ -713,6 +717,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(fci-rule-color "#eeeeee")
  '(global-display-line-numbers-mode t)
+ '(google-translate-default-target-language "zh-CN")
  '(helm-split-window-inside-p t)
  '(hl-todo-keyword-faces
    (quote
@@ -735,6 +740,9 @@ This function is called at the very end of Spacemacs initialization."
  '(lsp-enable-indentation nil)
  '(lsp-enable-on-type-formatting nil)
  '(lsp-enable-symbol-highlighting nil)
+ '(lsp-ui-flycheck-list-position (quote bottom))
+ '(lsp-ui-flycheck-live-reporting t)
+ '(lsp-ui-peek-enable nil)
  '(lsp-ui-sideline-show-symbol nil)
  '(markdown-command
    "c:/ProgramData/chocolatey/bin/pandoc.exe --quiet --toc --standalone  --highlight-style=zenburn")
@@ -784,5 +792,9 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((((class color) (min-colors 257)) (:foreground "#F8F8F2" :background "#272822")) (((class color) (min-colors 89)) (:foreground "#F5F5F5" :background "#1B1E1C"))))
+ '(flycheck-error ((t (:background "gray99" :foreground "black"))))
+ '(flycheck-fringe-warning ((((class color) (min-colors 257)) (:foreground "#FFAC4A" :background unspecified :weight bold)) (((class color) (min-colors 89)) (:foreground "#FFAF5F" :background unspecified :weight bold))))
+ '(flycheck-warning ((t (:background "gray" :foreground "black" :underline (:color "red" :style wave) :weight bold))))
  '(which-func ((t (:foreground "Blue1" :weight bold)))))
 )
