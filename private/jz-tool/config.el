@@ -3,7 +3,7 @@
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-k") 'previous-line)
 ;; (global-set-key (kbd "C-g") 'jz-keybord-quit-and-switch-2-evil-normal-mode)
-;; (global-set-key (kbd "C-q") 'evil-normal-state)
+(global-set-key (kbd "C-s") 'evil-normal-state)
 (global-set-key (kbd "C-x r d") 'bookmark-delete)
 (show-paren-mode 1)
 
@@ -20,4 +20,7 @@
       (assq-delete-all 'which-func-mode mode-line-misc-info))
 (setq-default header-line-format
          '((which-func-mode ("" which-func-format " "))))
+
+;; (modify-syntax-entry ?. "w" c++-mode-syntax-table)
+;; (modify-syntax-entry ?. "w" c-mode-syntax-table)
 

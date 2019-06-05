@@ -64,6 +64,8 @@ This function should only modify configuration layer settings."
      neotree
      cmake
      org
+     (multiple-cursors :variables
+                       multiple-cursors-backend 'evil-mc)
      (shell :variables
             ;; shell-default-shell "cmd"
             shell-default-height 30
@@ -224,7 +226,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark)
+   dotspacemacs-themes '(default)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
@@ -554,7 +556,7 @@ dump."
   :type 'hook
   :group 'lsp-mode)
 
-(defvar c-c++-lsp-initialization-options '(:highlight (:largeFileSize 1) :compilationDatabaseDirectory "build")
+(defvar c-c++-lsp-initialization-options '(:highlight (:largeFileSize 1) :compilationDatabaseDirectory "build/")
   "Extra initialisation parameters to pass to the lsp backend. See
 https://github.com/MaskRay/ccls/blob/master/src/config.hh
 for details. N.B. This is remapped to cquery-extra-init-params when using cquery backend")
@@ -708,6 +710,7 @@ This function is called at the very end of Spacemacs initialization."
  '(blink-cursor-mode nil)
  '(column-number-mode t)
  '(company-backends (quote (company-dabbrev-code)))
+ '(company-idle-delay 0)
  '(company-quickhelp-color-background "#e8e8e8")
  '(company-quickhelp-color-foreground "#444444")
  '(custom-safe-themes
@@ -754,7 +757,7 @@ This function is called at the very end of Spacemacs initialization."
     ("#8f4e8b" "#8f684e" "#c3a043" "#397460" "#54ab8e" "#20a6ab" "#3573b1" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (format-all web-mode tagedit slim-mode scss-mode sass-mode pug-mode impatient-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data add-node-modules-path treemacs-projectile treemacs-evil treemacs pfuture wgrep-helm ivy prettier-js livid-mode skewer-mode simple-httpd json-navigator hierarchy json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern tern simple-bookmarks evil-fringe-mark leuven-theme emacs-leuven-theme doneburn-theme multiple-cursors org-present org-pomodoro alert log4e gntp org-mime org-download org-brain htmlize helm-org-rifle gnuplot evil-org symbol-overlay helm-ctest cmake-mode cmake-ide levenshtein google-c-style disaster cquery company-rtags rtags company-c-headers clang-format ccls flycheck-rtags flycheck git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter diff-hl browse-at-remote evil-easymotion avy counsel swiper auto-indent-mode smartparens window-number helm-rtags wgrep smex ivy-yasnippet ivy-xref ivy-rtags ivy-purpose ivy-hydra counsel-gtags lsp-clangd yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package tommyh-theme toc-org symon string-inflection sr-speedbar spaceline-all-the-icons shell-pop restclient-helm restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file ob-restclient ob-http neotree nameless multi-term move-text markdown-toc macrostep lsp-ui lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-gtags helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gh-md ggtags fuzzy font-lock+ flx-ido find-file-in-project fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-numbers evil-nerd-commenter evil-multiedit evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish define-word counsel-projectile company-statistics company-restclient company-lsp company-go column-enforce-mode clean-aindent-mode centered-cursor-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell)))
+    (evil-mc format-all web-mode tagedit slim-mode scss-mode sass-mode pug-mode impatient-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data add-node-modules-path treemacs-projectile treemacs-evil treemacs pfuture wgrep-helm ivy prettier-js livid-mode skewer-mode simple-httpd json-navigator hierarchy json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern tern simple-bookmarks evil-fringe-mark leuven-theme emacs-leuven-theme doneburn-theme multiple-cursors org-present org-pomodoro alert log4e gntp org-mime org-download org-brain htmlize helm-org-rifle gnuplot evil-org symbol-overlay helm-ctest cmake-mode cmake-ide levenshtein google-c-style disaster cquery company-rtags rtags company-c-headers clang-format ccls flycheck-rtags flycheck git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter diff-hl browse-at-remote evil-easymotion avy counsel swiper auto-indent-mode smartparens window-number helm-rtags wgrep smex ivy-yasnippet ivy-xref ivy-rtags ivy-purpose ivy-hydra counsel-gtags lsp-clangd yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package tommyh-theme toc-org symon string-inflection sr-speedbar spaceline-all-the-icons shell-pop restclient-helm restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file ob-restclient ob-http neotree nameless multi-term move-text markdown-toc macrostep lsp-ui lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-gtags helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gh-md ggtags fuzzy font-lock+ flx-ido find-file-in-project fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-numbers evil-nerd-commenter evil-multiedit evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish define-word counsel-projectile company-statistics company-restclient company-lsp company-go column-enforce-mode clean-aindent-mode centered-cursor-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell)))
  '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
  '(safe-local-variable-values
    (quote
@@ -792,7 +795,6 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((((class color) (min-colors 257)) (:foreground "#F8F8F2" :background "#272822")) (((class color) (min-colors 89)) (:foreground "#F5F5F5" :background "#1B1E1C"))))
  '(flycheck-error ((t (:background "gray99" :foreground "black"))))
  '(flycheck-fringe-warning ((((class color) (min-colors 257)) (:foreground "#FFAC4A" :background unspecified :weight bold)) (((class color) (min-colors 89)) (:foreground "#FFAF5F" :background unspecified :weight bold))))
  '(flycheck-warning ((t (:background "gray" :foreground "black" :underline (:color "red" :style wave) :weight bold))))

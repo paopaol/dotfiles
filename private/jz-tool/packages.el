@@ -41,14 +41,12 @@
     symbol-overlay
     expand-region
     google-translate
-    multiple-cursors
     leuven-theme
     wgrep-helm
     treemacs
     treemacs-evil
     treemacs-projectile
     format-all
-    monokai-theme
     markdown-mode
     helm-gtags)
   "The list of Lisp packages required by the jz-tool layer.
@@ -203,22 +201,6 @@ Each entry is either:
       "W g T" #'google-translate-query-translate)
     ))
 
-(defun jz-tool/init-multiple-cursors ()
-  (use-package multiple-cursors
-    :config
-    ;; Match the word under cursor (i.e. make it an edit region). Consecutive presses will
-    ;; incrementally add the next unmatched match.
-    (define-key evil-normal-state-map (kbd "M-d") 'evil-multiedit-match-symbol-and-next)
-    ;; Match selected region.
-    (define-key evil-visual-state-map (kbd "M-d") 'mc/mark-next-like-this)
-    ;; Insert marker at point
-    (define-key evil-insert-state-map (kbd "M-d") 'mc/mark-previous-like-this)
-    ;; Same as M-d but in reverse.
-    (define-key evil-normal-state-map (kbd "C-M-d") 'mc/mark-previous-like-this)
-    (define-key evil-visual-state-map (kbd "C-M-d") 'mc/mark-previous-like-this)
-    (define-key evil-motion-state-map (kbd "RET") 'mc/mark-more-like-this-extended)
-    ))
-
 (defun jz-tool/init-leuven-theme ()
   (use-package leuven-theme
     :ensure t
@@ -229,17 +211,21 @@ Each entry is either:
   (use-package evil-args
     :config
     ;; bind evil-args text objects
-    (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
-    (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+      (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+      (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
-    ;; bind evil-forward/backward-args
-    (define-key evil-normal-state-map "L" 'evil-forward-arg)
-    (define-key evil-normal-state-map "H" 'evil-backward-arg)
-    (define-key evil-motion-state-map "L" 'evil-forward-arg)
-    (define-key evil-motion-state-map "H" 'evil-backward-arg)
+      ;; bind evil-forward/backward-args
+      (define-key c++-mode-map (kbd "<tab>") '(lambda ()
+        (interactive)
+        (evil-normal-state)
+        (call-interactively 'evil-forward-arg)))
+      (define-key c++-mode-map (kbd "<backtab>")'(lambda ()
+        (interactive)
+        (evil-normal-state)
+        (call-interactively 'evil-backward-arg)))
 
-    ;; bind evil-jump-out-args
-    (define-key evil-normal-state-map "K" 'evil-jump-out-args)
+      ;; bind evil-jump-out-args
+      (define-key evil-normal-state-map "K" 'evil-jump-out-args)
     ))
 
 (defun jz-tool/init-evil-fringe-mark ()
@@ -296,7 +282,4 @@ Each entry is either:
     (setq markdown-fontify-code-blocks-natively t)
     ))
 
-(defun jz-tool/init-monokai-theme ()
-  (use-package monokai-theme
-    :ensure t))
 ; packages.el ends here
