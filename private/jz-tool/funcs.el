@@ -174,7 +174,7 @@
   (backward-char)
   (lsp-hover)
   (sleep-for 0 200)
-  (kill-new (concat "\n" lsp--eldoc-saved-message ";\n")))
+  (kill-new (concat "\n" lsp--eldoc-saved-message "\n{\n}\n")))
 
 
 (defun jz-upper-camel-case ()
