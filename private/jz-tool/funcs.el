@@ -1,5 +1,62 @@
 ;;(require 'mmm-mode)
 
+(defun current-char (pos)
+  "return value of current cursor"
+  (interactive)
+  (buffer-substring-no-properties pos (+ pos 1)))
+
+
+(defun find-right-bracket (left right pos)
+  "find the right bracket `)', if found, return the `)' of position"
+  "else return -1 first found `(', it will find `)' one by one,"
+  "until the (equal 1 (- right-bracket-number left-bracket-number))"
+  (let ((right-number 0) (found nil))
+    (save-excursion
+      (while (and (not found) (< pos (point-max)) )
+        (progn
+          (cond
+            ((equal left (current-char pos))
+              (progn
+                (setq right-number (- right-number 1) )))
+            ((equal right (current-char pos))
+              (progn
+                (setq right-number (+ right-number 1) )
+                (if (equal 1 right-number) (setq found t)))))
+          (setq pos (+ pos 1))))
+      found)))
+
+(defun find-left-bracket (left right pos)
+  (let ((number 0) (found nil))
+    (save-excursion
+      (if (equal ")" (current-char pos))
+          (setq found t))
+      (while (and (not found) (> pos (point-min) ))
+        (progn
+          (cond
+           ((equal right (current-char pos))
+            (setq number (- number 1)))
+           ((equal left (current-char pos))
+            (progn
+              (setq number (+ number 1))
+              (if (equal 1 number)(setq found t)))))
+          (setq pos (- pos 1))))
+      found)))
+
+
+(defun in-bracket-pair-p ()
+  "test current cursor is in bracket pair or not"
+  "if return non nil, is in bracket pair,else return nil"
+  (interactive)
+  (and (find-left-bracket "(" ")" (point)) (find-right-bracket "(" ")" (point))))
+
+(defun lll ()
+  (interactive)
+  (message  (number-to-string (find-left-bracket "(" ")" (point)))))
+(defun rrr ()
+  (interactive)
+  (message  (number-to-string (find-right-bracket "(" ")" (point)))))
+
+
 (defun jz-toggle-cpp-h ()
   (interactive)
   (setq filename (file-name-nondirectory (buffer-file-name)))

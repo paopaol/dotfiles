@@ -4,7 +4,7 @@
 (when (eq system-type 'windows-nt)
   (setq gc-cons-threshold (* 512 1024 1024))
   (setq gc-cons-percentage 0.5)
-  (run-with-idle-timer 30 t #'garbage-collect)
+  (run-with-idle-timer 15 t #'garbage-collect)
   ;; 显示垃圾回收信息，这个可以作为调试用
   (setq garbage-collection-messages t)
 )
@@ -66,10 +66,11 @@ This function should only modify configuration layer settings."
      org
      (multiple-cursors :variables
                        multiple-cursors-backend 'evil-mc)
-     (shell :variables
-            ;; shell-default-shell "cmd"
-            shell-default-height 30
-            shell-default-position 'bottom)
+     ;; (shell :variables
+     ;;        ;; shell-default-shell "cmd"
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom)
+     (shell :variables shell-default-term-shell "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe")
      ;; spell-checking
      ;; syntax-checking
      version-control
@@ -601,6 +602,7 @@ before packages are loaded."
   (add-hook 'go-mode-hook #'electric-pair-local-mode)
   (add-hook 'emacs-lisp-mode-hook #'electric-pair-local-mode)
   (add-hook 'common-lisp-mode-hook #'electric-pair-local-mode)
+  (add-hook 'cmake-mode-hook #'electric-pair-local-mode)
   (require 'lsp-mode)
   (require 'flycheck)
   (add-hook 'c++-mode-hook 'flycheck-mode)
@@ -795,7 +797,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(flycheck-error ((t (:background "gray99" :foreground "black"))))
+ '(flycheck-error ((t (:background "white" :foreground "black" :underline (:color "#FE251E" :style wave) :weight bold))))
  '(flycheck-fringe-warning ((((class color) (min-colors 257)) (:foreground "#FFAC4A" :background unspecified :weight bold)) (((class color) (min-colors 89)) (:foreground "#FFAF5F" :background unspecified :weight bold))))
  '(flycheck-warning ((t (:background "gray" :foreground "black" :underline (:color "red" :style wave) :weight bold))))
  '(which-func ((t (:foreground "Blue1" :weight bold)))))

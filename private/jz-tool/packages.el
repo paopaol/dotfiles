@@ -48,6 +48,7 @@
     treemacs-projectile
     format-all
     markdown-mode
+    keyfreq
     helm-gtags)
   "The list of Lisp packages required by the jz-tool layer.
 
@@ -217,12 +218,17 @@ Each entry is either:
       ;; bind evil-forward/backward-args
       (define-key c++-mode-map (kbd "<tab>") '(lambda ()
         (interactive)
-        (evil-normal-state)
-        (call-interactively 'evil-forward-arg)))
+        (if (in-bracket-pair-p)
+          (progn
+            (evil-normal-state)
+            (call-interactively 'evil-forward-arg))
+          (search-forward "(" (line-end-position) nil nil))))
       (define-key c++-mode-map (kbd "<backtab>")'(lambda ()
         (interactive)
-        (evil-normal-state)
-        (call-interactively 'evil-backward-arg)))
+        (if (in-bracket-pair-p)
+          (progn
+            (evil-normal-state)
+            (call-interactively 'evil-backward-arg)))))
 
       ;; bind evil-jump-out-args
       (define-key evil-normal-state-map "K" 'evil-jump-out-args)
@@ -281,5 +287,11 @@ Each entry is either:
     :config
     (setq markdown-fontify-code-blocks-natively t)
     ))
+
+(defun jz-tool/init-keyfreq ()
+  (use-package keyfreq
+    :config
+    (keyfreq-mode 1)
+    (keyfreq-autosave-mode 1)))
 
 ; packages.el ends here
