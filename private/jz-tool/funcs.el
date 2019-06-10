@@ -67,6 +67,15 @@
   (evil-normal-state)
   (keyboard-quit))
 
+(defun jz-insert-\;-at-end-of-line ()
+  (interactive)
+  (save-excursion
+  (evil-end-of-line)
+  (evil-insert-state)
+  (forward-char 1)
+  (insert ";")
+  (evil-normal-state)))
+
 
 (defun jz-eglot-completion ()
   (interactive )

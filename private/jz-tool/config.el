@@ -5,6 +5,7 @@
 ;; (global-set-key (kbd "C-g") 'jz-keybord-quit-and-switch-2-evil-normal-mode)
 (global-set-key (kbd "C-s") 'evil-normal-state)
 (global-set-key (kbd "C-x r d") 'bookmark-delete)
+(global-set-key (kbd "<f2> ;") 'jz-insert-\;-at-end-of-line)
 (show-paren-mode 1)
 
 
