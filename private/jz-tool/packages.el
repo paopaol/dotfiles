@@ -220,8 +220,8 @@ Each entry is either:
         (interactive)
         (if (in-bracket-pair-p)
           (progn
-            (evil-normal-state)
-            (call-interactively 'evil-forward-arg))
+            (call-interactively 'evil-forward-arg)
+            (evil-normal-state))
           (search-forward "(" (line-end-position) nil nil))))
       (define-key c++-mode-map (kbd "<backtab>")'(lambda ()
         (interactive)
