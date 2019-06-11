@@ -23,7 +23,9 @@
                 (setq right-number (+ right-number 1) )
                 (if (equal 1 right-number) (setq found t)))))
           (setq pos (+ pos 1))))
-      found)))
+      (if found
+          pos
+        nil))))
 
 (defun find-left-pair (left right pos)
   (let ((number 0) (found nil))
@@ -40,14 +42,20 @@
               (setq number (+ number 1))
               (if (equal 1 number)(setq found t)))))
           (setq pos (- pos 1))))
-      found)))
+      (if found
+          pos
+        nil))))
 
 
 (defun in-bracket-pair-p ()
   "test current cursor is in bracket pair or not"
   "if return non nil, is in bracket pair,else return nil"
   (interactive)
-  (and (find-left-pair "(" ")" (point)) (find-right-pair "(" ")" (point))))
+  (let (left-pos
+        right-pos)
+    (setq  right-pos (or (find-right-pair "(" ")" (point)) 1))
+    (setq left-pos (find-left-pair "(" ")" right-pos))
+    (and right-pos left-pos)))
 
 (defun jz-toggle-cpp-h ()
   (interactive)
@@ -201,6 +209,3 @@
   (interactive)
   (call-interactively #'google-translate-at-point)
   (move-cursor-to-window "*Google Translate*"))
-
-
-

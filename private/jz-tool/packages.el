@@ -220,6 +220,7 @@ Each entry is either:
         (interactive)
         (if (in-bracket-pair-p)
           (progn
+            (message "xxx")
             (call-interactively 'evil-forward-arg)
             (evil-normal-state))
           (search-forward "(" (line-end-position) nil nil))))
