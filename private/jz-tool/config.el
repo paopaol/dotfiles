@@ -1,4 +1,4 @@
-
+(require 'shell)
 (global-set-key (kbd "C-<tab>") 'jz-eglot-completion)
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-k") 'previous-line)
@@ -25,3 +25,9 @@
 ;; (modify-syntax-entry ?. "w" c++-mode-syntax-table)
 ;; (modify-syntax-entry ?. "w" c-mode-syntax-table)
 
+(define-key shell-mode-map "i" '(lambda ()
+                                (interactive)
+                                (if (evil-normal-state-p)
+                                    (progn
+                                      (end-of-buffer)
+                                      (evil-insert-state)))))
