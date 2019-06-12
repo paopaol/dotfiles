@@ -218,15 +218,14 @@ Each entry is either:
       ;; bind evil-forward/backward-args
       (define-key c++-mode-map (kbd "<tab>") '(lambda ()
         (interactive)
-        (if (in-bracket-pair-p)
+        (if (in-brackets-pair-p)
           (progn
-            (message "xxx")
             (call-interactively 'evil-forward-arg)
             (evil-normal-state))
           (search-forward "(" (line-end-position) nil nil))))
       (define-key c++-mode-map (kbd "<backtab>")'(lambda ()
         (interactive)
-        (if (in-bracket-pair-p)
+        (if (in-brackets-pair-p)
           (progn
             (evil-normal-state)
             (call-interactively 'evil-backward-arg)))))

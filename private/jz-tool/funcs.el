@@ -7,7 +7,7 @@
 
 
 (defun find-right-pair (left right pos)
-  "find the right bracket `)', if found, return the `)' of position"
+  "find the right brackets `)', if found, return the `)' of position"
   "else return -1 first found `(', it will find `)' one by one,"
   "until the (equal 1 (- right-bracket-number left-bracket-number))"
   (let ((right-number 0) (found nil))
@@ -15,14 +15,15 @@
       (while (and (not found) (< pos (point-max)) )
         (progn
           (cond
-            ((equal left (current-char pos))
-              (progn
-                (setq right-number (- right-number 1) )))
-            ((equal right (current-char pos))
-              (progn
-                (setq right-number (+ right-number 1) )
-                (if (equal 1 right-number) (setq found t)))))
-          (setq pos (+ pos 1))))
+           ((equal left (current-char pos))
+            (progn
+              (setq right-number (- right-number 1) )))
+           ((equal right (current-char pos))
+            (progn
+              (setq right-number (+ right-number 1) )
+              (if (equal 1 right-number) (setq found t)))))
+          (if (not found)
+              (setq pos (+ pos 1)) )))
       (if found
           pos
         nil))))
@@ -30,31 +31,62 @@
 (defun find-left-pair (left right pos)
   (let ((number 0) (found nil))
     (save-excursion
-      (if (equal ")" (current-char pos))
-          (setq found t))
+      ;; (if (equal ")" (current-char pos))
+      ;;       (setq found t))
       (while (and (not found) (> pos (point-min) ))
         (progn
           (cond
            ((equal right (current-char pos))
-            (setq number (- number 1)))
+            (progn
+              (setq number (- number 1))))
            ((equal left (current-char pos))
             (progn
               (setq number (+ number 1))
-              (if (equal 1 number)(setq found t)))))
-          (setq pos (- pos 1))))
+              (if (equal 1 number)
+                (setq found t)))))
+          (if (not found)
+            (setq pos (- pos 1)) )))
       (if found
-          pos
+        pos
         nil))))
 
 
-(defun in-bracket-pair-p ()
-  "test current cursor is in bracket pair or not"
-  "if return non nil, is in bracket pair,else return nil"
+;; (defun in-brackets-pair-p ()
+;;   "test current cursor is in brackets pair or not"
+;;   "if return non nil, is in brackets pair,else return nil"
+;;   (interactive)
+;;   (let* ((pos (point))
+;;          (left-pos (or (find-left-pair "(" ")" pos) 1))
+;;          (right-pos (find-right-pair "(" ")" (+ 1 left-pos ))))
+;;     (if (and left-pos right-pos)
+;;         (or (>= right-pos pos) nil))))
+(defun in-brackets-pair-p ()
+  "test current cursor is in brackets pair or not"
+  "if return non nil, is in brackets pair,else return nil"
   (interactive)
-  (let (left-pos
-        right-pos)
-    (setq  right-pos (or (find-right-pair "(" ")" (point)) 1))
-    (setq left-pos (find-left-pair "(" ")" right-pos))
+  (let* ((pos (point))
+         (left-big-pos (or (find-left-pair "{" "}" pos) 1))
+         left-pos
+         right-pos)
+    (cond
+     ((equal "(" (current-char pos))
+      nil)
+     ((equal ")" (current-char pos))
+      (progn
+        (setq right-pos pos)
+        (setq left-pos (find-left-pair "(" ")" (- right-pos 1)))))
+     (t
+      (progn
+        (setq left-pos (or (find-left-pair "(" ")" pos) 1))
+        (setq right-pos (find-right-pair "(" ")" (+ 1 left-pos))))))
+    (if (and left-pos right-pos (> left-pos left-big-pos))
+        (or (>= right-pos pos) nil))))
+
+(defun in-big-brackets-p ()
+  (interactive)
+  (let* ((pos (point))
+         (right-pos (or (find-right-pair "{" "}" pos) 1))
+         (left-pos (find-left-pair "{" "}" right-pos)))
     (and right-pos left-pos)))
 
 (defun jz-toggle-cpp-h ()

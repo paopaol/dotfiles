@@ -28,6 +28,7 @@
 (define-key shell-mode-map "i" '(lambda ()
                                 (interactive)
                                 (if (evil-normal-state-p)
-                                    (progn
-                                      (end-of-buffer)
-                                      (evil-insert-state)))))
+                                  (progn
+                                    (end-of-buffer)
+                                    (evil-insert-state))
+                                  (insert "i"))))
