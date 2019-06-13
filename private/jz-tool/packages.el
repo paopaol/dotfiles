@@ -49,6 +49,7 @@
     format-all
     markdown-mode
     company
+    cc-mode
     keyfreq
     helm-gtags)
   "The list of Lisp packages required by the jz-tool layer.
@@ -293,10 +294,20 @@ Each entry is either:
     :config
     (keyfreq-mode 1)
     (keyfreq-autosave-mode 1)))
+
 (defun jz-tool/post-init-company ()
   (use-package company
     :config
     (define-key company-active-map (kbd "C-g") 'jz-keybord-quit-and-switch-2-evil-normal-mode)
     ))
+
+(defun jz-tool/post-init-cc-mode ()
+  (use-package cc-mode
+    :ensure t
+    :config
+    (define-key c-mode-map (kbd "C-c C-b") 'c-backward-into-nomenclature)
+    (define-key c++-mode-map (kbd "C-c C-b") 'c-backward-into-nomenclature)
+    (define-key c-mode-map (kbd "C-c C-f") 'c-forward-into-nomenclature)
+    (define-key c++-mode-map (kbd "C-c C-f") 'c-forward-into-nomenclature)))
 
 ; packages.el ends here
