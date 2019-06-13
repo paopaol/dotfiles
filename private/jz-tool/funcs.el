@@ -17,13 +17,13 @@
           (cond
            ((equal left (current-char pos))
             (progn
-              (setq right-number (- right-number 1) )))
+              (setq right-number (decf right-number) )))
            ((equal right (current-char pos))
             (progn
-              (setq right-number (+ right-number 1) )
+              (setq right-number (incf right-number) )
               (if (equal 1 right-number) (setq found t)))))
           (if (not found)
-              (setq pos (+ pos 1)) )))
+              (setq pos (incf pos)) )))
       (if found
           pos
         nil))))
@@ -38,14 +38,14 @@
           (cond
            ((equal right (current-char pos))
             (progn
-              (setq number (- number 1))))
+              (setq number (decf number))))
            ((equal left (current-char pos))
             (progn
-              (setq number (+ number 1))
+              (setq number (incf number))
               (if (equal 1 number)
                 (setq found t)))))
           (if (not found)
-            (setq pos (- pos 1)) )))
+            (setq pos (decf pos)) )))
       (if found
         pos
         nil))))
@@ -78,7 +78,7 @@
      (t
       (progn
         (setq left-pos (or (find-left-pair "(" ")" pos) 1))
-        (setq right-pos (find-right-pair "(" ")" (+ 1 left-pos))))))
+        (setq right-pos (find-right-pair "(" ")" (incf left-pos))))))
     (if (and left-pos right-pos (> left-pos left-big-pos))
         (or (>= right-pos pos) nil))))
 
@@ -104,17 +104,19 @@
 
 (defun jz-keybord-quit-and-switch-2-evil-normal-mode ()
   (interactive)
-  (evil-normal-state)
-  (keyboard-quit))
+  (save-excursion
+    (company-abort)
+    (evil-force-normal-state)))
 
 (defun jz-insert-\;-at-end-of-line ()
   (interactive)
   (save-excursion
-  (evil-end-of-line)
-  (evil-insert-state)
-  (forward-char 1)
-  (insert ";")
-  (evil-normal-state)))
+    (evil-end-of-line)
+    (evil-insert-state)
+    (forward-char 1)
+    (insert ";")
+    (evil-force-normal-state)
+    (company-abort)))
 
 
 (defun jz-eglot-completion ()

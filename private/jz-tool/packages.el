@@ -48,6 +48,7 @@
     treemacs-projectile
     format-all
     markdown-mode
+    company
     keyfreq
     helm-gtags)
   "The list of Lisp packages required by the jz-tool layer.
@@ -109,7 +110,6 @@ Each entry is either:
         (setq ffip-prune-patterns (append ffip-prune-patterns
                                           '("*/target/*" "*/snippets/*" "*/elpa/*" "*/.meghanada/*"))))
       )
-
     (spacemacs|add-company-backends :backends company-etags :modes c-mode-common)
     (spacemacs|add-company-backends :backends company-etags :modes go-mode)
     ))
@@ -293,5 +293,10 @@ Each entry is either:
     :config
     (keyfreq-mode 1)
     (keyfreq-autosave-mode 1)))
+(defun jz-tool/post-init-company ()
+  (use-package company
+    :config
+    (define-key company-active-map (kbd "C-g") 'jz-keybord-quit-and-switch-2-evil-normal-mode)
+    ))
 
 ; packages.el ends here
