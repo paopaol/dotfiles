@@ -243,3 +243,42 @@
   (interactive)
   (call-interactively #'google-translate-at-point)
   (move-cursor-to-window "*Google Translate*"))
+(defun c-common-mode-evil-jump-item ()
+  (interactive)
+  (if (evil-visual-state-p)
+      (beginning-of-line)
+        (search-forward "{" (line-end-position) nil nil)
+        (evil-visual-state)
+        (call-interactively 'evil-jump-item)))
+
+(defun evil-select-small-block ()
+  "select outer `xxx{block}'"
+  (interactive)
+    (if (evil-visual-state-p)
+          (progn
+            (backward-char)
+            (beginning-of-line)
+            (if (search-forward "{" (line-end-position) t nil)
+                (progn
+                  (evil-jump-item)
+                  (evil-normal-state)
+                  (evil-visual-line)
+                  (evil-jump-item)
+                  (goto-char (line-beginning-position)))
+                (progn
+                  (beginning-of-line)
+                  (if (search-forward "}" (line-end-position) t nil)
+                      (progn
+                        (evil-jump-item)
+                        (evil-normal-state)
+                        (evil-visual-line)
+                        (evil-jump-item)
+                        (goto-char (line-beginning-position)))
+                    (evil-visual-line)))))))
+
+(defun evil-select-big-block ()
+  "select outer `xxx{block}'"
+  (interactive)
+  (call-interactively 'evil-a-curly)
+  (evil-visual-line))
+

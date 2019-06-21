@@ -37,6 +37,7 @@
     evil-easymotion
     evil-fringe-mark
     evil-args
+    evil
     rainbow-delimiters
     symbol-overlay
     expand-region
@@ -192,8 +193,8 @@ Each entry is either:
     (defvar google-translate-base-url
       "http://translate.google.cn/translate_a/single")
 
-    (defvar google-translate-listen-url
-      "http://translate.google.cn/translate_tts")
+    ;; (defvar google-translate-listen-url
+    ;;   "http://translate.google.cn/translate_tts")
     (defvar google-translate--tkk-url
       "http://translate.google.cn/")
 
@@ -309,5 +310,11 @@ Each entry is either:
     (define-key c++-mode-map (kbd "C-c C-b") 'c-backward-into-nomenclature)
     (define-key c-mode-map (kbd "C-c C-f") 'c-forward-into-nomenclature)
     (define-key c++-mode-map (kbd "C-c C-f") 'c-forward-into-nomenclature)))
+
+(defun jz-tool/post-init-evil ()
+  (use-package evil
+    :config
+    (define-key evil-visual-state-map "v" 'evil-select-small-block)
+    (define-key evil-visual-state-map "V" 'evil-select-big-block)))
 
 ; packages.el ends here

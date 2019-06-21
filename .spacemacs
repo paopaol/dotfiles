@@ -711,20 +711,21 @@ This function is called at the very end of Spacemacs initialization."
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
  '(blink-cursor-mode nil)
  '(column-number-mode t)
- '(company-backends '(company-dabbrev-code))
+ '(company-backends (quote (company-dabbrev-code)))
  '(company-idle-delay 0)
  '(company-quickhelp-color-background "#e8e8e8")
  '(company-quickhelp-color-foreground "#444444")
  '(custom-safe-themes
-   '("19b9349a6b442a2b50e5b82be9de45034f9b08fa36909e0b1be09433234610bb" default))
- '(display-line-numbers-type 'relative)
+   (quote
+    ("19b9349a6b442a2b50e5b82be9de45034f9b08fa36909e0b1be09433234610bb" default)))
+ '(display-line-numbers-type (quote relative))
  '(evil-want-Y-yank-to-eol nil)
  '(fci-rule-color "#eeeeee")
  '(global-display-line-numbers-mode t)
- '(google-translate-default-target-language "zh-CN")
  '(helm-split-window-inside-p t)
  '(hl-todo-keyword-faces
-   '(("TODO" . "#dc752f")
+   (quote
+    (("TODO" . "#dc752f")
      ("NEXT" . "#dc752f")
      ("THEM" . "#2d9574")
      ("PROG" . "#4f97d7")
@@ -739,34 +740,39 @@ This function is called at the very end of Spacemacs initialization."
      ("FIXME" . "#dc752f")
      ("XXX" . "#dc752f")
      ("XXXX" . "#dc752f")
-     ("???" . "#dc752f")))
+     ("???" . "#dc752f"))))
  '(lsp-enable-indentation nil)
  '(lsp-enable-on-type-formatting nil)
  '(lsp-enable-symbol-highlighting nil)
- '(lsp-ui-flycheck-list-position 'bottom)
+ '(lsp-ui-flycheck-list-position (quote bottom))
  '(lsp-ui-flycheck-live-reporting t)
  '(lsp-ui-peek-enable nil)
  '(lsp-ui-sideline-show-symbol nil)
  '(markdown-command
    "c:/ProgramData/chocolatey/bin/pandoc.exe --quiet --toc --standalone  --highlight-style=zenburn")
  '(markdown-css-paths
-   '("D:/root/home/workspace/jz/GitHub/markdown-css-themes/markdown8.css"))
+   (quote
+    ("D:/root/home/workspace/jz/GitHub/markdown-css-themes/markdown8.css")))
  '(nrepl-message-colors
-   '("#8f4e8b" "#8f684e" "#c3a043" "#397460" "#54ab8e" "#20a6ab" "#3573b1" "#DC8CC3"))
+   (quote
+    ("#8f4e8b" "#8f684e" "#c3a043" "#397460" "#54ab8e" "#20a6ab" "#3573b1" "#DC8CC3")))
  '(package-selected-packages
-   '(cc-engine evil-mc format-all web-mode tagedit slim-mode scss-mode sass-mode pug-mode impatient-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data add-node-modules-path treemacs-projectile treemacs-evil treemacs pfuture wgrep-helm ivy prettier-js livid-mode skewer-mode simple-httpd json-navigator hierarchy json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern tern simple-bookmarks evil-fringe-mark leuven-theme emacs-leuven-theme doneburn-theme multiple-cursors org-present org-pomodoro alert log4e gntp org-mime org-download org-brain htmlize helm-org-rifle gnuplot evil-org symbol-overlay helm-ctest cmake-mode cmake-ide levenshtein google-c-style disaster cquery company-rtags rtags company-c-headers clang-format ccls flycheck-rtags flycheck git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter diff-hl browse-at-remote evil-easymotion avy counsel swiper auto-indent-mode smartparens window-number helm-rtags wgrep smex ivy-yasnippet ivy-xref ivy-rtags ivy-purpose ivy-hydra counsel-gtags lsp-clangd yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package tommyh-theme toc-org symon string-inflection sr-speedbar spaceline-all-the-icons shell-pop restclient-helm restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file ob-restclient ob-http neotree nameless multi-term move-text markdown-toc macrostep lsp-ui lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-gtags helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gh-md ggtags fuzzy font-lock+ flx-ido find-file-in-project fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-numbers evil-nerd-commenter evil-multiedit evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish define-word counsel-projectile company-statistics company-restclient company-lsp company-go column-enforce-mode clean-aindent-mode centered-cursor-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell))
- '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
+   (quote
+    (cc-engine evil-mc format-all web-mode tagedit slim-mode scss-mode sass-mode pug-mode impatient-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data add-node-modules-path treemacs-projectile treemacs-evil treemacs pfuture wgrep-helm ivy prettier-js livid-mode skewer-mode simple-httpd json-navigator hierarchy json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern tern simple-bookmarks evil-fringe-mark leuven-theme emacs-leuven-theme doneburn-theme multiple-cursors org-present org-pomodoro alert log4e gntp org-mime org-download org-brain htmlize helm-org-rifle gnuplot evil-org symbol-overlay helm-ctest cmake-mode cmake-ide levenshtein google-c-style disaster cquery company-rtags rtags company-c-headers clang-format ccls flycheck-rtags flycheck git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter diff-hl browse-at-remote evil-easymotion avy counsel swiper auto-indent-mode smartparens window-number helm-rtags wgrep smex ivy-yasnippet ivy-xref ivy-rtags ivy-purpose ivy-hydra counsel-gtags lsp-clangd yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package tommyh-theme toc-org symon string-inflection sr-speedbar spaceline-all-the-icons shell-pop restclient-helm restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file ob-restclient ob-http neotree nameless multi-term move-text markdown-toc macrostep lsp-ui lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-gtags helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gh-md ggtags fuzzy font-lock+ flx-ido find-file-in-project fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-numbers evil-nerd-commenter evil-multiedit evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish define-word counsel-projectile company-statistics company-restclient company-lsp company-go column-enforce-mode clean-aindent-mode centered-cursor-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell)))
+ '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
  '(safe-local-variable-values
-   '((project-root . ".")
+   (quote
+    ((project-root . ".")
      (javascript-backend . tern)
      (javascript-backend . lsp)
      (go-backend . go-mode)
-     (go-backend . lsp)))
+     (go-backend . lsp))))
  '(tab-width 4)
  '(tool-bar-mode nil)
  '(vc-annotate-background "#f9f9f9")
  '(vc-annotate-color-map
-   '((20 . "#844880")
+   (quote
+    ((20 . "#844880")
      (40 . "#8f4e8b")
      (60 . "#8f684e")
      (80 . "#cfb56e")
@@ -783,15 +789,18 @@ This function is called at the very end of Spacemacs initialization."
      (300 . "#295989")
      (320 . "#2e659c")
      (340 . "#3573b1")
-     (360 . "#DC8CC3")))
+     (360 . "#DC8CC3"))))
  '(vc-annotate-very-old-color "#DC8CC3"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(flycheck-error ((t (:background "white" :foreground "black" :underline (:color "#FE251E" :style wave) :weight bold))))
+ '(flycheck-error ((t (:background "#FFE1E1FF" :foreground "red" :underline (:color "#e0211d" :style wave) :weight bold))))
+ '(flycheck-fringe-info ((t (:inherit bold :foreground "#4f97d7"))))
  '(flycheck-fringe-warning ((((class color) (min-colors 257)) (:foreground "#FFAC4A" :background unspecified :weight bold)) (((class color) (min-colors 89)) (:foreground "#FFAF5F" :background unspecified :weight bold))))
- '(flycheck-warning ((t (:background "gray" :foreground "black" :underline (:color "red" :style wave) :weight bold))))
+ '(flycheck-info ((t (:underline (:color "#4f97d7" :style wave) :weight bold))))
+ '(flycheck-warning ((t (:background "000000FF" :foreground "orchid" :underline (:color "red" :style wave) :weight bold))))
+ '(highlight ((t nil)))
  '(which-func ((t (:foreground "Blue1" :weight bold)))))
 )
