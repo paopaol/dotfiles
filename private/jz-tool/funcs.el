@@ -140,7 +140,8 @@
 
 (defun jz-win-0 ()
   (interactive)
-  (treemacs-select-window))
+  (treemacs-select-window)
+  (treemacs-mode))
 
 (defun jz-win-1 ()
   (interactive)
@@ -274,7 +275,7 @@
                         (evil-visual-line)
                         (evil-jump-item)
                         (goto-char (line-beginning-position)))
-                    (evil-visual-line)))))))
+                    (evil-select-big-block)))))))
 
 (defun evil-select-big-block ()
   "select outer `xxx{block}'"

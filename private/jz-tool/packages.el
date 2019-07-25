@@ -37,16 +37,15 @@
     evil-easymotion
     evil-fringe-mark
     evil-args
+    evil-textobj-anyblock
     evil
     rainbow-delimiters
     symbol-overlay
     expand-region
     google-translate
     leuven-theme
+    solarized-theme
     wgrep-helm
-    treemacs
-    treemacs-evil
-    treemacs-projectile
     format-all
     markdown-mode
     company
@@ -122,6 +121,12 @@ Each entry is either:
   (use-package window-number
     :config
     (window-number-mode 1)
+    (global-set-key ( kbd "M-0" ) #'neotree)
+    (global-set-key ( kbd "M-1" ) #'jz-win-1)
+    (global-set-key ( kbd "M-2" ) #'jz-win-2)
+    (global-set-key ( kbd "M-3" ) #'jz-win-3)
+    (global-set-key ( kbd "M-4" ) #'jz-win-4)
+    (global-set-key ( kbd "M-5" ) #'jz-win-5)
     (spacemacs/set-leader-keys
       "1" #'jz-win-1
       "2" #'jz-win-2
@@ -248,26 +253,8 @@ Each entry is either:
     :config
     (setq wgrep-auto-save-buffer t)))
 
-(defun jz-tool/init-treemacs ()
-  (use-package treemacs
-    :ensure t
-    :config
-    (spacemacs/set-leader-keys
-      "0" #'jz-win-0
-      "f t" #'treemacs)
-    (define-key treemacs-mode-map "K" 'treemacs-goto-parent-node)
-    (define-key treemacs-mode-map "r" 'treemacs-rename)
-    (define-key treemacs-mode-map "d" 'treemacs-delete)
-    (define-key treemacs-mode-map "c" 'treemacs-create-file)
-    (define-key treemacs-mode-map "C" 'treemacs-create-dir)))
 
-(defun jz-tool/init-treemacs-evil ()
-  (use-package treemacs-evil
-    :ensure t))
 
-(defun jz-tool/init-treemacs-projectile ()
-  (use-package treemacs-projectile
-    :ensure t))
 (defun jz-tool/init-format-all ()
   (use-package format-all
     :ensure t))
@@ -315,6 +302,43 @@ Each entry is either:
   (use-package evil
     :config
     (define-key evil-visual-state-map "v" 'evil-select-small-block)
-    (define-key evil-visual-state-map "V" 'evil-select-big-block)))
+    (define-key evil-visual-state-map "V" 'c-mark-function)))
+
+(defun jz-tool/init-evil-textobj-anyblock ()
+  (use-package evil-textobj-anyblock)
+  :config
+  ;; (evil-define-text-object my-evil-textobj-anyblock-inner-quote
+  ;;   (count &optional beg end type)
+  ;;   "Select the closest outer quote."
+  ;;   (let ((evil-textobj-anyblock-blocks
+  ;;          '(("'" . "'")
+  ;;            ("\"" . "\"")
+  ;;            ("[",. "]")
+  ;;            ("{",. "}")
+  ;;            ("-",. "-")
+  ;;            ("`" . "'")
+  ;;            ("“" . "”"))))
+  ;;     (evil-textobj-anyblock--make-textobj beg end type count nil)))
+
+  ;; (evil-define-text-object my-evil-textobj-anyblock-a-quote
+  ;;   (count &optional beg end type)
+  ;;   "Select the closest outer quote."
+  ;;   (let ((evil-textobj-anyblock-blocks
+  ;;          '(("'" . "'")
+  ;;            ("\"" . "\"")
+  ;;            ("[",. "]")
+  ;;            ("{",. "}")
+  ;;            ("-",. "-")
+  ;;            ("`" . "'")
+  ;;            ("“" . "”"))))
+  ;;     (evil-textobj-anyblock--make-textobj beg end type count t)))
+  ;; (define-key evil-inner-text-objects-map "q" 'my-evil-textobj-anyblock-inner-quote)
+  ;; (define-key evil-outer-text-objects-map "q" 'my-evil-textobj-anyblock-a-quote)
+  (define-key evil-inner-text-objects-map "b" 'evil-textobj-anyblock-inner-block)
+  (define-key evil-outer-text-objects-map "b" 'evil-textobj-anyblock-a-block))
+
+(defun jz-tool/init-solarized-theme ()
+  (use-package solarized-theme
+    :ensure t))
 
 ; packages.el ends here
