@@ -104,6 +104,7 @@
         (setq basename (concat (file-name-sans-extension filename) ".h"))
         (ffip-find-files basename nil))))
 
+;;;###autoload
 (defun jz-keybord-quit-and-switch-2-evil-normal-mode ()
   (interactive)
   (save-excursion
@@ -201,9 +202,11 @@
     (previous-line)
     (evil-first-non-blank)))
 
-
+;;;###autload
 (defun jz-open-current-file-of-folder ()
   (interactive)
+  (require 'compile)
+  (require 'files-x)
   (let ((path (file-name-directory (buffer-file-name))))
     (setq path (replace-regexp-in-string "/" "\\\\" path))
     (start-process "open-folder" nil "explorer" path)))
