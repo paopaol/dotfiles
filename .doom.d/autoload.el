@@ -109,6 +109,7 @@
   (interactive)
   (save-excursion
     (company-abort)
+    (message "xxx")
     (evil-force-normal-state)))
 
 ;;;###autoload
@@ -133,13 +134,21 @@
   (interactive)
   (call-interactively 'clang-format-buffer))
 
+;;;###autoload
 (defun jz-lsp-start-workspace ()
   (interactive)
-  (call-interactively 'lsp))
+  (lsp! t))
 
+;;;###autoload
 (defun jz-lsp-shutdown-workspace ()
   (interactive)
   (call-interactively 'lsp-shutdown-workspace))
+
+;;;###autoload
+(defun jz-lsp-restart-workspace ()
+  (interactive)
+  (jz-lsp-shutdown-workspace)
+  (jz-lsp-start-workspace))
 
 
 (defun jz-win-0 ()
@@ -306,3 +315,27 @@
           (progn
             (evil-normal-state)
             (call-interactively 'evil-backward-arg))))
+
+(defun jz-open-termianl-of-current-file ()
+  (interactive)
+  (let* ((current-file (buffer-file-name)))
+    (if nil
+        (start-process "powershell" nil "powershell" (concat "-NoExit " "-Command " current-file))
+      (start-process "powershell" nil "powershell"))))
+
+;;;###autoload
+(defun jz-cmake-project-build ()
+  "compile cmake project using cmake --build project-root-dir."
+  (interactive)
+  (let* ((cmd (concat "cmake --build " (projectile-project-root) "build")))
+    (compile cmd)))
+
+;;;###autoload
+(defun jz-evil-replace ()
+  "Replace text.in narrow buffer."
+  (interactive )
+  (let* ((key (if (not (evil-visual-state-p))
+               (thing-at-point 'word)
+               (buffer-substring
+                (region-beginning) (region-end)))))
+  (evil-ex (concat "%s/" key "/"))))

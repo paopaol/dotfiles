@@ -48,7 +48,7 @@
 
 (map!
  (:map override
-        "<f6>" #'+eshell/split-below))
+        "<f6>" #'(lambda () (interactive) (call-interactively #'+eshell/split-below))))
 (map! (:map override
         "<f2><f2>" #'jz-insert-\;-at-end-of-line))
 (map! (:map override
@@ -118,8 +118,12 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
 (map! :map helm-ag-map
       :g "C-f" #'forward-char
       :g "C-b" #'backward-char)
-(map! :map company-active-map
-      :g "C-g" #'jz-keybord-quit-and-switch-2-evil-normal-mode)
+(def-package! completion
+  :config
+  (map! :map company-mode-map
+        :g "C-g" #'jz-keybord-quit-and-switch-2-evil-normal-mode
+        :map company-active-map
+        :g "C-g" #'jz-keybord-quit-and-switch-2-evil-normal-mode))
 
 (def-package! wgrep
   :config
