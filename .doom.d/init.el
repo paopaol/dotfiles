@@ -194,7 +194,8 @@
  '(ccls-initialization-options
    '(:cache
      (:directory "d:/tmp/ccls-cache")
-     :compilationDatabaseDirectory "build/"))
+     :compilationDatabaseDirectory "build/" :completion
+     (:filterAndSort t)))
  '(company-idle-delay 0.2)
  '(compilation-error-regexp-alist
    '(absoft ada aix ant bash borland python-tracebacks-and-caml cmake cmake-info comma cucumber msft edg-1 edg-2 epc ftnchek iar ibm irix java jikes-file maven jikes-line clang-include gcc-include ruby-Test::Unit gnu lcc makepp mips-1 mips-2 msft omake oracle perl php rxp sparc-pascal-file sparc-pascal-line sparc-pascal-example sun sun-ada watcom 4bsd gcov-file gcov-header gcov-nomark gcov-called-line gcov-never-called perl--Pod::Checker perl--Test perl--Test2 perl--Test::Harness weblint guile-file guile-line msbuild))
@@ -202,13 +203,28 @@
  '(custom-safe-themes
    '("84e7c46be3e80c8e1eaf72884855cc98bb6957219be82f217c0100f42973340f" "e838d6375a73fda607820c65eb3ea1f9336be7bd9a5528c9161e10c4aa663b5b" "4201f4d3ce08da82c08aca12d9ca2c085bb07c115c096b36f111a34f0cf8d11d" "155a5de9192c2f6d53efcc9c554892a0d87d87f99ad8cc14b330f4f4be204445" "fa540ee33c78f23a88b56393fa4865e61f7f0244f19f80123094a7d2d0a9c0ec" "d2e9c7e31e574bf38f4b0fb927aaff20c1e5f92f72001102758005e53d77b8c9" "a3fa4abaf08cc169b61dea8f6df1bbe4123ec1d2afeb01c17e11fdc31fc66379" "fd944f09d4d0c4d4a3c82bd7b3360f17e3ada8adf29f28199d09308ba01cc092" "a8c210aa94c4eae642a34aaf1c5c0552855dfca2153fa6dd23f3031ce19453d4" "43c0beee9e16258acaa03a81c20d11a5678af81099ba7df708224d65abc5ec2e" "49ec957b508c7d64708b40b0273697a84d3fee4f15dd9fc4a9588016adee3dad" "f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "d1b4990bd599f5e2186c3f75769a2c5334063e9e541e37514942c27975700370" default))
  '(dtrt-indent-run-after-smie t)
+ '(evil-surround-pairs-alist
+   '((40 "(" . ")")
+     (91 "[" . "]")
+     (123 "{" . "}")
+     (41 "(" . ")")
+     (93 "[" . "]")
+     (125 "{" . "}")
+     (35 "#{" . "}")
+     (98 "(" . ")")
+     (66 "{" . "}")
+     (62 "<" . ">")
+     (116 . evil-surround-read-tag)
+     (60 . evil-surround-read-tag)
+     (102 . evil-surround-function)))
  '(fci-rule-color "#858FA5")
  '(idle-update-delay 1)
  '(indent-tabs-mode nil)
  '(jdee-db-active-breakpoint-face-colors (cons "#100e23" "#906cff"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#100e23" "#95ffa4"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#100e23" "#565575"))
- '(lsp-clients-clangd-executable "ccls.exe")
+ '(lsp-clients-clangd-args '("-background-index" "--compile-commands-dir=build"))
+ '(lsp-clients-clangd-executable "clangd.exe")
  '(lsp-enable-indentation nil)
  '(lsp-enable-on-type-formatting nil)
  '(lsp-ui-imenu-enable nil)

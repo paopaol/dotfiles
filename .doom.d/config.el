@@ -32,6 +32,8 @@
         "p u" #'find-file-in-project))
 (map! :leader
       "/ s" #'swiper-thing-at-point)
+(map! :leader
+      "i e" #'jz-eval-region-and-replace)
 
 (def-package! eshell
   :config
@@ -96,6 +98,7 @@
 (map! :map override
       :leader
       "c y"   #'jz-comment-and-yank-down
+      "s a"   #'jz-evil-surround-at-point
       "f z d" #'jz-open-current-file-of-folder)
 (defvar compilation-error-regexp-alist-alist
   `((absoft

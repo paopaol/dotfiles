@@ -137,6 +137,7 @@
 ;;;###autoload
 (defun jz-lsp-start-workspace ()
   (interactive)
+  (lsp-mode 0)
   (lsp! t))
 
 ;;;###autoload
@@ -339,3 +340,27 @@
                (buffer-substring
                 (region-beginning) (region-end)))))
   (evil-ex (concat "%s/" key "/"))))
+
+;;;###autoload
+(defun jz-eval-region-and-replace (beg end)
+  "Evaluation a region between BEG and END, and replace it with the result."
+  (interactive "r")
+      (kill-region beg end)
+      (condition-case nil
+          (prin1 (eval (read (current-kill 0)))
+                (current-buffer))
+        (error (message "Invalid expression")
+              (insert (current-kill 0)))))
+
+;;;###autoload
+(defun jz-evil-surround-at-point (char)
+  (interactive "c")
+  (unless (use-region-p)
+    (let (beg end)
+      (save-excursion
+        (backward-word)
+        (setq beg (point)))
+      (save-excursion
+        (forward-word)
+        (setq end (point)))
+      (evil-surround-region beg end 'block char nil))))
