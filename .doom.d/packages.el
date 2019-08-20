@@ -13,3 +13,4 @@
 (package! wgrep)
 (package! helm-xref)
 (package! google-translate)
+(package! symbol-overlay)

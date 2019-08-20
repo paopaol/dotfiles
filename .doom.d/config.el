@@ -99,7 +99,8 @@
       :leader
       "c y"   #'jz-comment-and-yank-down
       "s a"   #'jz-evil-surround-at-point
-      "f z d" #'jz-open-current-file-of-folder)
+      "f z d" #'jz-open-current-file-of-folder
+      "b K" #'jz-kill-buffer-and-window)
 (defvar compilation-error-regexp-alist-alist
   `((absoft
      "^\\(?:[Ee]rror on \\|[Ww]arning on\\( \\)\\)?[Ll]ine[ \t]+\\([0-9]+\\)[ \t]+\

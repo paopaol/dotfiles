@@ -364,3 +364,9 @@
         (forward-word)
         (setq end (point)))
       (evil-surround-region beg end 'block char nil))))
+
+;;;###autoload
+(defun jz-kill-buffer-and-window ()
+  (interactive)
+  (kill-current-buffer)
+  (evil-quit))
