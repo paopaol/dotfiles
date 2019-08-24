@@ -127,7 +127,8 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
   (map! :map company-mode-map
         :g "C-g" #'jz-keybord-quit-and-switch-2-evil-normal-mode
         :map company-active-map
-        :g "C-g" #'jz-keybord-quit-and-switch-2-evil-normal-mode))
+        :g "C-g" #'jz-keybord-quit-and-switch-2-evil-normal-mode)
+  (setq company-transformers nil))
 
 (def-package! wgrep
   :config
@@ -140,3 +141,18 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
   (if (< emacs-major-version 27)
       (setq xref-show-xrefs-function 'helm-xref-show-xrefs)
     (setq xref-show-xrefs-function 'helm-xref-show-xrefs-27)))
+
+(defun jz-cpp-hook ()
+  (make-local-variable 'company-transformers)
+  (setq company-transformers nil))
+(add-hook 'c++-mode-hook 'jz-cpp-hook)
+
+(def-package! dired
+  :config
+  (put 'dired-find-alternate-file 'disabled nil)
+  (map! :map dired-mode-map
+        :gnv "RET" #'dired-find-alternate-file
+        :gnv "^" #'(lambda ()
+                     (interactive)
+                     (set-buffer-modified-p nil)
+                     (find-alternate-file ".."))))

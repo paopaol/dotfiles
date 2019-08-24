@@ -11,6 +11,6 @@
 (package! clang-format)
 (package! find-file-in-project)
 (package! wgrep)
-(package! helm-xref)
-(package! google-translate)
+;; (package! helm-xref)
+;; (package! google-translate)
 (package! symbol-overlay)
