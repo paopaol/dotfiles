@@ -127,7 +127,8 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
   (map! :map company-mode-map
         :g "C-g" #'jz-keybord-quit-and-switch-2-evil-normal-mode
         :map company-active-map
-        :g "C-g" #'jz-keybord-quit-and-switch-2-evil-normal-mode)
+        :g "C-g" #'jz-keybord-quit-and-switch-2-evil-normal-mode
+        :g "<tab>" #'jz-find-next-args)
   (setq company-transformers nil))
 
 (def-package! wgrep
@@ -156,3 +157,10 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
                      (interactive)
                      (set-buffer-modified-p nil)
                      (find-alternate-file ".."))))
+ (setenv "GTAGSTHROUGH" "true")
+  ;; (setenv "GTAGSLIBPATH"
+  ;;         "d:/msys64/mingw64/x86_64-w64-mingw32/include;d:/msys64/mingw64/include/c++/8.2.0")
+(if (eq system-type 'windows-nt)
+    (progn
+      (setenv "GOPATH" "C:/Users/lenovo/go")
+      (setenv "PATH" "D:/msys64/mingw64/bin;D:/msys64/usr/bin;C:/Windows/System32;C:/Windows;$GOPATH/bin;D:/Program Files/LLVM\bin;D:/root/opt/python/3.7.2")))
