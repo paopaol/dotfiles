@@ -131,6 +131,10 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
         :g "<tab>" #'jz-find-next-args)
   (setq company-transformers nil))
 
+(def-package! lsp
+  :config
+  (setq company-transformers nil))
+
 (def-package! wgrep
   :config
   (map! (:map helm-buffer-map
@@ -164,3 +168,11 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
     (progn
       (setenv "GOPATH" "C:/Users/lenovo/go")
       (setenv "PATH" "D:/msys64/mingw64/bin;D:/msys64/usr/bin;C:/Windows/System32;C:/Windows;$GOPATH/bin;D:/Program Files/LLVM\bin;D:/root/opt/python/3.7.2")))
+
+(defun my-cpp-hook nil
+  (setq company-transformers nil))
+(add-hook 'c++-mode-hook 'my-cpp-hook)
+(add-hook 'c-mode-hook 'my-cpp-hook)
+(add-hook 'lsp-mode-hook 'my-cpp-hook)
+(add-hook 'company-mode-hook 'my-cpp-hook)
+(add-hook 'company-prescient-mode-hook 'my-cpp-hook)
