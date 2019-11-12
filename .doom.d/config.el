@@ -64,12 +64,11 @@
       :gnvi  "C-j" #'next-line
       :gnvi  "C-e" #'end-of-line
       :gnvi  "C-a" #'beginning-of-line
-      :gnvi  "C-]" #'evil-goto-definition
+      :gnvi  "C-]" #'xref-find-definitions
       :gnvi  "C-g" #'jz-keybord-quit-and-switch-2-evil-normal-mode
-      :nv   "g C-]" #'xref-find-definitions-other-window)
+      :nv   "g C-]" #'xref-find-definitions-other-wind)
 (map! :map ivy-minibuffer-map
       "<escape>" #'doom/escape)
-
 (map! :map c++-mode-map
       :localleader
       "y y" #'cpp-short-func-to-long-func)
@@ -86,6 +85,9 @@
 (map! (:map ivy-minibuffer-map
         "C-j" #'ivy-next-line
         "C-k" #'ivy-previous-line))
+(map! (:map helm-ag-map
+        "C-j" #'helm-next-line
+        "C-k" #'helm-previous-line))
 
 (map! :map c++-mode-map
      :nv "ga" #'jz-exchange-args
@@ -122,6 +124,8 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
 (map! :map helm-ag-map
       :g "C-f" #'forward-char
       :g "C-b" #'backward-char)
+
+
 (def-package! completion
   :config
   (map! :map company-mode-map
@@ -142,10 +146,10 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
   )
 
 (def-package! helm-xref
-  :config
-  (if (< emacs-major-version 27)
-      (setq xref-show-xrefs-function 'helm-xref-show-xrefs)
-    (setq xref-show-xrefs-function 'helm-xref-show-xrefs-27)))
+ :config
+ (if (< emacs-major-version 27)
+     (setq xref-show-xrefs-function 'helm-xref-show-xrefs)
+   (setq xref-show-xrefs-function 'helm-xref-show-xrefs-27)))
 
 (defun jz-cpp-hook ()
   (make-local-variable 'company-transformers)
