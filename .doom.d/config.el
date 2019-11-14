@@ -92,11 +92,13 @@
 (map! :map c++-mode-map
      :nv "ga" #'jz-exchange-args
      :gnvi "<tab>" #'jz-find-next-args
-     :gnvi "S-<tab>" #'jz-find-previous-args)
+     :gnvi "C-i" #'jz-find-next-args
+     :gnvi "<backtab>" #'jz-find-previous-args)
 (map! :map c-mode-map
      :nv "ga" #'jz-exchange-args
      :gnvi "<tab>" #'jz-find-next-args
-     :gnvi "S-<tab>" #'jz-find-previous-args)
+     :gnvi "C-i" #'jz-find-next-args
+     :gnvi "<backtab>" #'jz-find-previous-args)
 (map! :map override
       :leader
       "c y"   #'jz-comment-and-yank-down
@@ -114,12 +116,12 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
   "Alist of values for `compilation-error-regexp-alist'.")
 
 (map! :gnvi
-        "C-1" #'winum-select-window-1
-        "C-2" #'winum-select-window-2
-        "C-3" #'winum-select-window-3
-        "C-4" #'winum-select-window-4
-        "C-5" #'winum-select-window-5
-        "C-6" #'winum-select-window-6)
+        "M-1" #'winum-select-window-1
+        "M-2" #'winum-select-window-2
+        "M-3" #'winum-select-window-3
+        "M-4" #'winum-select-window-4
+        "M-5" #'winum-select-window-5
+        "M-6" #'winum-select-window-6)
 
 (map! :map helm-ag-map
       :g "C-f" #'forward-char

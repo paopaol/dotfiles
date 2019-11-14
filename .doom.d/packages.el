@@ -12,5 +12,6 @@
 (package! find-file-in-project)
 (package! wgrep)
 (package! helm-xref)
+(package! evil-traces)
 ;; (package! google-translate)
 (package! symbol-overlay)
