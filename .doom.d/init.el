@@ -222,6 +222,7 @@
      (60 . evil-surround-read-tag)
      (102 . evil-surround-function))))
  '(fci-rule-color "#858FA5")
+ '(hl-todo-highlight-punctuation ":")
  '(idle-update-delay 1)
  '(indent-tabs-mode nil)
  '(jdee-db-active-breakpoint-face-colors (cons "#100e23" "#906cff"))
@@ -235,14 +236,18 @@
  '(lsp-enable-on-type-formatting nil)
  '(lsp-ui-imenu-enable nil)
  '(lsp-ui-imenu-kind-position (quote left))
- '(lsp-ui-peek-always-show t)
+ '(lsp-ui-peek-always-show nil)
  '(lsp-ui-peek-enable nil)
  '(lsp-ui-sideline-enable nil)
  '(objed-cursor-color "#ff8080")
  '(org-adapt-indentation nil)
+ '(org-highlight-sparse-tree-matches nil)
  '(org-list-description-max-indent 4 t)
  '(org-src-preserve-indentation t)
  '(org-startup-indented t)
+ '(sp-highlight-pair-overlay nil)
+ '(sp-highlight-wrap-overlay nil)
+ '(sp-highlight-wrap-tag-overlay nil)
  '(vc-annotate-background "#1b182c")
  '(vc-annotate-color-map
    (list
@@ -271,10 +276,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(lsp-face-highlight-textual ((nil (:background "#727280" :foreground "#ffffff" :weight bold))))
  '(lsp-ui-peek-header ((t (:background "#e7ebf1" :foreground "light slate blue" :weight bold))))
- '(lsp-ui-peek-highlight ((t (:inherit lsp-ui-peek-header :background "#B8C5DB" :foreground "#E5E9F0" :box 1))))
- '(lsp-ui-peek-list ((t (:background "#ced1d8"))))
- '(lsp-ui-peek-peek ((t (:background "#ced1d8"))))
- '(lsp-ui-peek-selection ((t (:background "#3B6EA8" :distant-foreground "black" :box (:line-width 2 :color "grey75" :style released-button) :underline t :weight bold)))))
-
+ '(lsp-ui-peek-highlight ((nil (:inherit lsp-ui-peek-header :background "#B8C5DB" :foreground "#E5E9F0" :box 1))))
+ '(lsp-ui-peek-list ((nil (:background "#ced1d8"))))
+ '(lsp-ui-peek-peek ((nil (:background "#ced1d8"))))
+ '(lsp-ui-peek-selection ((nil (:background "#3B6EA8" :distant-foreground "black" :box (:line-width 2 :color "grey75" :style released-button) :underline t :weight bold))))
+ '(nav-flash-face ((nil nil))))

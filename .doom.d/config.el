@@ -104,7 +104,9 @@
       "c y"   #'jz-comment-and-yank-down
       "s a"   #'jz-evil-surround-at-point
       "f z d" #'jz-open-current-file-of-folder
-      "b K" #'jz-kill-buffer-and-window)
+      "b K" #'jz-kill-buffer-and-window
+      "s h" #'symbol-overlay-put
+      "s C" #'symbol-overlay-remove-all)
 (defvar compilation-error-regexp-alist-alist
   `((absoft
      "^\\(?:[Ee]rror on \\|[Ww]arning on\\( \\)\\)?[Ll]ine[ \t]+\\([0-9]+\\)[ \t]+\
@@ -140,6 +142,9 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
 (def-package! lsp
   :config
   (setq company-transformers nil))
+(def-package! lsp-ui
+  :config
+  (setq lsp--highlight-kind-face nil))
 
 (def-package! wgrep
   :config
@@ -176,7 +181,7 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
       (setenv "PATH" "D:/msys64/mingw64/bin;D:/msys64/usr/bin;C:/Windows/System32;C:/Windows;$GOPATH/bin;D:/Program Files/LLVM\bin;D:/root/opt/python/3.7.2")))
 
 (defun my-cpp-hook nil
-  (setq company-transformers nil))
+  (setq lsp--highlight-kind-face nil))
 (add-hook 'c++-mode-hook 'my-cpp-hook)
 (add-hook 'c-mode-hook 'my-cpp-hook)
 (add-hook 'lsp-mode-hook 'my-cpp-hook)
