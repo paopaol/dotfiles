@@ -183,6 +183,7 @@
 (defun jz-end-region-line-number ()
   (line-number-at-pos (region-end)))
 
+;;;###autoload
 (defun jz-comment ()
   (interactive)
   (if (use-region-p)
@@ -199,6 +200,7 @@
 
 
 
+;;;###autoload
 (defun jz-comment-and-yank-down ()
   (interactive)
   (let ((end-line))
@@ -206,6 +208,7 @@
         (setq end-line (jz-end-region-line-number))
         (setq end-line (+ 1 (line-number-at-pos))))
     (message (number-to-string end-line))
+    (require 'evil-commentary)
     (call-interactively 'evil-commentary-yank-line)
     (goto-line end-line)
     (yank)

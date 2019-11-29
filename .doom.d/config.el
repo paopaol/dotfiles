@@ -34,6 +34,9 @@
       "/ s" #'swiper-thing-at-point)
 (map! :leader
       "i e" #'jz-eval-region-and-replace)
+(def-package! helm
+  :config
+  (setq helm-buffer-max-length 56))
 
 (def-package! eshell
   :config
@@ -181,6 +184,7 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
       (setenv "PATH" "D:/msys64/mingw64/bin;D:/msys64/usr/bin;C:/Windows/System32;C:/Windows;$GOPATH/bin;D:/Program Files/LLVM\bin;D:/root/opt/python/3.7.2")))
 
 (defun my-cpp-hook nil
+  (setq company-transformers nil)
   (setq lsp--highlight-kind-face nil))
 (add-hook 'c++-mode-hook 'my-cpp-hook)
 (add-hook 'c-mode-hook 'my-cpp-hook)

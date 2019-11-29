@@ -13,5 +13,7 @@
 (package! wgrep)
 (package! helm-xref)
 (package! evil-traces)
+(package! evil-commentary)
 ;; (package! google-translate)
 (package! symbol-overlay)
+(package! helm-gtags)
