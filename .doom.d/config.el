@@ -3,6 +3,36 @@
 ;; Place your private configuration here
 
 (require 'compile)
+(require 'gdb-mi)
+(gdb-many-windows t)
+(setq gdb-show-main t)
+(defadvice gdb-setup-windows (after my-setup-gdb-windows activate)
+  "my gdb UI"
+  (gdb-get-buffer-create 'gdb-stack-buffer)
+  (set-window-dedicated-p (selected-window) nil)
+  (switch-to-buffer gud-comint-buffer)
+  (delete-other-windows)
+  (let ((win0 (selected-window))
+        (win1 (split-window nil nil 'left))  ;; code and output
+        (win2 (split-window-below (/ (* (window-height) 3) 4)))  ;; stack
+        )
+    (select-window win2)
+    (gdb-set-window-buffer (gdb-stack-buffer-name))
+    (select-window win1)
+    (set-window-buffer
+     win1
+     (if gud-last-last-frame
+         (gud-find-file (car gud-last-last-frame))
+       (if gdb-main-file
+           (gud-find-file gdb-main-file)
+         ;; Put buffer list in window if we
+         ;; can't find a source file.
+         (list-buffers-noselect))))
+    (setq gdb-source-window (selected-window))
+    (let ((win3 (split-window nil (/ (* (window-height) 3) 4))))  ;; io
+      (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-inferior-io) nil win3))
+    (select-window win0)
+    ))
 
 (defun jz-exchange-args ()
   (interactive)
@@ -96,7 +126,13 @@
      :nv "ga" #'jz-exchange-args
      :gnvi "<tab>" #'jz-find-next-args
      :gnvi "C-i" #'jz-find-next-args
-     :gnvi "<backtab>" #'jz-find-previous-args)
+     :gnvi "<backtab>" #'jz-find-previous-args
+     :gnvi "<f5>" #'gdb
+     :gnvi "<f7>" #'gud-run
+     :gnvi "<f10>" #'gud-next
+     :gnvi "<f9>" #'gud-break
+     :gnvi "<f11>" #'gud-step)
+
 (map! :map c-mode-map
      :nv "ga" #'jz-exchange-args
      :gnvi "<tab>" #'jz-find-next-args
