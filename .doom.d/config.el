@@ -110,6 +110,8 @@
       "b K" #'jz-kill-buffer-and-window
       "s h" #'symbol-overlay-put
       "s C" #'symbol-overlay-remove-all)
+(map! :map symbol-overlay-map
+      "h" #'backward-char)
 (defvar compilation-error-regexp-alist-alist
   `((absoft
      "^\\(?:[Ee]rror on \\|[Ww]arning on\\( \\)\\)?[Ll]ine[ \t]+\\([0-9]+\\)[ \t]+\

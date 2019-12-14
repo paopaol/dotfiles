@@ -373,3 +373,17 @@
   (interactive)
   (kill-current-buffer)
   (evil-quit))
+
+;;;###autoload
+(defun helm-ag-find-next (&optional n)
+  (interactive)
+  (let* ((helm-current-buffer (get-buffer "*helm-ag*")))
+    (with-helm-current-buffer
+      (forward-line (or n 1))
+      (helm-ag--action-find-file
+       (buffer-substring-no-properties (point-at-bol) (point-at-eol))))))
+
+;;;###autoload
+(defun helm-ag-find-prev ()
+  (interactive)
+  (helm-ag-find-next -1))
