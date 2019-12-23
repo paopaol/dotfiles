@@ -1,5 +1,8 @@
 ;;; ~/.doom.d/autoload.el -*- lexical-binding: t; -*-
 ;;(require 'mmm-mode)
+;;
+
+(require 'winum)
 
 (defun current-char (pos)
   "return value of current cursor"
@@ -387,3 +390,31 @@
 (defun helm-ag-find-prev ()
   (interactive)
   (helm-ag-find-next -1))
+
+
+
+;;;###autoload
+(defun vterm--rename-buffer-as-title (title)
+  (interactive)
+  (rename-buffer (format "vterm %s" title) t))
+
+;;;###autoload
+(defun jz-vterm-right (title)
+  (interactive "sTitle:")
+  (evil-window-vsplit)
+  (evil-window-right 1)
+  (evil-window-set-height 10)
+  (vterm)
+  (vterm--rename-buffer-as-title title))
+
+
+;;;###autoload
+(defun jz-vterm-down (title)
+  (interactive "sTitle:")
+  (let* ((current-window-number winum--window-count))
+    (evil-window-split)
+    (evil-window-down 1)
+    (if (eql 1 current-window-number)
+        (evil-window-set-height 14)))
+  (vterm)
+  (vterm--rename-buffer-as-title title))

@@ -97,6 +97,7 @@
       :gnvi  "C-j" #'next-line
       :gnvi  "C-e" #'end-of-line
       :gnvi  "C-a" #'beginning-of-line
+      :gnvi  "C-x K" #'jz-kill-buffer-and-window
       :gnvi  "C-]" #'xref-find-definitions
       :gnvi  "C-g" #'jz-keybord-quit-and-switch-2-evil-normal-mode
       :nv   "g C-]" #'xref-find-definitions-other-wind)
@@ -169,6 +170,10 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
 (map! :map helm-ag-map
       :g "C-f" #'forward-char
       :g "C-b" #'backward-char)
+
+
+(map! :map swiper-map
+      "C-w" #'evil-delete-backward-word)
 
 
 (def-package! completion

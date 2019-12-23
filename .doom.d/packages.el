@@ -17,3 +17,6 @@
 ;; (package! google-translate)
 (package! symbol-overlay)
 (package! helm-gtags)
+;; (package! vterm)
+;; (package! vterm-toggle)
+(package! helm-ag)
