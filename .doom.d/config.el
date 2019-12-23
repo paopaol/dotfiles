@@ -146,7 +146,12 @@
       "f z d" #'jz-open-current-file-of-folder
       "b K" #'jz-kill-buffer-and-window
       "s h" #'symbol-overlay-put
-      "s C" #'symbol-overlay-remove-all)
+      "s C" #'symbol-overlay-remove-all
+      "s s" #'helm-do-ag-this-file
+      "s S" #'jz-helm-do-ag-this-file-at-point
+      "s P" #'jz-helm-ag-project-root-at-point
+      "s p" #'helm-do-ag-project-root)
+
 (map! :map symbol-overlay-map
       "h" #'backward-char)
 (defvar compilation-error-regexp-alist-alist

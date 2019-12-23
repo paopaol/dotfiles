@@ -112,7 +112,6 @@
   (interactive)
   (save-excursion
     (company-abort)
-    (message "xxx")
     (evil-force-normal-state)))
 
 ;;;###autoload
@@ -418,3 +417,18 @@
         (evil-window-set-height 14)))
   (vterm)
   (vterm--rename-buffer-as-title title))
+
+;;;###autoload
+(defun jz-helm-do-ag-this-file-at-point ()
+  (interactive)
+  (if (not (use-region-p))
+      (er/mark-symbol))
+  (helm-do-ag-this-file))
+
+
+;;;###autoload
+(defun jz-helm-ag-project-root-at-point ()
+  (interactive)
+  (if (not (use-region-p))
+      (er/mark-symbol))
+  (helm-ag-project-root))
