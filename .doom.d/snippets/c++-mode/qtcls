@@ -1,0 +1,10 @@
+# key: 
+# name: qtcls
+# --
+class ${1:Name} : public ${2:QObject} {
+Q_OBJECT
+public:
+${1:$(yas/substr yas-text "[^: ]*")}(${3:QObject} *parent = nullptr) : ${2:$(yas/substr yas-text "[^: ]*")}(parent) {}
+~${1:$(yas/substr yas-text "[^: ]*")}() {}
+};
+$0

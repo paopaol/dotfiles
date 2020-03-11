@@ -1,9 +1,10 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here
-
+;;
 (require 'compile)
 (require 'gdb-mi)
+(require 'go-mode)
 (gdb-many-windows t)
 (setq gdb-show-main t)
 (defadvice gdb-setup-windows (after my-setup-gdb-windows activate)
@@ -70,7 +71,7 @@
 
 (def-package! eshell
   :config
-  (prefer-coding-system 'gbk))
+  (prefer-coding-system 'utf-8))
 
 (def-package! clang-format
   :config
@@ -96,11 +97,11 @@
       :gnvi  "C-k" #'previous-line
       :gnvi  "C-j" #'next-line
       :gnvi  "C-e" #'end-of-line
-      :gnvi  "C-a" #'beginning-of-line
+      :gnvi  "C-a" #'evil-beginning-of-line
       :gnvi  "C-x K" #'jz-kill-buffer-and-window
       :gnvi  "C-]" #'xref-find-definitions
       :gnvi  "C-g" #'jz-keybord-quit-and-switch-2-evil-normal-mode
-      :nv   "g C-]" #'xref-find-definitions-other-wind)
+      :nv   "g C-]" #'xref-find-definitions-other-window)
 (map! :map ivy-minibuffer-map
       "<escape>" #'doom/escape)
 (map! :map c++-mode-map
@@ -113,8 +114,20 @@
 (map! (:map (shell-mode-map)
         "i" #'shell-mode-move-cursor-after-prompt))
 (map! (:map (evil-visual-state-map)
-        "v" #'evil-select-small-block
-        "V" #'c-mark-function))
+        "v" #'er/expand-region
+        "i b"#'evil-textobj-anyblock-a-block
+        "V" #'+evil:defun-txtobj))
+
+(map! (:map (evil-insert-state-map)
+        "C-<ret>" #'evil-open-below
+        "<escape>" #'evil-force-normal-state))
+
+
+(map! :v  "@"     #'+evil:apply-macro
+      :textobj
+      "b" #'evil-textobj-anyblock-inner-block
+      #'evil-textobj-anyblock-a-block)
+
 
 (map! (:map ivy-minibuffer-map
         "C-j" #'ivy-next-line
@@ -170,7 +183,9 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
         "M-3" #'winum-select-window-3
         "M-4" #'winum-select-window-4
         "M-5" #'winum-select-window-5
-        "M-6" #'winum-select-window-6)
+        "M-6" #'winum-select-window-6
+        "C-SPC" nil
+        "C-@" nil)
 
 (map! :map helm-ag-map
       :g "C-f" #'forward-char
@@ -179,6 +194,15 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
 
 (map! :map swiper-map
       "C-w" #'evil-delete-backward-word)
+
+(use-package lsp-mode
+  :ensure t
+  :commands (lsp lsp-deferred)
+  :hook (go-mode . lsp-deferred))
+(defun lsp-go-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
 
 (def-package! completion
@@ -192,10 +216,15 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
 
 (def-package! lsp
   :config
+  (setq lsp-auto-guess-root nil)
   (setq company-transformers nil))
+
+
 (def-package! lsp-ui
   :config
   (setq lsp--highlight-kind-face nil))
+
+
 
 (def-package! wgrep
   :config
@@ -239,3 +268,15 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
 (add-hook 'lsp-mode-hook 'my-cpp-hook)
 (add-hook 'company-mode-hook 'my-cpp-hook)
 (add-hook 'company-prescient-mode-hook 'my-cpp-hook)
+
+(defun ibus-switch-to-pinyin ()
+  (interactive)
+  (start-process-shell-command "im-slect" "*im-select*" "ibus engine libpinyin"))
+
+(defun ibus-switch-to-en ()
+  (interactive)
+  (start-process-shell-command "im-select" "*im-select*" "ibus engine xkb:us::eng"))
+
+(add-hook 'evil-normal-state-entry-hook 'ibus-switch-to-en)
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
