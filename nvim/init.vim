@@ -5,6 +5,7 @@ source $VIMHOME/core/dir.vim
 
 call plug#begin('~/.vim/plugged')
 Plug 'Raimondi/delimitMate'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'junegunn/seoul256.vim'
 Plug 'pseewald/vim-anyfold'
 Plug 'junegunn/goyo.vim'
@@ -60,7 +61,7 @@ endif
 " Plug 'takac/vim-hardtime'
 call plug#end()
 
-let g:Lf_RootMarkers = ['.projectile', '.project2']
+let g:Lf_RootMarkers = ['.projectile']
 let g:Lf_ShortcutF=''
 let g:Lf_ShortcutB=''
 
@@ -69,10 +70,10 @@ let g:Lf_ShortcutB=''
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+      \ pumvisible() ? "\<C-j>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-k>" : "\<C-h>"
 
 
 function! s:check_back_space() abort
@@ -82,6 +83,8 @@ endfunction
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+
+" Default mapping
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
@@ -390,10 +393,10 @@ command! -bang -nargs=* Ra
 			\   fzf#vim#with_preview(), <bang>0)
 
 function! RgProjectFzf()
-	:Leaderf rg --popup --popup-width=1080
+	:Leaderf rg --popup --popup-width=1080 --wd-mode=ac
 endfunction
 function! RgProjectAtPointFzf()
-	:Leaderf rg --cword --popup --popup-width=1080
+	:Leaderf rg --popup --popup-width=1080 --cword --wd-mode=ac
 endfunction
 command! -nargs=* -bang RgProject call RgProjectFzf()
 command! -bang RgProjectAtPoint call RgProjectAtPointFzf()
@@ -499,8 +502,9 @@ nmap  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 nmap  n <Plug>(easymotion-next)
 nmap  N <Plug>(easymotion-prev)
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+
+inoremap <expr> <C-j> pumvisible() ? "\<C-j>" : "\<C-j>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-k>" : "\<C-k>"
 
 map <C-f> <Right>
 imap <C-f> <Right>
