@@ -4,12 +4,14 @@ source $VIMHOME/core/dir.vim
 
 
 call plug#begin('~/.vim/plugged')
+Plug 'pacha/vem-tabline'
 Plug 'Raimondi/delimitMate'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'junegunn/seoul256.vim'
 Plug 'pseewald/vim-anyfold'
 Plug 'junegunn/goyo.vim'
 Plug 'mattn/emmet-vim'
+Plug 'justinmk/vim-sneak'
 Plug 'junegunn/limelight.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
@@ -21,8 +23,6 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 't9md/vim-choosewin'
 Plug 'rakr/vim-one'
-Plug 'skywind3000/vim-quickui'
-Plug 'mileszs/ack.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'mhinz/vim-startify'
@@ -48,7 +48,6 @@ Plug 'mklabs/vim-json'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 " Plug 'liuchengxu/vista.vim'
 Plug 'kshenoy/vim-signature'
-Plug 'webdevel/tabulous'
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'kana/vim-textobj-line'
 if has('nvim')
@@ -151,6 +150,12 @@ function CreateTerminalTab() abort
 endfunction
 
 map <A-Riglt> :tabnext<CR>
+
+
+""""""""tabline''
+let g:vem_tabline_show_number = 'index'
+
+""""""""
 
 
 source $VIMHOME/core/base_setting.vim
@@ -275,6 +280,14 @@ let g:fzf_action = {
 
 """""""""""""""""""""""""""""""""""""""
 """""""""jinzhao""""""""""""""""""""""""""""""
+
+autocmd BufNew * :GuiTabline 0
+autocmd BufNew * :GuiPopupmenu 0
+"always show tab
+set showtabline=2
+
+
+
 """""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""
@@ -393,10 +406,10 @@ command! -bang -nargs=* Ra
 			\   fzf#vim#with_preview(), <bang>0)
 
 function! RgProjectFzf()
-	:Leaderf rg --popup --popup-width=1080 --wd-mode=ac
+	:Leaderf rg --wd-mode=ac
 endfunction
 function! RgProjectAtPointFzf()
-	:Leaderf rg --popup --popup-width=1080 --cword --wd-mode=ac
+	:Leaderf rg  --cword --wd-mode=ac
 endfunction
 command! -nargs=* -bang RgProject call RgProjectFzf()
 command! -bang RgProjectAtPoint call RgProjectAtPointFzf()
@@ -449,7 +462,7 @@ function SwitchBetweenHSCpp()
 	endfor
 	let cmd = "fd " . name . options . ' ' . asyncrun#get_root('%')
 	echom cmd
-	call fzf#run({'source': cmd, 'sink': 'e'})
+	call fzf#run({'source': cmd, 'sink': 'e', 'options': '-1'})
 endfunction
 
 
@@ -471,7 +484,7 @@ noremap <C-g> <esc>
 inoremap <C-g> <esc>
 vnoremap <C-g> <esc>
 
-colorscheme seoul256
+colorscheme one
 let g:solarized_termcolors=256
 "背景透明
 let g:solarized_termtrans=0
@@ -495,12 +508,19 @@ nnoremap <silent> n :call WordNavigation('forward')<cr>
 nnoremap <silent> N :call WordNavigation('backward')<cr>
 
 let g:EasyMotion_do_mapping = 0
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
-nmap f <Plug>(easymotion-overwin-f)
+
+let g:sneak#s_next = 1
+map s <Plug>Sneak_s
+map S <Plug>Sneak_S
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+
+
 nmap  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
-nmap  n <Plug>(easymotion-next)
+nmap  n <Plug>(easymotion-nexte
 nmap  N <Plug>(easymotion-prev)
 
 inoremap <expr> <C-j> pumvisible() ? "\<C-j>" : "\<C-j>"
@@ -525,6 +545,15 @@ nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
 let g:which_key_map[' '] = [':ChooseWin', 'choosewin']
+let g:which_key_map['1'] = [':VemTablineGo 1', 'tab 1']
+let g:which_key_map['2'] = [':VemTablineGo 2', 'tab 2']
+let g:which_key_map['3'] = [':VemTablineGo 3', 'tab 3']
+let g:which_key_map['4'] = [':VemTablineGo 4', 'tab 4']
+let g:which_key_map['5'] = [':VemTablineGo 5', 'tab 5']
+let g:which_key_map['6'] = [':VemTablineGo 6', 'tab 6']
+let g:which_key_map['7'] = [':VemTablineGo 7', 'tab 7']
+let g:which_key_map['8'] = [':VemTablineGo 8', 'tab 8']
+let g:which_key_map['9'] = [':VemTablineGo 9', 'tab 9']
 
 let g:which_key_map['w'] = {
       \ 'name' : '+windows' ,
@@ -550,7 +579,7 @@ let g:which_key_map['f'] = {
 			\ 'p' : ['ProjectFiles()', 'find file in project'],
 			\ 's' : ['w', 'save file'],
 			\ 'f' : [':Clap filer', 'find file current dir'],
-			\ 'r' : ['History', 'recent files'],
+			\ 'r' : [':Leaderf mru', 'recent files'],
 			\ 't' : ['ProjectExplorer()', 'project tree'],
 			\ }
 
@@ -578,7 +607,7 @@ let g:which_key_map['s'] = {
 
 let g:which_key_map['t'] = {
 			\ 'name' : '+tools/toggle' ,
-			\ 'h' : ['Helptags', 'vim help'],
+			\ 'h' : [':Leaderf help', 'vim help'],
 			\ 'r' : ['so ~/.vimrc', 'refresh vimrc'],
 			\ 't' : ['Colors', 'theme'],
 			\ 'l' : ['ToggleLineWarp()', 'line wrap'],
