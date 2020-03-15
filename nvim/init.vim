@@ -61,11 +61,29 @@ endif
 " Plug 'takac/vim-hardtime'
 call plug#end()
 
+"""""""""""""leaderf"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:Lf_RootMarkers = ['.projectile']
 let g:Lf_ShortcutF=''
 let g:Lf_ShortcutB=''
 
+function! RgProjectFzf()
+	:Leaderf rg --wd-mode=ac
+endfunction
+function! RgProjectAtPointFzf()
+	:Leaderf rg  --cword --wd-mode=ac
+endfunction
+command! -nargs=* -bang RgProject call RgProjectFzf()
+command! -bang RgProjectAtPoint call RgProjectAtPointFzf()
 
+
+""""""""coc"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -121,59 +139,8 @@ function LspHover() abort
 	let @* = resp['contents'][0]['value']
 endfunction
 
-
-function JzCocImenu() abort
-	let symbols = CocAction('doHover')
-	echom symbols
-endfunction
-
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
-inoremap <expr> <CR> InsertMapForEnter()
-function! InsertMapForEnter()
-    if pumvisible()
-        return "\<C-y>"
-    elseif strcharpart(getline('.'),getpos('.')[2]-1,1) == '}'
-        return "\<CR>\<Esc>O"
-    elseif strcharpart(getline('.'),getpos('.')[2]-1,2) == '</'
-        return "\<CR>\<Esc>O"
-    else
-        return "\<CR>"
-    endif
-endfunction
-
-
-function CreateTerminalTab() abort
-	:tabnew
-	:terminal ++curwin
-	:TabulousRename terminal
-endfunction
-
-map <A-Riglt> :tabnext<CR>
-
-
-""""""""tabline''
-let g:vem_tabline_show_number = 'index'
-
-""""""""
-
-
-
-let s:wraped = 0
-function ToggleLineWarp() abort
-	if s:wraped == 0
-		set nowrap
-		let s:wraped = 1
-	else
-		set wrap
-		let s:wraped = 0
-	endif
-endfunction
-
-" Formatting selected code.
-"xmap <leader>f  <Plug>(coc-format-selected)
-"nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -259,12 +226,63 @@ let g:coc_snippet_next = '<tab>'
 let g:coc_snippet_prev = '<S-tab>'
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+inoremap <expr> <CR> InsertMapForEnter()
+function! InsertMapForEnter()
+    if pumvisible()
+        return "\<C-y>"
+    elseif strcharpart(getline('.'),getpos('.')[2]-1,1) == '}'
+        return "\<CR>\<Esc>O"
+    elseif strcharpart(getline('.'),getpos('.')[2]-1,2) == '</'
+        return "\<CR>\<Esc>O"
+    else
+        return "\<CR>"
+    endif
+endfunction
+
+
+
+
+""""""""tabline''
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vem_tabline_show_number = 'index'
+
+""""""""
+
+
+
+let s:wraped = 0
+function ToggleLineWarp() abort
+	if s:wraped == 0
+		set nowrap
+		let s:wraped = 1
+	else
+		set wrap
+		let s:wraped = 0
+	endif
+endfunction
+
+
+
 ""quick fix"
 nmap <F8> :cn<CR>zz
 nmap <S-F8> :cp<CR>zz
 
 
-
+"""""""""""""""""""fzf
+"""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""
 " An action can be a reference to a function that processes selected lines
 function! s:build_quickfix_list(lines)
 	call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
@@ -278,17 +296,55 @@ let g:fzf_action = {
 			\ 'ctrl-x': 'split',
 			\ 'ctrl-v': 'vsplit' }
 
+command! -bang BLinesAtPoint  call fzf#vim#buffer_lines(expand('<cword>'), <bang>0)
+
+function ProjectFiles() abort
+	call fzf#vim#files(asyncrun#get_root('%'))
+endfunction
+
+function FilesCurrentDir() abort
+	call fzf#vim#files(fnamemodify(expand('%'), ':h'))
+endfunction
+
+
 """""""""""""""""""""""""""""""""""""""
 """""""""jinzhao""""""""""""""""""""""""""""""
-
 autocmd BufNew * :GuiTabline 0
 autocmd BufNew * :GuiPopupmenu 0
 "always show tab
 set showtabline=2
 
+function! Jz_insert_semicolon_end_of_line()
+	let save_cursor = getcurpos()
+	execute "normal! A;"
+	call setpos('.', save_cursor)
+endfunction
+
+noremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
+inoremap <f2><f2>   <esc>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
+vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
+
+""move to end of line"
+noremap <C-e> A
+inoremap <C-e> <esc>A
+vnoremap <C-e> A
+"move to begining of line
+noremap <C-a> 0i
+inoremap <C-a> <esc>0i
+vnoremap <C-a> 0i
+
+noremap <C-g> <esc>
+inoremap <C-g> <esc>
+vnoremap <C-g> <esc>
+
+map <C-f> <Right>
+imap <C-f> <Right>
+map <C-b> <Left>
+imap <C-b> <Left>
 
 
-"""""""""""""""""""""""""""""""""""""""
+
+""""""""""asyncrun"""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""
@@ -298,6 +354,12 @@ let g:asyncrun_open=10
 let g:asyncrun_save=2
 
 
+""""""""""choosewin""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""
 let g:choosewin_label_fill = 1
 let g:choosewin_keymap   = {}         " initialize as Dictionary
 let g:choosewin_keymap.m = 'win_land' " Navigate with 'm'
@@ -306,12 +368,27 @@ let g:choosewin_overlay_enable = 1
 let g:choosewin_label='123456789'
 let g:choosewin_tablabel = "ABCDEFGH"
 
+
+""""""""""""""tagbar
+""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""
 let g:tagbar_autofocus = 1
 let g:tagbar_map_showproto = ''
 noremap <f3>  <esc>:TagbarToggle<CR>
 inoremap <f3>  <esc>:TagbarToggle<CR>
 vnoremap <f3>  <esc>:TagbarToggle<CR>
 
+
+
+"""""""""""""""""""""defx
+"""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""
 " Select the window where to open the file.
 " Use the 'choosewin' plugin if it is loaded.
 " Else ask for a user input.
@@ -394,45 +471,11 @@ function! s:defx_my_settings() abort
   \ defx#do_action('print')
 endfunction
 
-function! Jz_insert_semicolon_end_of_line()
-	let save_cursor = getcurpos()
-	execute "normal! A;"
-	call setpos('.', save_cursor)
-endfunction
-
-command! -bang -nargs=* Ra
-			\ call fzf#vim#grep(
-			\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-			\   fzf#vim#with_preview(), <bang>0)
-
-function! RgProjectFzf()
-	:Leaderf rg --wd-mode=ac
-endfunction
-function! RgProjectAtPointFzf()
-	:Leaderf rg  --cword --wd-mode=ac
-endfunction
-command! -nargs=* -bang RgProject call RgProjectFzf()
-command! -bang RgProjectAtPoint call RgProjectAtPointFzf()
-command! -bang BLinesAtPoint  call fzf#vim#buffer_lines(expand('<cword>'), <bang>0)
-
-function ProjectFiles() abort
-	call fzf#vim#files(asyncrun#get_root('%'))
-endfunction
-
-function FilesCurrentDir() abort
-	call fzf#vim#files(fnamemodify(expand('%'), ':h'))
-endfunction
-
-
 function ProjectExplorer() abort
 	let root = asyncrun#get_root('%')
 	execute 'normal! ' . ":Defx -search=" . fnamemodify(expand('%'), ':p') . ' '. root . "\<CR>"
 endfunction
 
-nnoremap <silent> <LocalLeader>e
-\ :<C-u>Defx -resume -toggle -buffer-name=tab`tabpagenr()`<CR>
-nnoremap <silent> <LocalLeader>a
-\ :<C-u>Defx -resume  -search=`expand('%:p')`<CR>
 
 function SwitchBetweenHSCpp()
 	let headers = ['h', 'hpp', 'hh']
@@ -466,23 +509,6 @@ function SwitchBetweenHSCpp()
 endfunction
 
 
-
-noremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
-inoremap <f2><f2>   <esc>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
-vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
-
-""move to end of line"
-noremap <C-e> A
-inoremap <C-e> <esc>A
-vnoremap <C-e> A
-"move to begining of line
-noremap <C-a> 0i
-inoremap <C-a> <esc>0i
-vnoremap <C-a> 0i
-
-noremap <C-g> <esc>
-inoremap <C-g> <esc>
-vnoremap <C-g> <esc>
 
 colorscheme one
 let g:solarized_termcolors=256
@@ -526,15 +552,11 @@ nmap  N <Plug>(easymotion-prev)
 inoremap <expr> <C-j> pumvisible() ? "\<C-j>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-k>" : "\<C-k>"
 
-map <C-f> <Right>
-imap <C-f> <Right>
-map <C-b> <Left>
-imap <C-b> <Left>
 map <C-k> <Up>
 imap <C-k> <Up>
 map <C-j> <Down>
 imap <C-j> <Down>
-let g:hardtime_default_on = 0
+
 
 
 let g:which_key_map =  {}
