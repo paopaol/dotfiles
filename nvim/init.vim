@@ -1,6 +1,7 @@
-let $VIMHOME = $HOME . '/vimfiles'
+let $VIMHOME = expand('<sfile>:p:h')
 
 source $VIMHOME/core/dir.vim
+source $VIMHOME/core/base_setting.vim
 
 
 call plug#begin('~/.vim/plugged')
@@ -158,7 +159,6 @@ let g:vem_tabline_show_number = 'index'
 """"""""
 
 
-source $VIMHOME/core/base_setting.vim
 
 let s:wraped = 0
 function ToggleLineWarp() abort
