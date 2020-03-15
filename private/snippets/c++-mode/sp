@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-#name : insert debug code use sprintf
-#key : sp
-#contributor :
-# --
-char ${1:temp}[1024] = {0};
-sprintf($1, "${2:}`(insert (current-time-string))`", ${4:});
-puts($1);$0
