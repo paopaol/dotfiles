@@ -320,6 +320,11 @@ function! Jz_insert_semicolon_end_of_line()
 	call setpos('.', save_cursor)
 endfunction
 
+augroup jzgroup
+  autocmd!
+  autocmd  BufEnter  *.cpp,*.cc,*.h,*.vim :TagbarOpen
+augroup end
+
 noremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 inoremap <f2><f2>   <esc>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
@@ -510,7 +515,7 @@ endfunction
 
 
 
-colorscheme one
+colorscheme solarized
 let g:solarized_termcolors=256
 "背景透明
 let g:solarized_termtrans=0
@@ -656,6 +661,7 @@ let g:which_key_map['g'] = {
 			\ 'l' : ['Glog', 'git log'],
 			\ }
 
+let g:which_local_key_map['f'] = ['Format', 'lsp format']
 
 let g:which_local_key_map['o'] = {
 			\ 'name' : '+c++' ,
