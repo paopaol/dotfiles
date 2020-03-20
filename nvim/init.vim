@@ -327,6 +327,7 @@ augroup jzgroup
 augroup end
 
 
+
 cnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
 xnoremap > >gv
@@ -358,6 +359,9 @@ imap <C-b> <Left>
 """""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""
+if has('win32')
+  let g:asyncrun_encs = 'gbk'
+endif
 :let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', '.projectile']
 :noremap <F5> :AsyncRun -cwd=<root>/build cmake --build <root>/build <cr>
 let g:asyncrun_open=10
