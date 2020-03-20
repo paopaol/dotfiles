@@ -26,13 +26,14 @@ set signcolumn=yes
 set numberwidth=2
 set foldmethod=manual
 set cursorline
-set cursorcolumn
+" set cursorcolumn
 set relativenumber
 set autoindent
 set autochdir
 set smartindent
 " set mouse=a
 
+set rnu
 
 set clipboard=unnamed
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1

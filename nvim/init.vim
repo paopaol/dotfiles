@@ -5,6 +5,7 @@ source $VIMHOME/core/base_setting.vim
 
 
 call plug#begin('~/.vim/plugged')
+Plug 'cormacrelf/vim-colors-github'
 Plug 'pacha/vem-tabline'
 Plug 'Raimondi/delimitMate'
 Plug 'terryma/vim-multiple-cursors'
@@ -33,7 +34,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'liuchengxu/vim-which-key'
 Plug 'lfv89/vim-interestingwords'
 Plug 'easymotion/vim-easymotion'
-Plug 'altercation/vim-colors-solarized'
 Plug 'liuchengxu/space-vim-theme'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tomasr/molokai'
@@ -323,8 +323,13 @@ endfunction
 augroup jzgroup
   autocmd!
   autocmd  BufEnter  *.cpp,*.cc,*.h,*.vim :TagbarOpen
+  autocmd  BufHidden  * :TagbarClose
 augroup end
 
+
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+xnoremap > >gv
 noremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 inoremap <f2><f2>   <esc>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
@@ -380,8 +385,9 @@ let g:choosewin_tablabel = "ABCDEFGH"
 """"""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""
-let g:tagbar_autofocus = 1
+" let g:tagbar_autofocus = 1
 let g:tagbar_map_showproto = ''
+let g:tagbar_sort = 0
 noremap <f3>  <esc>:TagbarToggle<CR>
 inoremap <f3>  <esc>:TagbarToggle<CR>
 vnoremap <f3>  <esc>:TagbarToggle<CR>
@@ -515,16 +521,8 @@ endfunction
 
 
 
-colorscheme solarized
-let g:solarized_termcolors=256
-"背景透明
-let g:solarized_termtrans=0
-"粗体
-let g:solarized_bold=1
-"使用下划线
-let g:solarized_underline=1
-"空白符可见
-let g:solarized_hitrail=1
+colorscheme github
+let g:airline_theme = "github"
 
 let g:clap_layout = { 'relative': 'editor' }
 
