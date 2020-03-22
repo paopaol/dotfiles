@@ -5,6 +5,8 @@ source $VIMHOME/core/base_setting.vim
 
 
 call plug#begin('~/.vim/plugged')
+Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'dhruvasagar/vim-table-mode'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'pacha/vem-tabline'
 Plug 'Raimondi/delimitMate'
@@ -19,6 +21,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
 Plug 'skreek/skeletor.vim'
 Plug 'majutsushi/tagbar'
+Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'bling/vim-airline'
@@ -73,7 +76,7 @@ function! RgProjectFzf()
 	:Leaderf rg --wd-mode=ac
 endfunction
 function! RgProjectAtPointFzf()
-	:Leaderf rg  --cword --wd-mode=ac
+	:Leaderf rg  --cword --wd-mode=ac 
 endfunction
 command! -nargs=* -bang RgProject call RgProjectFzf()
 command! -bang RgProjectAtPoint call RgProjectAtPointFzf()
@@ -311,6 +314,7 @@ endfunction
 """""""""jinzhao""""""""""""""""""""""""""""""
 autocmd BufNew * :GuiTabline 0
 autocmd BufNew * :GuiPopupmenu 0
+autocmd BufWritePost *.html,*.json,*.js :Format
 "always show tab
 set showtabline=2
 
@@ -323,7 +327,7 @@ endfunction
 augroup jzgroup
   autocmd!
   autocmd  BufEnter  *.cpp,*.cc,*.h,*.vim :TagbarOpen
-  autocmd  BufHidden  * :TagbarClose
+  " autocmd  BufHidden  *.cpp *.cc *.h *.vim :TagbarClose
 augroup end
 
 
@@ -521,6 +525,7 @@ function SwitchBetweenHSCpp()
 	let cmd = "fd " . name . options . ' ' . asyncrun#get_root('%')
 	echom cmd
 	call fzf#run({'source': cmd, 'sink': 'e', 'options': '-1'})
+	" execute 'normal! ' . ':LeaderfFilePattern ' . name . '\<CR>' 
 endfunction
 
 
@@ -614,7 +619,7 @@ let g:which_key_map['f'] = {
 
 let g:which_key_map['b'] = {
 			\ 'name' : '+buffer' ,
-			\ 'b' : ['fzf#vim#buffers()', 'buffer list'],
+			\ 'b' : ['LeaderfBuffer', 'buffer list'],
 			\ 'n' : ['BF', 'next buffer'],
 			\ 'p' : ['BB', 'prev buffer'],
 			\ 'k' : ['BD', 'buffer kill'],
@@ -625,8 +630,8 @@ let g:which_key_map['b'] = {
 
 let g:which_key_map['s'] = {
 			\ 'name' : '+search & symbol' ,
-			\ 's' : ['BLines', 'symbol current buffer'],
-			\ 'S' : ['BLinesAtPoint', 'symbol buffer at point'],
+			\ 's' : [':LeaderfLine', 'symbol current buffer'],
+			\ 'S' : ['LeaderfLineCword', 'symbol buffer at point'],
 			\ 'l' : [':Leaderf function', 'tags current buffer '],
 			\ 'h' : ['InterestingWords("n")', 'highlight cursor word'],
 			\ 'c' : ['UncolorAllWords()', 'unhighlight all words'],
@@ -664,6 +669,7 @@ let g:which_key_map['g'] = {
 			\ }
 
 let g:which_local_key_map['f'] = ['Format', 'lsp format']
+let g:which_local_key_map['d'] = ['Dox', 'DoxygenToolkit']
 
 let g:which_local_key_map['o'] = {
 			\ 'name' : '+c++' ,
