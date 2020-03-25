@@ -495,6 +495,10 @@ function ProjectExplorer() abort
 	execute 'normal! ' . ":Defx -search=" . fnamemodify(expand('%'), ':p') . ' '. root . "\<CR>"
 endfunction
 
+function OpenFileInExplorer() abort
+	execute 'normal! ' . ":!explorer /select," . fnamemodify(expand('%'), ':p') . "\<CR>"
+endfunction
+
 
 function SwitchBetweenHSCpp()
 	let headers = ['h', 'hpp', 'hh']
@@ -612,7 +616,7 @@ let g:which_key_map['f'] = {
 			\ 'name' : '+files' ,
 			\ 'p' : ['ProjectFiles()', 'find file in project'],
 			\ 's' : ['w', 'save file'],
-			\ 'f' : [':Clap filer', 'find file current dir'],
+			\ 'o' : ['OpenFileInExplorer()', 'find file current dir'],
 			\ 'r' : [':Leaderf mru', 'recent files'],
 			\ 't' : ['ProjectExplorer()', 'project tree'],
 			\ }
