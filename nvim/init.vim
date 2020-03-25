@@ -496,7 +496,9 @@ function ProjectExplorer() abort
 endfunction
 
 function OpenFileInExplorer() abort
-	execute 'normal! ' . ":!explorer /select," . fnamemodify(expand('%'), ':p') . "\<CR>"
+	if has('win32')
+		execute 'normal! ' . ":!explorer /select," . fnamemodify(expand('%'), ':p') . "\<CR>"
+	endif
 endfunction
 
 
