@@ -73,6 +73,7 @@ call plug#end()
 let g:Lf_RootMarkers = ['.projectile']
 let g:Lf_ShortcutF=''
 let g:Lf_ShortcutB=''
+let g:Lf_ShowRelativePath = 0
 
 function! RgProjectFzf()
 	:Leaderf rg --wd-mode=ac
