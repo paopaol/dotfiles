@@ -6,6 +6,8 @@ source $VIMHOME/core/base_setting.vim
 
 call plug#begin('~/.vim/plugged')
 Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'pacha/vem-tabline'
@@ -672,6 +674,7 @@ let g:which_key_map['g'] = {
 			\ 's' : ['Gstatus', 'git status'],
 			\ 'b' : ['Gblame', 'git blame'],
 			\ 'l' : ['Glog', 'git log'],
+			\ 'p' : ['Gpush', 'git push'],
 			\ }
 
 let g:which_local_key_map['f'] = ['Format', 'lsp format']
