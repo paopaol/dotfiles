@@ -342,6 +342,9 @@ noremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 inoremap <f2><f2>   <esc>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
 
+
+noremap Q :cclose<CR>
+vnoremap Q :cclose<CR>
 ""move to end of line"
 noremap <C-e> A
 inoremap <C-e> <esc>A
@@ -371,7 +374,7 @@ if has('win32')
 endif
 :let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', '.projectile']
 :noremap <F5> :AsyncRun -cwd=<root>/build cmake --build <root>/build <cr>
-let g:asyncrun_open=10
+let g:asyncrun_open=3
 let g:asyncrun_save=2
 
 
