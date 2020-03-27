@@ -320,6 +320,7 @@ autocmd BufNew * :GuiPopupmenu 0
 autocmd BufWritePost *.html,*.json,*.js :Format
 "always show tab
 set showtabline=2
+let autosave=30
 
 function! Jz_insert_semicolon_end_of_line()
 	let save_cursor = getcurpos()
@@ -327,14 +328,22 @@ function! Jz_insert_semicolon_end_of_line()
 	call setpos('.', save_cursor)
 endfunction
 
+function! SaveBuf() abort
+	if bufname('%') != ''
+		execute  ':w'
+	endif
+endfunction
+ 
 augroup jzgroup
   autocmd!
   autocmd  BufEnter  *.cpp,*.cc,*.h,*.vim :TagbarOpen
   " autocmd  BufHidden  *.cpp *.cc *.h *.vim :TagbarClose
 augroup end
+  
 
-
-
+inoremap <esc>  <esc>:call SaveBuf()<CR>
+vnoremap <esc>  <esc>:call SaveBuf()<CR>
+nnoremap <esc>  <esc>:call SaveBuf()<CR>
 cnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
 xnoremap > >gv
