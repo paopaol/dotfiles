@@ -329,7 +329,10 @@ function! Jz_insert_semicolon_end_of_line()
 endfunction
 
 function! SaveBuf() abort
-	if bufname('%') != ''
+	if !&modifiable
+		return
+	endif
+	if bufname('%') != '' 
 		execute  ':w'
 	endif
 endfunction
@@ -383,7 +386,7 @@ if has('win32')
 endif
 :let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', '.projectile']
 :noremap <F5> :AsyncRun -cwd=<root>/build cmake --build <root>/build <cr>
-let g:asyncrun_open=3
+let g:asyncrun_open=6
 let g:asyncrun_save=2
 
 
@@ -411,6 +414,8 @@ let g:choosewin_tablabel = "ABCDEFGH"
 " let g:tagbar_autofocus = 1
 let g:tagbar_map_showproto = ''
 let g:tagbar_sort = 0
+let g:tagbar_width = 35
+let g:tagbar_left = 1
 noremap <f3>  <esc>:TagbarToggle<CR>
 inoremap <f3>  <esc>:TagbarToggle<CR>
 vnoremap <f3>  <esc>:TagbarToggle<CR>
@@ -452,7 +457,7 @@ endfunction
 call defx#custom#option('_', {
       \ 'winwidth': 30,
       \ 'split': 'vertical',
-      \ 'direction': 'topleft',
+      \ 'direction': 'botright',
       \ 'show_ignored_files': 0,
       \ 'buffer_name': '',
       \ 'toggle': 1,
