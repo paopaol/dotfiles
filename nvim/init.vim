@@ -387,6 +387,11 @@ function! SaveBuf() abort
 		execute  ':w'
 	endif
 endfunction
+
+function LspFormat() abort
+	execute ':Format'
+	call SaveBuf()
+endfunction
  
 augroup jzgroup
   autocmd!
@@ -746,7 +751,7 @@ let g:which_key_map['g'] = {
 			\ 'p' : ['Gpush', 'git push'],
 			\ }
 
-let g:which_local_key_map[','] = ['Format', 'lsp format']
+let g:which_local_key_map[','] = ['LspFormat()', 'lsp format']
 let g:which_local_key_map['d'] = ['Dox', 'DoxygenToolkit']
 let g:which_local_key_map['y'] = ['LspHover()', 'lsp hover']
 
