@@ -211,6 +211,11 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " autocmd Filetype * AnyFoldActivate
 " let g:anyfold_fold_comments=1
 " set foldlevel=0
+noremap zm :AnyFoldActivate<CR>zM
+vnoremap zm :AnyFoldActivate<CR>zM
+nnoremap zr zR
+vnoremap zr zR
+
 
 
 """"""""""""""""""""""""""""""""
