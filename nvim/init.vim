@@ -33,7 +33,7 @@ Plug 'rakr/vim-one'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'mhinz/vim-startify'
-Plug 'qpkorr/vim-bufkill'
+Plug 'rbgrouleff/bclose.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'liuchengxu/vim-which-key'
@@ -137,8 +137,53 @@ function! s:show_documentation()
   endif
 endfunction
 
+" URL encode a string. ie. Percent-encode characters as necessary.
+function! UrlEncode(string)
+
+    let result = ""
+
+    let characters = split(a:string, '.\zs')
+    for character in characters
+        if character == " "
+            let result = result . "+"
+        elseif CharacterRequiresUrlEncoding(character)
+            let i = 0
+            while i < strlen(character)
+                let byte = strpart(character, i, 1)
+                let decimal = char2nr(byte)
+                let result = result . "%" . printf("%02x", decimal)
+                let i += 1
+            endwhile
+        else
+            let result = result . character
+        endif
+    endfor
+
+    return result
+
+endfunction
+
+" Returns 1 if the given character should be percent-encoded in a URL encoded
+" string.
+function! CharacterRequiresUrlEncoding(character)
+
+    let ascii_code = char2nr(a:character)
+    if ascii_code >= 48 && ascii_code <= 57
+        return 0
+    elseif ascii_code >= 65 && ascii_code <= 90
+        return 0
+    elseif ascii_code >= 97 && ascii_code <= 122
+        return 0
+    elseif a:character == "-" || a:character == "_" || a:character == "." || a:character == "~"
+        return 0
+    endif
+
+    return 1
+
+endfunction
+
 function LspHover() abort
-	let f = 'file://' . fnamemodify(expand('%'), ':p')
+	let f = 'file:///' . UrlEncode(fnamemodify(expand('%'), ':p'))
 	let r = line('.')
 	let c = col('.')
 	let resp = CocRequest('ccls', 'textDocument/hover',   {'textDocument': {'uri':f}, 'position': {'line': r - 1, 'character': c - 1}})
@@ -326,6 +371,7 @@ autocmd BufWritePost *.html,*.json,*.js :Format
 "always show tab
 set showtabline=2
 let autosave=30
+
 
 function! Jz_insert_semicolon_end_of_line()
 	let save_cursor = getcurpos()
@@ -651,9 +697,9 @@ let g:which_key_map['f'] = {
 let g:which_key_map['b'] = {
 			\ 'name' : '+buffer' ,
 			\ 'b' : ['LeaderfBuffer', 'buffer list'],
-			\ 'n' : ['BF', 'next buffer'],
-			\ 'p' : ['BB', 'prev buffer'],
-			\ 'k' : ['BD', 'buffer kill'],
+			\ 'n' : ['bn', 'next buffer'],
+			\ 'p' : ['bp', 'prev buffer'],
+			\ 'k' : ['Bclose', 'buffer kill'],
 			\ 'd' : ['BW', 'buffer kill'],
 			\ 'q' : ['cclose', 'kill quickfix'],
 			\ 'h' : ['Startify', 'home page'],
@@ -700,8 +746,9 @@ let g:which_key_map['g'] = {
 			\ 'p' : ['Gpush', 'git push'],
 			\ }
 
-let g:which_local_key_map['f'] = ['Format', 'lsp format']
+let g:which_local_key_map[','] = ['Format', 'lsp format']
 let g:which_local_key_map['d'] = ['Dox', 'DoxygenToolkit']
+let g:which_local_key_map['y'] = ['LspHover()', 'lsp hover']
 
 let g:which_local_key_map['o'] = {
 			\ 'name' : '+c++' ,
