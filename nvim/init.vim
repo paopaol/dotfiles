@@ -381,6 +381,17 @@ set showtabline=2
 let autosave=30
 
 
+function! ProjectRelativeFilePath() abort
+	let root = asyncrun#get_root('%')
+	let absfile = fnamemodify(expand('%'),':p')
+	if has('win32')
+		let root = escape(root, '\')
+	endif
+	let relativePath = substitute(absfile, root, "pro", "")
+	return relativePath
+endfunction
+
+
 function! Jz_insert_semicolon_end_of_line()
 	let save_cursor = getcurpos()
 	execute "normal! A;"
@@ -657,13 +668,15 @@ let g:airline_theme = "github"
 let g:airline_inactive_collapse=0
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#whitespace#symbol = '!'
-let g:airline#extensions#tabline#formatter = 'short_path'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#fnamemod = ':p:.'
+let g:airline#extensions#tabline#fnametruncate = 1
 let g:airline_filetype_overrides = {
 			\ 'defx':  ['%{winnr()}', 'defx'],
 			\ }
 function! AirlineInit()
 	let g:airline_section_a = airline#section#create_left(['%{winnr()}','mode', 'crypt', 'paste', 'iminsert'])
-	let g:airline_section_c = airline#section#create_left(['file'])
+	let g:airline_section_c = airline#section#create_left(['%{ProjectRelativeFilePath()}'])
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
 
