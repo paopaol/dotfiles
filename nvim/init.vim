@@ -7,6 +7,7 @@ source $VIMHOME/core/base_setting.vim
 call plug#begin('~/.vim/plugged')
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'plasticboy/vim-markdown'
+Plug 'terryma/vim-expand-region'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'cormacrelf/vim-colors-github'
@@ -355,15 +356,20 @@ let g:fzf_action = {
 command! -bang BLinesAtPoint  call fzf#vim#buffer_lines(expand('<cword>'), <bang>0)
 
 function ProjectFiles() abort
-	call fzf#vim#files(asyncrun#get_root('%'))
+	" call fzf#vim#files(asyncrun#get_root('%'))
+	execute ":LeaderfFile " . asyncrun#get_root('%') . "\<CR>"
 endfunction
 
 function FilesCurrentDir() abort
-	call fzf#vim#files(fnamemodify(expand('%'), ':h'))
+	" call fzf#vim#files(fnamemodify(expand('%'), ':h'))
+	execute ":LeaderfFile\<CR>"
 endfunction
 
 
-"""""""""""""""""""""""""""""""""""""""
+""""""vim-expand-region"""""""""""""""""""""""""""""""""
+vmap v <Plug>(expand_region_expand)
+vmap V <Plug>(expand_region_shrink)
+
 """""""""jinzhao""""""""""""""""""""""""""""""
 autocmd BufNew * :GuiTabline 0
 autocmd BufNew * :GuiPopupmenu 0
@@ -470,7 +476,8 @@ let g:choosewin_tablabel = "ABCDEFGH"
 " let g:tagbar_autofocus = 1
 let g:tagbar_map_showproto = ''
 let g:tagbar_sort = 0
-let g:tagbar_width = 35
+let g:tagbar_width = 30
+let g:tagbar_indent = 1
 let g:tagbar_left = 1
 noremap <f3>  <esc>:TagbarToggle<CR>
 inoremap <f3>  <esc>:TagbarToggle<CR>
