@@ -371,6 +371,8 @@ vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
 
 """""""""jinzhao""""""""""""""""""""""""""""""
+set relativenumber
+set nu
 autocmd BufNew * :GuiTabline 0
 autocmd BufNew * :GuiPopupmenu 0
 autocmd BufWritePost *.html,*.json,*.js :Format
@@ -415,6 +417,36 @@ xnoremap > >gv
 noremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 inoremap <f2><f2>   <esc>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
+
+nnoremap <A-1> :1 wincmd w<CR>
+nnoremap <A-2> :2 wincmd w<CR>
+nnoremap <A-3> :3 wincmd w<CR>
+nnoremap <A-4> :4 wincmd w<CR>
+nnoremap <A-5> :5 wincmd w<CR>
+nnoremap <A-6> :6 wincmd w<CR>
+nnoremap <A-7> :7 wincmd w<CR>
+nnoremap <A-8> :8 wincmd w<CR>
+nnoremap <A-9> :9 wincmd w<CR>
+
+vnoremap <A-1> <esc>:1 wincmd w<CR>
+vnoremap <A-2> <esc>:2 wincmd w<CR>
+vnoremap <A-3> <esc>:3 wincmd w<CR>
+vnoremap <A-4> <esc>:4 wincmd w<CR>
+vnoremap <A-5> <esc>:5 wincmd w<CR>
+vnoremap <A-6> <esc>:6 wincmd w<CR>
+vnoremap <A-7> <esc>:7 wincmd w<CR>
+vnoremap <A-8> <esc>:8 wincmd w<CR>
+vnoremap <A-9> <esc>:9 wincmd w<CR>
+
+inoremap <A-1> <esc>:1 wincmd w<CR>
+inoremap <A-2> <esc>:2 wincmd w<CR>
+inoremap <A-3> <esc>:3 wincmd w<CR>
+inoremap <A-4> <esc>:4 wincmd w<CR>
+inoremap <A-5> <esc>:5 wincmd w<CR>
+inoremap <A-6> <esc>:6 wincmd w<CR>
+inoremap <A-7> <esc>:7 wincmd w<CR>
+inoremap <A-8> <esc>:8 wincmd w<CR>
+inoremap <A-9> <esc>:9 wincmd w<CR>
 
 
 noremap Q :cclose<CR>
@@ -619,8 +651,21 @@ endfunction
 
 
 
+"""""""""""""""""""airline
 colorscheme github
 let g:airline_theme = "github"
+let g:airline_inactive_collapse=0
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#whitespace#symbol = '!'
+let g:airline#extensions#tabline#formatter = 'short_path'
+let g:airline_filetype_overrides = {
+			\ 'defx':  ['%{winnr()}', 'defx'],
+			\ }
+function! AirlineInit()
+	let g:airline_section_a = airline#section#create_left(['%{winnr()}','mode', 'crypt', 'paste', 'iminsert'])
+	let g:airline_section_c = airline#section#create_left(['file'])
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
 
 let g:clap_layout = { 'relative': 'editor' }
 
