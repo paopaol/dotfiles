@@ -1,5 +1,12 @@
 let $VIMHOME = expand('<sfile>:p:h')
 
+if has('nvim')
+else
+  if has('win32')
+    set pythonthreedll=python38.dll
+  endif
+endif
+
 source $VIMHOME/core/dir.vim
 source $VIMHOME/core/base_setting.vim
 
@@ -55,7 +62,7 @@ Plug 'mklabs/vim-json'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 " Plug 'liuchengxu/vista.vim'
 Plug 'kshenoy/vim-signature'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'kana/vim-textobj-line'
 if has('nvim')
   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -80,7 +87,7 @@ function! RgProjectFzf()
 	:Leaderf rg --wd-mode=ac
 endfunction
 function! RgProjectAtPointFzf()
-	:Leaderf rg  --cword --wd-mode=ac 
+	:Leaderf rg  --cword --wd-mode=ac
 endfunction
 command! -nargs=* -bang RgProject call RgProjectFzf()
 command! -bang RgProjectAtPoint call RgProjectAtPointFzf()
@@ -372,9 +379,8 @@ vmap V <Plug>(expand_region_shrink)
 
 """""""""jinzhao""""""""""""""""""""""""""""""
 set relativenumber
+set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
 set nu
-autocmd BufNew * :GuiTabline 0
-autocmd BufNew * :GuiPopupmenu 0
 autocmd BufWritePost *.html,*.json,*.js :Format
 "always show tab
 set showtabline=2
@@ -402,7 +408,7 @@ function! SaveBuf() abort
 	if !&modifiable
 		return
 	endif
-	if bufname('%') != '' 
+	if bufname('%') != ''
 		execute  ':w'
 	endif
 endfunction
@@ -411,13 +417,13 @@ function LspFormat() abort
 	execute ':Format'
 	call SaveBuf()
 endfunction
- 
+
 augroup jzgroup
   autocmd!
   autocmd  BufEnter  *.cpp,*.cc,*.h,*.vim :TagbarOpen
   " autocmd  BufHidden  *.cpp *.cc *.h *.vim :TagbarClose
 augroup end
-  
+
 
 inoremap <esc>  <esc>:call SaveBuf()<CR>
 vnoremap <esc>  <esc>:call SaveBuf()<CR>
@@ -657,7 +663,7 @@ function SwitchBetweenHSCpp()
 	let cmd = "fd " . name . options . ' ' . asyncrun#get_root('%')
 	echom cmd
 	call fzf#run({'source': cmd, 'sink': 'e', 'options': '-1'})
-	" execute 'normal! ' . ':LeaderfFilePattern ' . name . '\<CR>' 
+	" execute 'normal! ' . ':LeaderfFilePattern ' . name . '\<CR>'
 endfunction
 
 
@@ -680,7 +686,7 @@ function! AirlineInit()
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
 
-let g:clap_layout = { 'relative': 'editor' }
+" let g:clap_layout = { 'relative': 'editor' }
 
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
