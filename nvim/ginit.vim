@@ -1,5 +1,5 @@
 if exists('g:GuiLoaded')
-	Guifont DejaVu Sans Mono:h15
+	set guifont=Cascadia\ Code:h9
 	GuiTabline 0
 	GuiPopupmenu 0
 endif
