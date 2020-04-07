@@ -98,6 +98,10 @@ command! -bang RgProjectAtPoint call RgProjectAtPointFzf()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:coc_global_extensions = ['coc-bookmark', 'coc-cmake', 'coc-css', 
+                 \ 'coc-emmet', 'coc-fs-lists', 'coc-html', 'coc-json',
+		 \ 'coc-snippets', 'coc-tabnine', 'coc-tasks', 'coc-translator',
+		 \'coc-tsserver', 'coc-vimlsp', 'coc-prettier']
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -381,7 +385,6 @@ vmap V <Plug>(expand_region_shrink)
 set relativenumber
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
 set nu
-autocmd BufWritePost *.html,*.json,*.js :Format
 "always show tab
 set showtabline=2
 let autosave=30
