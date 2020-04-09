@@ -1,10 +1,13 @@
-let $VIMHOME = expand('<sfile>:p:h')
+let $VIMHOME = fnamemodify(expand('<sfile>'), ':p')
+let $VIMHOME = resolve($VIMHOME)
+let $VIMHOME =  fnamemodify(expand($VIMHOME), ':p:h')
 
 if has('nvim')
 else
-  if has('win32')
-    set pythonthreedll=python38.dll
-  endif
+	if has('win32')
+		set pythonthreedll=python38.dll
+	else
+	endif
 endif
 
 source $VIMHOME/core/dir.vim
