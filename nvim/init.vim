@@ -7,6 +7,7 @@ else
 	if has('win32')
 		set pythonthreedll=python38.dll
 	else
+		set pyxversion=3
 	endif
 endif
 
@@ -67,14 +68,6 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'kshenoy/vim-signature'
 " Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'kana/vim-textobj-line'
-if has('nvim')
-  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/defx.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-" Plug 'takac/vim-hardtime'
 call plug#end()
 
 """""""""""""leaderf"
@@ -540,97 +533,11 @@ vnoremap <f3>  <esc>:TagbarToggle<CR>
 
 
 
-"""""""""""""""""""""defx
-"""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""
-" Select the window where to open the file.
-" Use the 'choosewin' plugin if it is loaded.
-" Else ask for a user input.
-function! DefxSmartL(_)
-  if defx#is_directory()
-    call defx#call_action('open_or_close_tree')
-    normal! j
-  else
-    let filepath = defx#get_candidate()['action__path']
-    if tabpagewinnr(tabpagenr(), '$') >= 3    " if there are more than 2 normal windows
-      if exists(':ChooseWin') == 2
-        ChooseWin
-      else
-        let input = input('ChooseWin No./Cancel(n): ')
-        if input ==# 'n' | return | endif
-        if input == winnr() | return | endif
-        exec input . 'wincmd w'
-      endif
-      exec 'e' filepath
-    else
-      exec 'wincmd w'
-      exec 'e' filepath
-    endif
-  endif
-endfunction
 
-call defx#custom#option('_', {
-      \ 'winwidth': 30,
-      \ 'split': 'vertical',
-      \ 'direction': 'botright',
-      \ 'show_ignored_files': 0,
-      \ 'buffer_name': '',
-      \ 'toggle': 1,
-      \ 'resume': 1
-      \ })
-autocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR> defx#do_action('call', 'DefxSmartL')
-  nnoremap <silent><buffer><expr> c
-  \ defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m
-  \ defx#do_action('move')
-  nnoremap <silent><buffer><expr> p
-  \ defx#do_action('paste')
-  nnoremap <silent><buffer><expr> E
-  \ defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> <tab>
-  \ defx#do_action('open_or_close_tree')
-  nnoremap <silent><buffer><expr> N
-  \ defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> M
-  \ defx#do_action('new_multiple_files')
-  " nnoremap <silent><buffer><expr> C
-  " \ defx#do_action('toggle_columns',
-  " \                'mark:indent:icon:filename:type:size:time')
-  nnoremap <silent><buffer><expr> S
-  \ defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr> d
-  \ defx#do_action('remove')
-  nnoremap <silent><buffer><expr> R
-  \ defx#do_action('rename')
-  nnoremap <silent><buffer><expr> !
-  \ defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> x
-  \ defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> yy
-  \ defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> .
-  \ defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> ;
-  \ defx#do_action('repeat')
-  nnoremap <silent><buffer><expr> K
-  \ defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> q
-  \ defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <C-l>
-  \ defx#do_action('redraw')
-  nnoremap <silent><buffer><expr> <C-g>
-  \ defx#do_action('print')
-endfunction
 
 function ProjectExplorer() abort
 	let root = asyncrun#get_root('%')
-	execute 'normal! ' . ":Defx -search=" . fnamemodify(expand('%'), ':p') . ' '. root . "\<CR>"
+	execute 'normal! ' . ":CocCommand explorer --sources=file+  " . root . "\<CR>"
 endfunction
 
 function OpenFileInExplorer() abort
@@ -683,9 +590,6 @@ let g:airline#extensions#whitespace#symbol = '!'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#fnamemod = ':p:.'
 let g:airline#extensions#tabline#fnametruncate = 1
-let g:airline_filetype_overrides = {
-			\ 'defx':  ['%{winnr()}', 'defx'],
-			\ }
 function! AirlineInit()
 	let g:airline_section_a = airline#section#create_left(['%{winnr()}','mode', 'crypt', 'paste', 'iminsert'])
 	let g:airline_section_c = airline#section#create_left(['%{ProjectRelativeFilePath()}'])
