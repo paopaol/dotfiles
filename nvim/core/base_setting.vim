@@ -37,6 +37,7 @@ set rnu
 
 set clipboard=unnamed
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
+set encoding=utf-8
 set t_Co=256
 
 if has("autocmd")
