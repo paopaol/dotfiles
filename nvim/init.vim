@@ -328,14 +328,14 @@ let g:vem_tabline_show_number = 'index'
 
 
 
-let s:wraped = 0
+let b:wraped = 0
 function ToggleLineWarp() abort
-	if s:wraped == 0
+	if b:wraped == 0
 		set nowrap
-		let s:wraped = 1
+		let b:wraped = 1
 	else
 		set wrap
-		let s:wraped = 0
+		let b:wraped = 0
 	endif
 endfunction
 
@@ -389,6 +389,11 @@ set nu
 set showtabline=2
 let autosave=30
 
+fun! ImSelectEn()
+	call system('im-select 1033')
+endf
+
+au InsertLeave * call ImSelectEn()
 
 function! ProjectRelativeFilePath() abort
 	let root = asyncrun#get_root('%')
