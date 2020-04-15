@@ -64,9 +64,7 @@ Plug 'markonm/traces.vim'
 Plug 'othree/html5.vim'
 Plug 'mklabs/vim-json'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-" Plug 'liuchengxu/vista.vim'
 Plug 'kshenoy/vim-signature'
-" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'kana/vim-textobj-line'
 call plug#end()
 
@@ -78,6 +76,8 @@ let g:Lf_RootMarkers = ['.projectile']
 let g:Lf_ShortcutF=''
 let g:Lf_ShortcutB=''
 let g:Lf_ShowRelativePath = 0
+let g:Lf_PreviewResult = {'Function':0, 'Colorscheme':1}
+let g:Lf_ShowDevIcons = 0
 
 function! RgProjectFzf()
 	:Leaderf rg --wd-mode=ac
@@ -191,11 +191,16 @@ function! CharacterRequiresUrlEncoding(character)
 endfunction
 
 function LspHover() abort
-	let f = 'file:///' . UrlEncode(fnamemodify(expand('%'), ':p'))
+	if has('win32')
+		let f = 'file:///' . UrlEncode(fnamemodify(expand('%'), ':p'))
+	else
+		let f = 'file://' . UrlEncode(fnamemodify(expand('%'), ':p'))
+	endif
 	let r = line('.')
 	let c = col('.')
 	let resp = CocRequest('ccls', 'textDocument/hover',   {'textDocument': {'uri':f}, 'position': {'line': r - 1, 'character': c - 1}})
 	let @* = resp['contents'][0]['value']
+	echom @*
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
@@ -271,6 +276,29 @@ vnoremap zr zR
 
 
 
+
+"""""coc-explorer
+" execute 'normal! ' . ":CocCommand explorer  --position=right --sources=file+  " . root . "\<CR>"
+let g:coc_explorer_global_presets = {
+\   'floating': {
+\      'position': 'right',
+\   },
+\   'floatingLeftside': {
+\      'position': 'left',
+\      'floating-position': 'left-center',
+\      'floating-width': 50,
+\   },
+\   'floatingRightside': {
+\      'position': 'right',
+\      'floating-position': 'left-center',
+\      'floating-width': 50,
+\   },
+\   'simplify': {
+\     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   }
+\ }
+
+
 """"""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""" coc snippets
 """"""""""""""""""""""""""""""""
@@ -280,6 +308,7 @@ inoremap <silent><expr> <TAB>
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+	
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -363,13 +392,13 @@ let g:fzf_action = {
 command! -bang BLinesAtPoint  call fzf#vim#buffer_lines(expand('<cword>'), <bang>0)
 
 function ProjectFiles() abort
-	" call fzf#vim#files(asyncrun#get_root('%'))
-	execute ":LeaderfFile " . asyncrun#get_root('%') . "\<CR>"
+	let root = asyncrun#get_root('%')
+	execute ':Leaderf file ' . root . "\<CR>"
 endfunction
 
-function FilesCurrentDir() abort
-	" call fzf#vim#files(fnamemodify(expand('%'), ':h'))
-	execute ":LeaderfFile\<CR>"
+function ProjectFilesCurrentdir() abort
+	let root = fnamemodify(expand('%'), ':p:h')
+	execute ':Leaderf file ' . root . "\<CR>"
 endfunction
 
 
@@ -419,7 +448,7 @@ endfunction
 
 augroup jzgroup
   autocmd!
-  autocmd  BufEnter  *.cpp,*.cc,*.h,*.vim :TagbarOpen
+  " autocmd  BufEnter  *.cpp,*.cc,*.h,*.vim :TagbarOpen
   " autocmd  BufHidden  *.cpp *.cc *.h *.vim :TagbarClose
 augroup end
 
@@ -533,11 +562,15 @@ vnoremap <f3>  <esc>:TagbarToggle<CR>
 
 
 
+function ProjectExplorerCurrent() abort
+	let root = fnamemodify(expand('%'), ':p:h')
+	execute 'normal! ' . ":CocCommand explorer  --sources=file+ --floating-position center  --position floating  " . root . "\<CR>"
+endfunction
 
 
 function ProjectExplorer() abort
 	let root = asyncrun#get_root('%')
-	execute 'normal! ' . ":CocCommand explorer --sources=file+  " . root . "\<CR>"
+	execute 'normal! ' . ":CocCommand explorer  --position=right --sources=file+  " . root . "\<CR>"
 endfunction
 
 function OpenFileInExplorer() abort
@@ -582,7 +615,7 @@ endfunction
 
 
 """""""""""""""""""airline
-colorscheme github
+colorscheme space_vim_theme
 let g:airline_theme = "github"
 let g:airline_inactive_collapse=0
 let g:airline#extensions#whitespace#enabled = 0
@@ -674,10 +707,12 @@ let g:which_key_map['w'] = {
 let g:which_key_map['f'] = {
 			\ 'name' : '+files' ,
 			\ 'p' : ['ProjectFiles()', 'find file in project'],
+			\ 'd' : ['ProjectFilesCurrentdir()', 'find file in current'],
 			\ 's' : ['w', 'save file'],
 			\ 'o' : ['OpenFileInExplorer()', 'find file current dir'],
 			\ 'r' : [':Leaderf mru', 'recent files'],
 			\ 't' : ['ProjectExplorer()', 'project tree'],
+			\ 'f' : ['ProjectExplorerCurrent()', 'dir tree'],
 			\ }
 
 let g:which_key_map['b'] = {

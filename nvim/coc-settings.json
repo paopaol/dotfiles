@@ -1,135 +1,106 @@
 {
-	"languageserver": {
-		"ccls": {
-			"trace.server": "verbose",
-			"command": "ccls",
-			"filetypes": [
-				"c",
-				"cpp",
-				"objc",
-				"objcpp"
-			],
-			"rootPatterns": [
-				".ccls",
-				"compile_commands.json",
-				".git/",
-				".hg/",
-				".projectile"
-			],
-			"initializationOptions": {
-				"cache": {
-					"directory": "d:/tmp/ccls"
-				},
-				"compilationDatabaseDirectory": "build"
-			}
-		},
-		"golang": {
-			"command": "gopls",
-			"rootPatterns": [
-				"go.mod",
-				".vim/",
-				".git/",
-				".hg/",
-				".projectile"
-			],
-			"filetypes": [
-				"go"
-			],
-			"initializationOptions": {
-				"usePlaceholders": true
-			}
-		},
-		"flow": {
-			"command": "flow",
-			"args": [
-				"lsp"
-			],
-			"filetypes": [
-				"javascript",
-				"javascriptreact"
-			],
-			"initializationOptions": {},
-			"requireRootPattern": true,
-			"settings": {},
-			"rootPatterns": [
-				".projectile"
-			]
-		}
-	},
-	"coc.preferences.extensionUpdateCheck": "never",
-	"suggest.noselect": false,
-	"tsserver.log": "verbose",
-	"coc.preferences.formatOnSaveFiletypes": [
-		"markdown",
-		"json",
-		"css",
-		"html",
-		"javascript",
-		"typescript"
-	],
-	"explorer.keyMappings": {
-		"i": "unmap", 
+  "languageserver": {
+    "ccls": {
+      "trace.server": "verbose",
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [
+        ".ccls",
+        "compile_commands.json",
+        ".git/",
+        ".hg/",
+        ".projectile"
+      ],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
+        },
+        "compilationDatabaseDirectory": "build"
+      }
+    },
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/", ".projectile"],
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "usePlaceholders": true
+      }
+    }
+  },
+  "coc.preferences.extensionUpdateCheck": "never",
+  "suggest.noselect": false,
+  "tsserver.log": "verbose",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "markdown",
+    "json",
+    "css",
+    "html",
+    "javascript",
+    "typescript"
+  ],
+  "explorer.keyMappings": {
+    "i": "unmap",
 
-		"k": "nodePrev",
-		"j": "nodeNext",
-		"gk": "expandablePrev",
-		"gj": "expandableNext",
+    "k": "nodePrev",
+    "j": "nodeNext",
+    "gk": "expandablePrev",
+    "gj": "expandableNext",
 
-		"*": "toggleSelection",
-		"<tab>": "expandOrCollapse",
+    "*": "toggleSelection",
+    "<tab>": "expandOrCollapse",
 
-		"h": "collapse",
-		"l": ["expandable?", "expand", "open"],
-		"J": ["toggleSelection", "nodeNext"],
-		"K": ["toggleSelection", "nodePrev"],
-		"gl": "expandRecursive",
-		"gh": "collapseRecursive",
-		"o": "expandOrCollapse",
-		"<cr>": ["expandable?", "expandOrCollapse", "open"],
-		"e": "open",
-		"s": "open:split",
-		"S": "open:split:plain",
-		"E": "open:vsplit",
-		"t": "open:tab",
-		"<bs>": "gotoParent",
-		"gp": "preview:labeling",
+    "h": "collapse",
+    "l": ["expandable?", "expand", "open"],
+    "J": ["toggleSelection", "nodeNext"],
+    "K": ["toggleSelection", "nodePrev"],
+    "gl": "expandRecursive",
+    "gh": "collapseRecursive",
+    "o": "expandOrCollapse",
+    "<cr>": ["expandable?", "expandOrCollapse", "open"],
+    "e": "open",
+    "s": "open:split",
+    "S": "open:split:plain",
+    "E": "open:vsplit",
+    "t": "open:tab",
+    "<bs>": "gotoParent",
+    "gp": "preview:labeling",
 
-		"y": "copyFilepath",
-		"Y": "copyFilename",
-		"c": "copyFile",
-		"x": "cutFile",
-		"p": "pasteFile",
-		"d": "delete",
-		"D": "deleteForever",
+    "y": "copyFilepath",
+    "Y": "copyFilename",
+    "c": "copyFile",
+    "x": "cutFile",
+    "p": "pasteFile",
+    "d": "delete",
+    "D": "deleteForever",
 
-		"a": "addFile",
-		"A": "addDirectory",
-		"r": "rename",
+    "a": "addFile",
+    "A": "addDirectory",
+    "r": "rename",
 
-		".": "toggleHidden",
-		"R": "refresh",
+    ".": "toggleHidden",
+    "R": "refresh",
 
-		"?": "help",
-		"q": "quit",
-		"<esc>": "esc",
-		"X": "systemExecute",
-		"gd": "listDrive",
+    "?": "help",
+    "q": "quit",
+    "<esc>": "esc",
+    "X": "systemExecute",
+    "gd": "listDrive",
 
-		"f": "search",
-		"F": "searchRecursive",
+    "f": "search",
+    "F": "searchRecursive",
 
-		"gf": "gotoSource:file",
-		"gb": "gotoSource:buffer",
+    "gf": "gotoSource:file",
+    "gb": "gotoSource:buffer",
 
-		"[[": "sourcePrev",
-			"]]": "sourceNext",
+    "[[": "sourcePrev",
+    "]]": "sourceNext",
 
-			"[d": "diagnosticPrev",
-				"]d": "diagnosticNext",
+    "[d": "diagnosticPrev",
+    "]d": "diagnosticNext",
 
-				"[c": "gitPrev",
-					"]c": "gitNext",
-					"<<": "gitStage",
-					">>": "gitUnstage"
-	}
+    "[c": "gitPrev",
+    "]c": "gitNext",
+    "<<": "gitStage",
+    ">>": "gitUnstage"
+  }
 }
