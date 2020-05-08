@@ -16,6 +16,7 @@ source $VIMHOME/core/base_setting.vim
 
 
 call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'terryma/vim-expand-region'
@@ -66,7 +67,13 @@ Plug 'mklabs/vim-json'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'kshenoy/vim-signature'
 Plug 'kana/vim-textobj-line'
+Plug 'cespare/vim-toml'
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 call plug#end()
+
+
+"""""""""""""""""""clap
+g:clap_project_root_markers = ['.projectile']
 
 """""""""""""leaderf"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -80,10 +87,10 @@ let g:Lf_PreviewResult = {'Function':0, 'Colorscheme':1}
 let g:Lf_ShowDevIcons = 0
 
 function! RgProjectFzf()
-	:Leaderf rg --wd-mode=ac
+	:Leaderf rg --wd-mode=ac 
 endfunction
 function! RgProjectAtPointFzf()
-	:Leaderf rg  --cword --wd-mode=ac
+	:Leaderf rg  --cword --wd-mode=ac 
 endfunction
 command! -nargs=* -bang RgProject call RgProjectFzf()
 command! -bang RgProjectAtPoint call RgProjectAtPointFzf()
@@ -402,9 +409,6 @@ function ProjectFilesCurrentdir() abort
 endfunction
 
 
-""""""vim-expand-region"""""""""""""""""""""""""""""""""
-vmap v <Plug>(expand_region_expand)
-vmap V <Plug>(expand_region_shrink)
 
 """""""""jinzhao""""""""""""""""""""""""""""""
 set relativenumber
@@ -451,6 +455,8 @@ function LspFormat() abort
 	call SaveBuf()
 endfunction
 
+
+
 augroup jzgroup
   autocmd!
   " autocmd  BufEnter  *.cpp,*.cc,*.h,*.vim :TagbarOpen
@@ -458,6 +464,9 @@ augroup jzgroup
 augroup end
 
 
+" select block
+vmap v a{o0
+:tnoremap <Esc> <C-\><C-n>
 inoremap <esc>  <esc>:call SaveBuf()<CR>
 vnoremap <esc>  <esc>:call SaveBuf()<CR>
 nnoremap <esc>  <esc>:call SaveBuf()<CR>
@@ -733,13 +742,13 @@ let g:which_key_map['b'] = {
 
 let g:which_key_map['s'] = {
 			\ 'name' : '+search & symbol' ,
-			\ 's' : [':LeaderfLine', 'symbol current buffer'],
-			\ 'S' : ['LeaderfLineCword', 'symbol buffer at point'],
+			\ 's' : [':Clap blines', 'symbol current buffer'],
+			\ 'S' : [':Clap blines ++query=<cword>', 'symbol buffer at point'],
 			\ 'l' : [':Leaderf function', 'tags current buffer '],
 			\ 'h' : ['InterestingWords("n")', 'highlight cursor word'],
 			\ 'c' : ['UncolorAllWords()', 'unhighlight all words'],
-			\ 'p' : ['RgProject', 'rg project'],
-			\ 'P' : ['RgProjectAtPoint', 'rg project at point'],
+			\ 'p' : [':Clap grep ', 'rg project'],
+			\ 'P' : [':Clap grep ++query=<cword>', 'rg project at point'],
 			\ }
 
 let g:which_key_map['t'] = {
