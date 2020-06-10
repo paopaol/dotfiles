@@ -39,13 +39,9 @@
     "typescript"
   ],
   "explorer.keyMappings": {
-    "i": "unmap",
-
-    "k": "nodePrev",
-    "j": "nodeNext",
-    "gk": "expandablePrev",
-    "gj": "expandableNext",
-
+    "i": "false",
+    "j":"false",
+    "k":"false",
     "*": "toggleSelection",
     "<tab>": "expandOrCollapse",
 
