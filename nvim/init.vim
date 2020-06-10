@@ -5,7 +5,7 @@ let $VIMHOME =  fnamemodify(expand($VIMHOME), ':p:h')
 if has('nvim')
 else
 	if has('win32')
-		set pythonthreedll=python38.dll
+		" set pythonthreedll=python38.dll
 	else
 		set pyxversion=3
 	endif
@@ -16,6 +16,9 @@ source $VIMHOME/core/base_setting.vim
 
 
 call plug#begin('~/.vim/plugged')
+Plug 'paopaol/vim-terminal-help'
+Plug 'flazz/vim-colorschemes'
+Plug 'sbdchd/neoformat'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'plasticboy/vim-markdown'
@@ -95,6 +98,9 @@ endfunction
 command! -nargs=* -bang RgProject call RgProjectFzf()
 command! -bang RgProjectAtPoint call RgProjectAtPointFzf()
 
+""""""""""""""commentary
+autocmd FileType cpp setlocal commentstring=//\ %s
+
 
 """"""""coc"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -120,8 +126,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
 
 " Default mapping
 
@@ -238,40 +242,12 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
-" Use <TAB> for selections ranges.
-" NOTE: Requires 'textDocument/selectionRange' support from the language server.
-" coc-tsserver, coc-python are the examples of servers that support it.
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
-
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-
-" Mappings using CoCList:
-" Show all diagnostics.
-" Manage extensions.
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-"nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " autocmd Filetype * AnyFoldActivate
 " let g:anyfold_fold_comments=1
@@ -286,6 +262,7 @@ vnoremap zr zR
 
 """""coc-explorer
 " execute 'normal! ' . ":CocCommand explorer  --position=right --sources=file+  " . root . "\<CR>"
+
 let g:coc_explorer_global_presets = {
 \   'floating': {
 \      'position': 'right',
@@ -301,7 +278,8 @@ let g:coc_explorer_global_presets = {
 \      'floating-width': 50,
 \   },
 \   'simplify': {
-\     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\     'file.child.template': '[filename growRight 1]',
+\     'file.child.labeling.template':'', 
 \   }
 \ }
 
@@ -409,6 +387,9 @@ function ProjectFilesCurrentdir() abort
 endfunction
 
 
+let g:terminal_key='<f11>'
+let g:terminal_shell='powershell.exe'
+
 
 """""""""jinzhao""""""""""""""""""""""""""""""
 set relativenumber
@@ -417,6 +398,24 @@ set nu
 "always show tab
 set showtabline=2
 let autosave=30
+set autoread
+set nohlsearch
+
+
+function! FontZoomInc() 
+	let current_font =  g:GuiFont
+	let font_and_size = split(current_font, ":h")
+	let font_and_size[1] += 1
+	let current_font = join(font_and_size, ":h")
+	echom GuiFont(current_font)
+endfunction
+function! FontZoomDec() 
+	let current_font =  g:GuiFont
+	let font_and_size = split(current_font, ":h")
+	let font_and_size[1] -= 1
+	let current_font = join(font_and_size, ":h")
+	echom GuiFont(current_font)
+endfunction
 
 fun! ImSelectEn()
 	call system('im-select 1033')
@@ -451,14 +450,17 @@ function! SaveBuf() abort
 endfunction
 
 function LspFormat() abort
-	execute ':Format'
+	if &ft == 'cpp'
+		execute ':Neoformat'
+	else
+		execute ':Format'
+	endif
 	call SaveBuf()
 endfunction
 
 
 
 augroup jzgroup
-  autocmd!
   " autocmd  BufEnter  *.cpp,*.cc,*.h,*.vim :TagbarOpen
   " autocmd  BufHidden  *.cpp *.cc *.h *.vim :TagbarClose
 augroup end
@@ -467,15 +469,19 @@ augroup end
 " select block
 vmap v a{o0
 :tnoremap <Esc> <C-\><C-n>
-inoremap <esc>  <esc>:call SaveBuf()<CR>
-vnoremap <esc>  <esc>:call SaveBuf()<CR>
-nnoremap <esc>  <esc>:call SaveBuf()<CR>
+au FocusGained * :checktime
+" inoremap <esc>  <esc>:call SaveBuf()<CR>
+" vnoremap <esc>  <esc>:call SaveBuf()<CR>
+" nnoremap <esc>  <esc>:call SaveBuf()<CR>
 cnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
 xnoremap > >gv
 noremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 inoremap <f2><f2>   <esc>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
+
+noremap <silent> <f9> :<C-u>call FontZoomInc()<CR>
+noremap <silent> <S-f9> :<C-u>call FontZoomDec()<CR>
 
 nnoremap <A-1> :1 wincmd w<CR>
 nnoremap <A-2> :2 wincmd w<CR>
@@ -506,6 +512,10 @@ inoremap <A-6> <esc>:6 wincmd w<CR>
 inoremap <A-7> <esc>:7 wincmd w<CR>
 inoremap <A-8> <esc>:8 wincmd w<CR>
 inoremap <A-9> <esc>:9 wincmd w<CR>
+noremap <A-Left> <esc>:wincmd h<CR>
+noremap <A-Right> <esc>:wincmd l<CR>
+noremap <A-Up> <esc>:wincmd k<CR>
+noremap <A-Down> <esc>:wincmd j<CR>
 
 
 noremap Q :cclose<CR>
@@ -584,7 +594,7 @@ endfunction
 
 function ProjectExplorer() abort
 	let root = asyncrun#get_root('%')
-	execute 'normal! ' . ":CocCommand explorer  --position=right --sources=file+  " . root . "\<CR>"
+	execute 'normal! ' . ":CocCommand explorer   --position=right --sources=file+  " . root . "\<CR>"
 endfunction
 
 function OpenFileInExplorer() abort
@@ -627,9 +637,10 @@ function SwitchBetweenHSCpp()
 endfunction
 
 
+noremap <silent> <f12> :<C-u>call ProjectExplorer()<CR>
 
 """""""""""""""""""airline
-colorscheme space_vim_theme
+colorscheme atom
 let g:airline_theme = "github"
 let g:airline_inactive_collapse=0
 let g:airline#extensions#whitespace#enabled = 0
@@ -748,14 +759,15 @@ let g:which_key_map['s'] = {
 			\ 'h' : ['InterestingWords("n")', 'highlight cursor word'],
 			\ 'c' : ['UncolorAllWords()', 'unhighlight all words'],
 			\ 'p' : [':Clap grep ', 'rg project'],
+			\ 't' : [':CocList tasks ', 'async tasks'],
 			\ 'P' : [':Clap grep ++query=<cword>', 'rg project at point'],
 			\ }
 
 let g:which_key_map['t'] = {
 			\ 'name' : '+tools/toggle' ,
 			\ 'h' : [':Leaderf help', 'vim help'],
-			\ 'r' : ['so ~/.vimrc', 'refresh vimrc'],
-			\ 't' : ['Colors', 'theme'],
+			\ 'r' : [':so ~/.vimrc', 'refresh vimrc'],
+			\ 'c' : ['LeaderfColorscheme', 'theme'],
 			\ 'l' : ['ToggleLineWarp()', 'line wrap'],
 			\ }
 
