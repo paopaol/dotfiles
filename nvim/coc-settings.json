@@ -39,9 +39,6 @@
     "typescript"
   ],
   "explorer.keyMappings": {
-    "i": "false",
-    "j":"false",
-    "k":"false",
     "*": "toggleSelection",
     "<tab>": "expandOrCollapse",
 

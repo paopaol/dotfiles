@@ -16,10 +16,10 @@ source $VIMHOME/core/base_setting.vim
 
 
 call plug#begin('~/.vim/plugged')
+Plug 'mhinz/vim-grepper'
 Plug 'paopaol/vim-terminal-help'
 Plug 'flazz/vim-colorschemes'
 Plug 'sbdchd/neoformat'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'terryma/vim-expand-region'
@@ -46,7 +46,6 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 't9md/vim-choosewin'
 Plug 'rakr/vim-one'
-Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'mhinz/vim-startify'
 Plug 'rbgrouleff/bclose.vim'
@@ -71,16 +70,16 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'kshenoy/vim-signature'
 Plug 'kana/vim-textobj-line'
 Plug 'cespare/vim-toml'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 call plug#end()
 
 
 """""""""""""""""""clap
-g:clap_project_root_markers = ['.projectile']
+" g:clap_project_root_markers = ['.projectile']
 
 """""""""""""leaderf"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:Lf_RootMarkers = ['.projectile']
 let g:Lf_ShortcutF=''
@@ -124,6 +123,36 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-k>" : "\<C-h>"
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+
+"""""""""""""greper
+let g:grepper = {}            " initialize g:grepper with empty dictionary
+runtime plugin/grepper.vim    " initialize g:grepper with default values
+ let g:grepper.tools = ['rg']
+" let g:grepper.rg = {}
+" let g:grepper.rg.grepprg = ''
+let g:grepper.rg = { 'grepprg':'rg -H --no-heading --vimgrep' }
+let g:grepper.rg.grepprg .= ' --smart-case'
+let g:grepper.repo = ['.projectile']
+function GrepperProjectSymbolAtPoint() abort
+	execute ':Grepper -dir repo -cword -noprompt '
+endfunction
+
+function GrepperCurrentDirectorySymbolAtPoint() abort
+	execute ':Grepper -dir cwd -cword -noprompt '
+endfunction
+
+function GrepperProjectSymbol()abort
+	execute ':Grepper -dir repo'
+endfunction
+
+function GrepperCurrentBufferAtPoint() abort
+	execute ':Grepper -buffer -cword -noprompt'
+endfunction
+
+function GrepperCurrentBuffer() abort
+	execute ':Grepper -buffer'
 endfunction
 
 
@@ -388,7 +417,10 @@ endfunction
 
 
 let g:terminal_key='<f11>'
-let g:terminal_shell='powershell.exe'
+
+if has('win32')
+	let g:terminal_shell='powershell.exe'
+endif
 
 
 """""""""jinzhao""""""""""""""""""""""""""""""
@@ -640,7 +672,7 @@ endfunction
 noremap <silent> <f12> :<C-u>call ProjectExplorer()<CR>
 
 """""""""""""""""""airline
-colorscheme atom
+colorscheme Monokai
 let g:airline_theme = "github"
 let g:airline_inactive_collapse=0
 let g:airline#extensions#whitespace#enabled = 0
@@ -677,10 +709,10 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
 
-nmap  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-nmap  n <Plug>(easymotion-nexte
-nmap  N <Plug>(easymotion-prev)
+" nmap  / <Plug>(easymotion-sn)
+" omap / <Plug>(easymotion-tn)
+" nmap  n <Plug>(easymotion-nexte
+" nmap  N <Plug>(easymotion-prev)
 
 inoremap <expr> <C-j> pumvisible() ? "\<C-j>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-k>" : "\<C-k>"
@@ -753,14 +785,14 @@ let g:which_key_map['b'] = {
 
 let g:which_key_map['s'] = {
 			\ 'name' : '+search & symbol' ,
-			\ 's' : [':Clap blines', 'symbol current buffer'],
-			\ 'S' : [':Clap blines ++query=<cword>', 'symbol buffer at point'],
+			\ 's' : ['GrepperCurrentBuffer()', 'symbol current buffer'],
+			\ 'S' : ['GrepperCurrentBufferAtPoint()', 'symbol buffer at point'],
 			\ 'l' : [':Leaderf function', 'tags current buffer '],
 			\ 'h' : ['InterestingWords("n")', 'highlight cursor word'],
 			\ 'c' : ['UncolorAllWords()', 'unhighlight all words'],
-			\ 'p' : [':Clap grep ', 'rg project'],
+			\ 'p' : ['GrepperProjectSymbol()', 'rg project'],
 			\ 't' : [':CocList tasks ', 'async tasks'],
-			\ 'P' : [':Clap grep ++query=<cword>', 'rg project at point'],
+			\ 'P' : ['GrepperProjectSymbolAtPoint()', 'rg project at point'],
 			\ }
 
 let g:which_key_map['t'] = {
