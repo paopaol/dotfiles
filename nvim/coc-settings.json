@@ -40,16 +40,14 @@
   ],
   "explorer.keyMappings": {
     "*": "toggleSelection",
-    "<tab>": "expandOrCollapse",
-
+    "<tab>": ["expanded?", "collapse", "expand"],
     "h": "collapse",
     "l": ["expandable?", "expand", "open"],
     "J": ["toggleSelection", "nodeNext"],
     "K": ["toggleSelection", "nodePrev"],
     "gl": "expandRecursive",
     "gh": "collapseRecursive",
-    "o": "expandOrCollapse",
-    "<cr>": ["expandable?", "expandOrCollapse", "open"],
+    "<cr>": ["expandable?", ["expanded?", "collapse", "expand"], "open"],
     "e": "open",
     "s": "open:split",
     "S": "open:split:plain",
