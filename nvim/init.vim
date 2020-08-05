@@ -108,7 +108,7 @@ autocmd FileType cpp setlocal commentstring=//\ %s
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:coc_global_extensions = ['coc-bookmark', 'coc-cmake', 'coc-css', 
                  \ 'coc-emmet', 'coc-fs-lists', 'coc-html', 'coc-json',
-		 \ 'coc-snippets', 'coc-tabnine', 'coc-tasks', 'coc-translator',
+		 \ 'coc-snippets','coc-tasks', 'coc-translator',
 		 \'coc-tsserver', 'coc-vimlsp', 'coc-prettier']
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
