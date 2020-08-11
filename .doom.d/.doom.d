@@ -1,1 +1,0 @@
-/home/jz/.doom.d
