@@ -12,7 +12,6 @@
 (package! find-file-in-project)
 (package! wgrep)
 (package! helm-xref)
-(package! evil-traces)
 (package! evil-commentary)
 ;;(package! google-translate)
 (package! symbol-overlay)
@@ -20,4 +19,5 @@
 ;; (package! vterm)
 ;; (package! vterm-toggle)
 (package! helm-ag)
+(package! go-mode)
 (package! evil-textobj-line)

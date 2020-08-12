@@ -3,37 +3,7 @@
 ;; Place your private configuration here
 ;;
 (require 'compile)
-(require 'gdb-mi)
 (require 'go-mode)
-(gdb-many-windows t)
-(setq gdb-show-main t)
-(defadvice gdb-setup-windows (after my-setup-gdb-windows activate)
-  "my gdb UI"
-  (gdb-get-buffer-create 'gdb-stack-buffer)
-  (set-window-dedicated-p (selected-window) nil)
-  (switch-to-buffer gud-comint-buffer)
-  (delete-other-windows)
-  (let ((win0 (selected-window))
-        (win1 (split-window nil nil 'left))  ;; code and output
-        (win2 (split-window-below (/ (* (window-height) 3) 4)))  ;; stack
-        )
-    (select-window win2)
-    (gdb-set-window-buffer (gdb-stack-buffer-name))
-    (select-window win1)
-    (set-window-buffer
-     win1
-     (if gud-last-last-frame
-         (gud-find-file (car gud-last-last-frame))
-       (if gdb-main-file
-           (gud-find-file gdb-main-file)
-         ;; Put buffer list in window if we
-         ;; can't find a source file.
-         (list-buffers-noselect))))
-    (setq gdb-source-window (selected-window))
-    (let ((win3 (split-window nil (/ (* (window-height) 3) 4))))  ;; io
-      (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-inferior-io) nil win3))
-    (select-window win0)
-    ))
 
 (defun jz-exchange-args ()
   (interactive)
@@ -49,7 +19,7 @@
         (evil-insert-state))
     (insert "i")))
 
-(def-package! find-file-in-project
+(use-package! find-file-in-project
   :config
   (setq ffip-use-rust-fd t
         ffip-project-file '(".svn" ".hg" ".git" ".projectile"))
@@ -65,15 +35,15 @@
       "/ s" #'swiper-thing-at-point)
 (map! :leader
       "i e" #'jz-eval-region-and-replace)
-(def-package! helm
+(use-package! helm
   :config
   (setq helm-buffer-max-length 56))
 
-(def-package! eshell
+(use-package! eshell
   :config
   (prefer-coding-system 'utf-8))
 
-(def-package! clang-format
+(use-package! clang-format
   :config
   (map! :map c++-mode-map
         :localleader
@@ -141,11 +111,7 @@
      :gnvi "<tab>" #'jz-find-next-args
      :gnvi "C-i" #'jz-find-next-args
      :gnvi "<backtab>" #'jz-find-previous-args
-     :gnvi "<f5>" #'gdb
-     :gnvi "<f7>" #'gud-run
-     :gnvi "<f10>" #'gud-next
-     :gnvi "<f9>" #'gud-break
-     :gnvi "<f11>" #'gud-step)
+     )
 
 (map! :map c-mode-map
      :nv "ga" #'jz-exchange-args
@@ -205,7 +171,7 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
 (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
 
-(def-package! completion
+(use-package! completion
   :config
   (map! :map company-mode-map
         :g "C-g" #'jz-keybord-quit-and-switch-2-evil-normal-mode
@@ -214,25 +180,25 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
         :g "<tab>" #'jz-find-next-args)
   (setq company-transformers nil))
 
-(def-package! lsp
+(use-package! lsp
   :config
   (setq lsp-auto-guess-root nil)
   (setq company-transformers nil))
 
 
-(def-package! lsp-ui
-  :config
-  (setq lsp--highlight-kind-face nil))
+;;(use-package! lsp-ui
+;;  :config
+;;  (setq lsp--highlight-kind-face nil))
 
 
 
-(def-package! wgrep
+(use-package! wgrep
   :config
   (map! (:map helm-buffer-map
           "C-e" #'wgrep-change-to-wgrep-mode))
   )
 
-(def-package! helm-xref
+(use-package! helm-xref
  :config
  (if (< emacs-major-version 27)
      (setq xref-show-xrefs-function 'helm-xref-show-xrefs)
@@ -243,7 +209,7 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
   (setq company-transformers nil))
 (add-hook 'c++-mode-hook 'jz-cpp-hook)
 
-(def-package! dired
+(use-package! dired
   :config
   (put 'dired-find-alternate-file 'disabled nil)
   (map! :map dired-mode-map

@@ -381,8 +381,8 @@ endfunction
 
 
 ""quick fix"
-nmap <F8> :cn<CR>zz
-nmap <S-F8> :cp<CR>zz
+nnoremap <F8> :cn<CR>zz
+nnoremap <S-F8> :cp<CR>zz
 
 
 """""""""""""""""""fzf
@@ -505,9 +505,8 @@ au FocusGained * :checktime
 " inoremap <esc>  <esc>:call SaveBuf()<CR>
 " vnoremap <esc>  <esc>:call SaveBuf()<CR>
 " nnoremap <esc>  <esc>:call SaveBuf()<CR>
-cnoremap <C-j> <Down>
-cnoremap <C-k> <Up>
 xnoremap > >gv
+xnoremap < <gv
 noremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 inoremap <f2><f2>   <esc>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
@@ -569,6 +568,16 @@ map <C-f> <Right>
 imap <C-f> <Right>
 map <C-b> <Left>
 imap <C-b> <Left>
+
+" 命令行模式增强，ctrl - a到行首， -e 到行尾
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+
+
 
 
 
@@ -800,7 +809,7 @@ let g:which_key_map['t'] = {
 			\ 'h' : [':Leaderf help', 'vim help'],
 			\ 'r' : [':so ~/.vimrc', 'refresh vimrc'],
 			\ 'c' : ['LeaderfColorscheme', 'theme'],
-			\ 'l' : ['ToggleLineWarp()', 'line wrap'],
+			\ 'l' : [':set wrap! wrap?', 'line wrap'],
 			\ }
 
 let g:which_key_map['l'] = {
