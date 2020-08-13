@@ -433,6 +433,12 @@ let autosave=30
 set autoread
 set nohlsearch
 
+function! CmakeFormatCurrentFile() abort
+	silent :w
+	silent :!cmake-format  -i %
+	silent :e!
+endfunction
+
 
 function! FontZoomInc() 
 	let current_font =  g:GuiFont
@@ -484,6 +490,8 @@ endfunction
 function LspFormat() abort
 	if &ft == 'cpp'
 		execute ':Neoformat'
+	elseif &ft == 'cmake'
+		call CmakeFormatCurrentFile()
 	else
 		execute ':Format'
 	endif
@@ -548,6 +556,7 @@ noremap <A-Right> <esc>:wincmd l<CR>
 noremap <A-Up> <esc>:wincmd k<CR>
 noremap <A-Down> <esc>:wincmd j<CR>
 
+set nowrap
 
 noremap Q :cclose<CR>
 vnoremap Q :cclose<CR>
