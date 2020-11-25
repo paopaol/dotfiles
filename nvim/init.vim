@@ -382,7 +382,13 @@ endfunction
 
 ""quick fix"
 nnoremap <F8> :cn<CR>zz
-nnoremap <S-F8> :cp<CR>zz
+nnoremap <F7> :cp<CR>zz
+
+""window resie
+nnoremap <A--> :resize -1<CR>
+nnoremap <A-=> :resize +1<CR>
+nnoremap <A-<> <C-W><
+nnoremap <A->> >C-W>>
 
 
 """""""""""""""""""fzf
@@ -763,16 +769,12 @@ let g:which_key_map['9'] = [':VemTablineGo 9', 'tab 9']
 let g:which_key_map['w'] = {
       \ 'name' : '+windows' ,
       \ 'w' : ['<C-W>w'     , 'other-window']          ,
-      \ '2' : ['<C-W>v'     , 'layout-double-columns'] ,
-      \ 'h' : ['<C-W>h'     , 'window-left']           ,
-      \ 'j' : ['<C-W>j'     , 'window-below']          ,
-      \ 'l' : ['<C-W>l'     , 'window-right']          ,
-      \ 'k' : ['<C-W>k'     , 'window-up']             ,
+      \ '1' : ['only'     , 'close other window'] ,
       \ 'H' : ['<C-W>5<'    , 'expand-window-left']    ,
       \ 'd' : ['<C-W>c'     , 'delete-window']         ,
-      \ 'J' : ['resize +5'  , 'expand-window-below']   ,
+      \ 'J' : ['eresize +5'  , 'expand-window-below']   ,
       \ 'L' : ['<C-W>5>'    , 'expand-window-right']   ,
-      \ 'K' : ['resize -5'  , 'expand-window-up']      ,
+      \ 'K' : [':resize -5'  , 'expand-window-up']      ,
       \ '=' : ['<C-W>='     , 'balance-window']        ,
       \ 's' : ['<C-W>s'     , 'split-window-below']    ,
       \ 'v' : ['<C-W>v'     , 'split-window-below']    ,

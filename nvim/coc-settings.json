@@ -38,7 +38,7 @@
     "javascript",
     "typescript"
   ],
-  "explorer.keyMappings": {
+  "explorer.keyMappings.global": {
     "*": "toggleSelection",
     "<tab>": ["expanded?", "collapse", "expand"],
     "h": "collapse",
