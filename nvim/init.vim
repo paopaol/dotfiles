@@ -16,6 +16,7 @@ source $VIMHOME/core/base_setting.vim
 
 
 call plug#begin('~/.vim/plugged')
+Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'mhinz/vim-grepper'
 Plug 'paopaol/vim-terminal-help'
 Plug 'flazz/vim-colorschemes'
@@ -38,7 +39,6 @@ Plug 'junegunn/limelight.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
 Plug 'skreek/skeletor.vim'
-Plug 'majutsushi/tagbar'
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'vim-airline/vim-airline-themes'
@@ -46,8 +46,8 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 't9md/vim-choosewin'
 Plug 'rakr/vim-one'
-Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'mhinz/vim-startify'
+Plug 'francoiscabrol/ranger.vim' 
 Plug 'rbgrouleff/bclose.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -70,12 +70,8 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'kshenoy/vim-signature'
 Plug 'kana/vim-textobj-line'
 Plug 'cespare/vim-toml'
-" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 call plug#end()
 
-
-"""""""""""""""""""clap
-" g:clap_project_root_markers = ['.projectile']
 
 """""""""""""leaderf"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -101,6 +97,10 @@ command! -bang RgProjectAtPoint call RgProjectAtPointFzf()
 autocmd FileType cpp setlocal commentstring=//\ %s
 
 
+""""""""""""""""ranger
+let g:ranger_map_keys = 0
+
+
 """"""""coc"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -110,14 +110,14 @@ let g:coc_global_extensions = ['coc-bookmark', 'coc-cmake', 'coc-css',
                  \ 'coc-emmet', 'coc-fs-lists', 'coc-html', 'coc-json',
 		 \ 'coc-snippets','coc-tasks', 'coc-translator',
 		 \'coc-tsserver', 'coc-vimlsp', 'coc-prettier']
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-j>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-k>" : "\<C-h>"
+" " Use tab for trigger completion with characters ahead and navigate.
+" " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" " other plugin before putting this into your config.
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-j>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-k>" : "\<C-h>"
 
 
 function! s:check_back_space() abort
@@ -318,10 +318,7 @@ let g:coc_explorer_global_presets = {
 """"""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" : <SID>check_back_space() ? "\<TAB>" :  coc#refresh()
 	
 
 function! s:check_back_space() abort
@@ -382,28 +379,8 @@ endfunction
 
 ""quick fix"
 nnoremap <F8> :cn<CR>zz
-nnoremap <S-F8> :cp<CR>zz
+nnoremap <F7> :cp<CR>zz
 
-
-"""""""""""""""""""fzf
-"""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""
-" An action can be a reference to a function that processes selected lines
-function! s:build_quickfix_list(lines)
-	call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-	copen
-	cc
-endfunction
-
-let g:fzf_action = {
-			\ 'ctrl-q': function('s:build_quickfix_list'),
-			\ 'ctrl-t': 'tab split',
-			\ 'ctrl-x': 'split',
-			\ 'ctrl-v': 'vsplit' }
-
-command! -bang BLinesAtPoint  call fzf#vim#buffer_lines(expand('<cword>'), <bang>0)
 
 function ProjectFiles() abort
 	let root = asyncrun#get_root('%')
@@ -499,11 +476,6 @@ function LspFormat() abort
 endfunction
 
 
-
-augroup jzgroup
-  " autocmd  BufEnter  *.cpp,*.cc,*.h,*.vim :TagbarOpen
-  " autocmd  BufHidden  *.cpp *.cc *.h *.vim :TagbarClose
-augroup end
 
 
 " select block
@@ -618,23 +590,6 @@ let g:choosewin_label='123456789'
 let g:choosewin_tablabel = "ABCDEFGH"
 
 
-""""""""""""""tagbar
-""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""
-" let g:tagbar_autofocus = 1
-let g:tagbar_map_showproto = ''
-let g:tagbar_sort = 0
-let g:tagbar_width = 30
-let g:tagbar_indent = 1
-let g:tagbar_left = 1
-noremap <f3>  <esc>:TagbarToggle<CR>
-inoremap <f3>  <esc>:TagbarToggle<CR>
-vnoremap <f3>  <esc>:TagbarToggle<CR>
-
-
 
 function ProjectExplorerCurrent() abort
 	let root = fnamemodify(expand('%'), ':p:h')
@@ -654,44 +609,12 @@ function OpenFileInExplorer() abort
 endfunction
 
 
-function SwitchBetweenHSCpp()
-	let headers = ['h', 'hpp', 'hh']
-	let sources = ['c', 'cpp', 'cc']
-	let suffix = fnamemodify(expand('%'), ':e')
-	let name = fnamemodify(expand('%'), ':t')
-	let name = fnamemodify(expand(name), ':r')
-
-	let s:found = []
-	for i in headers
-		if suffix == i
-			let s:found = sources
-			break
-		endif
-	endfor
-
-	for i in sources
-		if suffix == i
-			let s:found = headers
-			break
-		endif
-	endfor
-
-	let options = ''
-	for i in s:found
-		let options = options . ' -e ' . i
-	endfor
-	let cmd = "fd " . name . options . ' ' . asyncrun#get_root('%')
-	echom cmd
-	call fzf#run({'source': cmd, 'sink': 'e', 'options': '-1'})
-	" execute 'normal! ' . ':LeaderfFilePattern ' . name . '\<CR>'
-endfunction
-
 
 noremap <silent> <f12> :<C-u>call ProjectExplorer()<CR>
 
 """""""""""""""""""airline
-colorscheme Monokai
-let g:airline_theme = "github"
+colorscheme skeletor
+let g:airline_theme = "dark"
 let g:airline_inactive_collapse=0
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#whitespace#symbol = '!'
@@ -703,8 +626,6 @@ function! AirlineInit()
 	let g:airline_section_c = airline#section#create_left(['%{ProjectRelativeFilePath()}'])
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
-
-" let g:clap_layout = { 'relative': 'editor' }
 
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
@@ -726,11 +647,6 @@ map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
-
-" nmap  / <Plug>(easymotion-sn)
-" omap / <Plug>(easymotion-tn)
-" nmap  n <Plug>(easymotion-nexte
-" nmap  N <Plug>(easymotion-prev)
 
 inoremap <expr> <C-j> pumvisible() ? "\<C-j>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-k>" : "\<C-k>"
@@ -763,11 +679,7 @@ let g:which_key_map['9'] = [':VemTablineGo 9', 'tab 9']
 let g:which_key_map['w'] = {
       \ 'name' : '+windows' ,
       \ 'w' : ['<C-W>w'     , 'other-window']          ,
-      \ '2' : ['<C-W>v'     , 'layout-double-columns'] ,
-      \ 'h' : ['<C-W>h'     , 'window-left']           ,
-      \ 'j' : ['<C-W>j'     , 'window-below']          ,
-      \ 'l' : ['<C-W>l'     , 'window-right']          ,
-      \ 'k' : ['<C-W>k'     , 'window-up']             ,
+      \ '1' : ['only'       , 'close other window'] ,
       \ 'H' : ['<C-W>5<'    , 'expand-window-left']    ,
       \ 'd' : ['<C-W>c'     , 'delete-window']         ,
       \ 'J' : ['resize +5'  , 'expand-window-below']   ,
@@ -787,7 +699,7 @@ let g:which_key_map['f'] = {
 			\ 'o' : ['OpenFileInExplorer()', 'find file current dir'],
 			\ 'r' : [':Leaderf mru', 'recent files'],
 			\ 't' : ['ProjectExplorer()', 'project tree'],
-			\ 'f' : ['ProjectExplorerCurrent()', 'dir tree'],
+			\ 'f' : [':Ranger', 'dir tree'],
 			\ }
 
 let g:which_key_map['b'] = {
@@ -847,8 +759,4 @@ let g:which_local_key_map[','] = ['LspFormat()', 'lsp format']
 let g:which_local_key_map['d'] = ['Dox', 'DoxygenToolkit']
 let g:which_local_key_map['y'] = ['LspHover()', 'lsp hover']
 
-let g:which_local_key_map['o'] = {
-			\ 'name' : '+c++' ,
-			\ 'o' : ['SwitchBetweenHSCpp()', 'cpp/h switch'],
-			\}
 
