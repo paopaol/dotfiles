@@ -26,7 +26,7 @@ set signcolumn=yes
 set numberwidth=2
 set foldmethod=manual
 set cursorline
-" set cursorcolumn
+set cursorcolumn
 set relativenumber
 set autoindent
 set autochdir

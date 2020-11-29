@@ -1,340 +1,534 @@
-let $VIMHOME = fnamemodify(expand('<sfile>'), ':p')
-let $VIMHOME = resolve($VIMHOME)
-let $VIMHOME =  fnamemodify(expand($VIMHOME), ':p:h')
 
-if has('nvim')
-else
+"vim settings -----------------{{{
+augroup vimsettings
+	autocmd!
+
+	function! ImSelectEn()
+		call system('im-select 1033')
+	endfunction
+
+	let $VIMHOME = fnamemodify(expand('<sfile>'), ':p')
+	let $VIMHOME = resolve($VIMHOME)
+	let $VIMHOME =  fnamemodify(expand($VIMHOME), ':p:h')
+	source $VIMHOME/core/base_setting.vim
+
+
+	set relativenumber
+	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
+	set number
+	"always show tab
+	set showtabline=2
+	let autosave=30
+	set autoread
+	set nohlsearch
+	set nowrap
+
 	if has('win32')
-		" set pythonthreedll=python38.dll
-	else
-		set pyxversion=3
+		autocmd InsertLeave * call ImSelectEn()
 	endif
-endif
 
-source $VIMHOME/core/dir.vim
-source $VIMHOME/core/base_setting.vim
+	if has('nvim')
+	else
+		if has('win32')
+			" set pythonthreedll=python38.dll
+		else
+			set pyxversion=3
+		endif
+	endif
+	xnoremap > >gv
+	xnoremap < <gv
+	nnoremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
+	inoremap <f2><f2>   <esc>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
+	vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
+augroup END
+"}}}
 
+"plug -----{{{
+augroup plgu
+	call plug#begin('~/.vim/plugged')
+	Plug 'octol/vim-cpp-enhanced-highlight'
+	Plug 'mhinz/vim-grepper'
+	Plug 'paopaol/vim-terminal-help'
+	Plug 'flazz/vim-colorschemes'
+	Plug 'sbdchd/neoformat'
+	Plug 'vim-scripts/DoxygenToolkit.vim'
+	Plug 'plasticboy/vim-markdown'
+	Plug 'terryma/vim-expand-region'
+	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+	Plug 'dhruvasagar/vim-table-mode'
+	Plug 'cormacrelf/vim-colors-github'
+	Plug 'pacha/vem-tabline'
+	Plug 'Raimondi/delimitMate'
+	Plug 'terryma/vim-multiple-cursors'
+	Plug 'junegunn/seoul256.vim'
+	Plug 'pseewald/vim-anyfold'
+	Plug 'junegunn/goyo.vim'
+	Plug 'mattn/emmet-vim'
+	Plug 'justinmk/vim-sneak'
+	Plug 'junegunn/limelight.vim'
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'honza/vim-snippets'
+	Plug 'skreek/skeletor.vim'
+	Plug 'skywind3000/asynctasks.vim'
+	Plug 'skywind3000/asyncrun.vim'
+	Plug 'vim-airline/vim-airline-themes'
+	Plug 'bling/vim-airline'
+	Plug 'tpope/vim-surround'
+	Plug 't9md/vim-choosewin'
+	Plug 'rakr/vim-one'
+	Plug 'mhinz/vim-startify'
+	Plug 'rbgrouleff/bclose.vim'
+	Plug 'tpope/vim-fugitive'
+	Plug 'airblade/vim-gitgutter'
+	Plug 'liuchengxu/vim-which-key'
+	Plug 'lfv89/vim-interestingwords'
+	Plug 'liuchengxu/space-vim-theme'
+	Plug 'vim-airline/vim-airline-themes'
+	Plug 'tomasr/molokai'
+	Plug 'kana/vim-textobj-user'
+	Plug 'sgur/vim-textobj-parameter'
+	Plug 'rhysd/vim-textobj-anyblock'
+	Plug 'luochen1990/rainbow'
+	Plug 'tpope/vim-commentary'
+	Plug 'thinca/vim-qfreplace'
+	Plug 'markonm/traces.vim'
+	Plug 'othree/html5.vim'
+	Plug 'mklabs/vim-json'
+	Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+	Plug 'kshenoy/vim-signature'
+	Plug 'kana/vim-textobj-line'
+	Plug 'cespare/vim-toml'
+	call plug#end()
+augroup END
+"}}}
 
-call plug#begin('~/.vim/plugged')
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'mhinz/vim-grepper'
-Plug 'paopaol/vim-terminal-help'
-Plug 'flazz/vim-colorschemes'
-Plug 'sbdchd/neoformat'
-Plug 'vim-scripts/DoxygenToolkit.vim'
-Plug 'plasticboy/vim-markdown'
-Plug 'terryma/vim-expand-region'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-Plug 'dhruvasagar/vim-table-mode'
-Plug 'cormacrelf/vim-colors-github'
-Plug 'pacha/vem-tabline'
-Plug 'Raimondi/delimitMate'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'junegunn/seoul256.vim'
-Plug 'pseewald/vim-anyfold'
-Plug 'junegunn/goyo.vim'
-Plug 'mattn/emmet-vim'
-Plug 'justinmk/vim-sneak'
-Plug 'junegunn/limelight.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'honza/vim-snippets'
-Plug 'skreek/skeletor.vim'
-Plug 'skywind3000/asynctasks.vim'
-Plug 'skywind3000/asyncrun.vim'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'bling/vim-airline'
-Plug 'tpope/vim-surround'
-Plug 't9md/vim-choosewin'
-Plug 'rakr/vim-one'
-Plug 'mhinz/vim-startify'
-Plug 'francoiscabrol/ranger.vim' 
-Plug 'rbgrouleff/bclose.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'liuchengxu/vim-which-key'
-Plug 'lfv89/vim-interestingwords'
-Plug 'easymotion/vim-easymotion'
-Plug 'liuchengxu/space-vim-theme'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'tomasr/molokai'
-Plug 'kana/vim-textobj-user'
-Plug 'sgur/vim-textobj-parameter'
-Plug 'rhysd/vim-textobj-anyblock'
-Plug 'luochen1990/rainbow'
-Plug 'tpope/vim-commentary'
-Plug 'thinca/vim-qfreplace'
-Plug 'markonm/traces.vim'
-Plug 'othree/html5.vim'
-Plug 'mklabs/vim-json'
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plug 'kshenoy/vim-signature'
-Plug 'kana/vim-textobj-line'
-Plug 'cespare/vim-toml'
-call plug#end()
+"vimscript file settings ---------------------{{{
+augroup filetype_vim
+	autocmd!
+	autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
 
+"markdown {{{
+augroup filetype_markdown
+	autocmd!
+	let g:vim_markdown_folding_disabled = 1
+augroup END
+" }}}
 
-"""""""""""""leaderf"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:Lf_RootMarkers = ['.projectile']
-let g:Lf_ShortcutF=''
-let g:Lf_ShortcutB=''
-let g:Lf_ShowRelativePath = 0
-let g:Lf_PreviewResult = {'Function':0, 'Colorscheme':1}
-let g:Lf_ShowDevIcons = 0
-
-function! RgProjectFzf()
-	:Leaderf rg --wd-mode=ac 
-endfunction
-function! RgProjectAtPointFzf()
-	:Leaderf rg  --cword --wd-mode=ac 
-endfunction
-command! -nargs=* -bang RgProject call RgProjectFzf()
-command! -bang RgProjectAtPoint call RgProjectAtPointFzf()
-
-""""""""""""""commentary
-autocmd FileType cpp setlocal commentstring=//\ %s
-
-
-""""""""""""""""ranger
-let g:ranger_map_keys = 0
-
-
-""""""""coc"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:coc_global_extensions = ['coc-bookmark', 'coc-cmake', 'coc-css', 
-                 \ 'coc-emmet', 'coc-fs-lists', 'coc-html', 'coc-json',
-		 \ 'coc-snippets','coc-tasks', 'coc-translator',
-		 \'coc-tsserver', 'coc-vimlsp', 'coc-prettier']
-" " Use tab for trigger completion with characters ahead and navigate.
-" " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" " other plugin before putting this into your config.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-j>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-k>" : "\<C-h>"
+"leaderf settings-------------------{{{
+augroup leaderf
+	autocmd!
 
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+	function ProjectFiles() abort
+		let root = asyncrun#get_root('%')
+		execute ':Leaderf file ' . root . "\<CR>"
+	endfunction
+
+	function ProjectFilesCurrentdir() abort
+		let root = fnamemodify(expand('%'), ':p:h')
+		execute ':Leaderf file ' . root . "\<CR>"
+	endfunction
+
+	let g:Lf_RootMarkers = ['.projectile']
+	let g:Lf_ShortcutF=''
+	let g:Lf_ShortcutB=''
+	let g:Lf_ShowRelativePath = 0
+	let g:Lf_PreviewResult = {'Function':0, 'Colorscheme':1}
+	let g:Lf_ShowDevIcons = 0
+augroup END
+"  }}}
+
+"commentary------------------{{{
+augroup commentary
+	autocmd!
+
+	autocmd FileType cpp setlocal commentstring=//\ %s
+augroup END
+"}}}
+
+"coc--------------{{{
+augroup coc
+	autocmd!
+	function! s:check_back_space() abort
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1]  =~# '\s'
+	endfunction
 
 
-"""""""""""""greper
-let g:grepper = {}            " initialize g:grepper with empty dictionary
-runtime plugin/grepper.vim    " initialize g:grepper with default values
- let g:grepper.tools = ['rg']
-" let g:grepper.rg = {}
-" let g:grepper.rg.grepprg = ''
-let g:grepper.rg = { 'grepprg':'rg -H --no-heading --vimgrep' }
-let g:grepper.rg.grepprg .= ' --smart-case'
-let g:grepper.repo = ['.projectile']
-function GrepperProjectSymbolAtPoint() abort
-	execute ':Grepper -dir repo -cword -noprompt '
-endfunction
+	function! s:show_documentation()
+		if (index(['vim','help'], &filetype) >= 0)
+			execute 'h '.expand('<cword>')
+		else
+			call CocAction('doHover')
+		endif
+	endfunction
 
-function GrepperCurrentDirectorySymbolAtPoint() abort
-	execute ':Grepper -dir cwd -cword -noprompt '
-endfunction
-
-function GrepperProjectSymbol()abort
-	execute ':Grepper -dir repo'
-endfunction
-
-function GrepperCurrentBufferAtPoint() abort
-	execute ':Grepper -buffer -cword -noprompt'
-endfunction
-
-function GrepperCurrentBuffer() abort
-	execute ':Grepper -buffer'
-endfunction
+	function ProjectExplorerCurrent() abort
+		let root = fnamemodify(expand('%'), ':p:h')
+		execute 'normal! ' . ":CocCommand explorer  --sources=file+ --floating-position center  --position floating  " . root . "\<CR>"
+	endfunction
 
 
-" Default mapping
+	function ProjectExplorer() abort
+		let root = asyncrun#get_root('%')
+		execute 'normal! ' . ":CocCommand explorer   --position=right --sources=file+  " . root . "\<CR>"
+	endfunction
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-if has('patch8.1.1068')
-  " Use `complete_info` if your (Neo)Vim version supports it.
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+	function OpenFileInExplorer() abort
+		if has('win32')
+			execute 'normal! ' . ":!explorer /select," . fnamemodify(expand('%'), ':p') . "\<CR>"
+		endif
+	endfunction
+
+	" URL encode a string. ie. Percent-encode characters as necessary.
+	function! UrlEncode(string)
+
+		let result = ""
+
+		let characters = split(a:string, '.\zs')
+		for character in characters
+			if character == " "
+				let result = result . "+"
+			elseif CharacterRequiresUrlEncoding(character)
+				let i = 0
+				while i < strlen(character)
+					let byte = strpart(character, i, 1)
+					let decimal = char2nr(byte)
+					let result = result . "%" . printf("%02x", decimal)
+					let i += 1
+				endwhile
+			else
+				let result = result . character
+			endif
+		endfor
+
+		return result
+
+	endfunction
+
+	" Returns 1 if the given character should be percent-encoded in a URL encoded
+	" string.
+	function! CharacterRequiresUrlEncoding(character)
+
+		let ascii_code = char2nr(a:character)
+		if ascii_code >= 48 && ascii_code <= 57
+			return 0
+		elseif ascii_code >= 65 && ascii_code <= 90
+			return 0
+		elseif ascii_code >= 97 && ascii_code <= 122
+			return 0
+		elseif a:character == "-" || a:character == "_" || a:character == "." || a:character == "~"
+			return 0
+		endif
+
+		return 1
+
+	endfunction
+
+	function LspHover() abort
+		if has('win32')
+			let f = 'file:///' . UrlEncode(fnamemodify(expand('%'), ':p'))
+		else
+			let f = 'file://' . UrlEncode(fnamemodify(expand('%'), ':p'))
+		endif
+		let r = line('.')
+		let c = col('.')
+		let resp = CocRequest('ccls', 'textDocument/hover',   {'textDocument': {'uri':f}, 'position': {'line': r - 1, 'character': c - 1}})
+		let @* = resp['contents'][0]['value']
+		echom @*
+	endfunction
+
+	"""""coc-explorer
+	let g:coc_explorer_global_presets = {
+				\   'floating': {
+				\      'position': 'right',
+				\   },
+				\   'floatingLeftside': {
+				\      'position': 'left',
+				\      'floating-position': 'left-center',
+				\      'floating-width': 50,
+				\   },
+				\   'floatingRightside': {
+				\      'position': 'right',
+				\      'floating-position': 'left-center',
+				\      'floating-width': 50,
+				\   },
+				\   'simplify': {
+				\     'file.child.template': '[filename growRight 1]',
+				\     'file.child.labeling.template':'', 
+				\   }
+				\ }
 
 
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+	""""""""""""""""""""""""""""""""
+	"""""""""""""""""""""""""""""""" coc snippets
+	""""""""""""""""""""""""""""""""
+	""""""""""""""""""""""""""""""""
+	inoremap <silent><expr> <TAB>
+				\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" : <SID>check_back_space() ? "\<TAB>" :  coc#refresh()
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+	let g:coc_snippet_next = '<tab>'
+	let g:coc_snippet_prev = '<S-tab>'
 
-" URL encode a string. ie. Percent-encode characters as necessary.
-function! UrlEncode(string)
 
-    let result = ""
 
-    let characters = split(a:string, '.\zs')
-    for character in characters
-        if character == " "
-            let result = result . "+"
-        elseif CharacterRequiresUrlEncoding(character)
-            let i = 0
-            while i < strlen(character)
-                let byte = strpart(character, i, 1)
-                let decimal = char2nr(byte)
-                let result = result . "%" . printf("%02x", decimal)
-                let i += 1
-            endwhile
-        else
-            let result = result . character
-        endif
-    endfor
 
-    return result
+	" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+	" position. Coc only does snippet and additional edit on confirm.
+	if has('patch8.1.1068')
+		" Use `complete_info` if your (Neo)Vim version supports it.
+		inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+	else
+		imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+	endif
 
-endfunction
+	" Highlight the symbol and its references when holding the cursor.
+	autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Returns 1 if the given character should be percent-encoded in a URL encoded
-" string.
-function! CharacterRequiresUrlEncoding(character)
+	augroup mygroup
+		autocmd!
+		" Setup formatexpr specified filetype(s).
+		autocmd FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
+		" Update signature help on jump placeholder.
+		autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+	augroup end
 
-    let ascii_code = char2nr(a:character)
-    if ascii_code >= 48 && ascii_code <= 57
-        return 0
-    elseif ascii_code >= 65 && ascii_code <= 90
-        return 0
-    elseif ascii_code >= 97 && ascii_code <= 122
-        return 0
-    elseif a:character == "-" || a:character == "_" || a:character == "." || a:character == "~"
-        return 0
-    endif
 
-    return 1
+	command! -nargs=0 Format :call CocAction('format')
+	let g:coc_global_extensions = ['coc-bookmark', 'coc-cmake', 'coc-css', 
+				\ 'coc-emmet', 'coc-fs-lists', 'coc-html', 'coc-json',
+				\ 'coc-snippets','coc-tasks', 'coc-translator',
+				\'coc-tsserver', 'coc-vimlsp', 'coc-prettier']
+	" GoTo code navigation.
+	nmap <silent> gd <Plug>(coc-definition)
+	nmap <silent> <C-]> <Plug>(coc-definition)
+	nmap <silent> gr <Plug>(coc-references)
 
-endfunction
+	" Use K to show documentation in preview window.
+	nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function LspHover() abort
+	" Remap keys for applying codeAction to the current line.
+	nmap gi  <Plug>(coc-codeaction)
+	" Apply AutoFix to problem on the current line.
+	nmap gf  <Plug>(coc-fix-current)
+	" Introduce function text object
+	" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+	xmap if <Plug>(coc-funcobj-i)
+	xmap af <Plug>(coc-funcobj-a)
+	omap if <Plug>(coc-funcobj-i)
+	omap af <Plug>(coc-funcobj-a)
+
+	noremap <silent> <f12> :<C-u>call ProjectExplorer()<CR>
+augroup END
+"}}}
+
+"greper-----------{{{
+augroup grepper
+	autocmd!
+	function GrepperProjectSymbolAtPoint() abort
+		execute ':Grepper -dir repo -cword -noprompt '
+	endfunction
+
+	function GrepperCurrentDirectorySymbolAtPoint() abort
+		execute ':Grepper -dir cwd -cword -noprompt '
+	endfunction
+
+	function GrepperProjectSymbol()abort
+		execute ':Grepper -dir repo'
+	endfunction
+
+	function GrepperCurrentBufferAtPoint() abort
+		execute ':Grepper -buffer -cword -noprompt'
+	endfunction
+
+	function GrepperCurrentBuffer() abort
+		execute ':Grepper -buffer'
+	endfunction
+
+
+	let g:grepper = {}            " initialize g:grepper with empty dictionary
+	runtime plugin/grepper.vim    " initialize g:grepper with default values
+	let g:grepper.tools = ['rg']
+	" let g:grepper.rg = {}
+	" let g:grepper.rg.grepprg = ''
+	" let g:grepper.rg = { 'grepprg':'rg -H --no-heading --vimgrep' }
+	" let g:grepper.rg.grepprg .= ' --smart-case'
+	let g:grepper.repo = ['.projectile']
+	let g:grepper.highlight = 1
+	let g:grepper.prompt = 1
+augroup END
+"}}}
+
+" AnyFold-----------{{{
+augroup AnyFold
+	autocmd!
+	" autocmd Filetype * AnyFoldActivate
+	" let g:anyfold_fold_comments=1
+	" set foldlevel=0
+	noremap zm :AnyFoldActivate<CR>zM
+	vnoremap zm :AnyFoldActivate<CR>zM
+	nnoremap zr zR
+	vnoremap zr zR
+augroup END
+"}}}
+
+"tabline{{{
+augroup tabline
+	autocmd!
+	let g:vem_tabline_show_number = 'index'
+augroup END
+"}}}
+
+"terminal----------{{{
+augroup terminal
+	autocmd!
+
+	let g:terminal_key='<f11>'
 	if has('win32')
-		let f = 'file:///' . UrlEncode(fnamemodify(expand('%'), ':p'))
-	else
-		let f = 'file://' . UrlEncode(fnamemodify(expand('%'), ':p'))
+		let g:terminal_shell='powershell.exe'
 	endif
-	let r = line('.')
-	let c = col('.')
-	let resp = CocRequest('ccls', 'textDocument/hover',   {'textDocument': {'uri':f}, 'position': {'line': r - 1, 'character': c - 1}})
-	let @* = resp['contents'][0]['value']
-	echom @*
-endfunction
+augroup END
+"}}}
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+"""window settings---------{{{
+augroup window
+	autocmd!
 
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+	colorscheme skeletor
 
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+	nnoremap <A-1> :1 wincmd w<CR>
+	nnoremap <A-2> :2 wincmd w<CR>
+	nnoremap <A-3> :3 wincmd w<CR>
+	nnoremap <A-4> :4 wincmd w<CR>
+	nnoremap <A-5> :5 wincmd w<CR>
+	nnoremap <A-6> :6 wincmd w<CR>
+	nnoremap <A-7> :7 wincmd w<CR>
+	nnoremap <A-8> :8 wincmd w<CR>
+	nnoremap <A-9> :9 wincmd w<CR>
 
-" Remap keys for applying codeAction to the current line.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+	vnoremap <A-1> <esc>:1 wincmd w<CR>
+	vnoremap <A-2> <esc>:2 wincmd w<CR>
+	vnoremap <A-3> <esc>:3 wincmd w<CR>
+	vnoremap <A-4> <esc>:4 wincmd w<CR>
+	vnoremap <A-5> <esc>:5 wincmd w<CR>
+	vnoremap <A-6> <esc>:6 wincmd w<CR>
+	vnoremap <A-7> <esc>:7 wincmd w<CR>
+	vnoremap <A-8> <esc>:8 wincmd w<CR>
+	vnoremap <A-9> <esc>:9 wincmd w<CR>
 
-" Introduce function text object
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-
-" autocmd Filetype * AnyFoldActivate
-" let g:anyfold_fold_comments=1
-" set foldlevel=0
-noremap zm :AnyFoldActivate<CR>zM
-vnoremap zm :AnyFoldActivate<CR>zM
-nnoremap zr zR
-vnoremap zr zR
+	inoremap <A-1> <esc>:1 wincmd w<CR>
+	inoremap <A-2> <esc>:2 wincmd w<CR>
+	inoremap <A-3> <esc>:3 wincmd w<CR>
+	inoremap <A-4> <esc>:4 wincmd w<CR>
+	inoremap <A-5> <esc>:5 wincmd w<CR>
+	inoremap <A-6> <esc>:6 wincmd w<CR>
+	inoremap <A-7> <esc>:7 wincmd w<CR>
+	inoremap <A-8> <esc>:8 wincmd w<CR>
+	inoremap <A-9> <esc>:9 wincmd w<CR>
+	noremap <A-Left> <esc>:wincmd h<CR>
+	noremap <A-Right> <esc>:wincmd l<CR>
+	noremap <A-Up> <esc>:wincmd k<CR>
+	noremap <A-Down> <esc>:wincmd j<CR>
+	noremap Q :cclose<CR>
+	vnoremap Q :cclose<CR>
 
 
+	nnoremap <C-a> 0i
+	inoremap <C-a> <esc>0i
+	vnoremap <C-a> 0i
+	cnoremap <C-a> <Home>
+
+	nnoremap <C-b> <Left>
+	inoremap <C-b> <Left>
+	vnoremap <C-b> <Left>
+	cnoremap <C-b> <Left>
+
+	nnoremap <C-e> A
+	inoremap <C-e> <esc>A
+	vnoremap <C-e> A
+	cnoremap <C-e> <End>
 
 
-"""""coc-explorer
-" execute 'normal! ' . ":CocCommand explorer  --position=right --sources=file+  " . root . "\<CR>"
+	nnoremap <C-f> <Right>
+	inoremap <C-f> <Right>
+	vnoremap <C-f> <Right>
+	cnoremap <C-f> <Right>
 
-let g:coc_explorer_global_presets = {
-\   'floating': {
-\      'position': 'right',
-\   },
-\   'floatingLeftside': {
-\      'position': 'left',
-\      'floating-position': 'left-center',
-\      'floating-width': 50,
-\   },
-\   'floatingRightside': {
-\      'position': 'right',
-\      'floating-position': 'left-center',
-\      'floating-width': 50,
-\   },
-\   'simplify': {
-\     'file.child.template': '[filename growRight 1]',
-\     'file.child.labeling.template':'', 
-\   }
-\ }
+	nnoremap <C-g> <esc>
+	inoremap <C-g> <esc>
+	vnoremap <C-g> <esc>
+
+	nnoremap <C-j> <Down>
+	inoremap <C-j> <Down>
+	vnoremap <C-j> <Down>
+	cnoremap <C-j> <Down>
+
+	nnoremap <C-k> <Up>
+	inoremap <C-k> <Up>
+	vnoremap <C-k> <Up>
+	cnoremap <C-k> <Up>
 
 
-""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""" coc snippets
-""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""
-inoremap <silent><expr> <TAB>
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" : <SID>check_back_space() ? "\<TAB>" :  coc#refresh()
-	
+	""quick fix"
+	nnoremap <F8> :cn<CR>zz
+	nnoremap <F7> :cp<CR>zz
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+	""window resie
+	nnoremap <A--> :resize -1<CR>
+	nnoremap <A-=> :resize +1<CR>
+	nnoremap <A-<> <C-W><
+	nnoremap <A->> >C-W>>
+augroup END
+"}}}
 
-let g:coc_snippet_next = '<tab>'
-let g:coc_snippet_prev = '<S-tab>'
+"asyncrun"""""""""""""""""""""""""""""{{{
+augroup asyncrun
+	autocmd!
 
+	if has('win32')
+		let g:asyncrun_encs = 'gbk'
+	endif
+	let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', '.projectile']
+	noremap <F5> :AsyncRun -cwd=<root>/build cmake --build <root>/build <cr>
+	let g:asyncrun_open=6
+	let g:asyncrun_save=2
+augroup END
+"}}}
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"choosewin""""""""""""""""""""""{{{
+augroup choosewin
+	autocmd!
+	let g:choosewin_label_fill = 1
+	let g:choosewin_keymap   = {}         " initialize as Dictionary
+	let g:choosewin_keymap.m = 'win_land' " Navigate with 'm'
+	let g:choosewin_keymap.0 = '<NOP>'    " Disable default 0 keybind
+	let g:choosewin_overlay_enable = 1
+	let g:choosewin_label='123456789'
+	let g:choosewin_tablabel = "ABCDEFGH"
+augroup END
+"}}}
+
+"""""""""""""""""""airline ----{{{
+augroup airline
+	autocmd!
+
+	function! AirlineInit()
+		let g:airline_section_a = airline#section#create_left(['%{winnr()}','mode', 'crypt', 'paste', 'iminsert'])
+		let g:airline_section_c = airline#section#create_left(['%{ProjectRelativeFilePath()}'])
+	endfunction
+	let g:airline_theme = "dark"
+	let g:airline_inactive_collapse=0
+	let g:airline#extensions#whitespace#enabled = 0
+	let g:airline#extensions#whitespace#symbol = '!'
+	let g:airline#extensions#tabline#formatter = 'unique_tail'
+	let g:airline#extensions#tabline#fnamemod = ':p:.'
+	let g:airline#extensions#tabline#fnametruncate = 1
+	autocmd User AirlineAfterInit call AirlineInit()
+augroup END
+"}}}
 
 
 inoremap <expr> <CR> InsertMapForEnter()
@@ -353,68 +547,8 @@ endfunction
 
 
 
-""""""""tabline''
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vem_tabline_show_number = 'index'
-
-""""""""
 
 
-
-let b:wraped = 0
-function ToggleLineWarp() abort
-	if b:wraped == 0
-		set nowrap
-		let b:wraped = 1
-	else
-		set wrap
-		let b:wraped = 0
-	endif
-endfunction
-
-
-
-""quick fix"
-nnoremap <F8> :cn<CR>zz
-nnoremap <F7> :cp<CR>zz
-
-""window resie
-nnoremap <A--> :resize -1<CR>
-nnoremap <A-=> :resize +1<CR>
-nnoremap <A-<> <C-W><
-nnoremap <A->> >C-W>>
-
-
-function ProjectFiles() abort
-	let root = asyncrun#get_root('%')
-	execute ':Leaderf file ' . root . "\<CR>"
-endfunction
-
-function ProjectFilesCurrentdir() abort
-	let root = fnamemodify(expand('%'), ':p:h')
-	execute ':Leaderf file ' . root . "\<CR>"
-endfunction
-
-
-let g:terminal_key='<f11>'
-
-if has('win32')
-	let g:terminal_shell='powershell.exe'
-endif
-
-
-"""""""""jinzhao""""""""""""""""""""""""""""""
-set relativenumber
-set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
-set nu
-"always show tab
-set showtabline=2
-let autosave=30
-set autoread
-set nohlsearch
 
 function! CmakeFormatCurrentFile() abort
 	silent :w
@@ -423,26 +557,6 @@ function! CmakeFormatCurrentFile() abort
 endfunction
 
 
-function! FontZoomInc() 
-	let current_font =  g:GuiFont
-	let font_and_size = split(current_font, ":h")
-	let font_and_size[1] += 1
-	let current_font = join(font_and_size, ":h")
-	echom GuiFont(current_font)
-endfunction
-function! FontZoomDec() 
-	let current_font =  g:GuiFont
-	let font_and_size = split(current_font, ":h")
-	let font_and_size[1] -= 1
-	let current_font = join(font_and_size, ":h")
-	echom GuiFont(current_font)
-endfunction
-
-fun! ImSelectEn()
-	call system('im-select 1033')
-endf
-
-au InsertLeave * call ImSelectEn()
 
 function! ProjectRelativeFilePath() abort
 	let root = asyncrun#get_root('%')
@@ -488,153 +602,7 @@ endfunction
 vmap v a{o0
 :tnoremap <Esc> <C-\><C-n>
 au FocusGained * :checktime
-" inoremap <esc>  <esc>:call SaveBuf()<CR>
-" vnoremap <esc>  <esc>:call SaveBuf()<CR>
-" nnoremap <esc>  <esc>:call SaveBuf()<CR>
-xnoremap > >gv
-xnoremap < <gv
-noremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
-inoremap <f2><f2>   <esc>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
-vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
 
-noremap <silent> <f9> :<C-u>call FontZoomInc()<CR>
-noremap <silent> <S-f9> :<C-u>call FontZoomDec()<CR>
-
-nnoremap <A-1> :1 wincmd w<CR>
-nnoremap <A-2> :2 wincmd w<CR>
-nnoremap <A-3> :3 wincmd w<CR>
-nnoremap <A-4> :4 wincmd w<CR>
-nnoremap <A-5> :5 wincmd w<CR>
-nnoremap <A-6> :6 wincmd w<CR>
-nnoremap <A-7> :7 wincmd w<CR>
-nnoremap <A-8> :8 wincmd w<CR>
-nnoremap <A-9> :9 wincmd w<CR>
-
-vnoremap <A-1> <esc>:1 wincmd w<CR>
-vnoremap <A-2> <esc>:2 wincmd w<CR>
-vnoremap <A-3> <esc>:3 wincmd w<CR>
-vnoremap <A-4> <esc>:4 wincmd w<CR>
-vnoremap <A-5> <esc>:5 wincmd w<CR>
-vnoremap <A-6> <esc>:6 wincmd w<CR>
-vnoremap <A-7> <esc>:7 wincmd w<CR>
-vnoremap <A-8> <esc>:8 wincmd w<CR>
-vnoremap <A-9> <esc>:9 wincmd w<CR>
-
-inoremap <A-1> <esc>:1 wincmd w<CR>
-inoremap <A-2> <esc>:2 wincmd w<CR>
-inoremap <A-3> <esc>:3 wincmd w<CR>
-inoremap <A-4> <esc>:4 wincmd w<CR>
-inoremap <A-5> <esc>:5 wincmd w<CR>
-inoremap <A-6> <esc>:6 wincmd w<CR>
-inoremap <A-7> <esc>:7 wincmd w<CR>
-inoremap <A-8> <esc>:8 wincmd w<CR>
-inoremap <A-9> <esc>:9 wincmd w<CR>
-noremap <A-Left> <esc>:wincmd h<CR>
-noremap <A-Right> <esc>:wincmd l<CR>
-noremap <A-Up> <esc>:wincmd k<CR>
-noremap <A-Down> <esc>:wincmd j<CR>
-
-set nowrap
-
-noremap Q :cclose<CR>
-vnoremap Q :cclose<CR>
-""move to end of line"
-noremap <C-e> A
-inoremap <C-e> <esc>A
-vnoremap <C-e> A
-"move to begining of line
-noremap <C-a> 0i
-inoremap <C-a> <esc>0i
-vnoremap <C-a> 0i
-
-noremap <C-g> <esc>
-inoremap <C-g> <esc>
-vnoremap <C-g> <esc>
-
-map <C-f> <Right>
-imap <C-f> <Right>
-map <C-b> <Left>
-imap <C-b> <Left>
-
-" 命令行模式增强，ctrl - a到行首， -e 到行尾
-cnoremap <C-j> <Down>
-cnoremap <C-k> <Up>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-cnoremap <C-b> <Left>
-cnoremap <C-f> <Right>
-
-
-
-
-
-""""""""""asyncrun"""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""
-if has('win32')
-  let g:asyncrun_encs = 'gbk'
-endif
-:let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', '.projectile']
-:noremap <F5> :AsyncRun -cwd=<root>/build cmake --build <root>/build <cr>
-let g:asyncrun_open=6
-let g:asyncrun_save=2
-
-
-""""""""""choosewin""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""
-let g:choosewin_label_fill = 1
-let g:choosewin_keymap   = {}         " initialize as Dictionary
-let g:choosewin_keymap.m = 'win_land' " Navigate with 'm'
-let g:choosewin_keymap.0 = '<NOP>'    " Disable default 0 keybind
-let g:choosewin_overlay_enable = 1
-let g:choosewin_label='123456789'
-let g:choosewin_tablabel = "ABCDEFGH"
-
-
-
-function ProjectExplorerCurrent() abort
-	let root = fnamemodify(expand('%'), ':p:h')
-	execute 'normal! ' . ":CocCommand explorer  --sources=file+ --floating-position center  --position floating  " . root . "\<CR>"
-endfunction
-
-
-function ProjectExplorer() abort
-	let root = asyncrun#get_root('%')
-	execute 'normal! ' . ":CocCommand explorer   --position=right --sources=file+  " . root . "\<CR>"
-endfunction
-
-function OpenFileInExplorer() abort
-	if has('win32')
-		execute 'normal! ' . ":!explorer /select," . fnamemodify(expand('%'), ':p') . "\<CR>"
-	endif
-endfunction
-
-
-
-noremap <silent> <f12> :<C-u>call ProjectExplorer()<CR>
-
-"""""""""""""""""""airline
-colorscheme skeletor
-let g:airline_theme = "dark"
-let g:airline_inactive_collapse=0
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline#extensions#whitespace#symbol = '!'
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#fnamemod = ':p:.'
-let g:airline#extensions#tabline#fnametruncate = 1
-function! AirlineInit()
-	let g:airline_section_a = airline#section#create_left(['%{winnr()}','mode', 'crypt', 'paste', 'iminsert'])
-	let g:airline_section_c = airline#section#create_left(['%{ProjectRelativeFilePath()}'])
-endfunction
-autocmd User AirlineAfterInit call AirlineInit()
-
-let g:mapleader = "\<Space>"
-let g:maplocalleader = ','
 let g:vim_textobj_parameter_mapping = 'a'
 let g:rainbow_active = 1
 
@@ -643,126 +611,129 @@ let g:rooter_patterns = ['.projectile', '.git/']
 nnoremap <silent> n :call WordNavigation('forward')<cr>
 nnoremap <silent> N :call WordNavigation('backward')<cr>
 
-let g:EasyMotion_do_mapping = 0
 
-let g:sneak#s_next = 1
-map s <Plug>Sneak_s
-map S <Plug>Sneak_S
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
+"sneak{{{
+augroup sneak
+	autocmd!
 
-
-inoremap <expr> <C-j> pumvisible() ? "\<C-j>" : "\<C-j>"
-inoremap <expr> <C-k> pumvisible() ? "\<C-k>" : "\<C-k>"
-
-map <C-k> <Up>
-imap <C-k> <Up>
-map <C-j> <Down>
-imap <C-j> <Down>
+	let g:sneak#s_next = 1
+	map s <Plug>Sneak_s
+	map S <Plug>Sneak_S
+	map f <Plug>Sneak_f
+	map F <Plug>Sneak_F
+	map t <Plug>Sneak_t
+	map T <Plug>Sneak_T
+augroup END
+"}}}
 
 
 
-let g:which_key_map =  {}
-let g:which_local_key_map =  {}
-call which_key#register('<Space>', "g:which_key_map")
-call which_key#register(',', "g:which_local_key_map")
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
-let g:which_key_map[' '] = [':ChooseWin', 'choosewin']
-let g:which_key_map['1'] = [':VemTablineGo 1', 'tab 1']
-let g:which_key_map['2'] = [':VemTablineGo 2', 'tab 2']
-let g:which_key_map['3'] = [':VemTablineGo 3', 'tab 3']
-let g:which_key_map['4'] = [':VemTablineGo 4', 'tab 4']
-let g:which_key_map['5'] = [':VemTablineGo 5', 'tab 5']
-let g:which_key_map['6'] = [':VemTablineGo 6', 'tab 6']
-let g:which_key_map['7'] = [':VemTablineGo 7', 'tab 7']
-let g:which_key_map['8'] = [':VemTablineGo 8', 'tab 8']
-let g:which_key_map['9'] = [':VemTablineGo 9', 'tab 9']
 
-let g:which_key_map['w'] = {
-      \ 'name' : '+windows' ,
-      \ 'w' : ['<C-W>w'     , 'other-window']          ,
-      \ '1' : ['only'       , 'close other window'] ,
-      \ 'H' : ['<C-W>5<'    , 'expand-window-left']    ,
-      \ 'd' : ['<C-W>c'     , 'delete-window']         ,
-      \ 'J' : ['eresize +5'  , 'expand-window-below']   ,
-      \ 'L' : ['<C-W>5>'    , 'expand-window-right']   ,
-      \ 'K' : [':resize -5'  , 'expand-window-up']      ,
-      \ '=' : ['<C-W>='     , 'balance-window']        ,
-      \ 's' : ['<C-W>s'     , 'split-window-below']    ,
-      \ 'v' : ['<C-W>v'     , 'split-window-below']    ,
-      \ '?' : ['Windows'    , 'fzf-window']            ,
-      \ }
+"""which_key -----------------{{{
+augroup which_key
+	autocmd!
+	let g:mapleader = "\<Space>"
+	let g:maplocalleader = ','
+	let g:which_key_map =  {}
+	let g:which_local_key_map =  {}
+	call which_key#register('<Space>', "g:which_key_map")
+	call which_key#register(',', "g:which_local_key_map")
+	nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+	nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
-let g:which_key_map['f'] = {
-			\ 'name' : '+files' ,
-			\ 'p' : ['ProjectFiles()', 'find file in project'],
-			\ 'd' : ['ProjectFilesCurrentdir()', 'find file in current'],
-			\ 's' : ['w', 'save file'],
-			\ 'o' : ['OpenFileInExplorer()', 'find file current dir'],
-			\ 'r' : [':Leaderf mru', 'recent files'],
-			\ 't' : ['ProjectExplorer()', 'project tree'],
-			\ 'f' : [':Ranger', 'dir tree'],
-			\ }
+	let g:which_key_map[' '] = [':ChooseWin', 'choosewin']
+	let g:which_key_map['1'] = [':VemTablineGo 1', 'tab 1']
+	let g:which_key_map['2'] = [':VemTablineGo 2', 'tab 2']
+	let g:which_key_map['3'] = [':VemTablineGo 3', 'tab 3']
+	let g:which_key_map['4'] = [':VemTablineGo 4', 'tab 4']
+	let g:which_key_map['5'] = [':VemTablineGo 5', 'tab 5']
+	let g:which_key_map['6'] = [':VemTablineGo 6', 'tab 6']
+	let g:which_key_map['7'] = [':VemTablineGo 7', 'tab 7']
+	let g:which_key_map['8'] = [':VemTablineGo 8', 'tab 8']
+	let g:which_key_map['9'] = [':VemTablineGo 9', 'tab 9']
 
-let g:which_key_map['b'] = {
-			\ 'name' : '+buffer' ,
-			\ 'b' : ['LeaderfBuffer', 'buffer list'],
-			\ 'n' : ['bn', 'next buffer'],
-			\ 'p' : ['bp', 'prev buffer'],
-			\ 'k' : ['Bclose', 'buffer kill'],
-			\ 'd' : ['BW', 'buffer kill'],
-			\ 'q' : ['cclose', 'kill quickfix'],
-			\ 'h' : ['Startify', 'home page'],
-			\ }
+	let g:which_key_map['w'] = {
+				\ 'name' : '+windows' ,
+				\ 'w' : ['<C-W>w'     , 'other-window'         ],
+				\ '1' : ['only'       , 'close other window'   ],
+				\ 'd' : ['<C-W>c'     , 'delete-window'        ],
+				\ '=' : ['<C-W>='     , 'balance-window'       ],
+				\ 'm' : ['<C-W>|'     , 'max-window'           ],
+				\ 's' : ['<C-W>s'     , 'split-window-below'   ],
+				\ 'v' : ['<C-W>v'     , 'split-window-below'   ],
+				\ }
 
-let g:which_key_map['s'] = {
-			\ 'name' : '+search & symbol' ,
-			\ 's' : ['GrepperCurrentBuffer()', 'symbol current buffer'],
-			\ 'S' : ['GrepperCurrentBufferAtPoint()', 'symbol buffer at point'],
-			\ 'l' : [':Leaderf function', 'tags current buffer '],
-			\ 'h' : ['InterestingWords("n")', 'highlight cursor word'],
-			\ 'c' : ['UncolorAllWords()', 'unhighlight all words'],
-			\ 'p' : ['GrepperProjectSymbol()', 'rg project'],
-			\ 't' : [':CocList tasks ', 'async tasks'],
-			\ 'P' : ['GrepperProjectSymbolAtPoint()', 'rg project at point'],
-			\ }
+	let g:which_key_map['f'] = {
+				\ 'name' : '+files' ,
+				\ 'p' : ['ProjectFiles()', 'find file in project'],
+				\ 'd' : ['ProjectFilesCurrentdir()', 'find file in current'],
+				\ 's' : ['w', 'save file'],
+				\ 'o' : ['OpenFileInExplorer()', 'find file current dir'],
+				\ 'r' : [':Leaderf mru', 'recent files'],
+				\ 't' : ['ProjectExplorer()', 'project tree'],
+				\ }
 
-let g:which_key_map['t'] = {
-			\ 'name' : '+tools/toggle' ,
-			\ 'h' : [':Leaderf help', 'vim help'],
-			\ 'r' : [':so ~/.vimrc', 'refresh vimrc'],
-			\ 'c' : ['LeaderfColorscheme', 'theme'],
-			\ 'l' : [':set wrap! wrap?', 'line wrap'],
-			\ }
+	let g:which_key_map['b'] = {
+				\ 'name' : '+buffer' ,
+				\ 'b' : ['LeaderfBuffer', 'buffer list'],
+				\ 'n' : ['bn', 'next buffer'],
+				\ 'p' : ['bp', 'prev buffer'],
+				\ 'k' : ['Bclose', 'buffer kill'],
+				\ 'd' : ['BW', 'buffer kill'],
+				\ 'q' : ['cclose', 'kill quickfix'],
+				\ 'h' : ['Startify', 'home page'],
+				\ }
 
-let g:which_key_map['l'] = {
-			\ 'name' : '+lsp' ,
-			\ 'f' : ['Format', 'format'],
-			\ 'r' : ['<Plug>(coc-rename)', 'rename'],
-			\ 'a' : [':CocList diagnostics', 'diagnostics'],
-			\ 'y' : ['LspHover()', 'LspHover yank'],
-			\ }
+	let g:which_key_map['s'] = {
+				\ 'name' : '+search & symbol' ,
+				\ 's' : ['GrepperCurrentBuffer()', 'symbol current buffer'],
+				\ 'S' : ['GrepperCurrentBufferAtPoint()', 'symbol buffer at point'],
+				\ 'l' : [':Leaderf function', 'tags current buffer '],
+				\ 'h' : ['InterestingWords("n")', 'highlight cursor word'],
+				\ 'c' : ['UncolorAllWords()', 'unhighlight all words'],
+				\ 'p' : ['GrepperProjectSymbol()', 'rg project'],
+				\ 't' : [':CocList tasks ', 'async tasks'],
+				\ 'P' : ['GrepperProjectSymbolAtPoint()', 'rg project at point'],
+				\ }
 
-let g:which_key_map['l']['e'] = {
-			\ 'name' : '+error' ,
-			\ 'n' : ['<Plug>(coc-diagnostic-next)', 'next error'],
-			\ 'p' : ['<Plug>(coc-diagnostic-prev)', 'prev error'],
-			\ }
+	let g:which_key_map['t'] = {
+				\ 'name' : '+tools/toggle' ,
+				\ 'h' : [':Leaderf help', 'vim help'],
+				\ 'r' : [':so ~/.vimrc', 'refresh vimrc'],
+				\ 'c' : ['LeaderfColorscheme', 'theme'],
+				\ 'l' : [':setlocal wrap!', 'line wrap'],
+				\ }
 
-let g:which_key_map['g'] = {
-			\ 'name' : '+git' ,
-			\ 's' : ['Gstatus', 'git status'],
-			\ 'b' : ['Gblame', 'git blame'],
-			\ 'l' : ['Glog', 'git log'],
-			\ 'p' : ['Gpush', 'git push'],
-			\ }
+	let g:which_key_map['l'] = {
+				\ 'name' : '+lsp' ,
+				\ 'f' : ['Format', 'format'],
+				\ 'r' : ['<Plug>(coc-rename)', 'rename'],
+				\ 'a' : [':CocList diagnostics', 'diagnostics'],
+				\ 'y' : ['LspHover()', 'LspHover yank'],
+				\ }
 
-let g:which_local_key_map[','] = ['LspFormat()', 'lsp format']
-let g:which_local_key_map['d'] = ['Dox', 'DoxygenToolkit']
-let g:which_local_key_map['y'] = ['LspHover()', 'lsp hover']
+	let g:which_key_map['l']['e'] = {
+				\ 'name' : '+error' ,
+				\ 'n' : ['<Plug>(coc-diagnostic-next)', 'next error'],
+				\ 'p' : ['<Plug>(coc-diagnostic-prev)', 'prev error'],
+				\ }
 
+	let g:which_key_map['g'] = {
+				\ 'name' : '+git' ,
+				\ 's' : ['Gstatus', 'git status'],
+				\ 'b' : ['Gblame', 'git blame'],
+				\ 'l' : ['Glog', 'git log'],
+				\ 'p' : ['Gpush', 'git push'],
+				\ }
+
+	let g:which_local_key_map[','] = ['LspFormat()', 'lsp format']
+
+	augroup flletype_cpp
+		autocmd!
+		autocmd FileType cpp  let g:which_local_key_map['d'] = ['Dox', 'DoxygenToolkit']
+		autocmd FileType cpp  let g:which_local_key_map['y'] = ['LspHover()', 'lsp hover']
+	augroup end
+augroup END
+	"}}}
 
