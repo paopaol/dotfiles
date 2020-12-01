@@ -40,6 +40,10 @@ augroup vimsettings
 	nnoremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 	inoremap <f2><f2>   <esc>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 	vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
+	" select block
+	vnoremap v a}o0
+	tnoremap <Esc> <C-\><C-n>
+	au FocusGained * :checktime
 augroup END
 "}}}
 
@@ -598,10 +602,6 @@ endfunction
 
 
 
-" select block
-vmap v a{o0
-:tnoremap <Esc> <C-\><C-n>
-au FocusGained * :checktime
 
 let g:vim_textobj_parameter_mapping = 'a'
 let g:rainbow_active = 1
@@ -633,12 +633,12 @@ augroup END
 """which_key -----------------{{{
 augroup which_key
 	autocmd!
+	let g:which_key_use_floating_win = 1
 	let g:mapleader = "\<Space>"
 	let g:maplocalleader = ','
 	let g:which_key_map =  {}
-	let g:which_local_key_map =  {}
 	call which_key#register('<Space>', "g:which_key_map")
-	call which_key#register(',', "g:which_local_key_map")
+	let g:local_key_map =  {}
 	nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 	nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
@@ -727,13 +727,36 @@ augroup which_key
 				\ 'p' : ['Gpush', 'git push'],
 				\ }
 
-	let g:which_local_key_map[','] = ['LspFormat()', 'lsp format']
-
+	augroup flletype_startify
+		autocmd!
+		autocmd  FileType startify let g:local_key_map['startify'] =  {}
+		autocmd  FileType startify let g:local_key_map['startify']['q'] = [':q', 'quit']
+	augroup end
 	augroup flletype_cpp
 		autocmd!
-		autocmd FileType cpp  let g:which_local_key_map['d'] = ['Dox', 'DoxygenToolkit']
-		autocmd FileType cpp  let g:which_local_key_map['y'] = ['LspHover()', 'lsp hover']
+		autocmd  FileType cpp    let g:local_key_map['cpp'] =  {}
+		autocmd  FileType cpp    let g:local_key_map['cpp'][','] = ['LspFormat()', 'lsp format']
+		autocmd  FileType cpp    let g:local_key_map['cpp']['d'] = ['Dox', 'DoxygenToolkit']
+		autocmd  FileType cpp    let g:local_key_map['cpp']['y'] = ['LspHover()', 'lsp hover']
 	augroup end
-augroup END
-	"}}}
+	augroup flletype_vim
+		autocmd!
+		autocmd  FileType vim  let g:local_key_map['vim'] =  {}
+		autocmd  FileType vim  let g:local_key_map['vim'][','] = ['LspFormat()', 'lsp format']
+	augroup end
+	" augroup flletype_markdown
+	" 	autocmd!
+	" 	autocmd  BufEnter *.md,*.markdown,*.MD    let g:whick_key =  {}
+	" 	autocmd  BufEnter *.md,*.markdown,*.MD    let g:whick_key[','] = ['LspFormat()', 'lsp format']
+	" 	autocmd  BufEnter *.md,*.markdown,*.MD    let g:whick_key['p'] = ['MarkdownPreview', 'markdown preview']
+	" 	autocmd  BufEnter *.md,*.markdown,*.MD    call which_key#register(',', "g:whick_key")
+	" augroup end
 
+
+	augroup flletype_localleader_key
+		autocmd!
+		autocmd  BufEnter *.vim,*.cpp,*.h,*.cc,*.c,*.startify    call which_key#register(',', g:local_key_map[&ft])
+	augroup END
+
+augroup END
+"}}}
