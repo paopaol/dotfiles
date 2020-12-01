@@ -744,18 +744,30 @@ augroup which_key
 		autocmd  FileType vim  let g:local_key_map['vim'] =  {}
 		autocmd  FileType vim  let g:local_key_map['vim'][','] = ['LspFormat()', 'lsp format']
 	augroup end
-	" augroup flletype_markdown
-	" 	autocmd!
-	" 	autocmd  BufEnter *.md,*.markdown,*.MD    let g:whick_key =  {}
-	" 	autocmd  BufEnter *.md,*.markdown,*.MD    let g:whick_key[','] = ['LspFormat()', 'lsp format']
-	" 	autocmd  BufEnter *.md,*.markdown,*.MD    let g:whick_key['p'] = ['MarkdownPreview', 'markdown preview']
-	" 	autocmd  BufEnter *.md,*.markdown,*.MD    call which_key#register(',', "g:whick_key")
-	" augroup end
+	augroup flletype_markdown
+		autocmd!
+		autocmd  FileType markdown    let g:local_key_map['markdown'] =  {}
+		autocmd  FileType markdown    let g:local_key_map['markdown'][','] = ['LspFormat()', 'lsp format']
+		autocmd  FileType markdown    let g:local_key_map['markdown']['p'] = {'name':"+preview"}
+		autocmd  FileType markdown    let g:local_key_map['markdown']['p']['p'] = [':MarkdownPreview', 'markdown preview']
+		autocmd  FileType markdown    let g:local_key_map['markdown']['p']['t'] = [':Tocv', 'markdown preview toc vsplit']
+		autocmd  FileType markdown    let g:local_key_map['markdown']['i'] = {'name':'+insert'}
+		autocmd  FileType markdown    let g:local_key_map['markdown']['i']['t'] = [':InsertToc', 'insert toc']
+	augroup end
 
 
 	augroup flletype_localleader_key
 		autocmd!
-		autocmd  BufEnter *.vim,*.cpp,*.h,*.cc,*.c,*.startify    call which_key#register(',', g:local_key_map[&ft])
+
+		function! s:register_localleader_ley_map_of_which_key() abort
+			if &ft != 'which_key' && has_key(g:local_key_map, &ft)
+				call which_key#register(',', g:local_key_map[&ft])
+			else
+				call which_key#register(',', {})
+			endif
+		endfunction
+
+		autocmd  BufEnter *  call s:register_localleader_ley_map_of_which_key()
 	augroup END
 
 augroup END
