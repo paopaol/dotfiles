@@ -106,6 +106,20 @@ augroup plgu
 augroup END
 "}}}
 
+"startify{{{
+augroup startify
+	autocmd!
+	let g:startify_custom_header =startify#center([
+				\"███████╗ ███╗   ███╗  █████╗   ██████╗ ███████╗",
+				\"██╔════╝ ████╗ ████║ ██╔══██╗ ██╔════╝ ██╔════╝",
+				\"█████╗   ██╔████╔██║ ███████║ ██║      ███████╗",
+				\"██╔══╝   ██║╚██╔╝██║ ██╔══██║ ██║      ╚════██║",
+				\"███████╗ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗ ███████║",
+				\"╚══════╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝ ╚══════╝",
+				\])
+augroup END
+"}}}
+
 "vimscript file settings ---------------------{{{
 augroup filetype_vim
 	autocmd!
