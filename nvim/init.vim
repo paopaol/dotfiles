@@ -758,6 +758,11 @@ augroup which_key
 		autocmd  FileType vim  let g:local_key_map['vim'] =  {}
 		autocmd  FileType vim  let g:local_key_map['vim'][','] = ['LspFormat()', 'lsp format']
 	augroup end
+	augroup flletype_cmake
+		autocmd!
+		autocmd  FileType cmake  let g:local_key_map['cmake'] =  {}
+		autocmd  FileType cmake  let g:local_key_map['cmake'][','] = ['LspFormat()', 'lsp format']
+	augroup end
 	augroup flletype_markdown
 		autocmd!
 		autocmd  FileType markdown    let g:local_key_map['markdown'] =  {}
