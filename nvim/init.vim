@@ -647,6 +647,16 @@ augroup END
 """which_key -----------------{{{
 augroup which_key
 	autocmd!
+
+	function! Uncolor_all_words() abort
+		call UncolorAllWords()
+		set nohlsearch
+	endfunction
+
+
+
+
+
 	let g:which_key_use_floating_win = 1
 	let g:mapleader = "\<Space>"
 	let g:maplocalleader = ','
@@ -705,7 +715,7 @@ augroup which_key
 				\ 'S' : ['GrepperCurrentBufferAtPoint()', 'symbol buffer at point'],
 				\ 'l' : [':Leaderf function', 'tags current buffer '],
 				\ 'h' : ['InterestingWords("n")', 'highlight cursor word'],
-				\ 'c' : ['UncolorAllWords()', 'unhighlight all words'],
+				\ 'c' : ['Uncolor_all_words()', 'unhighlight all words'],
 				\ 'p' : ['GrepperProjectSymbol()', 'rg project'],
 				\ 't' : [':CocList tasks ', 'async tasks'],
 				\ 'P' : ['GrepperProjectSymbolAtPoint()', 'rg project at point'],
