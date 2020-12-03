@@ -38,6 +38,7 @@
     "javascript",
     "typescript"
   ],
+  "snippets.ultisnips.directories": ["ultisnips"],
   "explorer.keyMappings.global": {
     "*": "toggleSelection",
     "<tab>": ["expanded?", "collapse", "expand"],
