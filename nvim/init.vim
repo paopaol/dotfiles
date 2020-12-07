@@ -1,51 +1,9 @@
 
-"vim settings -----------------{{{
-augroup vimsettings
-	autocmd!
+let $VIMHOME = fnamemodify(expand('<sfile>'), ':p')
+let $VIMHOME = resolve($VIMHOME)
+let $VIMHOME =  fnamemodify(expand($VIMHOME), ':p:h')
+source $VIMHOME/core/base_setting.vim
 
-	function! ImSelectEn()
-		call system('im-select 1033')
-	endfunction
-
-	let $VIMHOME = fnamemodify(expand('<sfile>'), ':p')
-	let $VIMHOME = resolve($VIMHOME)
-	let $VIMHOME =  fnamemodify(expand($VIMHOME), ':p:h')
-	source $VIMHOME/core/base_setting.vim
-
-
-	set relativenumber
-	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
-	set number
-	"always show tab
-	set showtabline=2
-	let autosave=30
-	set autoread
-	set nohlsearch
-	set nowrap
-
-	if has('win32')
-		autocmd InsertLeave * call ImSelectEn()
-	endif
-
-	if has('nvim')
-	else
-		if has('win32')
-			" set pythonthreedll=python38.dll
-		else
-			set pyxversion=3
-		endif
-	endif
-	xnoremap > >gv
-	xnoremap < <gv
-	nnoremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
-	inoremap <f2><f2>   <esc>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
-	vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
-	" select block
-	vnoremap v a}o0
-	tnoremap <Esc> <C-\><C-n>
-	au FocusGained * :checktime
-augroup END
-"}}}
 
 "plug -----{{{
 augroup plgu
@@ -164,6 +122,26 @@ augroup commentary
 
 	autocmd FileType cpp setlocal commentstring=//\ %s
 augroup END
+"}}}
+
+"""""""""""""""""""airline ----{{{
+" augroup airline
+	" autocmd!
+
+	function! AirlineInit()
+		let g:airline_section_a = airline#section#create_left(['%{winnr()}','mode', 'crypt', 'paste', 'iminsert'])
+		let g:airline_section_c = airline#section#create_left(['%{ProjectRelativeFilePath()}'])
+	endfunction
+	let g:airline_theme = "dark"
+	let g:airline#extensions#tabline#enabled = 1
+	let g:airline_inactive_collapse=0
+	let g:airline#extensions#whitespace#enabled = 0
+	let g:airline#extensions#whitespace#symbol = '!'
+	let g:airline#extensions#tabline#formatter = 'unique_tail'
+	let g:airline#extensions#tabline#fnamemod = ':p:.'
+	let g:airline#extensions#tabline#fnametruncate = 1
+	autocmd User AirlineAfterInit call AirlineInit()
+" augroup END
 "}}}
 
 "coc--------------{{{
@@ -529,25 +507,50 @@ augroup choosewin
 augroup END
 "}}}
 
-"""""""""""""""""""airline ----{{{
-augroup airline
+
+"vim settings -----------------{{{
+augroup vimsettings
 	autocmd!
 
-	function! AirlineInit()
-		let g:airline_section_a = airline#section#create_left(['%{winnr()}','mode', 'crypt', 'paste', 'iminsert'])
-		let g:airline_section_c = airline#section#create_left(['%{ProjectRelativeFilePath()}'])
+	function! ImSelectEn()
+		call system('im-select 1033')
 	endfunction
-	let g:airline_theme = "dark"
-	let g:airline_inactive_collapse=0
-	let g:airline#extensions#whitespace#enabled = 0
-	let g:airline#extensions#whitespace#symbol = '!'
-	let g:airline#extensions#tabline#formatter = 'unique_tail'
-	let g:airline#extensions#tabline#fnamemod = ':p:.'
-	let g:airline#extensions#tabline#fnametruncate = 1
-	autocmd User AirlineAfterInit call AirlineInit()
+
+
+
+	set relativenumber
+	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
+	set number
+	"always show tab
+	set showtabline=2
+	let autosave=30
+	set autoread
+	set nohlsearch
+	set nowrap
+
+	if has('win32')
+		autocmd InsertLeave * call ImSelectEn()
+	endif
+
+	if has('nvim')
+	else
+		if has('win32')
+			" set pythonthreedll=python38.dll
+		else
+			set pyxversion=3
+		endif
+	endif
+	xnoremap > >gv
+	xnoremap < <gv
+	nnoremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
+	inoremap <f2><f2>   <esc>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
+	vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
+	" select block
+	vnoremap v a}o0
+	tnoremap <Esc> <C-\><C-n>
+	au FocusGained * :checktime
 augroup END
 "}}}
-
 
 inoremap <expr> <CR> InsertMapForEnter()
 function! InsertMapForEnter()
@@ -762,6 +765,11 @@ augroup which_key
 		autocmd  FileType cpp    let g:local_key_map['cpp'][','] = ['LspFormat()', 'lsp format']
 		autocmd  FileType cpp    let g:local_key_map['cpp']['d'] = ['Dox', 'DoxygenToolkit']
 		autocmd  FileType cpp    let g:local_key_map['cpp']['y'] = ['LspHover()', 'lsp hover']
+	augroup end
+	augroup flletype_json
+		autocmd!
+		autocmd  FileType json  let g:local_key_map['json'] =  {}
+		autocmd  FileType json  let g:local_key_map['json'][','] = ['LspFormat()', 'lsp format']
 	augroup end
 	augroup flletype_vim
 		autocmd!
