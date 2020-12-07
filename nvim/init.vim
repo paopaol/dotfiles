@@ -92,6 +92,14 @@ augroup filetype_markdown
 augroup END
 " }}}
 
+"xml_html filetype_xml {{{
+augroup filetype_xml
+	autocmd!
+  autocmd FileType xml    	set tabstop=2
+augroup END
+"}}}
+
+
 "leaderf settings-------------------{{{
 augroup leaderf
 	autocmd!
@@ -124,7 +132,14 @@ augroup commentary
 augroup END
 "}}}
 
-"""""""""""""""""""airline ----{{{
+"tabline{{{
+augroup tabline
+	autocmd!
+	let g:vem_tabline_show_number = 'index'
+augroup END
+"}}}
+
+"airline ----{{{
 " augroup airline
 	" autocmd!
 
@@ -371,12 +386,6 @@ augroup AnyFold
 augroup END
 "}}}
 
-"tabline{{{
-augroup tabline
-	autocmd!
-	let g:vem_tabline_show_number = 'index'
-augroup END
-"}}}
 
 "terminal----------{{{
 augroup terminal
