@@ -13,6 +13,7 @@ augroup vimsettings
 	source $VIMHOME/core/base_setting.vim
 
 
+	" set guifont=DejaVu\ Sans\ Mono
 	set relativenumber
 	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
 	set number
@@ -318,7 +319,7 @@ augroup coc
 	command! -nargs=0 Format :call CocAction('format')
 	let g:coc_global_extensions = ['coc-bookmark', 'coc-cmake', 'coc-css', 
 				\ 'coc-emmet', 'coc-fs-lists', 'coc-html', 'coc-json',
-				\ 'coc-snippets','coc-tasks', 'coc-translator',
+				\ 'coc-snippets','coc-tasks', 'coc-translator', 'coc-rust-analyzer',
 				\'coc-tsserver', 'coc-vimlsp', 'coc-prettier']
 	" GoTo code navigation.
 	nmap <silent> gd <Plug>(coc-definition)
@@ -666,6 +667,7 @@ augroup which_key
 	nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 	nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
+	let g:which_key_map['q'] = [':wq!', 'quit']
 	let g:which_key_map[' '] = [':ChooseWin', 'choosewin']
 	let g:which_key_map['1'] = [':VemTablineGo 1', 'tab 1']
 	let g:which_key_map['2'] = [':VemTablineGo 2', 'tab 2']
@@ -767,6 +769,11 @@ augroup which_key
 		autocmd!
 		autocmd  FileType vim  let g:local_key_map['vim'] =  {}
 		autocmd  FileType vim  let g:local_key_map['vim'][','] = ['LspFormat()', 'lsp format']
+	augroup end
+	augroup flletype_rust
+		autocmd!
+		autocmd  FileType rust  let g:local_key_map['rust'] =  {}
+		autocmd  FileType rust  let g:local_key_map['rust'][','] = ['LspFormat()', 'lsp format']
 	augroup end
 	augroup flletype_cmake
 		autocmd!
