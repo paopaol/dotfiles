@@ -525,7 +525,8 @@ augroup vimsettings
 		call system('im-select 1033')
 	endfunction
 
-
+	highlight Pmenu ctermfg=black ctermbg=gray  guibg=dark guifg=#cccccc
+	highlight PmenuSel ctermfg=7 ctermbg=4 guibg=dark guifg=dark
 
 	set relativenumber
 	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
@@ -665,11 +666,14 @@ augroup which_key
 		set nohlsearch
 	endfunction
 
+	autocmd! FileType which_key
+	autocmd  FileType which_key set laststatus=0 noshowmode noruler
+				\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 
 
 
-	let g:which_key_use_floating_win = 1
+	let g:which_key_use_floating_win = 0
 	let g:mapleader = "\<Space>"
 	let g:maplocalleader = ','
 	let g:which_key_map =  {}
