@@ -8,6 +8,7 @@ source $VIMHOME/core/base_setting.vim
 "plug -----{{{
 augroup plgu
 	call plug#begin('~/.vim/plugged')
+	Plug 'bagrat/vim-buffet'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'mhinz/vim-grepper'
 	Plug 'paopaol/vim-terminal-help'
@@ -19,7 +20,7 @@ augroup plgu
 	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 	Plug 'dhruvasagar/vim-table-mode'
 	Plug 'cormacrelf/vim-colors-github'
-	Plug 'pacha/vem-tabline'
+	" Plug 'pacha/vem-tabline'
 	Plug 'Raimondi/delimitMate'
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/seoul256.vim'
@@ -133,9 +134,17 @@ augroup END
 "}}}
 
 "tabline{{{
-augroup tabline
+" augroup tabline
+" 	autocmd!
+" 	let g:vem_tabline_show_number = 'index'
+" augroup END
+"}}}
+"vim-buffet{{{
+augroup vim_buffet
 	autocmd!
-	let g:vem_tabline_show_number = 'index'
+	let g:buffet_powerline_separators = 1
+	let g:buffet_show_index = 1
+	let g:buffet_tab_icon = '🎨'
 augroup END
 "}}}
 
@@ -148,7 +157,7 @@ augroup END
 		let g:airline_section_c = airline#section#create_left(['%{ProjectRelativeFilePath()}'])
 	endfunction
 	let g:airline_theme = "dark"
-	let g:airline#extensions#tabline#enabled = 1
+	" let g:airline#extensions#tabline#enabled = 1
 	let g:airline_inactive_collapse=0
 	let g:airline#extensions#whitespace#enabled = 0
 	let g:airline#extensions#whitespace#symbol = '!'
@@ -525,8 +534,8 @@ augroup vimsettings
 		call system('im-select 1033')
 	endfunction
 
-	highlight Pmenu ctermfg=black ctermbg=gray  guibg=dark guifg=#cccccc
-	highlight PmenuSel ctermfg=7 ctermbg=4 guibg=dark guifg=dark
+	highlight Pmenu ctermfg=none ctermbg=none  guibg=none guifg=none
+	highlight PmenuSel ctermfg=7 ctermbg=4 guibg=none guifg=none
 
 	set relativenumber
 	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
@@ -684,15 +693,15 @@ augroup which_key
 
 	let g:which_key_map['q'] = [':wq!', 'quit']
 	let g:which_key_map[' '] = [':ChooseWin', 'choosewin']
-	let g:which_key_map['1'] = [':VemTablineGo 1', 'tab 1']
-	let g:which_key_map['2'] = [':VemTablineGo 2', 'tab 2']
-	let g:which_key_map['3'] = [':VemTablineGo 3', 'tab 3']
-	let g:which_key_map['4'] = [':VemTablineGo 4', 'tab 4']
-	let g:which_key_map['5'] = [':VemTablineGo 5', 'tab 5']
-	let g:which_key_map['6'] = [':VemTablineGo 6', 'tab 6']
-	let g:which_key_map['7'] = [':VemTablineGo 7', 'tab 7']
-	let g:which_key_map['8'] = [':VemTablineGo 8', 'tab 8']
-	let g:which_key_map['9'] = [':VemTablineGo 9', 'tab 9']
+	let g:which_key_map['1'] = ['<Plug>BuffetSwitch(1)', 'tab 1']
+	let g:which_key_map['2'] = ['<Plug>BuffetSwitch(2)', 'tab 2']
+	let g:which_key_map['3'] = ['<Plug>BuffetSwitch(3)', 'tab 3']
+	let g:which_key_map['4'] = ['<Plug>BuffetSwitch(4)', 'tab 4']
+	let g:which_key_map['5'] = ['<Plug>BuffetSwitch(5)', 'tab 5']
+	let g:which_key_map['6'] = ['<Plug>BuffetSwitch(6)', 'tab 6']
+	let g:which_key_map['7'] = ['<Plug>BuffetSwitch(7)', 'tab 7']
+	let g:which_key_map['8'] = ['<Plug>BuffetSwitch(8)', 'tab 8']
+	let g:which_key_map['9'] = ['<Plug>BuffetSwitch(9)', 'tab 9']
 
 	let g:which_key_map['w'] = {
 				\ 'name' : '+windows' ,
@@ -794,6 +803,7 @@ augroup which_key
 		autocmd!
 		autocmd  FileType rust  let g:local_key_map['rust'] =  {}
 		autocmd  FileType rust  let g:local_key_map['rust'][','] = ['LspFormat()', 'lsp format']
+		autocmd  FileType rust  let g:local_key_map['rust']['r'] = ['RustRun', 'run']
 	augroup end
 	augroup flletype_cmake
 		autocmd!
