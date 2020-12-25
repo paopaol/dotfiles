@@ -1,7 +1,7 @@
 {
+  "suggest.autoTrigger": "trigger",
   "languageserver": {
     "ccls": {
-      "trace.server": "verbose",
       "command": "ccls",
       "filetypes": ["c", "cpp", "objc", "objcpp"],
       "rootPatterns": [
@@ -29,15 +29,16 @@
   },
   "coc.preferences.extensionUpdateCheck": "never",
   "suggest.noselect": false,
-  "tsserver.log": "verbose",
   "coc.preferences.formatOnSaveFiletypes": [
     "markdown",
     "json",
     "css",
     "html",
     "javascript",
-    "typescript"
+    "typescript",
+    "yaml"
   ],
+  "yaml.format.enable": true,
   "snippets.ultisnips.directories": ["ultisnips"],
   "explorer.keyMappings.global": {
     "*": "toggleSelection",

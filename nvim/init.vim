@@ -321,7 +321,7 @@ augroup coc
 	let g:coc_global_extensions = ['coc-bookmark', 'coc-cmake', 'coc-css', 
 				\ 'coc-emmet', 'coc-fs-lists', 'coc-html', 'coc-json',
 				\ 'coc-snippets','coc-tasks', 'coc-translator', 'coc-rust-analyzer',
-				\'coc-tsserver', 'coc-vimlsp', 'coc-prettier']
+				\'coc-tsserver', 'coc-vimlsp', 'coc-prettier', 'coc-yaml']
 	" GoTo code navigation.
 	nmap <silent> gd <Plug>(coc-definition)
 	nmap <silent> <C-]> <Plug>(coc-definition)
@@ -809,6 +809,11 @@ augroup which_key
 		autocmd!
 		autocmd  FileType cmake  let g:local_key_map['cmake'] =  {}
 		autocmd  FileType cmake  let g:local_key_map['cmake'][','] = ['LspFormat()', 'lsp format']
+	augroup end
+	augroup flletype_yaml
+		autocmd!
+		autocmd  FileType yaml  let g:local_key_map['yaml'] =  {}
+		autocmd  FileType yaml  let g:local_key_map['yaml'][','] = ['LspFormat()', 'lsp format']
 	augroup end
 	augroup flletype_markdown
 		autocmd!
