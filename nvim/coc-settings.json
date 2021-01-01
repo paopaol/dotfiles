@@ -2,6 +2,7 @@
   "suggest.autoTrigger": "trigger",
   "languageserver": {
     "ccls": {
+      "disableSnippetCompletion": false,
       "command": "ccls",
       "filetypes": ["c", "cpp", "objc", "objcpp"],
       "rootPatterns": [
@@ -38,6 +39,7 @@
     "typescript",
     "yaml"
   ],
+  "snippets.autoTrigger": false,
   "yaml.format.enable": true,
   "snippets.ultisnips.directories": ["ultisnips"],
   "explorer.keyMappings.global": {
