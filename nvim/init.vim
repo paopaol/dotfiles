@@ -286,7 +286,7 @@ augroup coc
 	"""""""""""""""""""""""""""""""" coc snippets
 	""""""""""""""""""""""""""""""""
 	""""""""""""""""""""""""""""""""
-	inoremap <silent><expr> <TAB>
+        inoremap <silent><expr> <TAB>
 				\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" : <SID>check_back_space() ? "\<TAB>" :  coc#refresh()
 
 
@@ -306,7 +306,7 @@ augroup coc
 	endif
 
 	" Highlight the symbol and its references when holding the cursor.
-	autocmd CursorHold * silent call CocActionAsync('highlight')
+	" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 	augroup mygroup
 		autocmd!
@@ -321,7 +321,7 @@ augroup coc
 	let g:coc_global_extensions = ['coc-bookmark', 'coc-cmake', 'coc-css', 
 				\ 'coc-emmet', 'coc-fs-lists', 'coc-html', 'coc-json',
 				\ 'coc-snippets','coc-tasks', 'coc-translator', 'coc-rust-analyzer',
-				\'coc-tsserver', 'coc-vimlsp', 'coc-prettier', 'coc-yaml']
+				\'coc-tsserver', 'coc-vimlsp', 'coc-prettier', 'coc-yaml', 'coc-word', 'coc-translator']
 	" GoTo code navigation.
 	nmap <silent> gd <Plug>(coc-definition)
 	nmap <silent> <C-]> <Plug>(coc-definition)
@@ -340,6 +340,7 @@ augroup coc
 	xmap af <Plug>(coc-funcobj-a)
 	omap if <Plug>(coc-funcobj-i)
 	omap af <Plug>(coc-funcobj-a)
+	vmap <f9> <Plug>(coc-translator-pv)
 
 	noremap <silent> <f12> :<C-u>call ProjectExplorer()<CR>
 augroup END
@@ -450,10 +451,10 @@ augroup window
 	vnoremap Q :cclose<CR>
 
 
-	nnoremap <C-a> 0i
-	inoremap <C-a> <esc>0i
-	vnoremap <C-a> 0i
-	cnoremap <C-a> <Home>
+	nnoremap <A-a> 0i
+	inoremap <A-a> <esc>0i
+	vnoremap <A-a> 0i
+	cnoremap <A-a> <Home>
 
 	nnoremap <C-b> <Left>
 	inoremap <C-b> <Left>
@@ -746,6 +747,10 @@ augroup which_key
 				\ 't' : [':CocList tasks ', 'async tasks'],
 				\ 'P' : ['GrepperProjectSymbolAtPoint()', 'rg project at point'],
 				\ }
+	let g:which_key_map['s']['g'] = {
+				\ 'name' : '+google' ,
+				\ 't' : ['<Plug>(coc-translator-pv)', 'trans->zh'],
+				\}
 
 	let g:which_key_map['t'] = {
 				\ 'name' : '+tools/toggle' ,
