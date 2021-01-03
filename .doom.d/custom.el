@@ -4,14 +4,17 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
-   ["#282c34" "#ff8080" "#95ffa4" "#ffe9aa" "#91ddff" "#c991e1" "#aaffe4" "#cbe3e7"])
+   ["#181E24" "#ff8080" "#95ffa4" "#ffe9aa" "#91ddff" "#c991e1" "#aaffe4" "#cbe3e7"])
  '(ccls-args '("--log-file=/tmp/1.log"))
  '(ccls-initialization-options
    '(:cache
      (:directory "/tmp/ccls-cache/")
      :compilationDatabaseDirectory "build/" :completion
-     (:filterAndSort t)))
- '(company-idle-delay 0 t)
+     (:filterAndSort t)
+     :index
+     (:threads 1)))
+ '(company-idle-delay 0)
+ '(company-require-match 'never t)
  '(company-transformers nil t)
  '(compilation-error-regexp-alist
    '(absoft ada aix ant bash borland python-tracebacks-and-caml cmake cmake-info comma cucumber msft edg-1 edg-2 epc ftnchek iar ibm irix java jikes-file maven jikes-line clang-include gcc-include ruby-Test::Unit gnu lcc makepp mips-1 mips-2 msft omake oracle perl php rxp sparc-pascal-file sparc-pascal-line sparc-pascal-example sun sun-ada watcom 4bsd gcov-file gcov-header gcov-nomark gcov-called-line gcov-never-called perl--Pod::Checker perl--Test perl--Test2 perl--Test::Harness weblint guile-file guile-line msbuild))
@@ -57,7 +60,6 @@
  '(org-list-description-max-indent 4)
  '(org-src-preserve-indentation t)
  '(org-startup-indented t)
- '(package-selected-packages '(evil-traces))
  '(projectile-project-root-files-bottom-up '(".ccls-root" ".project"))
  '(sp-highlight-pair-overlay nil)
  '(sp-highlight-wrap-overlay nil)
