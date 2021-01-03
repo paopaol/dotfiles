@@ -1,5 +1,5 @@
 {
-  "suggest.autoTrigger": "trigger",
+  //"suggest.autoTrigger": "trigger",
   "languageserver": {
     "ccls": {
       "disableSnippetCompletion": false,
@@ -15,6 +15,15 @@
       "initializationOptions": {
         "cache": {
           "directory": "/tmp/ccls"
+        },
+        "completion": {
+          "placeholder": false
+        },
+        "diagnostics": {
+          "onSave": 1000
+        },
+        "index": {
+          "threads": 1
         },
         "compilationDatabaseDirectory": "build"
       }

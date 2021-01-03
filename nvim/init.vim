@@ -24,7 +24,7 @@ augroup plgu
 	Plug 'Raimondi/delimitMate'
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/seoul256.vim'
-	Plug 'pseewald/vim-anyfold'
+	" Plug 'pseewald/vim-anyfold'
 	Plug 'junegunn/goyo.vim'
 	Plug 'mattn/emmet-vim'
 	Plug 'justinmk/vim-sneak'
@@ -300,7 +300,7 @@ augroup coc
 	" position. Coc only does snippet and additional edit on confirm.
 	if has('patch8.1.1068')
 		" Use `complete_info` if your (Neo)Vim version supports it.
-		inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+		imap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 	else
 		imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 	endif
@@ -331,9 +331,9 @@ augroup coc
 	nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 	" Remap keys for applying codeAction to the current line.
-	nmap gi  <Plug>(coc-codeaction)
+	nnoremap gi  <Plug>(coc-codeaction)
 	" Apply AutoFix to problem on the current line.
-	nmap gf  <Plug>(coc-fix-current)
+	nnoremap gf  <Plug>(coc-fix-current)
 	" Introduce function text object
 	" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
 	xmap if <Plug>(coc-funcobj-i)
@@ -384,16 +384,16 @@ augroup END
 "}}}
 
 " AnyFold-----------{{{
-augroup AnyFold
-	autocmd!
-	" autocmd Filetype * AnyFoldActivate
-	" let g:anyfold_fold_comments=1
-	" set foldlevel=0
-	noremap zm :AnyFoldActivate<CR>zM
-	vnoremap zm :AnyFoldActivate<CR>zM
-	nnoremap zr zR
-	vnoremap zr zR
-augroup END
+"augroup AnyFold
+"	autocmd!
+"	" autocmd Filetype * AnyFoldActivate
+"	" let g:anyfold_fold_comments=1
+"	" set foldlevel=0
+"	nnoremap zm :AnyFoldActivate<CR>zM
+"	vnoremap zm :AnyFoldActivate<CR>zM
+"	nnoremap zr zR
+"	vnoremap zr zR
+"augroup END
 "}}}
 
 
@@ -424,36 +424,36 @@ augroup window
 	nnoremap <A-8> :8 wincmd w<CR>
 	nnoremap <A-9> :9 wincmd w<CR>
 
-	vnoremap <A-1> <esc>:1 wincmd w<CR>
-	vnoremap <A-2> <esc>:2 wincmd w<CR>
-	vnoremap <A-3> <esc>:3 wincmd w<CR>
-	vnoremap <A-4> <esc>:4 wincmd w<CR>
-	vnoremap <A-5> <esc>:5 wincmd w<CR>
-	vnoremap <A-6> <esc>:6 wincmd w<CR>
-	vnoremap <A-7> <esc>:7 wincmd w<CR>
-	vnoremap <A-8> <esc>:8 wincmd w<CR>
-	vnoremap <A-9> <esc>:9 wincmd w<CR>
+	vnoremap <A-1> <C-o>:1 wincmd w<CR>
+	vnoremap <A-2> <C-o>:2 wincmd w<CR>
+	vnoremap <A-3> <C-o>:3 wincmd w<CR>
+	vnoremap <A-4> <C-o>:4 wincmd w<CR>
+	vnoremap <A-5> <C-o>:5 wincmd w<CR>
+	vnoremap <A-6> <C-o>:6 wincmd w<CR>
+	vnoremap <A-7> <C-o>:7 wincmd w<CR>
+	vnoremap <A-8> <C-o>:8 wincmd w<CR>
+	vnoremap <A-9> <C-o>:9 wincmd w<CR>
 
-	inoremap <A-1> <esc>:1 wincmd w<CR>
-	inoremap <A-2> <esc>:2 wincmd w<CR>
-	inoremap <A-3> <esc>:3 wincmd w<CR>
-	inoremap <A-4> <esc>:4 wincmd w<CR>
-	inoremap <A-5> <esc>:5 wincmd w<CR>
-	inoremap <A-6> <esc>:6 wincmd w<CR>
-	inoremap <A-7> <esc>:7 wincmd w<CR>
-	inoremap <A-8> <esc>:8 wincmd w<CR>
-	inoremap <A-9> <esc>:9 wincmd w<CR>
-	noremap <A-Left> <esc>:wincmd h<CR>
-	noremap <A-Right> <esc>:wincmd l<CR>
-	noremap <A-Up> <esc>:wincmd k<CR>
-	noremap <A-Down> <esc>:wincmd j<CR>
-	noremap Q :cclose<CR>
+
+	inoremap <A-1> <C-o>:1 wincmd w<CR>
+	inoremap <A-2> <C-o>:2 wincmd w<CR>
+	inoremap <A-3> <C-o>:3 wincmd w<CR>
+	inoremap <A-4> <C-o>:4 wincmd w<CR>
+	inoremap <A-5> <C-o>:5 wincmd w<CR>
+	inoremap <A-6> <C-o>:6 wincmd w<CR>
+	inoremap <A-7> <C-o>:7 wincmd w<CR>
+	inoremap <A-8> <C-o>:8 wincmd w<CR>
+	inoremap <A-9> <C-o>:9 wincmd w<CR>
+	nnoremap <A-Left> <C-o>:wincmd h<CR>
+	nnoremap <A-Right> <C-o>:wincmd l<CR>
+	nnoremap <A-Up> <C-o>:wincmd k<CR>
+	nnoremap <A-Down> <C-o>:wincmd j<CR>
+	nnoremap Q :cclose<CR>
 	vnoremap Q :cclose<CR>
 
-
-	nnoremap <A-a> 0i
-	inoremap <A-a> <esc>0i
-	vnoremap <A-a> 0i
+	nnoremap <A-a> I
+	inoremap <A-a> <C-o>:normal! I<CR>
+	vnoremap <A-a> <C-o>:normal! I<CR>
 	cnoremap <A-a> <Home>
 
 	nnoremap <C-b> <Left>
@@ -461,10 +461,10 @@ augroup window
 	vnoremap <C-b> <Left>
 	cnoremap <C-b> <Left>
 
-	nnoremap <C-e> A
-	inoremap <C-e> <esc>A
-	vnoremap <C-e> A
-	cnoremap <C-e> <End>
+	nnoremap <A-e> <End>a
+	inoremap <A-e> <End>
+	vnoremap <A-e> <End>a
+	cnoremap <A-e> <End>a
 
 
 	nnoremap <C-f> <Right>
@@ -485,6 +485,9 @@ augroup window
 	inoremap <C-k> <Up>
 	vnoremap <C-k> <Up>
 	cnoremap <C-k> <Up>
+
+	nnoremap <A-j> 5j
+	nnoremap <A-k> 5k
 
 
 	""quick fix"
@@ -535,7 +538,7 @@ augroup vimsettings
 		call system('im-select 1033')
 	endfunction
 
-	highlight Pmenu ctermfg=none ctermbg=none  guibg=none guifg=none
+	highlight Pmenu ctermfg=none ctermbg=none  guibg=none guifg=None
 	highlight PmenuSel ctermfg=7 ctermbg=4 guibg=none guifg=none
 
 	set relativenumber
@@ -563,10 +566,10 @@ augroup vimsettings
 	xnoremap > >gv
 	xnoremap < <gv
 	nnoremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
-	inoremap <f2><f2>   <esc>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
+	inoremap <f2><f2>   <C-o>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 	vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
 	" select block
-	vnoremap v a}o0
+	" vnoremap v a}o0
 	tnoremap <Esc> <C-\><C-n>
 	au FocusGained * :checktime
 augroup END
@@ -654,12 +657,12 @@ augroup sneak
 	autocmd!
 
 	let g:sneak#s_next = 1
-	map s <Plug>Sneak_s
-	map S <Plug>Sneak_S
-	map f <Plug>Sneak_f
-	map F <Plug>Sneak_F
-	map t <Plug>Sneak_t
-	map T <Plug>Sneak_T
+	nmap s <Plug>Sneak_s
+	nmap S <Plug>Sneak_S
+	nmap f <Plug>Sneak_f
+	nmap F <Plug>Sneak_F
+	nmap t <Plug>Sneak_t
+	nmap T <Plug>Sneak_T
 augroup END
 "}}}
 
