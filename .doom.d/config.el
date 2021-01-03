@@ -31,8 +31,8 @@
         "o o" #'jz-toggle-cpp-h)
   (map! :leader
         "p u" #'find-file-in-project))
-(map! :leader
-      "/ s" #'swiper-thing-at-point)
+;; (map! :leader
+;;       "/ s" #'swiper-thing-at-point)
 (map! :leader
       "i e" #'jz-eval-region-and-replace)
 (use-package! helm
