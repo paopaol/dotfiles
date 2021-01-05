@@ -2,8 +2,18 @@
 
 ;; Place your private configuration here
 ;;
+
+(setq doom-theme 'doom-solarized-dark)
+(setq doom-localleader-key ",")
+
+(setq package-archives '(("gnu" . "http://mirroes.tuna.tsinghua.edu.cn/elpa/gnu/")
+			 ("org-cn" . "http://mirroes.tuna.tsinghua.edu.cn/elpa/org/")
+			 ("melpa" . "http://mirroes.tuna.tsinghua.edu.cn/elpa/melpa/")))
+
+
 (require 'compile)
 (require 'go-mode)
+
 
 (defun jz-exchange-args ()
   (interactive)
@@ -39,26 +49,28 @@
   :config
   (setq helm-buffer-max-length 56))
 
+
 (use-package! eshell
   :config
   (prefer-coding-system 'utf-8))
 
-(use-package! clang-format
-  :config
-  (map! :map c++-mode-map
-        :localleader
-        "f b" #'clang-format-buffer)
-  (map! :map c-mode-map
-        :localleader
-        "f b" #'clang-format-buffer))
-
 (map!
- (:map override
-        "<f6>" #'(lambda () (interactive) (call-interactively #'+eshell/split-below))))
+ :after cc-mode
+ :map (c-mode-map c++-mode-map)
+ (:after ccls
+  :n                         "C-j"        #'next-line
+  :n                         "C-k"        #'previous-line
+  :n                         "gr"         #'lsp-find-references
+  :nv                        "ga"         #'jz-exchange-args)
+ (:localleader
+  :desc "cpp-short-func-to-long-func" ",yy"          #'cpp-short-func-to-long-func
+  :desc "clang-format-bufer" ","          #'clang-format-buffer))
+
 (map! (:map override
         "<f2><f2>" #'jz-insert-\;-at-end-of-line))
 (map! (:map override
-        "C-x r d" #'bookmark-delete))
+      "C-x r d" #'bookmark-delete))
+
 
 (map! :gnvi  "C-f" #'forward-char
       :gnvi  "C-f" #'forward-char
@@ -72,14 +84,9 @@
       :gnvi  "C-]" #'xref-find-definitions
       :gnvi  "C-g" #'jz-keybord-quit-and-switch-2-evil-normal-mode
       :nv   "g C-]" #'xref-find-definitions-other-window)
+
 (map! :map ivy-minibuffer-map
       "<escape>" #'doom/escape)
-(map! :map c++-mode-map
-      :localleader
-      "y y" #'cpp-short-func-to-long-func)
-(map! :map c-mode-map
-      :localleader
-      "y y" #'cpp-short-func-to-long-func)
 
 (map! (:map (shell-mode-map)
         "i" #'shell-mode-move-cursor-after-prompt))
@@ -106,18 +113,6 @@
         "C-j" #'helm-next-line
         "C-k" #'helm-previous-line))
 
-(map! :map c++-mode-map
-     :nv "ga" #'jz-exchange-args
-     :gnvi "<tab>" #'jz-find-next-args
-     :gnvi "C-i" #'jz-find-next-args
-     :gnvi "<backtab>" #'jz-find-previous-args
-     )
-
-(map! :map c-mode-map
-     :nv "ga" #'jz-exchange-args
-     :gnvi "<tab>" #'jz-find-next-args
-     :gnvi "C-i" #'jz-find-next-args
-     :gnvi "<backtab>" #'jz-find-previous-args)
 (map! :map override
       :leader
       "c y"   #'jz-comment-and-yank-down
