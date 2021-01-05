@@ -20,6 +20,11 @@ augroup plgu
 	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 	Plug 'dhruvasagar/vim-table-mode'
 	Plug 'cormacrelf/vim-colors-github'
+	Plug 'easymotion/vim-easymotion'
+	Plug 'haya14busa/incsearch.vim'
+	Plug 'haya14busa/incsearch-easymotion.vim'
+	Plug 'haya14busa/incsearch-fuzzy.vim'
+
 	" Plug 'pacha/vem-tabline'
 	Plug 'Raimondi/delimitMate'
 	Plug 'terryma/vim-multiple-cursors'
@@ -78,6 +83,22 @@ augroup startify
 				\])
 augroup END
 "}}}
+
+"easymotion{{{
+augroup easymotion
+	function! s:config_easyfuzzymotion(...) abort
+		return extend(copy({
+					\   'converters': [incsearch#config#fuzzyword#converter()],
+					\   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+					\   'keymap': {"\<CR>": '<Over>(easymotion)'},
+					\   'is_expr': 0,
+					\   'is_stay': 1
+					\ }), get(a:, 1, {}))
+	endfunction
+
+	noremap <silent><expr> / incsearch#go(<SID>config_easyfuzzymotion())
+augroup END
+""}}}
 
 "vimscript file settings ---------------------{{{
 augroup filetype_vim
@@ -305,6 +326,10 @@ augroup coc
 		imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 	endif
 
+	inoremap <expr> <C-j> pumvisible() ? '<C-n>' :'<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+	inoremap <expr> <C-k> pumvisible() ? '<C-p>' :'<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
+	
+
 	" Highlight the symbol and its references when holding the cursor.
 	" autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -414,57 +439,23 @@ augroup window
 
 	colorscheme skeletor
 
-	nnoremap <A-1> :1 wincmd w<CR>
-	nnoremap <A-2> :2 wincmd w<CR>
-	nnoremap <A-3> :3 wincmd w<CR>
-	nnoremap <A-4> :4 wincmd w<CR>
-	nnoremap <A-5> :5 wincmd w<CR>
-	nnoremap <A-6> :6 wincmd w<CR>
-	nnoremap <A-7> :7 wincmd w<CR>
-	nnoremap <A-8> :8 wincmd w<CR>
-	nnoremap <A-9> :9 wincmd w<CR>
+	map <A-j> <C-W>j
+	map <A-k> <C-W>k
+	map <A-h> <C-W>h
+	map <A-l> <C-W>l
 
-	vnoremap <A-1> <C-o>:1 wincmd w<CR>
-	vnoremap <A-2> <C-o>:2 wincmd w<CR>
-	vnoremap <A-3> <C-o>:3 wincmd w<CR>
-	vnoremap <A-4> <C-o>:4 wincmd w<CR>
-	vnoremap <A-5> <C-o>:5 wincmd w<CR>
-	vnoremap <A-6> <C-o>:6 wincmd w<CR>
-	vnoremap <A-7> <C-o>:7 wincmd w<CR>
-	vnoremap <A-8> <C-o>:8 wincmd w<CR>
-	vnoremap <A-9> <C-o>:9 wincmd w<CR>
-
-
-	inoremap <A-1> <C-o>:1 wincmd w<CR>
-	inoremap <A-2> <C-o>:2 wincmd w<CR>
-	inoremap <A-3> <C-o>:3 wincmd w<CR>
-	inoremap <A-4> <C-o>:4 wincmd w<CR>
-	inoremap <A-5> <C-o>:5 wincmd w<CR>
-	inoremap <A-6> <C-o>:6 wincmd w<CR>
-	inoremap <A-7> <C-o>:7 wincmd w<CR>
-	inoremap <A-8> <C-o>:8 wincmd w<CR>
-	inoremap <A-9> <C-o>:9 wincmd w<CR>
-	nnoremap <A-Left> <C-o>:wincmd h<CR>
-	nnoremap <A-Right> <C-o>:wincmd l<CR>
-	nnoremap <A-Up> <C-o>:wincmd k<CR>
-	nnoremap <A-Down> <C-o>:wincmd j<CR>
 	nnoremap Q :cclose<CR>
 	vnoremap Q :cclose<CR>
-
-	nnoremap <A-a> I
-	inoremap <A-a> <C-o>:normal! I<CR>
-	vnoremap <A-a> <C-o>:normal! I<CR>
-	cnoremap <A-a> <Home>
 
 	nnoremap <C-b> <Left>
 	inoremap <C-b> <Left>
 	vnoremap <C-b> <Left>
 	cnoremap <C-b> <Left>
 
-	nnoremap <A-e> <End>a
-	inoremap <A-e> <End>
-	vnoremap <A-e> <End>a
-	cnoremap <A-e> <End>a
+	nnoremap <C-e> <End>a
+	inoremap <C-e> <End>
+	vnoremap <C-e> <End>a
+	cnoremap <C-e> <End>a
 
 
 	nnoremap <C-f> <Right>
@@ -472,22 +463,13 @@ augroup window
 	vnoremap <C-f> <Right>
 	cnoremap <C-f> <Right>
 
-	nnoremap <C-g> <esc>
-	inoremap <C-g> <esc>
-	vnoremap <C-g> <esc>
 
-	nnoremap <C-j> <Down>
-	inoremap <C-j> <Down>
-	vnoremap <C-j> <Down>
 	cnoremap <C-j> <Down>
-
-	nnoremap <C-k> <Up>
-	inoremap <C-k> <Up>
-	vnoremap <C-k> <Up>
+	inoremap <C-j> <Down>
 	cnoremap <C-k> <Up>
-
-	nnoremap <A-j> 5j
-	nnoremap <A-k> 5k
+	inoremap <C-k> <Up>
+	nnoremap <C-j> 5j
+	nnoremap <C-k> 5k
 
 
 	""quick fix"
@@ -538,8 +520,8 @@ augroup vimsettings
 		call system('im-select 1033')
 	endfunction
 
-	highlight Pmenu ctermfg=none ctermbg=none  guibg=none guifg=None
-	highlight PmenuSel ctermfg=7 ctermbg=4 guibg=none guifg=none
+	highlight Pmenu ctermfg=NONE ctermbg=NONE  guibg=NONE guifg=NONE
+	highlight PmenuSel ctermfg=7 ctermbg=4 guibg=NONE guifg=NONE
 
 	set relativenumber
 	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
@@ -716,6 +698,7 @@ augroup which_key
 				\ 'm' : ['<C-W>|'     , 'max-window'           ],
 				\ 's' : ['<C-W>s'     , 'split-window-below'   ],
 				\ 'v' : ['<C-W>v'     , 'split-window-below'   ],
+				\ 'q' : ['qa'         , 'quit vim'             ],
 				\ }
 
 	let g:which_key_map['f'] = {
@@ -741,7 +724,7 @@ augroup which_key
 
 	let g:which_key_map['s'] = {
 				\ 'name' : '+search & symbol' ,
-				\ 's' : ['GrepperCurrentBuffer()', 'symbol current buffer'],
+				\ 's' : [':Leaderf line --regexMode', 'symbol current buffer'],
 				\ 'S' : ['GrepperCurrentBufferAtPoint()', 'symbol buffer at point'],
 				\ 'l' : [':Leaderf function', 'tags current buffer '],
 				\ 'h' : ['InterestingWords("n")', 'highlight cursor word'],
