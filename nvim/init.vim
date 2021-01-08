@@ -520,7 +520,6 @@ augroup END
 "vim settings -----------------{{{
 augroup vimsettings
 	autocmd!
-
 	function! ImSelectEn()
 		if has('win32')
 			call system('im-select 1033')
@@ -529,8 +528,8 @@ augroup vimsettings
 		endif
 	endfunction
 
-	highlight Pmenu ctermfg=NONE ctermbg=NONE  guibg=NONE guifg=NONE
-	highlight PmenuSel ctermfg=7 ctermbg=4 guibg=NONE guifg=NONE
+	"highlight Pmenu ctermfg=NONE ctermbg=NONE  guibg=NONE guifg=NONE
+	"highlight PmenuSel ctermfg=7 ctermbg=4 guibg=NONE guifg=NONE
 
 	set relativenumber
 	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
