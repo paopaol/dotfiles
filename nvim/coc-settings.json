@@ -91,7 +91,7 @@
     "gd": "listDrive",
 
     "f": "search",
-    "F": "searchRecursive",
+    "<C-f>": "searchRecursive",
 
     "gf": "gotoSource:file",
     "gb": "gotoSource:buffer",

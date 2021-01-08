@@ -24,12 +24,13 @@ augroup plgu
 	Plug 'haya14busa/incsearch.vim'
 	Plug 'haya14busa/incsearch-easymotion.vim'
 	Plug 'haya14busa/incsearch-fuzzy.vim'
-
+	Plug 'glepnir/spaceline.vim'
+	Plug 'ryanoasis/vim-devicons'
 	" Plug 'pacha/vem-tabline'
 	Plug 'Raimondi/delimitMate'
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/seoul256.vim'
-	" Plug 'pseewald/vim-anyfold'
+	Plug 'pseewald/vim-anyfold'
 	Plug 'junegunn/goyo.vim'
 	Plug 'mattn/emmet-vim'
 	Plug 'justinmk/vim-sneak'
@@ -39,8 +40,8 @@ augroup plgu
 	Plug 'skreek/skeletor.vim'
 	Plug 'skywind3000/asynctasks.vim'
 	Plug 'skywind3000/asyncrun.vim'
-	Plug 'vim-airline/vim-airline-themes'
-	Plug 'bling/vim-airline'
+	" Plug 'vim-airline/vim-airline-themes'
+	" Plug 'bling/vim-airline'
 	Plug 'tpope/vim-surround'
 	Plug 't9md/vim-choosewin'
 	Plug 'rakr/vim-one'
@@ -51,7 +52,6 @@ augroup plgu
 	Plug 'liuchengxu/vim-which-key'
 	Plug 'lfv89/vim-interestingwords'
 	Plug 'liuchengxu/space-vim-theme'
-	Plug 'vim-airline/vim-airline-themes'
 	Plug 'tomasr/molokai'
 	Plug 'kana/vim-textobj-user'
 	Plug 'sgur/vim-textobj-parameter'
@@ -69,6 +69,9 @@ augroup plgu
 	call plug#end()
 augroup END
 "}}}
+
+let g:spaceline_seperate_style = 'arrow'
+let g:spaceline_custom_buffer_number = ['0','1', '2', '3','4', '5', '6', '7', '8']
 
 "startify{{{
 augroup startify
@@ -95,8 +98,7 @@ augroup easymotion
 					\   'is_stay': 1
 					\ }), get(a:, 1, {}))
 	endfunction
-
-	noremap <silent><expr> / incsearch#go(<SID>config_easyfuzzymotion())
+	noremap <silent><expr> <C-s> incsearch#go(<SID>config_easyfuzzymotion())
 augroup END
 ""}}}
 
@@ -165,29 +167,32 @@ augroup vim_buffet
 	autocmd!
 	let g:buffet_powerline_separators = 1
 	let g:buffet_show_index = 1
-	let g:buffet_tab_icon = '🎨'
+	let g:buffet_tab_icon = '✓'
 augroup END
 "}}}
 
-"airline ----{{{
-" augroup airline
-	" autocmd!
-
-	function! AirlineInit()
-		let g:airline_section_a = airline#section#create_left(['%{winnr()}','mode', 'crypt', 'paste', 'iminsert'])
-		let g:airline_section_c = airline#section#create_left(['%{ProjectRelativeFilePath()}'])
-	endfunction
-	let g:airline_theme = "dark"
-	" let g:airline#extensions#tabline#enabled = 1
-	let g:airline_inactive_collapse=0
-	let g:airline#extensions#whitespace#enabled = 0
-	let g:airline#extensions#whitespace#symbol = '!'
-	let g:airline#extensions#tabline#formatter = 'unique_tail'
-	let g:airline#extensions#tabline#fnamemod = ':p:.'
-	let g:airline#extensions#tabline#fnametruncate = 1
-	autocmd User AirlineAfterInit call AirlineInit()
-" augroup END
-"}}}
+""airline ----{{{
+"" augroup airline
+"	" autocmd!
+"
+"	function! AirlineInit()
+"		let g:airline_section_a = airline#section#create_left(['%{winnr()}'])
+"		" let g:airline_section_a = airline#section#create_left(['%{winnr()}', 'crypt'])
+"		" let g:airline_section_c = airline#section#create_left(['%{ProjectRelativeFilePath()}'])
+"	endfunction
+"	let g:airline_theme = "dark"
+"	" let g:airline#extensions#tabline#enabled = 1
+"	let g:airline_highlighting_cache = 1
+"	let g:airline_focuslost_inactive = 0
+"	" let g:airline_inactive_collapse=0
+"	let g:airline#extensions#whitespace#enabled = 0
+"	let g:airline#extensions#whitespace#symbol = '!'
+"	let g:airline#extensions#tabline#formatter = 'unique_tail'
+"	let g:airline#extensions#tabline#fnamemod = ':p:.'
+"	let g:airline#extensions#tabline#fnametruncate = 1
+"	autocmd User AirlineAfterInit call AirlineInit()
+"" augroup END
+""}}}
 
 "coc--------------{{{
 augroup coc
@@ -214,7 +219,7 @@ augroup coc
 
 	function ProjectExplorer() abort
 		let root = asyncrun#get_root('%')
-		execute 'normal! ' . ":CocCommand explorer   --position=right --sources=file+  " . root . "\<CR>"
+		execute 'normal! ' . ":CocCommand explorer   --position=left --sources=file+  " . root . "\<CR>"
 	endfunction
 
 	function OpenFileInExplorer() abort
@@ -284,7 +289,7 @@ augroup coc
 	"""""coc-explorer
 	let g:coc_explorer_global_presets = {
 				\   'floating': {
-				\      'position': 'right',
+				\      'position': 'left',
 				\   },
 				\   'floatingLeftside': {
 				\      'position': 'left',
@@ -409,16 +414,16 @@ augroup END
 "}}}
 
 " AnyFold-----------{{{
-"augroup AnyFold
-"	autocmd!
-"	" autocmd Filetype * AnyFoldActivate
-"	" let g:anyfold_fold_comments=1
-"	" set foldlevel=0
-"	nnoremap zm :AnyFoldActivate<CR>zM
-"	vnoremap zm :AnyFoldActivate<CR>zM
-"	nnoremap zr zR
-"	vnoremap zr zR
-"augroup END
+augroup AnyFold
+	autocmd!
+	" autocmd Filetype * AnyFoldActivate
+	" let g:anyfold_fold_comments=1
+	" set foldlevel=0
+	nnoremap zm :AnyFoldActivate<CR>zM
+	vnoremap zm :AnyFoldActivate<CR>zM
+	nnoremap zr zR
+	vnoremap zr zR
+augroup END
 "}}}
 
 
@@ -437,7 +442,7 @@ augroup END
 augroup window
 	autocmd!
 
-	colorscheme skeletor
+	colorscheme whitebox
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -517,7 +522,11 @@ augroup vimsettings
 	autocmd!
 
 	function! ImSelectEn()
-		call system('im-select 1033')
+		if has('win32')
+			call system('im-select 1033')
+		else
+			call system('ibus engine xkb:us::eng')
+		endif
 	endfunction
 
 	highlight Pmenu ctermfg=NONE ctermbg=NONE  guibg=NONE guifg=NONE
@@ -533,9 +542,7 @@ augroup vimsettings
 	set nohlsearch
 	set nowrap
 
-	if has('win32')
-		autocmd InsertLeave * call ImSelectEn()
-	endif
+	autocmd InsertLeave * call ImSelectEn()
 
 	if has('nvim')
 	else
@@ -688,7 +695,6 @@ augroup which_key
 	let g:which_key_map['7'] = ['<Plug>BuffetSwitch(7)', 'tab 7']
 	let g:which_key_map['8'] = ['<Plug>BuffetSwitch(8)', 'tab 8']
 	let g:which_key_map['9'] = ['<Plug>BuffetSwitch(9)', 'tab 9']
-
 	let g:which_key_map['w'] = {
 				\ 'name' : '+windows' ,
 				\ 'w' : ['<C-W>w'     , 'other-window'         ],
@@ -699,6 +705,16 @@ augroup which_key
 				\ 's' : ['<C-W>s'     , 'split-window-below'   ],
 				\ 'v' : ['<C-W>v'     , 'split-window-below'   ],
 				\ 'q' : ['qa'         , 'quit vim'             ],
+				\ }
+	let g:which_key_map['c'] = {
+				\ 'name' : '+coc' ,
+				\ }
+
+	let g:which_key_map['c']['b'] = {
+				\ 'name' : '+bookmark' ,
+				\ 'a' : [':CocCommand bookmark.annotate'   , 'bookmark annotation'  ],
+				\ 't' : [':CocCommand bookmark.toggle'     , 'bookmark annotation'  ],
+				\ 'l' : [':CocList --normal bookmark'      , 'bookmark annotation'  ],
 				\ }
 
 	let g:which_key_map['f'] = {
@@ -779,6 +795,13 @@ augroup which_key
 		autocmd  FileType cpp    let g:local_key_map['cpp'][','] = ['LspFormat()', 'lsp format']
 		autocmd  FileType cpp    let g:local_key_map['cpp']['d'] = ['Dox', 'DoxygenToolkit']
 		autocmd  FileType cpp    let g:local_key_map['cpp']['y'] = ['LspHover()', 'lsp hover']
+	augroup end
+	augroup flletype_c
+		autocmd!
+		autocmd  FileType c    let g:local_key_map['c'] =  {}
+		autocmd  FileType c    let g:local_key_map['c'][','] = ['LspFormat()', 'lsp format']
+		autocmd  FileType c    let g:local_key_map['c']['d'] = ['Dox', 'DoxygenToolkit']
+		autocmd  FileType c    let g:local_key_map['c']['y'] = ['LspHover()', 'lsp hover']
 	augroup end
 	augroup flletype_json
 		autocmd!
