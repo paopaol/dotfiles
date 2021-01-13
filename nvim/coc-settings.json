@@ -50,7 +50,7 @@
   ],
   "snippets.autoTrigger": false,
   "yaml.format.enable": true,
-  "snippets.ultisnips.directories": ["ultisnips"],
+  "snippets.ultisnips.directories": ["ultisnips", "UltiSnips"],
   "explorer.keyMappings.global": {
     "*": "toggleSelection",
     "<tab>": ["expanded?", "collapse", "expand"],
