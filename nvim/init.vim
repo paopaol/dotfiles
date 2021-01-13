@@ -26,7 +26,6 @@ augroup plgu
 	Plug 'haya14busa/incsearch-fuzzy.vim'
 	Plug 'glepnir/spaceline.vim'
 	Plug 'ryanoasis/vim-devicons'
-	" Plug 'pacha/vem-tabline'
 	Plug 'Raimondi/delimitMate'
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/seoul256.vim'
@@ -40,8 +39,6 @@ augroup plgu
 	Plug 'skreek/skeletor.vim'
 	Plug 'skywind3000/asynctasks.vim'
 	Plug 'skywind3000/asyncrun.vim'
-	" Plug 'vim-airline/vim-airline-themes'
-	" Plug 'bling/vim-airline'
 	Plug 'tpope/vim-surround'
 	Plug 't9md/vim-choosewin'
 	Plug 'rakr/vim-one'
@@ -71,7 +68,6 @@ augroup END
 "}}}
 
 let g:spaceline_seperate_style = 'arrow'
-let g:spaceline_custom_buffer_number = ['0','1', '2', '3','4', '5', '6', '7', '8']
 
 "startify{{{
 augroup startify
@@ -102,10 +98,17 @@ augroup easymotion
 augroup END
 ""}}}
 
-"vimscript file settings ---------------------{{{
+"filetype file settings ---------------------{{{
 augroup filetype_vim
 	autocmd!
 	autocmd FileType vim setlocal foldmethod=marker
+augroup END
+augroup filetype_cpp
+	autocmd!
+	autocmd FileType cpp,c set tabstop=4  
+	autocmd FileType cpp,c set shiftwidth=4  
+	autocmd FileType cpp,c set expandtab  
+	autocmd FileType cpp,c set softtabstop=4 
 augroup END
 " }}}
 
@@ -131,12 +134,12 @@ augroup leaderf
 
 	function ProjectFiles() abort
 		let root = asyncrun#get_root('%')
-		execute ':Leaderf file ' . root . "\<CR>"
+		execute ':Leaderf file --popup ' . root . "\<CR>"
 	endfunction
 
 	function ProjectFilesCurrentdir() abort
 		let root = fnamemodify(expand('%'), ':p:h')
-		execute ':Leaderf file ' . root . "\<CR>"
+		execute ':Leaderf file --popup ' . root . "\<CR>"
 	endfunction
 
 	let g:Lf_RootMarkers = ['.projectile']
@@ -156,43 +159,18 @@ augroup commentary
 augroup END
 "}}}
 
-"tabline{{{
-" augroup tabline
-" 	autocmd!
-" 	let g:vem_tabline_show_number = 'index'
-" augroup END
-"}}}
 "vim-buffet{{{
 augroup vim_buffet
 	autocmd!
-	let g:buffet_powerline_separators = 1
+    function! g:BuffetSetCustomColors()
+        hi! BuffetCurrentBuffer cterm=NONE ctermbg=red ctermfg=red guibg=NONE guifg=NONE
+    endfunction
+	let g:buffet_powerline_separators = 0
 	let g:buffet_show_index = 1
 	let g:buffet_tab_icon = '✓'
 augroup END
 "}}}
 
-""airline ----{{{
-"" augroup airline
-"	" autocmd!
-"
-"	function! AirlineInit()
-"		let g:airline_section_a = airline#section#create_left(['%{winnr()}'])
-"		" let g:airline_section_a = airline#section#create_left(['%{winnr()}', 'crypt'])
-"		" let g:airline_section_c = airline#section#create_left(['%{ProjectRelativeFilePath()}'])
-"	endfunction
-"	let g:airline_theme = "dark"
-"	" let g:airline#extensions#tabline#enabled = 1
-"	let g:airline_highlighting_cache = 1
-"	let g:airline_focuslost_inactive = 0
-"	" let g:airline_inactive_collapse=0
-"	let g:airline#extensions#whitespace#enabled = 0
-"	let g:airline#extensions#whitespace#symbol = '!'
-"	let g:airline#extensions#tabline#formatter = 'unique_tail'
-"	let g:airline#extensions#tabline#fnamemod = ':p:.'
-"	let g:airline#extensions#tabline#fnametruncate = 1
-"	autocmd User AirlineAfterInit call AirlineInit()
-"" augroup END
-""}}}
 
 "coc--------------{{{
 augroup coc
@@ -722,13 +700,13 @@ augroup which_key
 				\ 'd' : ['ProjectFilesCurrentdir()', 'find file in current'],
 				\ 's' : ['w', 'save file'],
 				\ 'o' : ['OpenFileInExplorer()', 'find file current dir'],
-				\ 'r' : [':Leaderf mru', 'recent files'],
+				\ 'r' : [':Leaderf mru --popup', 'recent files'],
 				\ 't' : ['ProjectExplorer()', 'project tree'],
 				\ }
 
 	let g:which_key_map['b'] = {
 				\ 'name' : '+buffer' ,
-				\ 'b' : ['LeaderfBuffer', 'buffer list'],
+				\ 'b' : [':Leaderf buffer --popup', 'buffer list'],
 				\ 'n' : ['bn', 'next buffer'],
 				\ 'p' : ['bp', 'prev buffer'],
 				\ 'k' : ['Bclose', 'buffer kill'],
@@ -739,9 +717,9 @@ augroup which_key
 
 	let g:which_key_map['s'] = {
 				\ 'name' : '+search & symbol' ,
-				\ 's' : [':Leaderf line --regexMode', 'symbol current buffer'],
+				\ 's' : [':Leaderf line --regexMode --popup', 'symbol current buffer'],
 				\ 'S' : ['GrepperCurrentBufferAtPoint()', 'symbol buffer at point'],
-				\ 'l' : [':Leaderf function', 'tags current buffer '],
+				\ 'l' : [':Leaderf function --popup', 'tags current buffer '],
 				\ 'h' : ['InterestingWords("n")', 'highlight cursor word'],
 				\ 'c' : ['Uncolor_all_words()', 'unhighlight all words'],
 				\ 'p' : ['GrepperProjectSymbol()', 'rg project'],
