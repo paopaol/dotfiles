@@ -1,33 +1,35 @@
 {
+  "clangd.arguments": ["--clang-tidy", "-j=1"],
+  "clangd.semanticHighlighting": true,
   //"suggest.autoTrigger": "trigger",
   "languageserver": {
-    "ccls": {
-      "disableSnippetCompletion": false,
-      "command": "ccls",
-      "filetypes": ["c", "cpp", "objc", "objcpp"],
-      "rootPatterns": [
-        ".ccls",
-        "compile_commands.json",
-        ".git/",
-        ".hg/",
-        ".projectile"
-      ],
-      "initializationOptions": {
-        "cache": {
-          "directory": "/tmp/ccls"
-        },
-        "completion": {
-          "placeholder": false
-        },
-        "diagnostics": {
-          "onSave": 1000
-        },
-        "index": {
-          "threads": 1
-        },
-        "compilationDatabaseDirectory": "build"
-      }
-    },
+    //"ccls": {
+    //  "disableSnippetCompletion": false,
+    //  "command": "ccls",
+    //  "filetypes": ["c", "cpp", "objc", "objcpp"],
+    //  "rootPatterns": [
+    //    ".ccls",
+    //    "compile_commands.json",
+    //    ".git/",
+    //    ".hg/",
+    //    ".projectile"
+    //  ],
+    //  "initializationOptions": {
+    //    "cache": {
+    //      "directory": "/tmp/ccls"
+    //    },
+    //    "completion": {
+    //      "placeholder": false
+    //    },
+    //    "diagnostics": {
+    //      "onSave": 1000
+    //    },
+    //    "index": {
+    //      "threads": 1
+    //    },
+    //    "compilationDatabaseDirectory": "build"
+    //  }
+    //},
     "golang": {
       "command": "gopls",
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/", ".projectile"],
