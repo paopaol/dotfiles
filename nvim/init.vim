@@ -8,7 +8,6 @@ source $VIMHOME/core/base_setting.vim
 "plug -----{{{
 augroup plgu
 	call plug#begin('~/.vim/plugged')
-	Plug 'bagrat/vim-buffet'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'mhinz/vim-grepper'
 	Plug 'paopaol/vim-terminal-help'
@@ -24,8 +23,9 @@ augroup plgu
 	Plug 'haya14busa/incsearch.vim'
 	Plug 'haya14busa/incsearch-easymotion.vim'
 	Plug 'haya14busa/incsearch-fuzzy.vim'
-	Plug 'glepnir/spaceline.vim'
 	Plug 'ryanoasis/vim-devicons'
+	"Plug 'glepnir/spaceline.vim'
+	" Plug 'bagrat/vim-buffet'
 	Plug 'Raimondi/delimitMate'
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/seoul256.vim'
@@ -36,7 +36,6 @@ augroup plgu
 	Plug 'junegunn/limelight.vim'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'honza/vim-snippets'
-	Plug 'skreek/skeletor.vim'
 	Plug 'skywind3000/asynctasks.vim'
 	Plug 'skywind3000/asyncrun.vim'
 	Plug 'tpope/vim-surround'
@@ -67,7 +66,8 @@ augroup plgu
 augroup END
 "}}}
 
-let g:spaceline_seperate_style = 'arrow'
+" let g:spaceline_seperate_style = 'curve'
+" let g:spaceline_line_symbol = 1
 
 "startify{{{
 augroup startify
@@ -160,15 +160,16 @@ augroup END
 "}}}
 
 "vim-buffet{{{
-augroup vim_buffet
-	autocmd!
-    function! g:BuffetSetCustomColors()
-        hi! BuffetCurrentBuffer cterm=NONE ctermbg=red ctermfg=red guibg=NONE guifg=NONE
-    endfunction
-	let g:buffet_powerline_separators = 0
-	let g:buffet_show_index = 1
-	let g:buffet_tab_icon = '✓'
-augroup END
+" augroup vim_buffet
+" 	autocmd!
+"     function! g:BuffetSetCustomColors()
+"         hi! BuffetCurrentBuffer  ctermbg=Black ctermfg=NONE guibg=Black guifg=NONE
+"     endfunction
+" 	let g:buffet_powerline_separators = 1
+" 	let g:buffet_show_index = 1
+" 	let g:buffet_tab_icon = '🎨'
+" 	let g:buffet_use_devicons = 1
+" augroup END
 "}}}
 
 
@@ -290,8 +291,8 @@ augroup coc
 	"""""""""""""""""""""""""""""""" coc snippets
 	""""""""""""""""""""""""""""""""
 	""""""""""""""""""""""""""""""""
-        inoremap <silent><expr> <TAB>
-				\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" : <SID>check_back_space() ? "\<TAB>" :  coc#refresh()
+    inoremap <silent><expr> <TAB>
+			\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" : <SID>check_back_space() ? "\<TAB>" :  coc#refresh()
 
 
 	let g:coc_snippet_next = '<tab>'
@@ -302,12 +303,13 @@ augroup coc
 
 	" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 	" position. Coc only does snippet and additional edit on confirm.
-	if has('patch8.1.1068')
+	" if has('patch8.1.1068')
 		" Use `complete_info` if your (Neo)Vim version supports it.
-		imap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-	else
-		imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-	endif
+	" imap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+	" else
+		" imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+	" endif
+	
 
 	inoremap <expr> <C-j> pumvisible() ? '<C-n>' :'<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 	inoremap <expr> <C-k> pumvisible() ? '<C-p>' :'<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
@@ -326,7 +328,7 @@ augroup coc
 
 
 	command! -nargs=0 Format :call CocAction('format')
-	let g:coc_global_extensions = ['coc-bookmark', 'coc-cmake', 'coc-css', 
+	let g:coc_global_extensions = ['coc-cmake', 'coc-css', 
 				\ 'coc-emmet', 'coc-fs-lists', 'coc-html', 'coc-json',
 				\ 'coc-snippets','coc-tasks', 'coc-translator', 'coc-rust-analyzer',
 				\'coc-tsserver', 'coc-vimlsp', 'coc-prettier', 'coc-yaml', 'coc-word', 'coc-translator']
@@ -420,7 +422,7 @@ augroup END
 augroup window
 	autocmd!
 
-	colorscheme whitebox
+	colorscheme space-vim-dark
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -772,6 +774,7 @@ augroup which_key
 		autocmd  FileType cpp    let g:local_key_map['cpp'][','] = ['LspFormat()', 'lsp format']
 		autocmd  FileType cpp    let g:local_key_map['cpp']['d'] = ['Dox', 'DoxygenToolkit']
 		autocmd  FileType cpp    let g:local_key_map['cpp']['y'] = ['LspHover()', 'lsp hover']
+		autocmd  FileType cpp    let g:local_key_map['cpp']['o'] = [':CocCommand clangd.switchSourceHeader', 'switch source header']
 	augroup end
 	augroup flletype_c
 		autocmd!
@@ -779,6 +782,7 @@ augroup which_key
 		autocmd  FileType c    let g:local_key_map['c'][','] = ['LspFormat()', 'lsp format']
 		autocmd  FileType c    let g:local_key_map['c']['d'] = ['Dox', 'DoxygenToolkit']
 		autocmd  FileType c    let g:local_key_map['c']['y'] = ['LspHover()', 'lsp hover']
+		autocmd  FileType cpp    let g:local_key_map['cpp']['o'] = [':CocCommand clangd.switchSourceHeader', 'switch source header']
 	augroup end
 	augroup flletype_json
 		autocmd!
