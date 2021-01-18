@@ -9,7 +9,7 @@ source $VIMHOME/core/base_setting.vim
 augroup plgu
 	call plug#begin('~/.vim/plugged')
 	Plug 'bagrat/vim-buffet'
-	Plug 'octol/vim-cpp-enhanced-highlight'
+	" Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'mhinz/vim-grepper'
 	Plug 'paopaol/vim-terminal-help'
 	Plug 'flazz/vim-colorschemes'
@@ -63,6 +63,7 @@ augroup plgu
 	Plug 'kshenoy/vim-signature'
 	Plug 'kana/vim-textobj-line'
 	Plug 'cespare/vim-toml'
+	Plug 'jackguo380/vim-lsp-cxx-highlight'
 	call plug#end()
 augroup END
 "}}}
@@ -339,9 +340,9 @@ augroup coc
 	nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 	" Remap keys for applying codeAction to the current line.
-	nnoremap gi  <Plug>(coc-codeaction)
+	nmap gi  <Plug>(coc-codeaction)
 	" Apply AutoFix to problem on the current line.
-	nnoremap gf  <Plug>(coc-fix-current)
+	nmap gf  <Plug>(coc-fix-current)
 	" Introduce function text object
 	" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
 	xmap if <Plug>(coc-funcobj-i)
@@ -420,7 +421,7 @@ augroup END
 augroup window
 	autocmd!
 
-	colorscheme whitebox
+	colorscheme spacemacs-theme
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
