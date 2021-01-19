@@ -163,9 +163,10 @@ augroup END
  augroup vim_buffet
  	autocmd!
 	function! g:BuffetSetCustomColors()
-		hi! BuffetCurrentBuffer                ctermbg=Black ctermfg=2  guibg=Black guifg=#00FF00
-		hi! BuffetBuffer         cterm=NONE    ctermbg=Black ctermfg=8     guibg=Black guifg=#00FF00
-                hi! BuffetActiveBuffer   cterm=NONE    ctermbg=Black ctermfg=2     guibg=Black guifg=#00FF00
+		hi! BuffetCurrentBuffer                ctermbg=Black ctermfg=2 guibg=Black    guifg=#00FF00
+		hi! BuffetBuffer         cterm=NONE    ctermbg=Black ctermfg=8 guibg=Black    guifg=#00FF00
+		hi! BuffetActiveBuffer   cterm=NONE    ctermbg=Black ctermfg=2 guibg=Black    guifg=#00FF00
+		hi! BuffetTab            cterm=NONE    ctermbg=Black     ctermfg=8 guibg=Black    guifg=#00FF00
 	endfunction
  	let g:buffet_powerline_separators = 1
  	let g:buffet_show_index = 1
