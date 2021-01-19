@@ -8,7 +8,6 @@ source $VIMHOME/core/base_setting.vim
 "plug -----{{{
 augroup plgu
 	call plug#begin('~/.vim/plugged')
-	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'mhinz/vim-grepper'
 	Plug 'paopaol/vim-terminal-help'
 	Plug 'flazz/vim-colorschemes'
@@ -25,7 +24,7 @@ augroup plgu
 	Plug 'haya14busa/incsearch-fuzzy.vim'
 	Plug 'ryanoasis/vim-devicons'
 	"Plug 'glepnir/spaceline.vim'
-	" Plug 'bagrat/vim-buffet'
+	Plug 'bagrat/vim-buffet'
 	Plug 'Raimondi/delimitMate'
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/seoul256.vim'
@@ -62,6 +61,7 @@ augroup plgu
 	Plug 'kshenoy/vim-signature'
 	Plug 'kana/vim-textobj-line'
 	Plug 'cespare/vim-toml'
+	Plug 'jackguo380/vim-lsp-cxx-highlight'
 	call plug#end()
 augroup END
 "}}}
@@ -160,16 +160,18 @@ augroup END
 "}}}
 
 "vim-buffet{{{
-" augroup vim_buffet
-" 	autocmd!
-"     function! g:BuffetSetCustomColors()
-"         hi! BuffetCurrentBuffer  ctermbg=Black ctermfg=NONE guibg=Black guifg=NONE
-"     endfunction
-" 	let g:buffet_powerline_separators = 1
-" 	let g:buffet_show_index = 1
-" 	let g:buffet_tab_icon = '🎨'
-" 	let g:buffet_use_devicons = 1
-" augroup END
+ augroup vim_buffet
+ 	autocmd!
+	function! g:BuffetSetCustomColors()
+		hi! BuffetCurrentBuffer                ctermbg=Black ctermfg=2  guibg=Black guifg=#00FF00
+		hi! BuffetBuffer         cterm=NONE    ctermbg=Black ctermfg=8     guibg=Black guifg=#00FF00
+                hi! BuffetActiveBuffer   cterm=NONE    ctermbg=Black ctermfg=2     guibg=Black guifg=#00FF00
+	endfunction
+ 	let g:buffet_powerline_separators = 1
+ 	let g:buffet_show_index = 1
+ 	let g:buffet_tab_icon = '🎨'
+ 	let g:buffet_use_devicons = 0
+ augroup END
 "}}}
 
 
@@ -341,9 +343,9 @@ augroup coc
 	nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 	" Remap keys for applying codeAction to the current line.
-	nnoremap gi  <Plug>(coc-codeaction)
+	nmap gi  <Plug>(coc-codeaction)
 	" Apply AutoFix to problem on the current line.
-	nnoremap gf  <Plug>(coc-fix-current)
+	nmap gf  <Plug>(coc-fix-current)
 	" Introduce function text object
 	" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
 	xmap if <Plug>(coc-funcobj-i)
