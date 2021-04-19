@@ -51,7 +51,7 @@ augroup plgu
 	Plug 'kana/vim-textobj-user'
 	Plug 'sgur/vim-textobj-parameter'
 	Plug 'rhysd/vim-textobj-anyblock'
-	Plug 'luochen1990/rainbow'
+	" Plug 'luochen1990/rainbow'
 	Plug 'tpope/vim-commentary'
 	Plug 'thinca/vim-qfreplace'
 	Plug 'markonm/traces.vim'
@@ -116,6 +116,8 @@ augroup END
 augroup filetype_markdown
 	autocmd!
 	let g:vim_markdown_folding_disabled = 1
+	let g:mkdp_browser = 'wslview'
+	" let g:mkdp_open_to_the_world = 1
 augroup END
 " }}}
 
@@ -123,6 +125,14 @@ augroup END
 augroup filetype_xml
 	autocmd!
   autocmd FileType xml    	set tabstop=2
+augroup END
+"}}}
+
+"lspcxx_hl{{{
+augroup lspcxx_hl
+    autocmd!
+    let g:lsp_cxx_hl_light_bg = 1
+   " autocmd FileType cpp  highlight  LspCxxHlSymField ctermfg=Blue guifg=Green
 augroup END
 "}}}
 
@@ -263,7 +273,7 @@ augroup coc
 		endif
 		let r = line('.')
 		let c = col('.')
-		let resp = CocRequest('ccls', 'textDocument/hover',   {'textDocument': {'uri':f}, 'position': {'line': r - 1, 'character': c - 1}})
+		let resp = CocRequest('clangd', 'textDocument/hover',   {'textDocument': {'uri':f}, 'position': {'line': r - 1, 'character': c - 1}})
 		let @* = resp['contents'][0]['value']
 		echom @*
 	endfunction
@@ -284,7 +294,7 @@ augroup coc
 				\      'floating-width': 50,
 				\   },
 				\   'simplify': {
-				\     'file.child.template': '[filename growRight 1]',
+				\     'file.child.template': '[filename growRight 0]',
 				\     'file.child.labeling.template':'', 
 				\   }
 				\ }
@@ -425,7 +435,8 @@ augroup END
 augroup window
 	autocmd!
 
-	colorscheme space-vim-dark
+	" colorscheme monoacc
+	colorscheme solarized8_light
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k

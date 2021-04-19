@@ -38,8 +38,9 @@ set rnu
 set clipboard=unnamed
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 set encoding=utf-8
+set bg=light
 set t_Co=256
-set t_ut=
+" set t_ut=
 
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
