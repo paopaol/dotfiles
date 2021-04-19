@@ -1,5 +1,6 @@
 {
-  "clangd.arguments": ["--clang-tidy", "-j=1"],
+  "rust-analyzer.server.path": "rust-analyzer",
+  "clangd.arguments": ["--clang-tidy", "-j=1", "--header-insertion=never"],
   "clangd.semanticHighlighting": true,
   //"suggest.autoTrigger": "trigger",
   "languageserver": {
@@ -53,6 +54,8 @@
   "snippets.autoTrigger": false,
   "yaml.format.enable": true,
   "snippets.ultisnips.directories": ["ultisnips", "UltiSnips"],
+  "explorer.width": 50,
+  "explorer.previewAction.onHover": "labeling",
   "explorer.keyMappings.global": {
     "*": "toggleSelection",
     "<tab>": ["expanded?", "collapse", "expand"],
