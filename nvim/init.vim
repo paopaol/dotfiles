@@ -518,7 +518,8 @@ augroup vimsettings
 		if has('win32')
 			call system('im-select 1033')
 		else
-			call system('ibus engine xkb:us::eng')
+			" call system('ibus engine xkb:us::eng')
+			call system('/mnt/c/Windows/System32/im-select.exe 1033')
 		endif
 	endfunction
 
@@ -818,6 +819,11 @@ augroup which_key
 		autocmd!
 		autocmd  FileType cmake  let g:local_key_map['cmake'] =  {}
 		autocmd  FileType cmake  let g:local_key_map['cmake'][','] = ['LspFormat()', 'lsp format']
+	augroup end
+	augroup flletype_html
+		autocmd!
+		autocmd  FileType html  let g:local_key_map['html'] =  {}
+		autocmd  FileType html  let g:local_key_map['html'][','] = ['LspFormat()', 'lsp format']
 	augroup end
 	augroup flletype_yaml
 		autocmd!
