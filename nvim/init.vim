@@ -62,6 +62,8 @@ augroup plgu
 	Plug 'kana/vim-textobj-line'
 	Plug 'cespare/vim-toml'
 	Plug 'jackguo380/vim-lsp-cxx-highlight'
+    Plug 'octol/vim-cpp-enhanced-highlight'
+    Plug 'neomake/neomake'
 	call plug#end()
 augroup END
 "}}}
@@ -131,8 +133,8 @@ augroup END
 "lspcxx_hl{{{
 augroup lspcxx_hl
     autocmd!
-    let g:lsp_cxx_hl_light_bg = 1
-   " autocmd FileType cpp  highlight  LspCxxHlSymField ctermfg=Blue guifg=Green
+    " let g:lsp_cxx_hl_light_bg = 1
+    autocmd FileType cpp  highlight  LspCxxHlSymField ctermfg=Blue guifg=Green
 augroup END
 "}}}
 
@@ -372,6 +374,7 @@ augroup END
 "greper-----------{{{
 augroup grepper
 	autocmd!
+
 	function GrepperProjectSymbolAtPoint() abort
 		execute ':Grepper -dir repo -cword -noprompt '
 	endfunction
@@ -393,16 +396,16 @@ augroup grepper
 	endfunction
 
 
-	let g:grepper = {}            " initialize g:grepper with empty dictionary
-	runtime plugin/grepper.vim    " initialize g:grepper with default values
-	let g:grepper.tools = ['rg']
-	" let g:grepper.rg = {}
-	" let g:grepper.rg.grepprg = ''
-	" let g:grepper.rg = { 'grepprg':'rg -H --no-heading --vimgrep' }
-	" let g:grepper.rg.grepprg .= ' --smart-case'
-	let g:grepper.repo = ['.projectile']
-	let g:grepper.highlight = 1
-	let g:grepper.prompt = 1
+	" let g:grepper = {}            " initialize g:grepper with empty dictionary
+	" runtime plugin/grepper.vim    " initialize g:grepper with default values
+	" let g:grepper.tools = ['rg']
+	" " " let g:grepper.rg = {}
+	" " " let g:grepper.rg.grepprg = ''
+	" " " let g:grepper.rg = { 'grepprg':'rg -H --no-heading --vimgrep' }
+	" " " let g:grepper.rg.grepprg .= ' --smart-case'
+	" let g:grepper.repo = ['.projectile']
+	" let g:grepper.highlight = 1
+	" let g:grepper.prompt = 1
 augroup END
 "}}}
 
@@ -487,11 +490,11 @@ augroup END
 augroup asyncrun
 	autocmd!
 
+
 	if has('win32')
 		let g:asyncrun_encs = 'gbk'
 	endif
 	let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', '.projectile']
-	noremap <F5> :AsyncRun -cwd=<root>/build cmake --build <root>/build <cr>
 	let g:asyncrun_open=6
 	let g:asyncrun_save=2
 augroup END
@@ -620,6 +623,13 @@ function LspFormat() abort
 		execute ':Format'
 	endif
 	call SaveBuf()
+endfunction
+
+
+function! CmakeBuild()abort
+    let root = asyncrun#get_root('%')
+    execute ':lcd ' . root . '/build'
+    execute ':AsyncRun -cwd=<root>/build/ cmake --build <root>/build'
 endfunction
 
 
@@ -790,6 +800,7 @@ augroup which_key
 		autocmd  FileType cpp    let g:local_key_map['cpp']['d'] = ['Dox', 'DoxygenToolkit']
 		autocmd  FileType cpp    let g:local_key_map['cpp']['y'] = ['LspHover()', 'lsp hover']
 		autocmd  FileType cpp    let g:local_key_map['cpp']['o'] = [':CocCommand clangd.switchSourceHeader', 'switch source header']
+        noremap <F5> :call CmakeBuild()<cr>
 	augroup end
 	augroup flletype_c
 		autocmd!
@@ -798,6 +809,7 @@ augroup which_key
 		autocmd  FileType c    let g:local_key_map['c']['d'] = ['Dox', 'DoxygenToolkit']
 		autocmd  FileType c    let g:local_key_map['c']['y'] = ['LspHover()', 'lsp hover']
 		autocmd  FileType cpp    let g:local_key_map['cpp']['o'] = [':CocCommand clangd.switchSourceHeader', 'switch source header']
+        noremap <F5> :call CmakeBuild()<cr>
 	augroup end
 	augroup flletype_json
 		autocmd!
