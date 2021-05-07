@@ -32,6 +32,7 @@ augroup plgu
 	Plug 'junegunn/goyo.vim'
 	Plug 'mattn/emmet-vim'
 	Plug 'justinmk/vim-sneak'
+	Plug 'itchyny/lightline.vim'
 	Plug 'junegunn/limelight.vim'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'honza/vim-snippets'
@@ -70,6 +71,17 @@ augroup END
 
 " let g:spaceline_seperate_style = 'curve'
 " let g:spaceline_line_symbol = 1
+
+let g:lightline = {
+            \ 'colorscheme': 'wombat',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+            \ },
+            \ 'component_function': {
+            \   'gitbranch': 'FugitiveHead'
+            \ },
+            \ }
 
 "startify{{{
 augroup startify
