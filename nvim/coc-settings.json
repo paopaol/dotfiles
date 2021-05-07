@@ -7,7 +7,7 @@
     "--header-insertion=never",
     "--completion-style=detailed"
   ],
-  "suggest.autoTrigger": "trigger",
+  //  "suggest.autoTrigger": "trigger",
 
   "languageserver": {
     //"ccls": {
