@@ -10,7 +10,7 @@ set noswapfile
 " Give more space for displaying messages.
 set cmdheight=1
 
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" | Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable |
 " delays and poor user experience.
 set updatetime=300
 
@@ -41,6 +41,7 @@ set encoding=utf-8
 set bg=light
 set t_Co=256
 " set t_ut=
+" set term=screen-256color
 
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif

@@ -23,17 +23,15 @@ augroup plgu
 	Plug 'haya14busa/incsearch-easymotion.vim'
 	Plug 'haya14busa/incsearch-fuzzy.vim'
 	Plug 'ryanoasis/vim-devicons'
-	"Plug 'glepnir/spaceline.vim'
-	Plug 'bagrat/vim-buffet'
 	Plug 'Raimondi/delimitMate'
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/seoul256.vim'
 	Plug 'pseewald/vim-anyfold'
-	Plug 'junegunn/goyo.vim'
 	Plug 'mattn/emmet-vim'
 	Plug 'justinmk/vim-sneak'
 	Plug 'itchyny/lightline.vim'
-	Plug 'junegunn/limelight.vim'
+	" Plug 'junegunn/limelight.vim'
+	Plug 'bagrat/vim-buffet'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'honza/vim-snippets'
 	Plug 'skywind3000/asynctasks.vim'
@@ -52,7 +50,7 @@ augroup plgu
 	Plug 'kana/vim-textobj-user'
 	Plug 'sgur/vim-textobj-parameter'
 	Plug 'rhysd/vim-textobj-anyblock'
-	" Plug 'luochen1990/rainbow'
+	Plug 'luochen1990/rainbow'
 	Plug 'tpope/vim-commentary'
 	Plug 'thinca/vim-qfreplace'
 	Plug 'markonm/traces.vim'
@@ -63,8 +61,8 @@ augroup plgu
 	Plug 'kana/vim-textobj-line'
 	Plug 'cespare/vim-toml'
 	Plug 'jackguo380/vim-lsp-cxx-highlight'
-    Plug 'octol/vim-cpp-enhanced-highlight'
-    Plug 'neomake/neomake'
+	Plug 'octol/vim-cpp-enhanced-highlight'
+	Plug 'itchyny/vim-cursorword'
 	call plug#end()
 augroup END
 "}}}
@@ -158,12 +156,12 @@ augroup leaderf
 
 	function ProjectFiles() abort
 		let root = asyncrun#get_root('%')
-		execute ':Leaderf file --popup ' . root . "\<CR>"
+		execute ':Leaderf file  ' . root . "\<CR>"
 	endfunction
 
 	function ProjectFilesCurrentdir() abort
 		let root = fnamemodify(expand('%'), ':p:h')
-		execute ':Leaderf file --popup ' . root . "\<CR>"
+		execute ':Leaderf file  ' . root . "\<CR>"
 	endfunction
 
 	let g:Lf_RootMarkers = ['.projectile']
@@ -172,6 +170,7 @@ augroup leaderf
 	let g:Lf_ShowRelativePath = 0
 	let g:Lf_PreviewResult = {'Function':0, 'Colorscheme':1}
 	let g:Lf_ShowDevIcons = 0
+	let g:Lf_StlColorscheme = 'powerline'
 augroup END
 "  }}}
 
@@ -392,7 +391,7 @@ augroup grepper
 	endfunction
 
 	function GrepperCurrentDirectorySymbolAtPoint() abort
-		execute ':Grepper -dir cwd -cword -noprompt '
+		execute ':Grepper  -cword -noprompt -dir cwd'
 	endfunction
 
 	function GrepperProjectSymbol()abort
@@ -408,16 +407,10 @@ augroup grepper
 	endfunction
 
 
-	" let g:grepper = {}            " initialize g:grepper with empty dictionary
-	" runtime plugin/grepper.vim    " initialize g:grepper with default values
-	" let g:grepper.tools = ['rg']
-	" " " let g:grepper.rg = {}
-	" " " let g:grepper.rg.grepprg = ''
-	" " " let g:grepper.rg = { 'grepprg':'rg -H --no-heading --vimgrep' }
-	" " " let g:grepper.rg.grepprg .= ' --smart-case'
-	" let g:grepper.repo = ['.projectile']
-	" let g:grepper.highlight = 1
-	" let g:grepper.prompt = 1
+	runtime plugin/grepper.vim    " initialize g:grepper with default values
+	let g:grepper.repo = ['.projectile', '.git']
+	let g:grepper.tools = ['ag']
+	let g:grepper.ag = { 'grepprg':'ag  -i' }
 augroup END
 "}}}
 
@@ -451,7 +444,8 @@ augroup window
 	autocmd!
 
 	" colorscheme monoacc
-	colorscheme solarized8_light
+	" colorscheme solarized8_light
+	colorscheme Monokai
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -550,6 +544,73 @@ augroup vimsettings
 	set autoread
 	set nohlsearch
 	set nowrap
+	set t_ut=
+	"""""""""""
+
+	" TextEdit might fail if hidden is not set.
+	set hidden
+
+	" Some servers have issues with backup files, see #649.
+	set nobackup
+	set nowritebackup
+	set noswapfile
+
+	" Give more space for displaying messages.
+	set cmdheight=1
+
+	" | Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable |
+	" delays and poor user experience.
+	set updatetime=300
+
+	" Don't pass messages to |ins-completion-menu|.
+	set shortmess+=c
+	" set guioptions-=e
+
+
+
+	" Always show the signcolumn, otherwise it would shift the text each time
+	" diagnostics appear/become resolved.
+	set signcolumn=yes
+	set numberwidth=2
+	set foldmethod=manual
+	set cursorline
+	set cursorcolumn
+	set relativenumber
+	set autoindent
+	set autochdir
+	set smartindent
+	" set mouse=a
+
+	set rnu
+
+	set clipboard=unnamed
+	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
+	set encoding=utf-8
+	set bg=light
+	set t_Co=256
+	" set t_ut=
+	" set term=screen-256color
+
+	if has("autocmd")
+		au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+	endif
+	""""""""'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	autocmd InsertLeave * call ImSelectEn()
 
@@ -739,13 +800,13 @@ augroup which_key
 				\ 'd' : ['ProjectFilesCurrentdir()', 'find file in current'],
 				\ 's' : ['w', 'save file'],
 				\ 'o' : ['OpenFileInExplorer()', 'find file current dir'],
-				\ 'r' : [':Leaderf mru --popup', 'recent files'],
+				\ 'r' : [':Leaderf mru ', 'recent files'],
 				\ 't' : ['ProjectExplorer()', 'project tree'],
 				\ }
 
 	let g:which_key_map['b'] = {
 				\ 'name' : '+buffer' ,
-				\ 'b' : [':Leaderf buffer --popup', 'buffer list'],
+				\ 'b' : [':Leaderf buffer ', 'buffer list'],
 				\ 'n' : ['bn', 'next buffer'],
 				\ 'p' : ['bp', 'prev buffer'],
 				\ 'k' : ['Bclose', 'buffer kill'],
@@ -756,9 +817,9 @@ augroup which_key
 
 	let g:which_key_map['s'] = {
 				\ 'name' : '+search & symbol' ,
-				\ 's' : [':Leaderf line --regexMode --popup', 'symbol current buffer'],
+				\ 's' : [':Leaderf line --regexMode ', 'symbol current buffer'],
 				\ 'S' : ['GrepperCurrentBufferAtPoint()', 'symbol buffer at point'],
-				\ 'l' : [':Leaderf function --popup', 'tags current buffer '],
+				\ 'l' : [':Leaderf function ', 'tags current buffer '],
 				\ 'h' : ['InterestingWords("n")', 'highlight cursor word'],
 				\ 'c' : ['Uncolor_all_words()', 'unhighlight all words'],
 				\ 'p' : ['GrepperProjectSymbol()', 'rg project'],
@@ -773,9 +834,10 @@ augroup which_key
 	let g:which_key_map['t'] = {
 				\ 'name' : '+tools/toggle' ,
 				\ 'h' : [':Leaderf help', 'vim help'],
-				\ 'r' : [':so ~/.vimrc', 'refresh vimrc'],
+				\ 'r' : [':so $VIMHOME/init.vim', 'refresh vimrc'],
 				\ 'c' : ['LeaderfColorscheme', 'theme'],
 				\ 'l' : [':setlocal wrap!', 'line wrap'],
+				\ 'f' : [':LeaderfFiletype', 'file type'],
 				\ }
 
 	let g:which_key_map['l'] = {
