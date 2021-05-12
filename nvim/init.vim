@@ -410,7 +410,7 @@ augroup grepper
 	runtime plugin/grepper.vim    " initialize g:grepper with default values
 	let g:grepper.repo = ['.projectile', '.git']
 	let g:grepper.tools = ['ag']
-	let g:grepper.ag = { 'grepprg':'ag  -i' }
+	let g:grepper.ag = { 'grepprg':'ag  --vimgrep -i' }
 augroup END
 "}}}
 
@@ -478,6 +478,17 @@ augroup window
 	inoremap <C-k> <Up>
 	nnoremap <C-j> 5j
 	nnoremap <C-k> 5k
+
+
+
+	inoremap <silent> <C-CR> <CR><Up>
+
+
+
+
+
+
+
 
 
 	""quick fix"
@@ -856,10 +867,10 @@ augroup which_key
 
 	let g:which_key_map['g'] = {
 				\ 'name' : '+git' ,
-				\ 's' : ['Gstatus', 'git status'],
-				\ 'b' : ['Gblame', 'git blame'],
-				\ 'l' : ['Glog', 'git log'],
-				\ 'p' : ['Gpush', 'git push'],
+				\ 's' : [':Git', 'git status'],
+				\ 'b' : [':Git blame', 'git blame'],
+				\ 'l' : [':Gclog', 'git log'],
+				\ 'p' : [':Git push', 'git push'],
 				\ }
 
 	augroup flletype_startify
