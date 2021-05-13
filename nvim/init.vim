@@ -63,6 +63,7 @@ augroup plgu
 	Plug 'jackguo380/vim-lsp-cxx-highlight'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'itchyny/vim-cursorword'
+    Plug 'puremourning/vimspector'
 	call plug#end()
 augroup END
 "}}}
@@ -80,18 +81,40 @@ let g:lightline = {
             \   'gitbranch': 'FugitiveHead'
             \ },
             \ }
+let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
 
 "startify{{{
 augroup startify
 	autocmd!
-	let g:startify_custom_header =startify#center([
+    let g:emacs = [
 				\"███████╗ ███╗   ███╗  █████╗   ██████╗ ███████╗",
 				\"██╔════╝ ████╗ ████║ ██╔══██╗ ██╔════╝ ██╔════╝",
 				\"█████╗   ██╔████╔██║ ███████║ ██║      ███████╗",
 				\"██╔══╝   ██║╚██╔╝██║ ██╔══██║ ██║      ╚════██║",
 				\"███████╗ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗ ███████║",
 				\"╚══════╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝ ╚══════╝",
-				\])
+				\]
+    let g:fuck_fuck = [
+			    \"███████╗██╗   ██╗ ██████╗██╗  ██╗    ███████╗██╗   ██╗ ██████╗██╗  ██╗",
+			    \"██╔════╝██║   ██║██╔════╝██║ ██╔╝    ██╔════╝██║   ██║██╔════╝██║ ██╔╝",
+			    \"█████╗  ██║   ██║██║     █████╔╝     █████╗  ██║   ██║██║     █████╔╝ ",
+			    \"██╔══╝  ██║   ██║██║     ██╔═██╗     ██╔══╝  ██║   ██║██║     ██╔═██╗ ",
+			    \"██║     ╚██████╔╝╚██████╗██║  ██╗    ██║     ╚██████╔╝╚██████╗██║  ██╗",
+			    \"╚═╝      ╚═════╝  ╚═════╝╚═╝  ╚═╝    ╚═╝      ╚═════╝  ╚═════╝╚═╝  ╚═╝",
+			    \]
+
+    let g:fuck = [
+                \"   ▄████████ ███    █▄   ▄████████    ▄█   ▄█▄ ",
+                \"  ███    ███ ███    ███ ███    ███   ███ ▄███▀ ",
+                \"  ███    █▀  ███    ███ ███    █▀    ███▐██▀   ",
+                \" ▄███▄▄▄     ███    ███ ███         ▄█████▀    ",
+                \"▀▀███▀▀▀     ███    ███ ███        ▀▀█████▄    ",
+                \"  ███        ███    ███ ███    █▄    ███▐██▄   ",
+                \"  ███        ███    ███ ███    ███   ███ ▀███▄ ",
+                \"  ███        ████████▀  ████████▀    ███   ▀█▀ ",
+                \"                                     ▀         ",
+                \]
+	let g:startify_custom_header =startify#center(g:fuck_fuck)
 augroup END
 "}}}
 
@@ -376,9 +399,8 @@ augroup coc
 	xmap af <Plug>(coc-funcobj-a)
 	omap if <Plug>(coc-funcobj-i)
 	omap af <Plug>(coc-funcobj-a)
-	vmap <f9> <Plug>(coc-translator-pv)
 
-	noremap <silent> <f12> :<C-u>call ProjectExplorer()<CR>
+	noremap <silent> <f2> :<C-u>call ProjectExplorer()<CR>
 augroup END
 "}}}
 
@@ -432,7 +454,7 @@ augroup END
 augroup terminal
 	autocmd!
 
-	let g:terminal_key='<f11>'
+	let g:terminal_key='<f3>'
 	if has('win32')
 		let g:terminal_shell='powershell.exe'
 	endif
@@ -635,9 +657,9 @@ augroup vimsettings
 	endif
 	xnoremap > >gv
 	xnoremap < <gv
-	nnoremap <f2><f2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
-	inoremap <f2><f2>   <C-o>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
-	vnoremap <f2><f2> :call Jz_insert_semicolon_end_of_line()<CR>
+	nnoremap ;; :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
+	inoremap ;;   <C-o>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
+	vnoremap ;; :call Jz_insert_semicolon_end_of_line()<CR>
 	" select block
 	" vnoremap v a}o0
 	tnoremap <Esc> <C-\><C-n>
@@ -882,19 +904,24 @@ augroup which_key
 		autocmd!
 		autocmd  FileType cpp    let g:local_key_map['cpp'] =  {}
 		autocmd  FileType cpp    let g:local_key_map['cpp'][','] = ['LspFormat()', 'lsp format']
-		autocmd  FileType cpp    let g:local_key_map['cpp']['d'] = ['Dox', 'DoxygenToolkit']
+		autocmd  FileType cpp    let g:local_key_map['cpp']['c'] = ['Dox', 'DoxygenToolkit']
+		autocmd  FileType cpp    let g:local_key_map['cpp']['d'] = {'name':'+debug'}
+		autocmd  FileType cpp    let g:local_key_map['cpp']['d']['q'] = [':VimspectorReset', 'quit']
+		autocmd  FileType cpp    let g:local_key_map['cpp']['d']['u'] = [':call vimspector#UpFrame()', 'up frame']
+		autocmd  FileType cpp    let g:local_key_map['cpp']['d']['d'] = [':call vimspector#DownFrame()', 'down frame']
+		autocmd  FileType cpp    let g:local_key_map['cpp']['d']['C'] = [':call vimspector#ClearBreakpoints()', 'clead breakpoints']
 		autocmd  FileType cpp    let g:local_key_map['cpp']['y'] = ['LspHover()', 'lsp hover']
 		autocmd  FileType cpp    let g:local_key_map['cpp']['o'] = [':CocCommand clangd.switchSourceHeader', 'switch source header']
-        noremap <F5> :call CmakeBuild()<cr>
+        noremap <F1>  :call CmakeBuild()<cr>
 	augroup end
 	augroup flletype_c
 		autocmd!
 		autocmd  FileType c    let g:local_key_map['c'] =  {}
 		autocmd  FileType c    let g:local_key_map['c'][','] = ['LspFormat()', 'lsp format']
-		autocmd  FileType c    let g:local_key_map['c']['d'] = ['Dox', 'DoxygenToolkit']
+		autocmd  FileType c    let g:local_key_map['c']['c'] = ['Dox', 'DoxygenToolkit']
 		autocmd  FileType c    let g:local_key_map['c']['y'] = ['LspHover()', 'lsp hover']
-		autocmd  FileType cpp    let g:local_key_map['cpp']['o'] = [':CocCommand clangd.switchSourceHeader', 'switch source header']
-        noremap <F5> :call CmakeBuild()<cr>
+		autocmd  FileType c    let g:local_key_map['cpp']['o'] = [':CocCommand clangd.switchSourceHeader', 'switch source header']
+        noremap <F1>  :call CmakeBuild()<cr>
 	augroup end
 	augroup flletype_json
 		autocmd!
