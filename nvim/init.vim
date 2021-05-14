@@ -63,7 +63,8 @@ augroup plgu
 	Plug 'jackguo380/vim-lsp-cxx-highlight'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'itchyny/vim-cursorword'
-    Plug 'puremourning/vimspector'
+	Plug 'puremourning/vimspector'
+	Plug 'godlygeek/tabular'
 	call plug#end()
 augroup END
 "}}}
