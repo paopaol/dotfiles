@@ -400,7 +400,7 @@ augroup coc
 	omap if <Plug>(coc-funcobj-i)
 	omap af <Plug>(coc-funcobj-a)
 
-	noremap <silent> <f2> :<C-u>call ProjectExplorer()<CR>
+	noremap <silent> <f1> :<C-u>call ProjectExplorer()<CR>
 augroup END
 "}}}
 
@@ -657,9 +657,9 @@ augroup vimsettings
 	endif
 	xnoremap > >gv
 	xnoremap < <gv
-	nnoremap ;; :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
-	inoremap ;;   <C-o>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
-	vnoremap ;; :call Jz_insert_semicolon_end_of_line()<CR>
+	nnoremap <F2><F2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
+	inoremap <F2><F2>   <C-o>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
+	vnoremap <F2><F2> :call Jz_insert_semicolon_end_of_line()<CR>
 	" select block
 	" vnoremap v a}o0
 	tnoremap <Esc> <C-\><C-n>
@@ -827,6 +827,15 @@ augroup which_key
 				\ 'l' : [':CocList --normal bookmark'      , 'bookmark annotation'  ],
 				\ }
 
+
+	let g:which_key_map['d'] = {
+				\ 'name' : '+debuger' ,
+                \ 'q' : [':VimspectorReset'                        , 'quit'              ],
+				\ 'u' : [':call vimspector#UpFrame()'              , 'up frame'          ],
+				\ 'd' : [':call vimspector#DownFrame()'            , 'down frame'        ],
+				\ 'C' : [':call vimspector#ClearBreakpoints()'     , 'clear breakpoints' ],
+				\ }
+
 	let g:which_key_map['f'] = {
 				\ 'name' : '+files' ,
 				\ 'p' : ['ProjectFiles()', 'find file in project'],
@@ -905,14 +914,9 @@ augroup which_key
 		autocmd  FileType cpp    let g:local_key_map['cpp'] =  {}
 		autocmd  FileType cpp    let g:local_key_map['cpp'][','] = ['LspFormat()', 'lsp format']
 		autocmd  FileType cpp    let g:local_key_map['cpp']['c'] = ['Dox', 'DoxygenToolkit']
-		autocmd  FileType cpp    let g:local_key_map['cpp']['d'] = {'name':'+debug'}
-		autocmd  FileType cpp    let g:local_key_map['cpp']['d']['q'] = [':VimspectorReset', 'quit']
-		autocmd  FileType cpp    let g:local_key_map['cpp']['d']['u'] = [':call vimspector#UpFrame()', 'up frame']
-		autocmd  FileType cpp    let g:local_key_map['cpp']['d']['d'] = [':call vimspector#DownFrame()', 'down frame']
-		autocmd  FileType cpp    let g:local_key_map['cpp']['d']['C'] = [':call vimspector#ClearBreakpoints()', 'clead breakpoints']
 		autocmd  FileType cpp    let g:local_key_map['cpp']['y'] = ['LspHover()', 'lsp hover']
 		autocmd  FileType cpp    let g:local_key_map['cpp']['o'] = [':CocCommand clangd.switchSourceHeader', 'switch source header']
-        noremap <F1>  :call CmakeBuild()<cr>
+        noremap <F4>  :call CmakeBuild()<cr>
 	augroup end
 	augroup flletype_c
 		autocmd!
@@ -921,7 +925,7 @@ augroup which_key
 		autocmd  FileType c    let g:local_key_map['c']['c'] = ['Dox', 'DoxygenToolkit']
 		autocmd  FileType c    let g:local_key_map['c']['y'] = ['LspHover()', 'lsp hover']
 		autocmd  FileType c    let g:local_key_map['cpp']['o'] = [':CocCommand clangd.switchSourceHeader', 'switch source header']
-        noremap <F1>  :call CmakeBuild()<cr>
+        noremap <F4>  :call CmakeBuild()<cr>
 	augroup end
 	augroup flletype_json
 		autocmd!
