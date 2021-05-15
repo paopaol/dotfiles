@@ -987,3 +987,42 @@ augroup which_key
 
 augroup END
 "}}}
+"
+
+
+
+function! StartDebug() abort
+    let root = asyncrun#get_root('%')
+    if filereadable(root . '/.vimspector.json')
+        :call vimspector#Continue()
+        return
+    else
+        if &ft == 'cpp'
+            execute ':edit ' . root . '/.vimspector.json' 
+            let cpp_config = ' {
+                        \"configurations": {
+                        \"Launch": {
+                        \"adapter": "vscode-cpptools",
+                        \"configuration": {
+                        \"request": "launch",
+                        \"program": "${workspaceRoot}/build/main",
+                        \"args": [],
+                        \"cwd": "${workspaceRoot}/build",
+                        \"environment": [],
+                        \"externalConsole": true,
+                        \"MIMode": "gdb",
+                        \"setupCommands": [ {
+                        \"description": "Enable pretty-printing for gdb",
+                        \"text": "-enable-pretty-printing",
+                        \"ignoreFailures": true } ] } },
+                        \"Attach": {
+                        \"adapter": "vscode-cpptools",
+                        \"configuration": {
+                        \"request": "attach",
+                        \"program": "<path to binary>",
+                        \"MIMode": "<lldb or gdb>" } } } } '
+            call append(line('$'), cpp_config)
+        endif
+    endif
+endfunction
+
