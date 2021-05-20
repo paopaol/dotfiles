@@ -65,6 +65,7 @@ augroup plgu
 	Plug 'itchyny/vim-cursorword'
 	Plug 'puremourning/vimspector'
 	Plug 'godlygeek/tabular'
+	Plug 'AndrewRadev/sideways.vim'
 	call plug#end()
 augroup END
 "}}}
