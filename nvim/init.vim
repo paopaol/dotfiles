@@ -944,7 +944,7 @@ augroup which_key
 		autocmd  FileType c    let g:local_key_map['c'][','] = ['LspFormat()', 'lsp format']
 		autocmd  FileType c    let g:local_key_map['c']['c'] = ['Dox', 'DoxygenToolkit']
 		autocmd  FileType c    let g:local_key_map['c']['y'] = ['LspHover()', 'lsp hover']
-		autocmd  FileType c    let g:local_key_map['cpp']['o'] = [':CocCommand clangd.switchSourceHeader', 'switch source header']
+		autocmd  FileType c    let g:local_key_map['c']['o'] = [':CocCommand clangd.switchSourceHeader', 'switch source header']
         noremap <F4>  :call CmakeBuild()<cr>
 	augroup end
 	augroup flletype_json
@@ -1016,7 +1016,7 @@ function! StartDebug() abort
         :call vimspector#Continue()
         return
     else
-        if &ft == 'cpp'
+        if &ft == 'cpp' || &ft == 'c'
             execute ':edit ' . root . '/.vimspector.json' 
             let cpp_config = ' {
                         \"configurations": {
