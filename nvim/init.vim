@@ -24,13 +24,12 @@ augroup plgu
 	Plug 'haya14busa/incsearch-fuzzy.vim'
 	Plug 'ryanoasis/vim-devicons'
 	Plug 'Raimondi/delimitMate'
-	Plug 'terryma/vim-multiple-cursors'
+    Plug 'mg979/vim-visual-multi'
 	Plug 'junegunn/seoul256.vim'
 	Plug 'pseewald/vim-anyfold'
 	Plug 'mattn/emmet-vim'
 	Plug 'justinmk/vim-sneak'
 	Plug 'itchyny/lightline.vim'
-	" Plug 'junegunn/limelight.vim'
 	Plug 'bagrat/vim-buffet'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'honza/vim-snippets'
@@ -50,7 +49,6 @@ augroup plgu
 	Plug 'kana/vim-textobj-user'
 	Plug 'sgur/vim-textobj-parameter'
 	Plug 'rhysd/vim-textobj-anyblock'
-	Plug 'luochen1990/rainbow'
 	Plug 'tpope/vim-commentary'
 	Plug 'thinca/vim-qfreplace'
 	Plug 'markonm/traces.vim'
@@ -468,8 +466,7 @@ augroup window
 	autocmd!
 
 	" colorscheme monoacc
-	" colorscheme solarized8_light
-	colorscheme Monokai
+    colorscheme one
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -505,13 +502,29 @@ augroup window
 
 
 
-	inoremap <silent> <C-CR> <CR><Up>
 
 
+    "跳转到函数的参数"
+    function! JumpRight() abort
+        ""先进行参数jump，如果成功，那么就不找"("了
+        let save_cursor = getcurpos()
+        :SidewaysJumpRight
+        let cur_cursor = getcurpos()
+        if save_cursor[1] != cur_cursor[1] || save_cursor[2] != cur_cursor[2]
+            return
+        endif
 
-
-
-
+        """"从行首查找("""""
+        let content = getline('.')
+        let idx = stridx(content, "(") 
+        if idx < 0
+            return
+        endif
+         
+        """""跳转到第一个参数
+        let save_cursor[2] = idx + 2
+        call setpos('.', save_cursor) 
+    endfunction
 
 
 
@@ -522,8 +535,10 @@ augroup window
 	""window resie
 	nnoremap <A--> :resize -1<CR>
 	nnoremap <A-=> :resize +1<CR>
-	nnoremap <A-<> <C-W><
-	nnoremap <A->> >C-W>>
+	nnoremap <silent> <tab> :call JumpRight()<CR>
+	nnoremap <silent> <S-tab> :SidewaysJumpRight<CR>
+	nnoremap <silent> <A-<> :SidewaysLeft<CR>
+	nnoremap <silent> <A->> :SidewaysRight<CR>
 augroup END
 "}}}
 
