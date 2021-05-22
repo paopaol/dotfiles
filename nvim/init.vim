@@ -663,6 +663,8 @@ augroup vimsettings
 
 
 	autocmd InsertLeave * call ImSelectEn()
+    nnoremap <ESC> <ESC>:call ImSelectEn()<CR>
+    
 
 	if has('nvim')
 	else
