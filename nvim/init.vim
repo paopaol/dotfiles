@@ -11,6 +11,7 @@ augroup plgu
 	Plug 'mhinz/vim-grepper'
 	Plug 'paopaol/vim-terminal-help'
 	Plug 'flazz/vim-colorschemes'
+	Plug 'overcache/NeoSolarized'
 	Plug 'sbdchd/neoformat'
 	Plug 'vim-scripts/DoxygenToolkit.vim'
 	Plug 'plasticboy/vim-markdown'
@@ -24,7 +25,7 @@ augroup plgu
 	Plug 'haya14busa/incsearch-fuzzy.vim'
 	Plug 'ryanoasis/vim-devicons'
 	Plug 'Raimondi/delimitMate'
-    Plug 'mg979/vim-visual-multi'
+	Plug 'mg979/vim-visual-multi'
 	Plug 'junegunn/seoul256.vim'
 	Plug 'pseewald/vim-anyfold'
 	Plug 'mattn/emmet-vim'
@@ -466,7 +467,7 @@ augroup window
 	autocmd!
 
 	" colorscheme monoacc
-    colorscheme one
+	colorscheme NeoSolarized
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
