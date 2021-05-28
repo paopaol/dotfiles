@@ -82,7 +82,13 @@ let g:lightline = {
             \   'gitbranch': 'FugitiveHead'
             \ },
             \ }
+""""""""vimspector{{{
 let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+" for normal mode - the word under the cursor
+nmap <f12> <Plug>VimspectorBalloonEval
+" for visual mode, the visually selected text
+xmap <f12> <Plug>VimspectorBalloonEval
+"""}}}
 
 "startify{{{
 augroup startify
@@ -664,7 +670,7 @@ augroup vimsettings
 
 
 	autocmd InsertLeave * call ImSelectEn()
-    nnoremap <ESC> <ESC>:call ImSelectEn()<CR>
+    " nnoremap <ESC> <ESC>:call ImSelectEn()<CR>
     
 
 	if has('nvim')
@@ -686,6 +692,8 @@ augroup vimsettings
 	au FocusGained * :checktime
 augroup END
 "}}}
+
+
 
 inoremap <expr> <CR> InsertMapForEnter()
 function! InsertMapForEnter()
@@ -879,7 +887,7 @@ augroup which_key
 
 	let g:which_key_map['s'] = {
 				\ 'name' : '+search & symbol' ,
-				\ 's' : [':Leaderf line --regexMode ', 'symbol current buffer'],
+				\ 's' : [':Leaderf rg --current-buffer ', 'symbol current buffer'],
 				\ 'S' : ['GrepperCurrentBufferAtPoint()', 'symbol buffer at point'],
 				\ 'l' : [':Leaderf function ', 'tags current buffer '],
 				\ 'h' : ['InterestingWords("n")', 'highlight cursor word'],
