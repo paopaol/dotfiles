@@ -638,6 +638,7 @@ augroup vimsettings
 	set smartindent
 	" set mouse=a
 
+    set backspace=indent,eol,start
 	set rnu
 
 	set clipboard=unnamed
@@ -887,7 +888,7 @@ augroup which_key
 
 	let g:which_key_map['s'] = {
 				\ 'name' : '+search & symbol' ,
-				\ 's' : [':Leaderf rg --current-buffer --regexMode', 'symbol current buffer'],
+				\ 's' : [':Leaderf rg --current-buffer', 'symbol current buffer'],
 				\ 'S' : ['GrepperCurrentBufferAtPoint()', 'symbol buffer at point'],
 				\ 'l' : [':Leaderf function ', 'tags current buffer '],
 				\ 'h' : ['InterestingWords("n")', 'highlight cursor word'],
