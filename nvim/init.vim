@@ -186,12 +186,12 @@ augroup leaderf
 
 	function ProjectFiles() abort
 		let root = asyncrun#get_root('%')
-		execute ':Leaderf file  ' . root . "\<CR>"
+		execute ':Leaderf file --regexMode  ' . root . "\<CR>"
 	endfunction
 
 	function ProjectFilesCurrentdir() abort
 		let root = fnamemodify(expand('%'), ':p:h')
-		execute ':Leaderf file  ' . root . "\<CR>"
+		execute ':Leaderf file --regexMode ' . root . "\<CR>"
 	endfunction
 
 	let g:Lf_RootMarkers = ['.projectile']
@@ -472,8 +472,8 @@ augroup END
 augroup window
 	autocmd!
 
-	" colorscheme monoacc
-	colorscheme NeoSolarized
+	" colorscheme NeoSolarized
+	colorscheme OceanicNext
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -887,7 +887,7 @@ augroup which_key
 
 	let g:which_key_map['s'] = {
 				\ 'name' : '+search & symbol' ,
-				\ 's' : [':Leaderf rg --current-buffer ', 'symbol current buffer'],
+				\ 's' : [':Leaderf rg --current-buffer --regexMode', 'symbol current buffer'],
 				\ 'S' : ['GrepperCurrentBufferAtPoint()', 'symbol buffer at point'],
 				\ 'l' : [':Leaderf function ', 'tags current buffer '],
 				\ 'h' : ['InterestingWords("n")', 'highlight cursor word'],
