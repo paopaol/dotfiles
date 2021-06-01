@@ -1,6 +1,6 @@
 #!/bin/sh
 git filter-branch --env-filter '
-OLD_EMAIL="jinzhao115@163.com"
+OLD_EMAIL="jinzhao@nsea.com.cn"
 CORRECT_NAME="paopaol"
 CORRECT_EMAIL="467847281@qq.com"
 if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
