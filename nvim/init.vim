@@ -65,13 +65,12 @@ augroup plgu
 	Plug 'puremourning/vimspector'
 	Plug 'godlygeek/tabular'
 	Plug 'AndrewRadev/sideways.vim'
+	Plug 'rust-lang/rust.vim'
 	call plug#end()
 augroup END
 "}}}
 
-" let g:spaceline_seperate_style = 'curve'
-" let g:spaceline_line_symbol = 1
-
+"""""lightline{{{
 let g:lightline = {
             \ 'colorscheme': 'wombat',
             \ 'active': {
@@ -82,6 +81,8 @@ let g:lightline = {
             \   'gitbranch': 'FugitiveHead'
             \ },
             \ }
+"""""}}}
+
 """"""""vimspector{{{
 let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
 " for normal mode - the word under the cursor
@@ -158,7 +159,7 @@ augroup END
 augroup filetype_markdown
 	autocmd!
 	let g:vim_markdown_folding_disabled = 1
-	let g:mkdp_browser = 'wslview'
+	let g:mkdp_browser = 'edge'
 	" let g:mkdp_open_to_the_world = 1
 augroup END
 " }}}
@@ -184,12 +185,12 @@ augroup leaderf
 	autocmd!
 
 
-	function ProjectFiles() abort
+	function! ProjectFiles() abort
 		let root = asyncrun#get_root('%')
 		execute ':Leaderf file --regexMode  ' . root . "\<CR>"
 	endfunction
 
-	function ProjectFilesCurrentdir() abort
+	function! ProjectFilesCurrentdir() abort
 		let root = fnamemodify(expand('%'), ':p:h')
 		execute ':Leaderf file --regexMode ' . root . "\<CR>"
 	endfunction
@@ -246,18 +247,18 @@ augroup coc
 		endif
 	endfunction
 
-	function ProjectExplorerCurrent() abort
+	function! ProjectExplorerCurrent() abort
 		let root = fnamemodify(expand('%'), ':p:h')
 		execute 'normal! ' . ":CocCommand explorer  --sources=file+ --floating-position center  --position floating  " . root . "\<CR>"
 	endfunction
 
 
-	function ProjectExplorer() abort
+	function! ProjectExplorer() abort
 		let root = asyncrun#get_root('%')
 		execute 'normal! ' . ":CocCommand explorer   --position=left --sources=file+  " . root . "\<CR>"
 	endfunction
 
-	function OpenFileInExplorer() abort
+	function! OpenFileInExplorer() abort
 		if has('win32')
 			execute 'normal! ' . ":!explorer /select," . fnamemodify(expand('%'), ':p') . "\<CR>"
 		endif
@@ -308,7 +309,7 @@ augroup coc
 
 	endfunction
 
-	function LspHover() abort
+	function! LspHover() abort
 		if has('win32')
 			let f = 'file:///' . UrlEncode(fnamemodify(expand('%'), ':p'))
 		else
@@ -415,23 +416,23 @@ augroup END
 augroup grepper
 	autocmd!
 
-	function GrepperProjectSymbolAtPoint() abort
+	function! GrepperProjectSymbolAtPoint() abort
 		execute ':Grepper -dir repo -cword -noprompt '
 	endfunction
 
-	function GrepperCurrentDirectorySymbolAtPoint() abort
+	function! GrepperCurrentDirectorySymbolAtPoint() abort
 		execute ':Grepper  -cword -noprompt -dir cwd'
 	endfunction
 
-	function GrepperProjectSymbol()abort
+	function! GrepperProjectSymbol()abort
 		execute ':Grepper -dir repo'
 	endfunction
 
-	function GrepperCurrentBufferAtPoint() abort
+	function! GrepperCurrentBufferAtPoint() abort
 		execute ':Grepper -buffer -cword -noprompt'
 	endfunction
 
-	function GrepperCurrentBuffer() abort
+	function! GrepperCurrentBuffer() abort
 		execute ':Grepper -buffer'
 	endfunction
 
@@ -695,6 +696,7 @@ augroup END
 "}}}
 
 
+""""""""""functions{{{{
 
 inoremap <expr> <CR> InsertMapForEnter()
 function! InsertMapForEnter()
@@ -708,11 +710,6 @@ function! InsertMapForEnter()
         return "\<CR>"
     endif
 endfunction
-
-
-
-
-
 
 
 function! CmakeFormatCurrentFile() abort
@@ -749,7 +746,7 @@ function! SaveBuf() abort
 	endif
 endfunction
 
-function LspFormat() abort
+function! LspFormat() abort
 	if &ft == 'cpp'
 		execute ':Neoformat'
 	elseif &ft == 'cmake'
@@ -767,10 +764,13 @@ function! CmakeBuild()abort
     execute ':AsyncRun -cwd=<root>/build/ cmake --build <root>/build'
 endfunction
 
+"""""}}}
 
 
 
 
+
+""""""""other{{{
 let g:vim_textobj_parameter_mapping = 'a'
 let g:rainbow_active = 1
 
@@ -778,6 +778,7 @@ let g:BufKillCreateMappings = 0
 let g:rooter_patterns = ['.projectile', '.git/']
 nnoremap <silent> n :call WordNavigation('forward')<cr>
 nnoremap <silent> N :call WordNavigation('backward')<cr>
+""""""""}}}
 
 
 "sneak{{{
@@ -1019,6 +1020,7 @@ augroup END
 
 
 
+""""""functions{{{
 function! StartDebug() abort
     let root = asyncrun#get_root('%')
     if filereadable(root . '/.vimspector.json')
@@ -1054,3 +1056,30 @@ function! StartDebug() abort
     endif
 endfunction
 
+function! Jz_get_signature_help() abort
+    let result = CocAction("getHover")
+
+    if len(result) == 0
+        return
+    endif
+
+
+    let  signatures = split(result[0], "---")
+    let header = matchlist(signatures[0], ' \(.\+\) `\(.\+\)`') 
+    if header[1] == "function"
+        let func = split(signatures[2], "\n")
+        call remove(func, 0)
+        call remove(func, len(func) - 1)
+        echo func[0]
+    elseif header[1] == "instance-method"
+        let func = split(signatures[2], "\n")
+        call remove(func, 0)
+        if stridx(func[0],"//") >= 0
+            call remove(func, 0)
+        endif
+        call remove(func, len(func) - 1)
+        echo join(func, "")
+    endif
+
+endfunction
+"""""""""}}}}
