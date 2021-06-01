@@ -58,7 +58,10 @@
     }
   },
   "coc.preferences.extensionUpdateCheck": "never",
+  "coc.preferences.useQuickfixForLocations": true,
   "suggest.noselect": false,
+  "suggest.maxCompleteItemCount": 15,
+  "signature.target": "echo",
   "coc.preferences.formatOnSaveFiletypes": [
     "markdown",
     "json",
