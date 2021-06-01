@@ -71,6 +71,9 @@ augroup END
 "}}}
 
 """""lightline{{{
+" let g:spaceline_seperate_style = 'curve'
+" let g:spaceline_line_symbol = 1
+
 let g:lightline = {
             \ 'colorscheme': 'wombat',
             \ 'active': {
@@ -500,7 +503,6 @@ augroup window
 	vnoremap <C-f> <Right>
 	cnoremap <C-f> <Right>
 
-
 	cnoremap <C-j> <Down>
 	inoremap <C-j> <Down>
 	cnoremap <C-k> <Up>
@@ -511,6 +513,16 @@ augroup window
 
 
 
+    "跳转到函数的参数"
+    function! JumpRight() abort
+	    ""先进行参数jump，如果成功，那么就不找"("了
+	    let save_cursor = getcurpos()
+	    :SidewaysJumpRight
+	    let cur_cursor = getcurpos()
+	    if save_cursor[1] != cur_cursor[1] || save_cursor[2] != cur_cursor[2]
+		    return
+	    endif
+    endfunction
 
     "跳转到函数的参数"
     function! JumpRight() abort
@@ -534,26 +546,23 @@ augroup window
         call setpos('.', save_cursor) 
     endfunction
 
+    ""quick fix"
+    nnoremap <F8> :cn<CR>zz
+    nnoremap <F7> :cp<CR>zz
 
-
-	""quick fix"
-	nnoremap <F8> :cn<CR>zz
-	nnoremap <F7> :cp<CR>zz
-
-	""window resie
-	nnoremap <A--> :resize -1<CR>
-	nnoremap <A-=> :resize +1<CR>
-	nnoremap <silent> <tab> :call JumpRight()<CR>
-	nnoremap <silent> <S-tab> :SidewaysJumpRight<CR>
-	nnoremap <silent> <A-<> :SidewaysLeft<CR>
-	nnoremap <silent> <A->> :SidewaysRight<CR>
+    ""window resie
+    nnoremap <A--> :resize -1<CR>
+    nnoremap <A-=> :resize +1<CR>
+    nnoremap <silent> <tab> :call JumpRight()<CR>
+    nnoremap <silent> <S-tab> :SidewaysJumpRight<CR>
+    nnoremap <silent> <A-<> :SidewaysLeft<CR>
+    nnoremap <silent> <A->> :SidewaysRight<CR>
 augroup END
 "}}}
 
 "asyncrun"""""""""""""""""""""""""""""{{{
 augroup asyncrun
 	autocmd!
-
 
 	if has('win32')
 		let g:asyncrun_encs = 'gbk'
@@ -639,7 +648,7 @@ augroup vimsettings
 	set smartindent
 	" set mouse=a
 
-    set backspace=indent,eol,start
+	set backspace=indent,eol,start
 	set rnu
 
 	set clipboard=unnamed
@@ -657,22 +666,8 @@ augroup vimsettings
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	autocmd InsertLeave * call ImSelectEn()
-    " nnoremap <ESC> <ESC>:call ImSelectEn()<CR>
+	" nnoremap <ESC> <ESC>:call ImSelectEn()<CR>
     
 
 	if has('nvim')
@@ -694,6 +689,7 @@ augroup vimsettings
 	au FocusGained * :checktime
 augroup END
 "}}}
+
 
 
 """"""""""functions{{{{
@@ -763,7 +759,6 @@ function! CmakeBuild()abort
     execute ':lcd ' . root . '/build'
     execute ':AsyncRun -cwd=<root>/build/ cmake --build <root>/build'
 endfunction
-
 """""}}}
 
 
@@ -1080,6 +1075,280 @@ function! Jz_get_signature_help() abort
         call remove(func, len(func) - 1)
         echo join(func, "")
     endif
+
+"sneak{{{
+augroup sneak
+	autocmd!
+
+	let g:sneak#s_next = 1
+	nmap s <Plug>Sneak_s
+	nmap S <Plug>Sneak_S
+	nmap f <Plug>Sneak_f
+	nmap F <Plug>Sneak_F
+	nmap t <Plug>Sneak_t
+	nmap T <Plug>Sneak_T
+augroup END
+"}}}
+
+
+
+
+
+"""which_key -----------------{{{
+augroup which_key
+	autocmd!
+
+	function! Uncolor_all_words() abort
+		call UncolorAllWords()
+		set nohlsearch
+	endfunction
+
+	autocmd! FileType which_key
+	autocmd  FileType which_key set laststatus=0 noshowmode noruler
+				\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+
+
+
+	let g:which_key_use_floating_win = 0
+	let g:mapleader = "\<Space>"
+	let g:maplocalleader = ','
+	let g:which_key_map =  {}
+	call which_key#register('<Space>', "g:which_key_map")
+	let g:local_key_map =  {}
+	nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+	nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+
+	let g:which_key_map['q'] = [':wq!', 'quit']
+	let g:which_key_map[' '] = [':ChooseWin', 'choosewin']
+	let g:which_key_map['1'] = ['<Plug>BuffetSwitch(1)', 'tab 1']
+	let g:which_key_map['2'] = ['<Plug>BuffetSwitch(2)', 'tab 2']
+	let g:which_key_map['3'] = ['<Plug>BuffetSwitch(3)', 'tab 3']
+	let g:which_key_map['4'] = ['<Plug>BuffetSwitch(4)', 'tab 4']
+	let g:which_key_map['5'] = ['<Plug>BuffetSwitch(5)', 'tab 5']
+	let g:which_key_map['6'] = ['<Plug>BuffetSwitch(6)', 'tab 6']
+	let g:which_key_map['7'] = ['<Plug>BuffetSwitch(7)', 'tab 7']
+	let g:which_key_map['8'] = ['<Plug>BuffetSwitch(8)', 'tab 8']
+	let g:which_key_map['9'] = ['<Plug>BuffetSwitch(9)', 'tab 9']
+	let g:which_key_map['w'] = {
+				\ 'name' : '+windows' ,
+				\ 'w' : ['<C-W>w'     , 'other-window'         ],
+				\ '1' : ['only'       , 'close other window'   ],
+				\ 'd' : ['<C-W>c'     , 'delete-window'        ],
+				\ '=' : ['<C-W>='     , 'balance-window'       ],
+				\ 'm' : ['<C-W>|'     , 'max-window'           ],
+				\ 's' : ['<C-W>s'     , 'split-window-below'   ],
+				\ 'v' : ['<C-W>v'     , 'split-window-below'   ],
+				\ 'q' : ['qa'         , 'quit vim'             ],
+				\ }
+	let g:which_key_map['c'] = {
+				\ 'name' : '+coc' ,
+				\ }
+
+	let g:which_key_map['c']['b'] = {
+				\ 'name' : '+bookmark' ,
+				\ 'a' : [':CocCommand bookmark.annotate'   , 'bookmark annotation'  ],
+				\ 't' : [':CocCommand bookmark.toggle'     , 'bookmark annotation'  ],
+				\ 'l' : [':CocList --normal bookmark'      , 'bookmark annotation'  ],
+				\ }
+
+
+	let g:which_key_map['d'] = {
+				\ 'name' : '+debuger' ,
+                \ 'q' : [':VimspectorReset'                        , 'quit'              ],
+				\ 'u' : [':call vimspector#UpFrame()'              , 'up frame'          ],
+				\ 'd' : [':call vimspector#DownFrame()'            , 'down frame'        ],
+				\ 'C' : [':call vimspector#ClearBreakpoints()'     , 'clear breakpoints' ],
+				\ }
+
+	let g:which_key_map['f'] = {
+				\ 'name' : '+files' ,
+				\ 'p' : ['ProjectFiles()', 'find file in project'],
+				\ 'd' : ['ProjectFilesCurrentdir()', 'find file in current'],
+				\ 's' : ['w', 'save file'],
+				\ 'o' : ['OpenFileInExplorer()', 'find file current dir'],
+				\ 'r' : [':Leaderf mru ', 'recent files'],
+				\ 't' : ['ProjectExplorer()', 'project tree'],
+				\ }
+
+	let g:which_key_map['b'] = {
+				\ 'name' : '+buffer' ,
+				\ 'b' : [':Leaderf buffer ', 'buffer list'],
+				\ 'n' : ['bn', 'next buffer'],
+				\ 'p' : ['bp', 'prev buffer'],
+				\ 'k' : ['Bclose', 'buffer kill'],
+				\ 'd' : ['BW', 'buffer kill'],
+				\ 'q' : ['cclose', 'kill quickfix'],
+				\ 'h' : ['Startify', 'home page'],
+				\ }
+
+	let g:which_key_map['s'] = {
+				\ 'name' : '+search & symbol' ,
+				\ 's' : [':Leaderf rg --current-buffer', 'symbol current buffer'],
+				\ 'S' : ['GrepperCurrentBufferAtPoint()', 'symbol buffer at point'],
+				\ 'l' : [':Leaderf function ', 'tags current buffer '],
+				\ 'h' : ['InterestingWords("n")', 'highlight cursor word'],
+				\ 'c' : ['Uncolor_all_words()', 'unhighlight all words'],
+				\ 'p' : ['GrepperProjectSymbol()', 'rg project'],
+				\ 't' : [':CocList tasks ', 'async tasks'],
+				\ 'P' : ['GrepperProjectSymbolAtPoint()', 'rg project at point'],
+				\ }
+	let g:which_key_map['s']['g'] = {
+				\ 'name' : '+google' ,
+				\ 't' : ['<Plug>(coc-translator-pv)', 'trans->zh'],
+				\}
+
+	let g:which_key_map['t'] = {
+				\ 'name' : '+tools/toggle' ,
+				\ 'h' : [':Leaderf help', 'vim help'],
+				\ 'r' : [':so $VIMHOME/init.vim', 'refresh vimrc'],
+				\ 'c' : ['LeaderfColorscheme', 'theme'],
+				\ 'l' : [':setlocal wrap!', 'line wrap'],
+				\ 'f' : [':LeaderfFiletype', 'file type'],
+				\ }
+
+	let g:which_key_map['l'] = {
+				\ 'name' : '+lsp' ,
+				\ 'f' : ['Format', 'format'],
+				\ 'r' : ['<Plug>(coc-rename)', 'rename'],
+				\ 'a' : [':CocList diagnostics', 'diagnostics'],
+				\ 'y' : ['LspHover()', 'LspHover yank'],
+				\ }
+
+	let g:which_key_map['l']['e'] = {
+				\ 'name' : '+error' ,
+				\ 'n' : ['<Plug>(coc-diagnostic-next)', 'next error'],
+				\ 'p' : ['<Plug>(coc-diagnostic-prev)', 'prev error'],
+				\ }
+
+	let g:which_key_map['g'] = {
+				\ 'name' : '+git' ,
+				\ 's' : [':Git', 'git status'],
+				\ 'b' : [':Git blame', 'git blame'],
+				\ 'l' : [':Gclog', 'git log'],
+				\ 'p' : [':Git push', 'git push'],
+				\ }
+
+	augroup flletype_startify
+		autocmd!
+		autocmd  FileType startify let g:local_key_map['startify'] =  {}
+		autocmd  FileType startify let g:local_key_map['startify']['q'] = [':q', 'quit']
+	augroup end
+	augroup flletype_cpp
+		autocmd!
+		autocmd  FileType cpp    let g:local_key_map['cpp'] =  {}
+		autocmd  FileType cpp    let g:local_key_map['cpp'][','] = ['LspFormat()', 'lsp format']
+		autocmd  FileType cpp    let g:local_key_map['cpp']['c'] = ['Dox', 'DoxygenToolkit']
+		autocmd  FileType cpp    let g:local_key_map['cpp']['y'] = ['LspHover()', 'lsp hover']
+		autocmd  FileType cpp    let g:local_key_map['cpp']['o'] = [':CocCommand clangd.switchSourceHeader', 'switch source header']
+        noremap <F4>  :call CmakeBuild()<cr>
+	augroup end
+	augroup flletype_c
+		autocmd!
+		autocmd  FileType c    let g:local_key_map['c'] =  {}
+		autocmd  FileType c    let g:local_key_map['c'][','] = ['LspFormat()', 'lsp format']
+		autocmd  FileType c    let g:local_key_map['c']['c'] = ['Dox', 'DoxygenToolkit']
+		autocmd  FileType c    let g:local_key_map['c']['y'] = ['LspHover()', 'lsp hover']
+		autocmd  FileType c    let g:local_key_map['c']['o'] = [':CocCommand clangd.switchSourceHeader', 'switch source header']
+        noremap <F4>  :call CmakeBuild()<cr>
+	augroup end
+	augroup flletype_json
+		autocmd!
+		autocmd  FileType json  let g:local_key_map['json'] =  {}
+		autocmd  FileType json  let g:local_key_map['json'][','] = ['LspFormat()', 'lsp format']
+	augroup end
+	augroup flletype_vim
+		autocmd!
+		autocmd  FileType vim  let g:local_key_map['vim'] =  {}
+		autocmd  FileType vim  let g:local_key_map['vim'][','] = ['LspFormat()', 'lsp format']
+	augroup end
+	augroup flletype_rust
+		autocmd!
+		autocmd  FileType rust  let g:local_key_map['rust'] =  {}
+		autocmd  FileType rust  let g:local_key_map['rust'][','] = ['LspFormat()', 'lsp format']
+		autocmd  FileType rust  let g:local_key_map['rust']['r'] = ['RustRun', 'run']
+	augroup end
+	augroup flletype_cmake
+		autocmd!
+		autocmd  FileType cmake  let g:local_key_map['cmake'] =  {}
+		autocmd  FileType cmake  let g:local_key_map['cmake'][','] = ['LspFormat()', 'lsp format']
+	augroup end
+	augroup flletype_html
+		autocmd!
+		autocmd  FileType html  let g:local_key_map['html'] =  {}
+		autocmd  FileType html  let g:local_key_map['html'][','] = ['LspFormat()', 'lsp format']
+	augroup end
+	augroup flletype_yaml
+		autocmd!
+		autocmd  FileType yaml  let g:local_key_map['yaml'] =  {}
+		autocmd  FileType yaml  let g:local_key_map['yaml'][','] = ['LspFormat()', 'lsp format']
+	augroup end
+	augroup flletype_markdown
+		autocmd!
+		autocmd  FileType markdown    let g:local_key_map['markdown'] =  {}
+		autocmd  FileType markdown    let g:local_key_map['markdown'][','] = ['LspFormat()', 'lsp format']
+		autocmd  FileType markdown    let g:local_key_map['markdown']['p'] = {'name':"+preview"}
+		autocmd  FileType markdown    let g:local_key_map['markdown']['p']['p'] = [':MarkdownPreview', 'markdown preview']
+		autocmd  FileType markdown    let g:local_key_map['markdown']['p']['t'] = [':Tocv', 'markdown preview toc vsplit']
+		autocmd  FileType markdown    let g:local_key_map['markdown']['i'] = {'name':'+insert'}
+		autocmd  FileType markdown    let g:local_key_map['markdown']['i']['t'] = [':InsertToc', 'insert toc']
+	augroup end
+
+
+	augroup flletype_localleader_key
+		autocmd!
+
+		function! s:register_localleader_ley_map_of_which_key() abort
+			if &ft != 'which_key' && has_key(g:local_key_map, &ft)
+				call which_key#register(',', g:local_key_map[&ft])
+			else
+				call which_key#register(',', {})
+			endif
+		endfunction
+
+		autocmd  BufEnter *  call s:register_localleader_ley_map_of_which_key()
+	augroup END
+
+augroup END
+"}}}
+"
+
+
+
+function! StartDebug() abort
+    let root = asyncrun#get_root('%')
+    if filereadable(root . '/.vimspector.json')
+        :call vimspector#Continue()
+        return
+    else
+        if &ft == 'cpp' || &ft == 'c'
+            execute ':edit ' . root . '/.vimspector.json' 
+            let cpp_config = ' {
+                        \"configurations": {
+                        \"Launch": {
+                        \"adapter": "vscode-cpptools",
+                        \"configuration": {
+                        \"request": "launch",
+                        \"program": "${workspaceRoot}/build/main",
+                        \"args": [],
+                        \"cwd": "${workspaceRoot}/build",
+                        \"environment": [],
+                        \"externalConsole": true,
+                        \"MIMode": "gdb",
+                        \"setupCommands": [ {
+                        \"description": "Enable pretty-printing for gdb",
+                        \"text": "-enable-pretty-printing",
+                        \"ignoreFailures": true } ] } },
+                        \"Attach": {
+                        \"adapter": "vscode-cpptools",
+                        \"configuration": {
+                        \"request": "attach",
+                        \"program": "<path to binary>",
+                        \"MIMode": "<lldb or gdb>" } } } } '
+            call append(line('$'), cpp_config)
+        endif
+    endif
+endfunction
 
 endfunction
 """""""""}}}}
