@@ -745,8 +745,8 @@ augroup which_key
 
 	let g:which_key_map['q'] = [':wq!', 'quit']
 	let g:which_key_map[' '] = [':ChooseWin', 'choosewin']
-	let g:which_key_map['1'] = ['<Plug>BuffetSwitch(1)', 'tab 1']
-	let g:which_key_map['2'] = ['<Plug>BuffetSwitch(2)', 'tab 2']
+	let g:which_key_map['1'] = [':BufferLineCyclePrev', 'tab prev']
+	let g:which_key_map['2'] = [':BufferLineCycleNext', 'tab next']
 	let g:which_key_map['3'] = ['<Plug>BuffetSwitch(3)', 'tab 3']
 	let g:which_key_map['4'] = ['<Plug>BuffetSwitch(4)', 'tab 4']
 	let g:which_key_map['5'] = ['<Plug>BuffetSwitch(5)', 'tab 5']
@@ -935,7 +935,6 @@ augroup which_key
 
 augroup END
 "}}}
-"
 
 
 
