@@ -8,6 +8,17 @@ source $VIMHOME/core/base_setting.vim
 "plug -----{{{
 augroup plgu
 	call plug#begin('~/.vim/plugged')
+	Plug 'kyazdani42/nvim-web-devicons' " Recommended (for coloured icons)
+	Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+	Plug 'akinsho/nvim-bufferline.lua'
+	" Plug 'kyazdani42/nvim-tree.lua'
+	" Plug 'nvim-lua/popup.nvim'
+	" Plug 'nvim-lua/plenary.nvim'
+	" Plug 'nvim-telescope/telescope.nvim'
+
+
+
+	Plug 'rhysd/accelerated-jk'
 	Plug 'mhinz/vim-grepper'
 	Plug 'paopaol/vim-terminal-help'
 	Plug 'flazz/vim-colorschemes'
@@ -23,15 +34,12 @@ augroup plgu
 	Plug 'haya14busa/incsearch.vim'
 	Plug 'haya14busa/incsearch-easymotion.vim'
 	Plug 'haya14busa/incsearch-fuzzy.vim'
-	Plug 'ryanoasis/vim-devicons'
 	Plug 'Raimondi/delimitMate'
 	Plug 'mg979/vim-visual-multi'
 	Plug 'junegunn/seoul256.vim'
 	Plug 'pseewald/vim-anyfold'
 	Plug 'mattn/emmet-vim'
 	Plug 'justinmk/vim-sneak'
-	Plug 'itchyny/lightline.vim'
-	Plug 'bagrat/vim-buffet'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'honza/vim-snippets'
 	Plug 'skywind3000/asynctasks.vim'
@@ -70,21 +78,11 @@ augroup plgu
 augroup END
 "}}}
 
-"""""lightline{{{
-" let g:spaceline_seperate_style = 'curve'
-" let g:spaceline_line_symbol = 1
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
 
-let g:lightline = {
-            \ 'colorscheme': 'wombat',
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-            \ },
-            \ 'component_function': {
-            \   'gitbranch': 'FugitiveHead'
-            \ },
-            \ }
-"""""}}}
+
+
 
 """"""""vimspector{{{
 let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
@@ -97,7 +95,7 @@ xmap <f12> <Plug>VimspectorBalloonEval
 "startify{{{
 augroup startify
 	autocmd!
-    let g:emacs = [
+	let g:emacs = [
 				\"███████╗ ███╗   ███╗  █████╗   ██████╗ ███████╗",
 				\"██╔════╝ ████╗ ████║ ██╔══██╗ ██╔════╝ ██╔════╝",
 				\"█████╗   ██╔████╔██║ ███████║ ██║      ███████╗",
@@ -105,26 +103,26 @@ augroup startify
 				\"███████╗ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗ ███████║",
 				\"╚══════╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝ ╚══════╝",
 				\]
-    let g:fuck_fuck = [
-			    \"███████╗██╗   ██╗ ██████╗██╗  ██╗    ███████╗██╗   ██╗ ██████╗██╗  ██╗",
-			    \"██╔════╝██║   ██║██╔════╝██║ ██╔╝    ██╔════╝██║   ██║██╔════╝██║ ██╔╝",
-			    \"█████╗  ██║   ██║██║     █████╔╝     █████╗  ██║   ██║██║     █████╔╝ ",
-			    \"██╔══╝  ██║   ██║██║     ██╔═██╗     ██╔══╝  ██║   ██║██║     ██╔═██╗ ",
-			    \"██║     ╚██████╔╝╚██████╗██║  ██╗    ██║     ╚██████╔╝╚██████╗██║  ██╗",
-			    \"╚═╝      ╚═════╝  ╚═════╝╚═╝  ╚═╝    ╚═╝      ╚═════╝  ╚═════╝╚═╝  ╚═╝",
-			    \]
+	let g:fuck_fuck = [
+				\"███████╗██╗   ██╗ ██████╗██╗  ██╗    ███████╗██╗   ██╗ ██████╗██╗  ██╗",
+				\"██╔════╝██║   ██║██╔════╝██║ ██╔╝    ██╔════╝██║   ██║██╔════╝██║ ██╔╝",
+				\"█████╗  ██║   ██║██║     █████╔╝     █████╗  ██║   ██║██║     █████╔╝ ",
+				\"██╔══╝  ██║   ██║██║     ██╔═██╗     ██╔══╝  ██║   ██║██║     ██╔═██╗ ",
+				\"██║     ╚██████╔╝╚██████╗██║  ██╗    ██║     ╚██████╔╝╚██████╗██║  ██╗",
+				\"╚═╝      ╚═════╝  ╚═════╝╚═╝  ╚═╝    ╚═╝      ╚═════╝  ╚═════╝╚═╝  ╚═╝",
+				\]
 
-    let g:fuck = [
-                \"   ▄████████ ███    █▄   ▄████████    ▄█   ▄█▄ ",
-                \"  ███    ███ ███    ███ ███    ███   ███ ▄███▀ ",
-                \"  ███    █▀  ███    ███ ███    █▀    ███▐██▀   ",
-                \" ▄███▄▄▄     ███    ███ ███         ▄█████▀    ",
-                \"▀▀███▀▀▀     ███    ███ ███        ▀▀█████▄    ",
-                \"  ███        ███    ███ ███    █▄    ███▐██▄   ",
-                \"  ███        ███    ███ ███    ███   ███ ▀███▄ ",
-                \"  ███        ████████▀  ████████▀    ███   ▀█▀ ",
-                \"                                     ▀         ",
-                \]
+	let g:fuck = [
+				\"   ▄████████ ███    █▄   ▄████████    ▄█   ▄█▄ ",
+				\"  ███    ███ ███    ███ ███    ███   ███ ▄███▀ ",
+				\"  ███    █▀  ███    ███ ███    █▀    ███▐██▀   ",
+				\" ▄███▄▄▄     ███    ███ ███         ▄█████▀    ",
+				\"▀▀███▀▀▀     ███    ███ ███        ▀▀█████▄    ",
+				\"  ███        ███    ███ ███    █▄    ███▐██▄   ",
+				\"  ███        ███    ███ ███    ███   ███ ▀███▄ ",
+				\"  ███        ████████▀  ████████▀    ███   ▀█▀ ",
+				\"                                     ▀         ",
+				\]
 	let g:startify_custom_header =startify#center(g:fuck_fuck)
 augroup END
 "}}}
@@ -186,8 +184,6 @@ augroup END
 "leaderf settings-------------------{{{
 augroup leaderf
 	autocmd!
-
-
 	function! ProjectFiles() abort
 		let root = asyncrun#get_root('%')
 		execute ':Leaderf file --regexMode  ' . root . "\<CR>"
@@ -214,22 +210,6 @@ augroup commentary
 
 	autocmd FileType cpp setlocal commentstring=//\ %s
 augroup END
-"}}}
-
-"vim-buffet{{{
- augroup vim_buffet
- 	autocmd!
-	function! g:BuffetSetCustomColors()
-		hi! BuffetCurrentBuffer                ctermbg=NONE     ctermfg=2 guibg=NONE    guifg=#00FF00
-		hi! BuffetBuffer         cterm=NONE    ctermbg=NONE     ctermfg=8 guibg=NONE    guifg=#00FF00
-		hi! BuffetActiveBuffer   cterm=NONE    ctermbg=NONE     ctermfg=2 guibg=NONE    guifg=#00FF00
-		hi! BuffetTab            cterm=NONE    ctermbg=NONE     ctermfg=8 guibg=NONE    guifg=#00FF00
-	endfunction
- 	let g:buffet_powerline_separators = 1
- 	let g:buffet_show_index = 1
- 	let g:buffet_tab_icon = '🎨'
- 	let g:buffet_use_devicons = 0
- augroup END
 "}}}
 
 
@@ -267,64 +247,6 @@ augroup coc
 		endif
 	endfunction
 
-	" URL encode a string. ie. Percent-encode characters as necessary.
-	function! UrlEncode(string)
-
-		let result = ""
-
-		let characters = split(a:string, '.\zs')
-		for character in characters
-			if character == " "
-				let result = result . "+"
-			elseif CharacterRequiresUrlEncoding(character)
-				let i = 0
-				while i < strlen(character)
-					let byte = strpart(character, i, 1)
-					let decimal = char2nr(byte)
-					let result = result . "%" . printf("%02x", decimal)
-					let i += 1
-				endwhile
-			else
-				let result = result . character
-			endif
-		endfor
-
-		return result
-
-	endfunction
-
-	" Returns 1 if the given character should be percent-encoded in a URL encoded
-	" string.
-	function! CharacterRequiresUrlEncoding(character)
-
-		let ascii_code = char2nr(a:character)
-		if ascii_code >= 48 && ascii_code <= 57
-			return 0
-		elseif ascii_code >= 65 && ascii_code <= 90
-			return 0
-		elseif ascii_code >= 97 && ascii_code <= 122
-			return 0
-		elseif a:character == "-" || a:character == "_" || a:character == "." || a:character == "~"
-			return 0
-		endif
-
-		return 1
-
-	endfunction
-
-	function! LspHover() abort
-		if has('win32')
-			let f = 'file:///' . UrlEncode(fnamemodify(expand('%'), ':p'))
-		else
-			let f = 'file://' . UrlEncode(fnamemodify(expand('%'), ':p'))
-		endif
-		let r = line('.')
-		let c = col('.')
-		let resp = CocRequest('clangd', 'textDocument/hover',   {'textDocument': {'uri':f}, 'position': {'line': r - 1, 'character': c - 1}})
-		let @* = resp['contents'][0]['value']
-		echom @*
-	endfunction
-
 	"""""coc-explorer
 	let g:coc_explorer_global_presets = {
 				\   'floating': {
@@ -341,18 +263,18 @@ augroup coc
 				\      'floating-width': 50,
 				\   },
 				\   'simplify': {
-				\     'file.child.template': '[filename growRight 0]',
-				\     'file.child.labeling.template':'', 
 				\   }
 				\ }
 
+				" \     'file.child.template': '[filename growRight 0]',
+				" \     'file.child.labeling.template':'', 
 
 	""""""""""""""""""""""""""""""""
 	"""""""""""""""""""""""""""""""" coc snippets
 	""""""""""""""""""""""""""""""""
 	""""""""""""""""""""""""""""""""
-    inoremap <silent><expr> <TAB>
-			\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" : <SID>check_back_space() ? "\<TAB>" :  coc#refresh()
+	inoremap <silent><expr> <TAB>
+				\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" : <SID>check_back_space() ? "\<TAB>" :  coc#refresh()
 
 
 	let g:coc_snippet_next = '<tab>'
@@ -599,6 +521,8 @@ augroup vimsettings
 		endif
 	endfunction
 
+	set termguicolors
+	" In your init.lua or init.vim
 	"highlight Pmenu ctermfg=NONE ctermbg=NONE  guibg=NONE guifg=NONE
 	"highlight PmenuSel ctermfg=7 ctermbg=4 guibg=NONE guifg=NONE
 
@@ -1352,3 +1276,9 @@ endfunction
 
 endfunction
 """""""""}}}}
+
+lua << EOF
+  require("bufferline").setup{}
+  require('plugins.status-line')
+EOF
+
