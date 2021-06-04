@@ -12,12 +12,14 @@ augroup plgu
 	Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 	Plug 'akinsho/nvim-bufferline.lua'
 	" Plug 'kyazdani42/nvim-tree.lua'
-	" Plug 'nvim-lua/popup.nvim'
-	" Plug 'nvim-lua/plenary.nvim'
-	" Plug 'nvim-telescope/telescope.nvim'
+	Plug 'nvim-lua/popup.nvim'
+	Plug 'nvim-lua/plenary.nvim'
+	Plug 'nvim-telescope/telescope.nvim'
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 
 
+	Plug 'skanehira/preview-markdown.vim'
 	Plug 'rhysd/accelerated-jk'
 	Plug 'mhinz/vim-grepper'
 	Plug 'paopaol/vim-terminal-help'
@@ -80,7 +82,6 @@ augroup END
 
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
-
 
 
 
@@ -399,7 +400,8 @@ augroup window
 	autocmd!
 
 	" colorscheme NeoSolarized
-	colorscheme OceanicNext
+	" colorscheme OceanicNext
+	colorscheme macvim-light
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -1280,4 +1282,26 @@ lua << EOF
   require("bufferline").setup{}
   require('plugins.status-line')
 EOF
+
+function! TelescopeProjectFiles() abort
+    let root = asyncrun#get_root('%')
+    lua require('telescope.builtin').find_files{border = true, previewer = false, cwd = vim.call('asyncrun#get_root', '%') } 
+endfunction
+
+function! TelescopeBufferLine() abort
+    lua require('telescope.builtin').current_buffer_fuzzy_find()
+endfunction
+
+function! TelescopeFiles() abort
+    lua require('telescope.builtin').file_browser()
+endfunction
+
+function! TelescopeBuffers() abort
+    lua require('telescope.builtin').buffers()
+endfunction
+
+function! TelescopeRecentFiles() abort
+    lua require('telescope.builtin').oldfiles()
+endfunction
+
 
