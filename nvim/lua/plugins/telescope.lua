@@ -19,7 +19,6 @@ ts.setup({
     prompt_position = "bottom",
     initial_mode = "insert",
     selection_strategy = "reset",
-    -- sorting_strategy = "descending",
     layout_strategy = "horizontal",
     layout_defaults = {
       horizontal = {
@@ -45,3 +44,19 @@ ts.setup({
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
   },
 })
+
+require('telescope').setup{
+  defaults = {
+    mappings = {
+      i = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<esc>"] = actions.close,
+      },
+      n = {
+        ["<esc>"] = actions.close,
+      },
+    },
+  }
+}
+
