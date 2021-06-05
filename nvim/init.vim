@@ -16,8 +16,7 @@ augroup plgu
 	Plug 'nvim-lua/plenary.nvim'
 	Plug 'nvim-telescope/telescope.nvim'
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-	Plug 'kevinhwang91/nvim-bqf'
-    Plug 'folke/which-key.nvim'
+	Plug 'folke/which-key.nvim'
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'kabouzeid/nvim-lspinstall'
 	Plug 'hrsh7th/nvim-compe'
@@ -25,7 +24,7 @@ augroup plgu
 	Plug 'hrsh7th/vim-vsnip-integ'
 	Plug 'ray-x/lsp_signature.nvim'
 	Plug 'windwp/nvim-autopairs'
-	Plug 'karb94/neoscroll.nvim'
+	Plug 'crispgm/telescope-heading.nvim'
 
 
 	Plug 'skanehira/preview-markdown.vim'
@@ -82,6 +81,7 @@ augroup plgu
 	call plug#end()
 augroup END
 "}}}
+
 
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
@@ -643,7 +643,6 @@ lua << EOF
   require('plugins.telescope')
   require('plugins.which-key')
   require('nvim-autopairs').setup()
-  require('neoscroll').setup()
   require('plugins.autopairs')
 EOF
 
@@ -651,4 +650,3 @@ function! TelescopeProjectFiles() abort
     let root = asyncrun#get_root('%')
     lua require('telescope.builtin').find_files{border = true, previewer = false, cwd = vim.call('asyncrun#get_root', '%') } 
 endfunction
-

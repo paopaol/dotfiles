@@ -14,7 +14,8 @@ wk.register({
 wk.register({
   ["<leader>f"] = { name = "+file" },
 
-  ["<leader>ff"] = { "<cmd>Telescope find_files<cr>", "Find File" },
+  ["<leader>ff"] = { "<cmd>Telescope file_browser<cr>", "Find File" },
+  ["<leader>fd"] = { "<cmd>Telescope find_files<cr>", "Find File" },
   ["<leader>fr"] = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
   ["<leader>fn"] = { "<cmd>enew<cr>", "New File" },
   ["<leader>fp"] = { "<cmd>call TelescopeProjectFiles()<cr>", "ProjectFiles" },
