@@ -3,7 +3,17 @@ local wk = require("which-key")
 --  1. <leader>fn new file
 --  2. <leader>fr show recent files
 --  2. <leader>ff find files
---
+
+
+wk.setup{
+  window = {
+    border = "none", -- none, single, double, shadow
+    position = "bottom", -- bottom, top
+    margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
+    padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+  }
+
+}
 
 wk.register({
       ["K"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "lsp+hover" },
@@ -47,7 +57,8 @@ wk.register({
 wk.register({
   ["<leader>s"] = { name = "+windows" },
 
-  ["<leader>ss"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "search current buffer" },
+  ["<leader>ss"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "symbol current buffer" },
+  ["<leader>sP"] = { "<cmd>call TelescopeSymbolsCurrentProjectAtPoint()<cr>", "symbol project at point" },
   ["<leader>sl"] = { "<cmd>Telescope treesitter<cr>", "symbol" },
   ["<leader>sh"] = { "<cmd>call InterestingWords(\"n\")<cr>", "highlight words" },
   ["<leader>sc"] = { "<cmd>call Uncolor_all_words()<cr>", "unhighlight words" },
@@ -63,6 +74,7 @@ wk.register({
   ["<leader>gp"] = { "<cmd>Git push<cr>", "git push" },
   ["<leader>gP"] = { "<cmd>Git pull<cr>", "git pull" },
 })
+
 
 wk.register({
   ["<leader>t"] = { name = "+tools/toggle" },
@@ -91,6 +103,7 @@ _G.whichkeyrCpp = function()
     ["<localleader>"] = {
       name = "cpp",
       [","] = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "formatting", buffer = buf },
+      ["o"] = { "<cmd>ClangdSwitchSourceHeader<cr>", "switch cc/h", buffer = buf },
     },
   })
 end

@@ -11,7 +11,6 @@ augroup plgu
 	Plug 'kyazdani42/nvim-web-devicons' " Recommended (for coloured icons)
 	Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 	Plug 'akinsho/nvim-bufferline.lua'
-	" Plug 'kyazdani42/nvim-tree.lua'
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
 	Plug 'nvim-telescope/telescope.nvim'
@@ -20,11 +19,13 @@ augroup plgu
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'kabouzeid/nvim-lspinstall'
 	Plug 'hrsh7th/nvim-compe'
-	Plug 'hrsh7th/vim-vsnip'
-	Plug 'hrsh7th/vim-vsnip-integ'
 	Plug 'ray-x/lsp_signature.nvim'
 	Plug 'windwp/nvim-autopairs'
 	Plug 'crispgm/telescope-heading.nvim'
+	Plug 'tamago324/lir.nvim'
+	Plug 'nvim-lua/plenary.nvim'
+	Plug 'SirVer/ultisnips'
+	Plug 'honza/vim-snippets'
 
 
 	Plug 'skanehira/preview-markdown.vim'
@@ -86,11 +87,9 @@ augroup END
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
 
-" Jump forward or backward
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 
 
 """"""""vimspector{{{
@@ -212,6 +211,13 @@ augroup leaderf
 	let g:Lf_StlColorscheme = 'powerline'
 augroup END
 "  }}}
+
+augroup which-key
+	autocmd!
+	
+	autocmd BufNew * highlight WhichKeyFloat ctermbg=NONE ctermfg=NONE
+	
+augroup END
 
 "commentary------------------{{{
 augroup commentary
@@ -644,9 +650,23 @@ lua << EOF
   require('plugins.which-key')
   require('nvim-autopairs').setup()
   require('plugins.autopairs')
+  require('plugins.lir')
 EOF
 
 function! TelescopeProjectFiles() abort
     let root = asyncrun#get_root('%')
     lua require('telescope.builtin').find_files{border = true, previewer = false, cwd = vim.call('asyncrun#get_root', '%') } 
 endfunction
+
+function! TelescopeSymbolsCurrentDirectory() abort
+    lua require('telescope.builtin').grep_string{search_dirs = {"", "."}} 
+endfunction
+   
+function! TelescopeSymbolsCurrentProjectAtPoint() abort
+    let cword = expand('<cword>')
+    if cword == ''
+        return
+    endif
+    lua require('telescope.builtin').grep_string{search_dirs = {"", vim.call('asyncrun#get_root', '%'), cwd = vim.call('asyncrun#get_root', '%')}} 
+endfunction
+

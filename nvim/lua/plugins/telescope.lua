@@ -8,24 +8,19 @@ ts.setup({
     prompt_prefix = " ",
 
     vimgrep_arguments = {
-      'rg',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case'
+        'ag','--nogroup', '--nocolor', '--column',
     },
-    prompt_position = "bottom",
+    prompt_position = "top",
+    sorting_strategy = "ascending",
     initial_mode = "insert",
     selection_strategy = "reset",
-    layout_strategy = "horizontal",
+    layout_strategy = "flex",
     layout_defaults = {
       horizontal = {
         mirror = false,
       },
       vertical = {
-        mirror = false,
+        mirror  = true,
       },
     },
     file_sorter =  require'telescope.sorters'.get_fuzzy_file,
