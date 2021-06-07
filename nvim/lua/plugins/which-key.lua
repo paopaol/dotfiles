@@ -58,6 +58,7 @@ wk.register({
   ["<leader>s"] = { name = "+windows" },
 
   ["<leader>ss"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "symbol current buffer" },
+  ["<leader>sp"] = { "<cmd>call TelescopeSymbolsCurrentProject()<cr>", "symbol project at point" },
   ["<leader>sP"] = { "<cmd>call TelescopeSymbolsCurrentProjectAtPoint()<cr>", "symbol project at point" },
   ["<leader>sl"] = { "<cmd>Telescope treesitter<cr>", "symbol" },
   ["<leader>sh"] = { "<cmd>call InterestingWords(\"n\")<cr>", "highlight words" },

@@ -670,3 +670,11 @@ function! TelescopeSymbolsCurrentProjectAtPoint() abort
     lua require('telescope.builtin').grep_string{cwd = vim.call('asyncrun#get_root', '%'),search_dirs = {"", "."}} 
 endfunction
 
+function! TelescopeSymbolsCurrentProject() abort
+    let cword = expand('<cword>')
+    if cword == ''
+        return
+    endif
+    lua require('telescope.builtin').grep_string{search = vim.fn.input('rg> ') ,cwd = vim.call('asyncrun#get_root', '%'),search_dirs = {"", "."}} 
+endfunction
+
