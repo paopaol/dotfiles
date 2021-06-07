@@ -93,10 +93,10 @@ wk.register({
 })
 
 
+
 vim.cmd(([[
 autocmd FileType cpp   lua whichkeyrCpp()
 ]]))
-
 _G.whichkeyrCpp = function()
   local buf = vim.api.nvim_get_current_buf()
 
@@ -109,6 +109,9 @@ _G.whichkeyrCpp = function()
   })
 end
 
+vim.cmd(([[
+autocmd FileType cmake  lua whichkeyrCmake()
+]]))
 _G.whichkeyrCmake = function()
   local buf = vim.api.nvim_get_current_buf()
 
@@ -116,6 +119,20 @@ _G.whichkeyrCmake = function()
     ["<localleader>"] = {
       name = "cmake",
       [","] = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "formatting", buffer = buf },
+    },
+  })
+end
+
+vim.cmd(([[
+autocmd FileType json,css,html,javascript  lua whichkeyrJson()
+]]))
+_G.whichkeyrJson = function()
+  local buf = vim.api.nvim_get_current_buf()
+
+  wk.register({
+    ["<localleader>"] = {
+      name = "json/css/html/javascript",
+      [","] = { "<cmd>Format<cr>", "formatting", buffer = buf },
     },
   })
 end

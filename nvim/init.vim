@@ -26,6 +26,8 @@ augroup plgu
 	Plug 'nvim-lua/plenary.nvim'
 	Plug 'SirVer/ultisnips'
 	Plug 'honza/vim-snippets'
+	Plug 'mhartington/formatter.nvim'
+
 
 
 	Plug 'skanehira/preview-markdown.vim'
@@ -651,6 +653,7 @@ lua << EOF
   require('nvim-autopairs').setup()
   require('plugins.autopairs')
   require('plugins.lir')
+  require('plugins.formatter')
 EOF
 
 function! TelescopeProjectFiles() abort
