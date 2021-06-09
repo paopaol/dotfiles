@@ -24,5 +24,7 @@ treesitter.setup({
     'tsx',
     'typescript',
     'yaml',
+    'cpp',
+    'c'
   },
 })

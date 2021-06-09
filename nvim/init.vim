@@ -27,6 +27,7 @@ augroup plgu
 	Plug 'SirVer/ultisnips'
 	Plug 'honza/vim-snippets'
 	Plug 'mhartington/formatter.nvim'
+	Plug 'glepnir/zephyr-nvim'
 
 
 
@@ -74,8 +75,8 @@ augroup plgu
 	Plug 'kshenoy/vim-signature'
 	Plug 'kana/vim-textobj-line'
 	Plug 'cespare/vim-toml'
-	Plug 'jackguo380/vim-lsp-cxx-highlight'
-	Plug 'octol/vim-cpp-enhanced-highlight'
+	" Plug 'jackguo380/vim-lsp-cxx-highlight'
+	" Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'itchyny/vim-cursorword'
 	Plug 'puremourning/vimspector'
 	Plug 'godlygeek/tabular'
@@ -292,8 +293,8 @@ augroup window
 	autocmd!
 
 	" colorscheme NeoSolarized
-	" colorscheme OceanicNext
-	colorscheme macvim-light
+	colorscheme zephyr
+	" colorscheme macvim-light
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -654,6 +655,7 @@ lua << EOF
   require('plugins.autopairs')
   require('plugins.lir')
   require('plugins.formatter')
+  require('plugins.treesitter')
 EOF
 
 function! TelescopeProjectFiles() abort
