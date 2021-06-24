@@ -8,26 +8,34 @@ source $VIMHOME/core/base_setting.vim
 "plug -----{{{
 augroup plgu
 	call plug#begin('~/.vim/plugged')
+	Plug 'paopaol/telescope-ctags.nvim'
 	Plug 'kyazdani42/nvim-web-devicons' " Recommended (for coloured icons)
 	Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 	Plug 'akinsho/nvim-bufferline.lua'
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
 	Plug 'nvim-telescope/telescope.nvim'
-	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+	" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+	Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+	Plug 'kyazdani42/nvim-tree.lua'
 	Plug 'folke/which-key.nvim'
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'kabouzeid/nvim-lspinstall'
 	Plug 'hrsh7th/nvim-compe'
 	Plug 'ray-x/lsp_signature.nvim'
 	Plug 'windwp/nvim-autopairs'
+	Plug 'MattesGroeger/vim-bookmarks'
+	Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 	Plug 'crispgm/telescope-heading.nvim'
 	Plug 'tamago324/lir.nvim'
-	Plug 'nvim-lua/plenary.nvim'
+	" Plug 'nvim-lua/plenary.nvim'
 	Plug 'SirVer/ultisnips'
 	Plug 'honza/vim-snippets'
 	Plug 'mhartington/formatter.nvim'
-	Plug 'glepnir/zephyr-nvim'
+	Plug 'onsails/lspkind-nvim'
+	Plug 'ahmedkhalf/lsp-rooter.nvim'
+	" Plug 'kevinhwang91/nvim-bqf'
+	" Plug 'glepnir/zephyr-nvim'
 
 
 
@@ -75,8 +83,8 @@ augroup plgu
 	Plug 'kshenoy/vim-signature'
 	Plug 'kana/vim-textobj-line'
 	Plug 'cespare/vim-toml'
-	" Plug 'jackguo380/vim-lsp-cxx-highlight'
-	" Plug 'octol/vim-cpp-enhanced-highlight'
+	Plug 'jackguo380/vim-lsp-cxx-highlight'
+	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'itchyny/vim-cursorword'
 	Plug 'puremourning/vimspector'
 	Plug 'godlygeek/tabular'
@@ -285,6 +293,7 @@ augroup terminal
 	if has('win32')
 		let g:terminal_shell='powershell.exe'
 	endif
+        autocmd TermOpen * setlocal nobuflisted
 augroup END
 "}}}
 
@@ -293,8 +302,8 @@ augroup window
 	autocmd!
 
 	" colorscheme NeoSolarized
-	colorscheme zephyr
-	" colorscheme macvim-light
+	" colorscheme zephyr
+	colorscheme macvim-light
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -645,6 +654,7 @@ let maplocalleader = ","
 lua << EOF
   require('plugins.lsp')
   require("bufferline").setup{}
+  require('plugins.bufferline')
   require('plugins.status-line')
   require('plugins.lspinstall')
   require('plugins.nvim-compe')
@@ -655,8 +665,12 @@ lua << EOF
   require('plugins.autopairs')
   require('plugins.lir')
   require('plugins.formatter')
-  require('plugins.treesitter')
+  require('plugins.lspkind')
+  require'telescope'.load_extension('ctags')
+  require('telescope').load_extension('vim_bookmarks')
+  require('plugins.bookmarks')
 EOF
+
 
 function! TelescopeProjectFiles() abort
     let root = asyncrun#get_root('%')
@@ -684,3 +698,20 @@ function! TelescopeSymbolsCurrentProject() abort
     lua require('telescope.builtin').grep_string{search = symbol,cwd = vim.call('asyncrun#get_root', '%'),search_dirs = {"", "."}} 
 endfunction
 
+
+function! TelescopeRecentFiles()abort
+    lua require('telescope.builtin').oldfiles({entry_maker = require('plugins.telescope').entry_gen_from_recentfiles()})
+endfunction
+
+function! TelescopeFileBrowser()abort
+    lua require('telescope.builtin').file_browser({entry_maker = require('plugins.telescope').entry_gen_from_recentfiles()})
+endfunction
+
+function! NvimTreeProjectToggle()abort
+    lua require('nvim-tree').toggle({root_dir = vim.call('asyncrun#get_root', '%')})
+endfunction
+
+
+function! TelescopeBuffers()abort
+    lua require('telescope.builtin').buffers({entry_maker = require('plugins.telescope').entry_gen_from_buffers()})
+endfunction

@@ -11,13 +11,45 @@ wk.setup {
     margin = {0, 0, 0, 0}, -- extra window margin [top, right, bottom, left]
     padding = {2, 2, 2, 2} -- extra window padding [top, right, bottom, left]
   }
-
 }
 
 wk.register({
+  ["<leader>1"] = {
+    "<cmd>lua require('bufferline').go_to_buffer(1)<cr>", "switch tab 1"
+  },
+  ["<leader>2"] = {
+    "<cmd>lua require('bufferline').go_to_buffer(2)<cr>", "switch tab 2"
+  },
+  ["<leader>3"] = {
+    "<cmd>lua require('bufferline').go_to_buffer(3)<cr>", "switch tab 3"
+  },
+  ["<leader>4"] = {
+    "<cmd>lua require('bufferline').go_to_buffer(4)<cr>", "switch tab 4"
+  },
+  ["<leader>5"] = {
+    "<cmd>lua require('bufferline').go_to_buffer(5)<cr>", "switch tab 5"
+  },
+  ["<leader>6"] = {
+    "<cmd>lua require('bufferline').go_to_buffer(6)<cr>", "switch tab 6"
+  },
+  ["<leader>7"] = {
+    "<cmd>lua require('bufferline').go_to_buffer(7)<cr>", "switch tab 7"
+  },
+  ["<leader>8"] = {
+    "<cmd>lua require('bufferline').go_to_buffer(8)<cr>", "switch tab 8"
+  },
+  ["<leader>9"] = {
+    "<cmd>lua require('bufferline').go_to_buffer(9)<cr>", "switch tab 9"
+  }
+})
+
+wk.register({
+  ["<f1>"] = {"<cmd>call NvimTreeProjectToggle()<cr>", "tree"},
   ["K"] = {"<cmd>lua vim.lsp.buf.hover()<cr>", "lsp+hover"},
   ["gd"] = {"<cmd>Telescope lsp_definitions<cr>", "lsp+definition"},
-  ["gr"] = {"<cmd>Telescope lsp_references<cr>", "lsp+references"}
+  ["gr"] = {"<cmd>Telescope lsp_references<cr>", "lsp+references"},
+  ["gf"] = {"<cmd>lua vim.lsp.buf.code_action()<cr>", "quickfix"}
+
 })
 
 wk.register({
@@ -25,16 +57,20 @@ wk.register({
 
   ["<leader>ff"] = {"<cmd>Telescope file_browser<cr>", "Find File"},
   ["<leader>fd"] = {"<cmd>Telescope find_files<cr>", "Find File"},
-  ["<leader>fr"] = {"<cmd>Telescope oldfiles<cr>", "Open Recent File"},
+  ["<leader>fr"] = {"<cmd>call TelescopeRecentFiles()<cr>", "Open Recent File"},
   ["<leader>fn"] = {"<cmd>enew<cr>", "New File"},
   ["<leader>fp"] = {"<cmd>call TelescopeProjectFiles()<cr>", "ProjectFiles"},
-  ["<leader>fs"] = {"<cmd>w<cr>", "save file"}
+  ["<leader>fs"] = {"<cmd>w<cr>", "save file"},
+  ["<leader>fb"] = {
+    "<cmd>Telescope vim_bookmarks current_file<cr>", "book marks current file"
+  },
+  ["<leader>fB"] = {"<cmd>Telescope vim_bookmarks all<cr>", "book marks all"}
 })
 
 wk.register({
   ["<leader>b"] = {name = "+buffer"},
 
-  ["<leader>bb"] = {"<cmd>Telescope buffers<cr>", "buffer list"},
+  ["<leader>bb"] = {"<cmd>call TelescopeBuffers()<cr>", "buffer list"},
   ["<leader>bn"] = {"<cmd>bn<cr>", "nest buffer"},
   ["<leader>bp"] = {"<cmd>bp<cr>", "prev buffer"},
   ["<leader>bk"] = {"<cmd>Bclose<cr>", "buffer kill"},
@@ -66,7 +102,7 @@ wk.register({
     "<cmd>call TelescopeSymbolsCurrentProjectAtPoint()<cr>",
     "symbol project at point"
   },
-  ["<leader>sl"] = {"<cmd>Telescope treesitter<cr>", "symbol"},
+  ["<leader>sl"] = {"<cmd>Telescope ctags functions<cr>", "symbol"},
   ["<leader>sh"] = {"<cmd>call InterestingWords(\"n\")<cr>", "highlight words"},
   ["<leader>sc"] = {"<cmd>call Uncolor_all_words()<cr>", "unhighlight words"}
 })
@@ -110,7 +146,8 @@ _G.whichkeyrCpp = function()
         "formatting",
         buffer = buf
       },
-      ["o"] = {"<cmd>ClangdSwitchSourceHeader<cr>", "switch cc/h", buffer = buf}
+      ["o"] = {"<cmd>ClangdSwitchSourceHeader<cr>", "switch cc/h", buffer = buf},
+      ["d"] = {"<cmd>Dox<cr>", "doxgen", buffer = buf}
     }
   })
 end
