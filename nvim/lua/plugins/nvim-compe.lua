@@ -1,6 +1,6 @@
 require'compe'.setup {
   enabled = true,
-  autocomplete = true,
+  autocomplete = false,
   debug = false,
   min_length = 1,
   preselect = 'always',
@@ -13,12 +13,12 @@ require'compe'.setup {
   documentation = true,
 
   source = {
-    path = true,
-    buffer = true,
-    calc = true,
     nvim_lsp = true,
-    nvim_lua = true,
-    ultisnips = true,
+    path = true
+    -- buffer = true,
+    -- calc = true,
+    -- nvim_lua = true,
+    -- ultisnips = true,
     -- tabnine = true
   }
 }
@@ -56,7 +56,5 @@ _G.s_tab_complete = function()
   end
 end
 
-vim.api.nvim_set_keymap("i", "<C-j>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<C-j>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<C-k>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<C-k>", "v:lua.s_tab_complete()", {expr = true})
+
+vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()",{expr = true})

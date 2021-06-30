@@ -15,27 +15,23 @@ augroup plgu
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
 	Plug 'nvim-telescope/telescope.nvim'
-	" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-	Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 	Plug 'kyazdani42/nvim-tree.lua'
 	Plug 'folke/which-key.nvim'
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'kabouzeid/nvim-lspinstall'
 	Plug 'hrsh7th/nvim-compe'
 	Plug 'ray-x/lsp_signature.nvim'
-	Plug 'windwp/nvim-autopairs'
+	" Plug 'windwp/nvim-autopairs'
 	Plug 'MattesGroeger/vim-bookmarks'
 	Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 	Plug 'crispgm/telescope-heading.nvim'
 	Plug 'tamago324/lir.nvim'
-	" Plug 'nvim-lua/plenary.nvim'
 	Plug 'SirVer/ultisnips'
 	Plug 'honza/vim-snippets'
 	Plug 'mhartington/formatter.nvim'
 	Plug 'onsails/lspkind-nvim'
 	Plug 'ahmedkhalf/lsp-rooter.nvim'
-	" Plug 'kevinhwang91/nvim-bqf'
-	" Plug 'glepnir/zephyr-nvim'
 
 
 
@@ -661,8 +657,8 @@ lua << EOF
   require'lsp_signature'.on_attach()
   require('plugins.telescope')
   require('plugins.which-key')
-  require('nvim-autopairs').setup()
-  require('plugins.autopairs')
+  --require('nvim-autopairs').setup()
+  --require('plugins.autopairs')
   require('plugins.lir')
   require('plugins.formatter')
   require('plugins.lspkind')
