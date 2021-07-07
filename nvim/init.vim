@@ -20,40 +20,44 @@ augroup plgu
 	Plug 'folke/which-key.nvim'
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'kabouzeid/nvim-lspinstall'
-	Plug 'hrsh7th/nvim-compe'
 	Plug 'ray-x/lsp_signature.nvim'
-	" Plug 'windwp/nvim-autopairs'
+	Plug 'windwp/nvim-autopairs'
 	Plug 'MattesGroeger/vim-bookmarks'
 	Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 	Plug 'crispgm/telescope-heading.nvim'
-	Plug 'tamago324/lir.nvim'
-	Plug 'SirVer/ultisnips'
-	Plug 'honza/vim-snippets'
+	Plug 'hrsh7th/vim-vsnip'
+	Plug 'hrsh7th/vim-vsnip-integ'
+	Plug 'hrsh7th/nvim-compe'
+
 	Plug 'mhartington/formatter.nvim'
 	Plug 'onsails/lspkind-nvim'
-	Plug 'ahmedkhalf/lsp-rooter.nvim'
 
+	Plug 'voldikss/vim-translator'
 
+	Plug 'p00f/nvim-ts-rainbow'
+	"""colors
+	Plug 'glepnir/zephyr-nvim'
+	Plug 'Mofiqul/vscode.nvim'
+	Plug 'marko-cerovac/material.nvim'
+	Plug 'tomasr/molokai'
+	"""
+	Plug 'liuchengxu/vista.vim'
 
 	Plug 'skanehira/preview-markdown.vim'
 	Plug 'rhysd/accelerated-jk'
 	Plug 'mhinz/vim-grepper'
 	Plug 'paopaol/vim-terminal-help'
-	Plug 'flazz/vim-colorschemes'
-	Plug 'overcache/NeoSolarized'
 	Plug 'sbdchd/neoformat'
 	Plug 'vim-scripts/DoxygenToolkit.vim'
 	Plug 'plasticboy/vim-markdown'
 	Plug 'terryma/vim-expand-region'
 	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 	Plug 'dhruvasagar/vim-table-mode'
-	Plug 'cormacrelf/vim-colors-github'
 	Plug 'easymotion/vim-easymotion'
 	Plug 'haya14busa/incsearch.vim'
 	Plug 'haya14busa/incsearch-easymotion.vim'
 	Plug 'haya14busa/incsearch-fuzzy.vim'
 	Plug 'mg979/vim-visual-multi'
-	Plug 'junegunn/seoul256.vim'
 	Plug 'pseewald/vim-anyfold'
 	Plug 'mattn/emmet-vim'
 	Plug 'justinmk/vim-sneak'
@@ -66,8 +70,6 @@ augroup plgu
 	Plug 'tpope/vim-fugitive'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'lfv89/vim-interestingwords'
-	Plug 'liuchengxu/space-vim-theme'
-	Plug 'tomasr/molokai'
 	Plug 'kana/vim-textobj-user'
 	Plug 'sgur/vim-textobj-parameter'
 	Plug 'rhysd/vim-textobj-anyblock'
@@ -76,11 +78,8 @@ augroup plgu
 	Plug 'markonm/traces.vim'
 	Plug 'othree/html5.vim'
 	Plug 'mklabs/vim-json'
-	Plug 'kshenoy/vim-signature'
 	Plug 'kana/vim-textobj-line'
 	Plug 'cespare/vim-toml'
-	Plug 'jackguo380/vim-lsp-cxx-highlight'
-	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'itchyny/vim-cursorword'
 	Plug 'puremourning/vimspector'
 	Plug 'godlygeek/tabular'
@@ -93,11 +92,6 @@ augroup END
 
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
-
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
-
 
 """"""""vimspector{{{
 let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
@@ -183,15 +177,15 @@ augroup END
 "xml_html filetype_xml {{{
 augroup filetype_xml
 	autocmd!
-  autocmd FileType xml    	set tabstop=2
+	autocmd FileType xml    	set tabstop=2
 augroup END
 "}}}
 
 "lspcxx_hl{{{
 augroup lspcxx_hl
-    autocmd!
-    " let g:lsp_cxx_hl_light_bg = 1
-    autocmd FileType cpp  highlight  LspCxxHlSymField ctermfg=Blue guifg=Green
+	autocmd!
+	" let g:lsp_cxx_hl_light_bg = 1
+	autocmd FileType cpp  highlight  LspCxxHlSymField ctermfg=Blue guifg=Green
 augroup END
 "}}}
 
@@ -221,9 +215,8 @@ augroup END
 
 augroup which-key
 	autocmd!
-	
+
 	autocmd BufNew * highlight WhichKeyFloat ctermbg=NONE ctermfg=NONE
-	
 augroup END
 
 "commentary------------------{{{
@@ -289,7 +282,9 @@ augroup terminal
 	if has('win32')
 		let g:terminal_shell='powershell.exe'
 	endif
-        autocmd TermOpen * setlocal nobuflisted
+	let g:terminal_cwd = 2
+	let g:terminal_height = 30
+	autocmd TermOpen * setlocal nobuflisted
 augroup END
 "}}}
 
@@ -297,9 +292,7 @@ augroup END
 augroup window
 	autocmd!
 
-	" colorscheme NeoSolarized
-	" colorscheme zephyr
-	colorscheme macvim-light
+	colorscheme zephyr
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -335,50 +328,50 @@ augroup window
 
 
 
-    "跳转到函数的参数"
-    function! JumpRight() abort
-	    ""先进行参数jump，如果成功，那么就不找"("了
-	    let save_cursor = getcurpos()
-	    :SidewaysJumpRight
-	    let cur_cursor = getcurpos()
-	    if save_cursor[1] != cur_cursor[1] || save_cursor[2] != cur_cursor[2]
-		    return
-	    endif
-    endfunction
+	"跳转到函数的参数"
+	function! JumpRight() abort
+		""先进行参数jump，如果成功，那么就不找"("了
+		let save_cursor = getcurpos()
+		:SidewaysJumpRight
+		let cur_cursor = getcurpos()
+		if save_cursor[1] != cur_cursor[1] || save_cursor[2] != cur_cursor[2]
+			return
+		endif
+	endfunction
 
-    "跳转到函数的参数"
-    function! JumpRight() abort
-        ""先进行参数jump，如果成功，那么就不找"("了
-        let save_cursor = getcurpos()
-        :SidewaysJumpRight
-        let cur_cursor = getcurpos()
-        if save_cursor[1] != cur_cursor[1] || save_cursor[2] != cur_cursor[2]
-            return
-        endif
+	"跳转到函数的参数"
+	function! JumpRight() abort
+		""先进行参数jump，如果成功，那么就不找"("了
+		let save_cursor = getcurpos()
+		:SidewaysJumpRight
+		let cur_cursor = getcurpos()
+		if save_cursor[1] != cur_cursor[1] || save_cursor[2] != cur_cursor[2]
+			return
+		endif
 
-        """"从行首查找("""""
-        let content = getline('.')
-        let idx = stridx(content, "(") 
-        if idx < 0
-            return
-        endif
-         
-        """""跳转到第一个参数
-        let save_cursor[2] = idx + 2
-        call setpos('.', save_cursor) 
-    endfunction
+		""""从行首查找("""""
+		let content = getline('.')
+		let idx = stridx(content, "(") 
+		if idx < 0
+			return
+		endif
 
-    ""quick fix"
-    nnoremap <F8> :cn<CR>zz
-    nnoremap <F7> :cp<CR>zz
+		"""""跳转到第一个参数
+		let save_cursor[2] = idx + 2
+		call setpos('.', save_cursor) 
+	endfunction
 
-    ""window resie
-    nnoremap <A--> :resize -1<CR>
-    nnoremap <A-=> :resize +1<CR>
-    nnoremap <silent> <tab> :call JumpRight()<CR>
-    nnoremap <silent> <S-tab> :SidewaysJumpRight<CR>
-    nnoremap <silent> <A-<> :SidewaysLeft<CR>
-    nnoremap <silent> <A->> :SidewaysRight<CR>
+	""quick fix"
+	nnoremap <F8> :cn<CR>zz
+	nnoremap <F7> :cp<CR>zz
+
+	""window resie
+	nnoremap <A--> :resize -1<CR>
+	nnoremap <A-=> :resize +1<CR>
+	nnoremap <silent> <tab> :call JumpRight()<CR>
+	nnoremap <silent> <S-tab> :SidewaysJumpRight<CR>
+	nnoremap <silent> <A-<> :SidewaysLeft<CR>
+	nnoremap <silent> <A->> :SidewaysRight<CR>
 augroup END
 "}}}
 
@@ -390,7 +383,7 @@ augroup asyncrun
 		let g:asyncrun_encs = 'gbk'
 	endif
 	let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', '.projectile']
-	let g:asyncrun_open=6
+	let g:asyncrun_open=30
 	let g:asyncrun_save=2
 augroup END
 "}}}
@@ -481,7 +474,7 @@ augroup vimsettings
 
 	" autocmd InsertLeave * call ImSelectEn()
 	" nnoremap <ESC> <ESC>:call ImSelectEn()<CR>
-    
+
 
 	if has('nvim')
 	else
@@ -553,9 +546,9 @@ endfunction
 
 
 function! CmakeBuild()abort
-    let root = asyncrun#get_root('%')
-    execute ':lcd ' . root . '/build'
-    execute ':AsyncRun -cwd=<root>/build/ cmake --build <root>/build'
+	let root = asyncrun#get_root('%')
+	execute ':lcd ' . root . '/build'
+	execute ':AsyncRun -cwd=<root>/build/ cmake --build <root>/build'
 endfunction
 """""}}}
 
@@ -577,64 +570,64 @@ nnoremap <silent> N :call WordNavigation('backward')<cr>
 
 """"""functions{{{
 function! StartDebug() abort
-    let root = asyncrun#get_root('%')
-    if filereadable(root . '/.vimspector.json')
-        :call vimspector#Continue()
-        return
-    else
-        if &ft == 'cpp' || &ft == 'c'
-            execute ':edit ' . root . '/.vimspector.json' 
-            let cpp_config = ' {
-                        \"configurations": {
-                        \"Launch": {
-                        \"adapter": "vscode-cpptools",
-                        \"configuration": {
-                        \"request": "launch",
-                        \"program": "${workspaceRoot}/build/main",
-                        \"args": [],
-                        \"cwd": "${workspaceRoot}/build",
-                        \"environment": [],
-                        \"externalConsole": true,
-                        \"MIMode": "gdb",
-                        \"setupCommands": [ {
-                        \"description": "Enable pretty-printing for gdb",
-                        \"text": "-enable-pretty-printing",
-                        \"ignoreFailures": true } ] } },
-                        \"Attach": {
-                        \"adapter": "vscode-cpptools",
-                        \"configuration": {
-                        \"request": "attach",
-                        \"program": "<path to binary>",
-                        \"MIMode": "<lldb or gdb>" } } } } '
-            call append(line('$'), cpp_config)
-        endif
-    endif
+	let root = asyncrun#get_root('%')
+	if filereadable(root . '/.vimspector.json')
+		:call vimspector#Continue()
+		return
+	else
+		if &ft == 'cpp' || &ft == 'c'
+			execute ':edit ' . root . '/.vimspector.json' 
+			let cpp_config = ' {
+						\"configurations": {
+							\"Launch": {
+								\"adapter": "vscode-cpptools",
+								\"configuration": {
+									\"request": "launch",
+									\"program": "${workspaceRoot}/build/main",
+									\"args": [],
+									\"cwd": "${workspaceRoot}/build",
+									\"environment": [],
+									\"externalConsole": true,
+									\"MIMode": "gdb",
+									\"setupCommands": [ {
+										\"description": "Enable pretty-printing for gdb",
+										\"text": "-enable-pretty-printing",
+										\"ignoreFailures": true } ] } },
+										\"Attach": {
+											\"adapter": "vscode-cpptools",
+											\"configuration": {
+												\"request": "attach",
+												\"program": "<path to binary>",
+												\"MIMode": "<lldb or gdb>" } } } } '
+			call append(line('$'), cpp_config)
+		endif
+	endif
 endfunction
 
 function! Jz_get_signature_help() abort
-    let result = CocAction("getHover")
+	let result = CocAction("getHover")
 
-    if len(result) == 0
-        return
-    endif
+	if len(result) == 0
+		return
+	endif
 
 
-    let  signatures = split(result[0], "---")
-    let header = matchlist(signatures[0], ' \(.\+\) `\(.\+\)`') 
-    if header[1] == "function"
-        let func = split(signatures[2], "\n")
-        call remove(func, 0)
-        call remove(func, len(func) - 1)
-        echo func[0]
-    elseif header[1] == "instance-method"
-        let func = split(signatures[2], "\n")
-        call remove(func, 0)
-        if stridx(func[0],"//") >= 0
-            call remove(func, 0)
-        endif
-        call remove(func, len(func) - 1)
-        echo join(func, "")
-    endif
+	let  signatures = split(result[0], "---")
+	let header = matchlist(signatures[0], ' \(.\+\) `\(.\+\)`') 
+	if header[1] == "function"
+		let func = split(signatures[2], "\n")
+		call remove(func, 0)
+		call remove(func, len(func) - 1)
+		echo func[0]
+	elseif header[1] == "instance-method"
+		let func = split(signatures[2], "\n")
+		call remove(func, 0)
+		if stridx(func[0],"//") >= 0
+			call remove(func, 0)
+		endif
+		call remove(func, len(func) - 1)
+		echo join(func, "")
+	endif
 endfunction
 
 
@@ -648,66 +641,69 @@ let mapleader = "\<space>"
 let maplocalleader = ","
 
 lua << EOF
-  require('plugins.lsp')
-  require("bufferline").setup{}
-  require('plugins.bufferline')
-  require('plugins.status-line')
-  require('plugins.lspinstall')
-  require('plugins.nvim-compe')
-  require'lsp_signature'.on_attach()
-  require('plugins.telescope')
-  require('plugins.which-key')
-  --require('nvim-autopairs').setup()
-  --require('plugins.autopairs')
-  require('plugins.lir')
-  require('plugins.formatter')
-  require('plugins.lspkind')
-  require'telescope'.load_extension('ctags')
-  require('telescope').load_extension('vim_bookmarks')
-  require('plugins.bookmarks')
+require('plugins.lsp')
+require("bufferline").setup{}
+require('plugins.bufferline')
+require('plugins.status-line')
+require('plugins.treesitter')
+require('plugins.lspinstall')
+require('plugins.nvim-compe')
+require('plugins.lsp_signature')
+require('plugins.telescope')
+require('plugins.which-key')
+require('nvim-autopairs').setup()
+require('plugins.autopairs')
+require('plugins.formatter')
+require('plugins.lspkind')
+require'telescope'.load_extension('ctags')
+require('telescope').load_extension('vim_bookmarks')
+require('plugins.bookmarks')
+require('plugins.rainbow')
 EOF
 
 
+"""function{{{
 function! TelescopeProjectFiles() abort
-    let root = asyncrun#get_root('%')
-    lua require('telescope.builtin').find_files{border = true, previewer = false, cwd = vim.call('asyncrun#get_root', '%') } 
+	let root = asyncrun#get_root('%')
+	lua require('telescope.builtin').find_files{border = true, previewer = false, cwd = vim.call('asyncrun#get_root', '%') } 
 endfunction
 
 function! TelescopeSymbolsCurrentDirectory() abort
-    lua require('telescope.builtin').grep_string{search_dirs = {"", "."}} 
+	lua require('telescope.builtin').grep_string{search_dirs = {"", "."}} 
 endfunction
-   
+
 function! TelescopeSymbolsCurrentProjectAtPoint() abort
-    let cword = expand('<cword>')
-    if cword == ''
-        return
-    endif
-    lua require('telescope.builtin').grep_string{cwd = vim.call('asyncrun#get_root', '%'),search_dirs = {"", "."}} 
+	let cword = expand('<cword>')
+	if cword == ''
+		return
+	endif
+	lua require('telescope.builtin').grep_string{cwd = vim.call('asyncrun#get_root', '%'),search_dirs = {"", "."}} 
 endfunction
 
 function! TelescopeSymbolsCurrentProject() abort
-    let symbol = input('rg> ')
-    if symbol == ''
-	    return
-    endif
+	let symbol = input('rg> ')
+	if symbol == ''
+		return
+	endif
 
-    lua require('telescope.builtin').grep_string{search = symbol,cwd = vim.call('asyncrun#get_root', '%'),search_dirs = {"", "."}} 
+	lua require('telescope.builtin').grep_string{search = symbol,cwd = vim.call('asyncrun#get_root', '%'),search_dirs = {"", "."}} 
 endfunction
 
 
 function! TelescopeRecentFiles()abort
-    lua require('telescope.builtin').oldfiles({entry_maker = require('plugins.telescope').entry_gen_from_recentfiles()})
+	lua require('telescope.builtin').oldfiles({entry_maker = require('plugins.telescope').entry_gen_from_recentfiles()})
 endfunction
 
 function! TelescopeFileBrowser()abort
-    lua require('telescope.builtin').file_browser({entry_maker = require('plugins.telescope').entry_gen_from_recentfiles()})
+	lua require('telescope.builtin').file_browser({entry_maker = require('plugins.telescope').entry_gen_from_recentfiles()})
 endfunction
 
 function! NvimTreeProjectToggle()abort
-    lua require('nvim-tree').toggle({root_dir = vim.call('asyncrun#get_root', '%')})
+	lua require('nvim-tree').toggle({root_dir = vim.call('asyncrun#get_root', '%')})
 endfunction
 
 
 function! TelescopeBuffers()abort
-    lua require('telescope.builtin').buffers({entry_maker = require('plugins.telescope').entry_gen_from_buffers()})
+	lua require('telescope.builtin').buffers({entry_maker = require('plugins.telescope').entry_gen_from_buffers()})
 endfunction
+""""}}}

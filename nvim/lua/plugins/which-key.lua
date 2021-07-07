@@ -45,6 +45,7 @@ wk.register({
 
 wk.register({
   ["<f1>"] = {"<cmd>call NvimTreeProjectToggle()<cr>", "tree"},
+  ["<f4>"] = {"<cmd>call CmakeBuild()<cr>", "cmake build"},
   ["K"] = {"<cmd>lua vim.lsp.buf.hover()<cr>", "lsp+hover"},
   ["gd"] = {"<cmd>Telescope lsp_definitions<cr>", "lsp+definition"},
   ["gr"] = {"<cmd>Telescope lsp_references<cr>", "lsp+references"},

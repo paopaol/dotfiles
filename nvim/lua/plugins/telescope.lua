@@ -9,22 +9,24 @@ ts.setup({
     prompt_prefix = " ",
 
     vimgrep_arguments = {'ag', '--nogroup', '--nocolor', '--column'},
-    prompt_position = "top",
     sorting_strategy = "ascending",
     initial_mode = "insert",
     selection_strategy = "reset",
     layout_strategy = "vertical",
-    layout_defaults = {
-      horizontal = {mirror = false},
-      vertical = {mirror = true, preview_height = 25}
-    },
+    -- layout_defaults = {
+    --   horizontal = {mirror = false},
+    --   vertical = {mirror = true, preview_height = 25}
+    -- },
     file_sorter = require'telescope.sorters'.get_fuzzy_file,
     file_ignore_patterns = {},
     -- generic_sorter = require'telescope.sorters'.get_fuzzy_file,
     winblend = 0,
-    width = 0.90,
+    layout_config = {
+      width = 0.90,
+      preview_cutoff = 120,
+      prompt_position = "top"
+    },
     max_results = 30,
-    preview_cutoff = 120,
 
     border = {},
     borderchars = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},

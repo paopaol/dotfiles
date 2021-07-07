@@ -1,12 +1,27 @@
 local remap = vim.api.nvim_set_keymap
 local npairs = require('nvim-autopairs')
+require('nvim-autopairs').setup({
+  ignored_next_char = "[%w%.%(%)]" -- will ignore alphanumeric and `.` symbol
+})
+
+npairs.setup({
+  fast_wrap = {
+    map = '<M-e>',
+    chars = {'{', '[', '(', '"', "'"},
+    pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], '%s+', ''),
+    end_key = 'e',
+    keys = 'qwertyuiopzxcvbnmasdfghjkl',
+    check_comma = true,
+    hightlight = 'Search'
+  }
+})
 
 -- skip it, if you use another global object
-_G.MUtils= {}
+_G.MUtils = {}
 
 vim.g.completion_confirm_key = ""
-MUtils.completion_confirm=function()
-  if vim.fn.pumvisible() ~= 0  then
+MUtils.completion_confirm = function()
+  if vim.fn.pumvisible() ~= 0 then
     if vim.fn.complete_info()["selected"] ~= -1 then
       return vim.fn["compe#confirm"](npairs.esc("<cr>"))
     else
@@ -17,5 +32,5 @@ MUtils.completion_confirm=function()
   end
 end
 
-
-remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
+remap('i', '<CR>', 'v:lua.MUtils.completion_confirm()',
+      {expr = true, noremap = true})
