@@ -346,6 +346,19 @@ augroup window
 		endif
 	endfunction
 
+
+	function! BeginOfLine() abort
+		call setpos('.', [0 , line('.'), 0])
+	endfunction
+
+	function! CursorForward()abort
+		let current = getcurpos()
+		let current[2] += 1
+		call setpos('.', current)
+	endfunction
+
+
+
 	"跳转到函数的参数"
 	function! JumpRight() abort
 		""先进行参数jump，如果成功，那么就不找"("了
@@ -357,15 +370,19 @@ augroup window
 		endif
 
 		""""从行首查找("""""
+		call BeginOfLine()
+		let match_num = search('(', 'n', line('.'))
+		if match_num == 0
+			return
+		endif
+		call search('(', '', line('.'))
+
 		let content = getline('.')
 		let idx = stridx(content, "(") 
 		if idx < 0
 			return
 		endif
-
-		"""""跳转到第一个参数
-		let save_cursor[2] = idx + 2
-		call setpos('.', save_cursor) 
+		call CursorForward()
 	endfunction
 
 	""quick fix"
