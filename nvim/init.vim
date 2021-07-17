@@ -17,17 +17,20 @@ augroup plgu
 	Plug 'nvim-telescope/telescope.nvim'
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 	Plug 'kyazdani42/nvim-tree.lua'
-	Plug 'folke/which-key.nvim'
+	Plug 'folke/which-key.nvim', {'branch':'main'}
 	Plug 'neovim/nvim-lspconfig'
-	Plug 'kabouzeid/nvim-lspinstall'
+	Plug 'kabouzeid/nvim-lspinstall', {'branch':'main'}
 	Plug 'ray-x/lsp_signature.nvim'
 	Plug 'windwp/nvim-autopairs'
 	Plug 'MattesGroeger/vim-bookmarks'
-	Plug 'tom-anders/telescope-vim-bookmarks.nvim'
-	Plug 'crispgm/telescope-heading.nvim'
+	Plug 'tom-anders/telescope-vim-bookmarks.nvim', {'branch':'main'}
+	Plug 'crispgm/telescope-heading.nvim', {'branch':'main'}
 	Plug 'hrsh7th/vim-vsnip'
 	Plug 'hrsh7th/vim-vsnip-integ'
-	Plug 'hrsh7th/nvim-compe'
+	Plug 'rafamadriz/friendly-snippets', {'branch':'main'}
+	Plug 'nvim-lua/completion-nvim'
+    Plug 'simrat39/symbols-outline.nvim'
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 	Plug 'mhartington/formatter.nvim'
 	Plug 'onsails/lspkind-nvim'
@@ -36,10 +39,10 @@ augroup plgu
 
 	Plug 'p00f/nvim-ts-rainbow'
 	"""colors
-	Plug 'glepnir/zephyr-nvim'
-	Plug 'Mofiqul/vscode.nvim'
-	Plug 'marko-cerovac/material.nvim'
-	Plug 'tomasr/molokai'
+	Plug 'glepnir/zephyr-nvim', {'branch':'main'}
+	Plug 'Mofiqul/vscode.nvim', {'branch': 'main'}
+	Plug 'marko-cerovac/material.nvim', {'branch':'main'}
+	Plug 'tanvirtin/monokai.nvim'
 	"""
 	Plug 'liuchengxu/vista.vim'
 
@@ -292,7 +295,9 @@ augroup END
 augroup window
 	autocmd!
 
-	colorscheme zephyr
+
+	let g:material_style = 'lighter'
+	colorscheme material
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -301,6 +306,8 @@ augroup window
 
 	nnoremap Q :cclose<CR>
 	vnoremap Q :cclose<CR>
+
+	cnoremap <C-a> <Home>
 
 	nnoremap <C-b> <Left>
 	inoremap <C-b> <Left>
@@ -451,7 +458,7 @@ augroup vimsettings
 	set autoindent
 	set autochdir
 	set smartindent
-	set completeopt=menuone,noselect
+    set completeopt=menuone,noinsert
 	" set mouse=a
 
 	set backspace=indent,eol,start
@@ -472,7 +479,7 @@ augroup vimsettings
 
 
 
-	" autocmd InsertLeave * call ImSelectEn()
+	autocmd InsertLeave * call ImSelectEn()
 	" nnoremap <ESC> <ESC>:call ImSelectEn()<CR>
 
 
@@ -647,8 +654,6 @@ require('plugins.bufferline')
 require('plugins.status-line')
 require('plugins.treesitter')
 require('plugins.lspinstall')
-require('plugins.nvim-compe')
-require('plugins.lsp_signature')
 require('plugins.telescope')
 require('plugins.which-key')
 require('nvim-autopairs').setup()
@@ -659,8 +664,21 @@ require'telescope'.load_extension('ctags')
 require('telescope').load_extension('vim_bookmarks')
 require('plugins.bookmarks')
 require('plugins.rainbow')
+require('plugins.nvim-treesitter')
+require('plugins.symbols_outline')
 EOF
 
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+autocmd BufEnter * lua require'completion'.on_attach()
+let g:completion_confirm_key = ""
+imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
+                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
+let g:completion_trigger_on_delete = 1
+" let g:completion_enable_snippet = 'vim-vsnip'
 
 """function{{{
 function! TelescopeProjectFiles() abort

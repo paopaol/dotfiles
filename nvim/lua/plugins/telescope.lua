@@ -13,18 +13,16 @@ ts.setup({
     initial_mode = "insert",
     selection_strategy = "reset",
     layout_strategy = "vertical",
-    -- layout_defaults = {
-    --   horizontal = {mirror = false},
-    --   vertical = {mirror = true, preview_height = 25}
-    -- },
     file_sorter = require'telescope.sorters'.get_fuzzy_file,
     file_ignore_patterns = {},
     -- generic_sorter = require'telescope.sorters'.get_fuzzy_file,
     winblend = 0,
     layout_config = {
-      width = 0.90,
-      preview_cutoff = 120,
-      prompt_position = "top"
+      -- width = 0.90,
+      -- preview_cutoff = 120,
+      -- prompt_position = "top",
+      horizontal = {mirror = false},
+      vertical = {mirror = true, preview_height = 25}
     },
     max_results = 30,
 
