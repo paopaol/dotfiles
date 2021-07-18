@@ -9,6 +9,7 @@ source $VIMHOME/core/base_setting.vim
 augroup plgu
 	call plug#begin('~/.vim/plugged')
 	Plug 'paopaol/telescope-ctags.nvim'
+	Plug 'paopaol/telescope-vimsnip.nvim' , {'branch': 'main'}
 	Plug 'kyazdani42/nvim-web-devicons' " Recommended (for coloured icons)
 	Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 	Plug 'akinsho/nvim-bufferline.lua'
@@ -29,8 +30,8 @@ augroup plgu
 	Plug 'hrsh7th/vim-vsnip-integ'
 	Plug 'rafamadriz/friendly-snippets', {'branch':'main'}
 	Plug 'nvim-lua/completion-nvim'
-    Plug 'simrat39/symbols-outline.nvim'
-    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+	Plug 'simrat39/symbols-outline.nvim'
+	Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 	Plug 'mhartington/formatter.nvim'
 	Plug 'onsails/lspkind-nvim'
@@ -678,6 +679,7 @@ require('plugins.autopairs')
 require('plugins.formatter')
 require('plugins.lspkind')
 require'telescope'.load_extension('ctags')
+require'telescope'.load_extension('vimsnip')
 require('telescope').load_extension('vim_bookmarks')
 require('plugins.bookmarks')
 require('plugins.rainbow')
@@ -722,6 +724,10 @@ function! TelescopeSymbolsCurrentProject() abort
 	endif
 
 	lua require('telescope.builtin').grep_string{search = symbol,cwd = vim.call('asyncrun#get_root', '%'),search_dirs = {"", "."}} 
+endfunction
+
+function! TelescopeLiveGrepCurrentProject() abort
+	lua require('telescope.builtin').live_grep{cwd = vim.call('asyncrun#get_root', '%'),search_dirs = {"", "."}} 
 endfunction
 
 

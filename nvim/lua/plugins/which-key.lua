@@ -79,6 +79,12 @@ wk.register({
 })
 
 wk.register({
+  ["<leader>i"] = {name = "+insert"},
+
+  ["<leader>is"] = {"<cmd>Telescope vimsnip<cr>", "insert snippet"}
+})
+
+wk.register({
   ["<leader>w"] = {name = "+windows"},
 
   ["<leader>w1"] = {"<cmd>only<cr>", "close other window"},
