@@ -75,7 +75,7 @@ wk.register({
   ["<leader>bn"] = {"<cmd>bn<cr>", "nest buffer"},
   ["<leader>bp"] = {"<cmd>bp<cr>", "prev buffer"},
   ["<leader>bk"] = {"<cmd>Bclose<cr>", "buffer kill"},
-  ["<leader>bh"] = {"<cmd>Startify<cr>", "home"}
+  ["<leader>bh"] = {"<cmd>Dashboard<cr>", "home"}
 })
 
 wk.register({
