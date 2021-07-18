@@ -21,7 +21,6 @@ augroup plgu
 	Plug 'folke/which-key.nvim', {'branch':'main'}
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'kabouzeid/nvim-lspinstall', {'branch':'main'}
-	Plug 'ray-x/lsp_signature.nvim'
 	Plug 'windwp/nvim-autopairs'
 	Plug 'MattesGroeger/vim-bookmarks'
 	Plug 'tom-anders/telescope-vim-bookmarks.nvim', {'branch':'main'}
@@ -32,26 +31,22 @@ augroup plgu
 	Plug 'nvim-lua/completion-nvim'
 	Plug 'simrat39/symbols-outline.nvim'
 	Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-
 	Plug 'mhartington/formatter.nvim'
 	Plug 'onsails/lspkind-nvim'
-
 	Plug 'voldikss/vim-translator'
-
 	Plug 'p00f/nvim-ts-rainbow'
+    Plug 'glepnir/dashboard-nvim'
 	"""colors
 	Plug 'glepnir/zephyr-nvim', {'branch':'main'}
 	Plug 'Mofiqul/vscode.nvim', {'branch': 'main'}
 	Plug 'marko-cerovac/material.nvim', {'branch':'main'}
 	Plug 'tanvirtin/monokai.nvim'
 	"""
-	Plug 'liuchengxu/vista.vim'
 
 	Plug 'skanehira/preview-markdown.vim'
 	Plug 'rhysd/accelerated-jk'
 	Plug 'mhinz/vim-grepper'
 	Plug 'paopaol/vim-terminal-help'
-	Plug 'sbdchd/neoformat'
 	Plug 'vim-scripts/DoxygenToolkit.vim'
 	Plug 'plasticboy/vim-markdown'
 	Plug 'terryma/vim-expand-region'
@@ -69,7 +64,7 @@ augroup plgu
 	Plug 'skywind3000/asyncrun.vim'
 	Plug 'tpope/vim-surround'
 	Plug 'rakr/vim-one'
-	Plug 'mhinz/vim-startify'
+	" Plug 'mhinz/vim-startify'
 	Plug 'rbgrouleff/bclose.vim'
 	Plug 'tpope/vim-fugitive'
 	Plug 'airblade/vim-gitgutter'
@@ -105,40 +100,41 @@ nmap <f12> <Plug>VimspectorBalloonEval
 xmap <f12> <Plug>VimspectorBalloonEval
 """}}}
 
-"startify{{{
-augroup startify
-	autocmd!
-	let g:emacs = [
-				\"███████╗ ███╗   ███╗  █████╗   ██████╗ ███████╗",
-				\"██╔════╝ ████╗ ████║ ██╔══██╗ ██╔════╝ ██╔════╝",
-				\"█████╗   ██╔████╔██║ ███████║ ██║      ███████╗",
-				\"██╔══╝   ██║╚██╔╝██║ ██╔══██║ ██║      ╚════██║",
-				\"███████╗ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗ ███████║",
-				\"╚══════╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝ ╚══════╝",
-				\]
-	let g:fuck_fuck = [
-				\"███████╗██╗   ██╗ ██████╗██╗  ██╗    ███████╗██╗   ██╗ ██████╗██╗  ██╗",
-				\"██╔════╝██║   ██║██╔════╝██║ ██╔╝    ██╔════╝██║   ██║██╔════╝██║ ██╔╝",
-				\"█████╗  ██║   ██║██║     █████╔╝     █████╗  ██║   ██║██║     █████╔╝ ",
-				\"██╔══╝  ██║   ██║██║     ██╔═██╗     ██╔══╝  ██║   ██║██║     ██╔═██╗ ",
-				\"██║     ╚██████╔╝╚██████╗██║  ██╗    ██║     ╚██████╔╝╚██████╗██║  ██╗",
-				\"╚═╝      ╚═════╝  ╚═════╝╚═╝  ╚═╝    ╚═╝      ╚═════╝  ╚═════╝╚═╝  ╚═╝",
-				\]
+""startify{{{
+"augroup startify
+"	autocmd!
+"	let g:emacs = [
+"				\"███████╗ ███╗   ███╗  █████╗   ██████╗ ███████╗",
+"				\"██╔════╝ ████╗ ████║ ██╔══██╗ ██╔════╝ ██╔════╝",
+"				\"█████╗   ██╔████╔██║ ███████║ ██║      ███████╗",
+"				\"██╔══╝   ██║╚██╔╝██║ ██╔══██║ ██║      ╚════██║",
+"				\"███████╗ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗ ███████║",
+"				\"╚══════╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝ ╚══════╝",
+"				\]
+"	let g:fuck_fuck = [
+"				\"███████╗██╗   ██╗ ██████╗██╗  ██╗    ███████╗██╗   ██╗ ██████╗██╗  ██╗",
+"				\"██╔════╝██║   ██║██╔════╝██║ ██╔╝    ██╔════╝██║   ██║██╔════╝██║ ██╔╝",
+"				\"█████╗  ██║   ██║██║     █████╔╝     █████╗  ██║   ██║██║     █████╔╝ ",
+"				\"██╔══╝  ██║   ██║██║     ██╔═██╗     ██╔══╝  ██║   ██║██║     ██╔═██╗ ",
+"				\"██║     ╚██████╔╝╚██████╗██║  ██╗    ██║     ╚██████╔╝╚██████╗██║  ██╗",
+"				\"╚═╝      ╚═════╝  ╚═════╝╚═╝  ╚═╝    ╚═╝      ╚═════╝  ╚═════╝╚═╝  ╚═╝",
+"				\]
 
-	let g:fuck = [
-				\"   ▄████████ ███    █▄   ▄████████    ▄█   ▄█▄ ",
-				\"  ███    ███ ███    ███ ███    ███   ███ ▄███▀ ",
-				\"  ███    █▀  ███    ███ ███    █▀    ███▐██▀   ",
-				\" ▄███▄▄▄     ███    ███ ███         ▄█████▀    ",
-				\"▀▀███▀▀▀     ███    ███ ███        ▀▀█████▄    ",
-				\"  ███        ███    ███ ███    █▄    ███▐██▄   ",
-				\"  ███        ███    ███ ███    ███   ███ ▀███▄ ",
-				\"  ███        ████████▀  ████████▀    ███   ▀█▀ ",
-				\"                                     ▀         ",
-				\]
-	let g:startify_custom_header =startify#center(g:fuck_fuck)
-augroup END
-"}}}
+"	let g:fuck = [
+"				\"   ▄████████ ███    █▄   ▄████████    ▄█   ▄█▄ ",
+"				\"  ███    ███ ███    ███ ███    ███   ███ ▄███▀ ",
+"				\"  ███    █▀  ███    ███ ███    █▀    ███▐██▀   ",
+"				\" ▄███▄▄▄     ███    ███ ███         ▄█████▀    ",
+"				\"▀▀███▀▀▀     ███    ███ ███        ▀▀█████▄    ",
+"				\"  ███        ███    ███ ███    █▄    ███▐██▄   ",
+"				\"  ███        ███    ███ ███    ███   ███ ▀███▄ ",
+"				\"  ███        ████████▀  ████████▀    ███   ▀█▀ ",
+"				\"                                     ▀         ",
+"				\]
+"	let g:startify_custom_header =startify#center(g:fuck_fuck)
+"augroup END
+""}}}
+" let g:dashboard_default_executive ='telescope'
 
 "easymotion{{{
 augroup easymotion
@@ -685,6 +681,7 @@ require('plugins.bookmarks')
 require('plugins.rainbow')
 require('plugins.nvim-treesitter')
 require('plugins.symbols_outline')
+require('plugins.dashboard-nvim')
 EOF
 
 imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
