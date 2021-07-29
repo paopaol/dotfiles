@@ -694,6 +694,8 @@ let g:completion_confirm_key = ""
 imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
                  \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 let g:completion_trigger_on_delete = 1
+imap <silent> <c-n> <Plug>(completion_trigger)
+let g:completion_trigger_keyword_length = 4 
 " let g:completion_enable_snippet = 'vim-vsnip'
 
 """function{{{
