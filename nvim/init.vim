@@ -15,7 +15,7 @@ augroup plgu
 	Plug 'akinsho/nvim-bufferline.lua'
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
-	Plug 'nvim-telescope/telescope.nvim'
+	Plug 'nvim-telescope/telescope.nvim', {'branch': 'async_v2'}
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 	Plug 'kyazdani42/nvim-tree.lua'
 	Plug 'folke/which-key.nvim', {'branch':'main'}
@@ -35,7 +35,13 @@ augroup plgu
 	Plug 'onsails/lspkind-nvim'
 	Plug 'voldikss/vim-translator'
 	Plug 'p00f/nvim-ts-rainbow'
-    Plug 'glepnir/dashboard-nvim'
+	Plug 'glepnir/dashboard-nvim'
+	Plug 'TimUntersberger/neogit'
+	Plug 'kazhala/close-buffers.nvim'
+	Plug 'ibhagwan/fzf-lua'
+	Plug 'vijaymarupudi/nvim-fzf', {'branch': 'main'}
+	Plug 'weilbith/nvim-floating-tag-preview'
+
 	"""colors
 	Plug 'glepnir/zephyr-nvim', {'branch':'main'}
 	Plug 'Mofiqul/vscode.nvim', {'branch': 'main'}
@@ -56,16 +62,15 @@ augroup plgu
 	Plug 'haya14busa/incsearch.vim'
 	Plug 'haya14busa/incsearch-easymotion.vim'
 	Plug 'haya14busa/incsearch-fuzzy.vim'
-	Plug 'mg979/vim-visual-multi'
-	Plug 'pseewald/vim-anyfold'
-	Plug 'mattn/emmet-vim'
-	Plug 'justinmk/vim-sneak'
-	Plug 'skywind3000/asynctasks.vim'
-	Plug 'skywind3000/asyncrun.vim'
-	Plug 'tpope/vim-surround'
-	Plug 'rakr/vim-one'
-	" Plug 'mhinz/vim-startify'
-	Plug 'rbgrouleff/bclose.vim'
+	Plug 'mg979/vim-visual-multi' 
+	Plug 'pseewald/vim-anyfold' 
+	Plug 'mattn/emmet-vim' 
+	" Plug 'justinmk/vim-sneak' 
+	Plug 'skywind3000/asynctasks.vim' 
+	Plug 'skywind3000/asyncrun.vim' 
+	Plug 'tpope/vim-surround' 
+	Plug 'rakr/vim-one' 
+	" Plug 'rbgrouleff/bclose.vim' 
 	Plug 'tpope/vim-fugitive'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'lfv89/vim-interestingwords'
@@ -189,29 +194,6 @@ augroup lspcxx_hl
 augroup END
 "}}}
 
-
-"leaderf settings-------------------{{{
-augroup leaderf
-	autocmd!
-	function! ProjectFiles() abort
-		let root = asyncrun#get_root('%')
-		execute ':Leaderf file --regexMode  ' . root . "\<CR>"
-	endfunction
-
-	function! ProjectFilesCurrentdir() abort
-		let root = fnamemodify(expand('%'), ':p:h')
-		execute ':Leaderf file --regexMode ' . root . "\<CR>"
-	endfunction
-
-	let g:Lf_RootMarkers = ['.projectile']
-	let g:Lf_ShortcutF=''
-	let g:Lf_ShortcutB=''
-	let g:Lf_ShowRelativePath = 0
-	let g:Lf_PreviewResult = {'Function':0, 'Colorscheme':1}
-	let g:Lf_ShowDevIcons = 0
-	let g:Lf_StlColorscheme = 'powerline'
-augroup END
-"  }}}
 
 augroup which-key
 	autocmd!
@@ -674,6 +656,7 @@ require('nvim-autopairs').setup()
 require('plugins.autopairs')
 require('plugins.formatter')
 require('plugins.lspkind')
+require('plugins.nvim-tree')
 require'telescope'.load_extension('ctags')
 require'telescope'.load_extension('vimsnip')
 require('telescope').load_extension('vim_bookmarks')
@@ -682,6 +665,8 @@ require('plugins.rainbow')
 require('plugins.nvim-treesitter')
 require('plugins.symbols_outline')
 require('plugins.dashboard-nvim')
+require('neogit').setup{}
+require('plugins.fzf')
 EOF
 
 imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
@@ -694,8 +679,8 @@ let g:completion_confirm_key = ""
 imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
                  \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 let g:completion_trigger_on_delete = 1
-imap <silent> <c-n> <Plug>(completion_trigger)
-let g:completion_trigger_keyword_length = 4 
+" imap <silent> <c-n> <Plug>(completion_trigger)
+let g:completion_trigger_keyword_length = 3
 " let g:completion_enable_snippet = 'vim-vsnip'
 
 """function{{{

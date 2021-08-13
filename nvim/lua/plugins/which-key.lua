@@ -74,7 +74,8 @@ wk.register({
   ["<leader>bb"] = {"<cmd>call TelescopeBuffers()<cr>", "buffer list"},
   ["<leader>bn"] = {"<cmd>bn<cr>", "nest buffer"},
   ["<leader>bp"] = {"<cmd>bp<cr>", "prev buffer"},
-  ["<leader>bk"] = {"<cmd>Bclose<cr>", "buffer kill"},
+  ["<leader>bk"] = {"<cmd>BDelete this<cr>", "buffer kill"},
+  ["<leader>bK"] = {"<cmd>BDelete other<cr>", "buffer kill"},
   ["<leader>bh"] = {"<cmd>Dashboard<cr>", "home"}
 })
 
@@ -100,6 +101,9 @@ wk.register({
   ["<leader>s"] = {name = "+windows"},
 
   ["<leader>ss"] = {
+    "<cmd>Telescope current_buffer_fuzzy_find<cr>", "symbol current buffer"
+  },
+  ["<leader>sS"] = {
     "<cmd>Telescope current_buffer_fuzzy_find<cr>", "symbol current buffer"
   },
   ["<leader>sp"] = {

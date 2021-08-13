@@ -13,18 +13,18 @@ ts.setup({
     initial_mode = "insert",
     selection_strategy = "reset",
     layout_strategy = "vertical",
-    file_sorter = require'telescope.sorters'.get_fuzzy_file,
+    -- file_sorter = require'telescope.sorters'.get_fuzzy_file,
     file_ignore_patterns = {},
     -- generic_sorter = require'telescope.sorters'.get_fuzzy_file,
     winblend = 0,
     layout_config = {
-      -- width = 0.90,
+      width = 0.99,
       -- preview_cutoff = 120,
       -- prompt_position = "top",
       horizontal = {mirror = false},
       vertical = {mirror = true, preview_height = 25}
     },
-    max_results = 30,
+    max_results = 100,
 
     border = {},
     borderchars = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},

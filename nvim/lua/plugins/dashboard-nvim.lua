@@ -8,6 +8,14 @@ vim.api.nvim_set_var('dashboard_custom_shortcut', {
   find_word = 'SPC f a',
   book_marks = 'SPC f b'
 })
+local emacs = {
+  "███████╗ ███╗   ███╗  █████╗   ██████╗ ███████╗",
+  "██╔════╝ ████╗ ████║ ██╔══██╗ ██╔════╝ ██╔════╝",
+  "█████╗   ██╔████╔██║ ███████║ ██║      ███████╗",
+  "██╔══╝   ██║╚██╔╝██║ ██╔══██║ ██║      ╚════██║",
+  "███████╗ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗ ███████║",
+  "╚══════╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝ ╚══════╝"
+}
 
 local image = {
   "                                                          .::::::::'            .",
@@ -47,4 +55,4 @@ local image = {
   "   .|###@;                                               .'`.      .``.         .",
   "    !#####$`                                                                    ."
 }
-vim.api.nvim_set_var('dashboard_custom_header', image)
+vim.api.nvim_set_var('dashboard_custom_header', emacs)
