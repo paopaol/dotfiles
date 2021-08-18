@@ -132,6 +132,8 @@ wk.register({
   ["<leader>lr"] = {"<cmd>lua vim.lsp.buf.rename()<cr>", "rename"}
 })
 
+wk.register({["<leader>r"] = {"<cmd>FzfAsyncTask<cr>", "runner"}})
+
 vim.cmd(([[
 autocmd FileType cpp   lua whichkeyrCpp()
 ]]))

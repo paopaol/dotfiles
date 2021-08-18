@@ -15,7 +15,7 @@ augroup plug
 	Plug 'akinsho/nvim-bufferline.lua'
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
-	Plug 'nvim-telescope/telescope.nvim', {'branch': 'async_v0'}
+	Plug 'nvim-telescope/telescope.nvim', {'branch': 'async_v2'}
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 	Plug 'kyazdani42/nvim-tree.lua'
 	Plug 'folke/which-key.nvim', {'branch':'main'}
@@ -41,8 +41,9 @@ augroup plug
 	Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 	Plug 'vijaymarupudi/nvim-fzf'
 	Plug 'weilbith/nvim-floating-tag-preview'
-	Plug '~/.vim/plugged/fzf-snippet.nvim'
-	Plug '~/.vim/plugged/fzf-asynctask.nvim'
+	Plug 'paopaol/fzf-snippet.nvim' , {'branch': 'main'}
+	Plug 'paopaol/fzf-asynctask.nvim', {'branch': 'main'}
+
 
 	"""colors
 	Plug 'glepnir/zephyr-nvim', {'branch':'main'}
