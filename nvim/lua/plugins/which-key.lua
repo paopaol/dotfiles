@@ -1,8 +1,4 @@
 local wk = require("which-key")
--- As an example, we will the following mappings:
---  1. <leader>fn new file
---  2. <leader>fr show recent files
---  2. <leader>ff find files
 
 wk.setup {
   window = {
@@ -47,8 +43,8 @@ wk.register({
   ["<f1>"] = {"<cmd>call NvimTreeProjectToggle()<cr>", "tree"},
   ["<f4>"] = {"<cmd>call CmakeBuild()<cr>", "cmake build"},
   ["K"] = {"<cmd>lua vim.lsp.buf.hover()<cr>", "lsp+hover"},
-  ["gd"] = {"<cmd>Telescope lsp_definitions<cr>", "lsp+definition"},
-  ["gr"] = {"<cmd>Telescope lsp_references<cr>", "lsp+references"},
+  ["gd"] = {"<cmd>FzfLua lsp_definitions<cr>", "lsp+definition"},
+  ["gr"] = {"<cmd>FzfLua lsp_references<cr>", "lsp+references"},
   ["gf"] = {"<cmd>lua vim.lsp.buf.code_action()<cr>", "quickfix"}
 
 })
@@ -57,21 +53,17 @@ wk.register({
   ["<leader>f"] = {name = "+file"},
 
   ["<leader>ff"] = {"<cmd>Telescope file_browser<cr>", "Find File"},
-  ["<leader>fd"] = {"<cmd>Telescope find_files<cr>", "Find File"},
-  ["<leader>fr"] = {"<cmd>call TelescopeRecentFiles()<cr>", "Open Recent File"},
+  ["<leader>fd"] = {"<cmd>FzfLua files<cr>", "Find File"},
+  ["<leader>fr"] = {"<cmd>FzfLua oldfiles<cr>", "Open Recent File"},
   ["<leader>fn"] = {"<cmd>enew<cr>", "New File"},
-  ["<leader>fp"] = {"<cmd>call TelescopeProjectFiles()<cr>", "ProjectFiles"},
-  ["<leader>fs"] = {"<cmd>w<cr>", "save file"},
-  ["<leader>fb"] = {
-    "<cmd>Telescope vim_bookmarks current_file<cr>", "book marks current file"
-  },
-  ["<leader>fB"] = {"<cmd>Telescope vim_bookmarks all<cr>", "book marks all"}
+  ["<leader>fp"] = {"<cmd>call ProjectFiles()<cr>", "ProjectFiles"},
+  ["<leader>fs"] = {"<cmd>w<cr>", "save file"}
 })
 
 wk.register({
   ["<leader>b"] = {name = "+buffer"},
 
-  ["<leader>bb"] = {"<cmd>call TelescopeBuffers()<cr>", "buffer list"},
+  ["<leader>bb"] = {"<cmd>FzfLua buffers<cr>", "buffer list"},
   ["<leader>bn"] = {"<cmd>bn<cr>", "nest buffer"},
   ["<leader>bp"] = {"<cmd>bp<cr>", "prev buffer"},
   ["<leader>bk"] = {"<cmd>BDelete this<cr>", "buffer kill"},
@@ -82,7 +74,7 @@ wk.register({
 wk.register({
   ["<leader>i"] = {name = "+insert"},
 
-  ["<leader>is"] = {"<cmd>Telescope vimsnip<cr>", "insert snippet"}
+  ["<leader>is"] = {"<cmd>FzfSnippet<cr>", "insert snippet"}
 })
 
 wk.register({
@@ -100,20 +92,17 @@ wk.register({
 wk.register({
   ["<leader>s"] = {name = "+windows"},
 
-  ["<leader>ss"] = {
-    "<cmd>Telescope current_buffer_fuzzy_find<cr>", "symbol current buffer"
-  },
+  ["<leader>ss"] = {"<cmd>FzfLua grep_curbuf<cr>", "symbol current buffer"},
   ["<leader>sS"] = {
     "<cmd>Telescope current_buffer_fuzzy_find<cr>", "symbol current buffer"
   },
   ["<leader>sp"] = {
-    "<cmd>call TelescopeSymbolsCurrentProject()<cr>", "symbol project at point"
+    "<cmd>call SymbolsCurrentProject()<cr>", "symbol project at point"
   },
   ["<leader>sP"] = {
-    "<cmd>call TelescopeSymbolsCurrentProjectAtPoint()<cr>",
-    "symbol project at point"
+    "<cmd>call SymbolsCurrentProjectAtPoint()<cr>", "symbol project at point"
   },
-  ["<leader>sl"] = {"<cmd>Telescope ctags functions<cr>", "symbol"},
+  ["<leader>sl"] = {"<cmd>FzfLua lsp_document_symbols<cr>", "symbol"},
   ["<leader>sh"] = {"<cmd>call InterestingWords(\"n\")<cr>", "highlight words"},
   ["<leader>sc"] = {"<cmd>call Uncolor_all_words()<cr>", "unhighlight words"}
 })
@@ -131,7 +120,7 @@ wk.register({
 wk.register({
   ["<leader>t"] = {name = "+tools/toggle"},
 
-  ["<leader>tc"] = {"<cmd>Telescope colorscheme<cr>", "colorscheme"},
+  ["<leader>tc"] = {"<cmd>FzfLua colorschemes<cr>", "colorscheme"},
   ["<leader>tl"] = {"<cmd>setlocal wrap!<cr>", "line wrap"},
   ["<leader>tf"] = {"<cmd>Telescope filetypes<cr>", "filetypes"},
   ["<leader>tr"] = {"<cmd>so $VIMHOME/init.vim<cr>", "refresh vimrc"}

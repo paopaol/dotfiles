@@ -6,7 +6,7 @@ source $VIMHOME/core/base_setting.vim
 
 
 "plug -----{{{
-augroup plgu
+augroup plug
 	call plug#begin('~/.vim/plugged')
 	Plug 'paopaol/telescope-ctags.nvim'
 	Plug 'paopaol/telescope-vimsnip.nvim' , {'branch': 'main'}
@@ -15,7 +15,7 @@ augroup plgu
 	Plug 'akinsho/nvim-bufferline.lua'
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
-	Plug 'nvim-telescope/telescope.nvim', {'branch': 'async_v2'}
+	Plug 'nvim-telescope/telescope.nvim', {'branch': 'async_v0'}
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 	Plug 'kyazdani42/nvim-tree.lua'
 	Plug 'folke/which-key.nvim', {'branch':'main'}
@@ -38,15 +38,19 @@ augroup plgu
 	Plug 'glepnir/dashboard-nvim'
 	Plug 'TimUntersberger/neogit'
 	Plug 'kazhala/close-buffers.nvim'
-	Plug 'ibhagwan/fzf-lua'
-	Plug 'vijaymarupudi/nvim-fzf', {'branch': 'main'}
+	Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+	Plug 'vijaymarupudi/nvim-fzf'
 	Plug 'weilbith/nvim-floating-tag-preview'
+	Plug '~/.vim/plugged/fzf-snippet.nvim'
+	Plug '~/.vim/plugged/fzf-asynctask.nvim'
 
 	"""colors
 	Plug 'glepnir/zephyr-nvim', {'branch':'main'}
 	Plug 'Mofiqul/vscode.nvim', {'branch': 'main'}
 	Plug 'marko-cerovac/material.nvim', {'branch':'main'}
 	Plug 'tanvirtin/monokai.nvim'
+	Plug 'rktjmp/lush.nvim', {'branch':'main'}
+	Plug 'npxbr/gruvbox.nvim', {'branch':'main'}
 	"""
 
 	Plug 'skanehira/preview-markdown.vim'
@@ -276,7 +280,7 @@ augroup window
 
 
 	let g:material_style = 'lighter'
-	colorscheme material
+	colorscheme gruvbox
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -684,51 +688,24 @@ let g:completion_trigger_keyword_length = 3
 " let g:completion_enable_snippet = 'vim-vsnip'
 
 """function{{{
-function! TelescopeProjectFiles() abort
-	let root = asyncrun#get_root('%')
-	lua require('telescope.builtin').find_files{border = true, previewer = false, cwd = vim.call('asyncrun#get_root', '%') } 
+function! ProjectFiles() abort
+	lua require('fzf-lua').files({ cwd = vim.call('asyncrun#get_root', '%')})
 endfunction
 
-function! TelescopeSymbolsCurrentDirectory() abort
-	lua require('telescope.builtin').grep_string{search_dirs = {"", "."}} 
+function! SymbolsCurrentDirectory() abort
+	lua require('fzf-lua').files({ cwd = '.'})
 endfunction
 
-function! TelescopeSymbolsCurrentProjectAtPoint() abort
-	let cword = expand('<cword>')
-	if cword == ''
-		return
-	endif
-	lua require('telescope.builtin').grep_string{cwd = vim.call('asyncrun#get_root', '%'),search_dirs = {"", "."}} 
-endfunction
-
-function! TelescopeSymbolsCurrentProject() abort
-	let symbol = input('rg> ')
-	if symbol == ''
-		return
-	endif
-
-	lua require('telescope.builtin').grep_string{search = symbol,cwd = vim.call('asyncrun#get_root', '%'),search_dirs = {"", "."}} 
-endfunction
-
-function! TelescopeLiveGrepCurrentProject() abort
-	lua require('telescope.builtin').live_grep{cwd = vim.call('asyncrun#get_root', '%'),search_dirs = {"", "."}} 
+function! SymbolsCurrentProjectAtPoint() abort
+	lua require('fzf-lua').grep_cword({ cwd = vim.call('asyncrun#get_root', '%')})
 endfunction
 
 
-function! TelescopeRecentFiles()abort
-	lua require('telescope.builtin').oldfiles({entry_maker = require('plugins.telescope').entry_gen_from_recentfiles()})
-endfunction
-
-function! TelescopeFileBrowser()abort
-	lua require('telescope.builtin').file_browser({entry_maker = require('plugins.telescope').entry_gen_from_recentfiles()})
+function! SymbolsCurrentProject() abort
+	lua require('fzf-lua').live_grep({ cwd = vim.call('asyncrun#get_root', '%')})
 endfunction
 
 function! NvimTreeProjectToggle()abort
 	lua require('nvim-tree').toggle({root_dir = vim.call('asyncrun#get_root', '%')})
-endfunction
-
-
-function! TelescopeBuffers()abort
-	lua require('telescope.builtin').buffers({entry_maker = require('plugins.telescope').entry_gen_from_buffers()})
 endfunction
 """"}}}

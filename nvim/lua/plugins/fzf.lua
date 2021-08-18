@@ -19,7 +19,7 @@ require'fzf-lua'.setup {
   fzf_binds = { -- fzf '--bind=' options
     'f2:toggle-preview', 'f3:toggle-preview-wrap',
     -- 'shift-down:preview-page-down', 'shift-up:preview-page-up',
-    'ctrl-d:preview-page-down', 'ctrl-u:preview-page-up', 'ctrl-f:page-down',
+    'ctrl-d:preview-down', 'ctrl-u:preview-up', 'ctrl-f:page-down',
     'ctrl-b:page-up', 'ctrl-a:toggle-all', 'ctrl-l:clear-query'
   },
   preview_border = 'border', -- border|noborder
