@@ -27,7 +27,12 @@ augroup plug
 	Plug 'crispgm/telescope-heading.nvim', {'branch':'main'}
 	Plug 'hrsh7th/vim-vsnip'
 	Plug 'hrsh7th/vim-vsnip-integ'
-	Plug 'rafamadriz/friendly-snippets', {'branch':'main'}
+	" Plug 'rafamadriz/friendly-snippets', {'branch':'main'}
+	" Plug 'Shougo/neosnippet.vim'
+	" Plug 'Shougo/neosnippet-snippets'
+	Plug 'SirVer/ultisnips'
+	" Snippets are separated from the engine. Add this if you want them:
+	Plug 'honza/vim-snippets'
 	Plug 'nvim-lua/completion-nvim'
 	Plug 'simrat39/symbols-outline.nvim'
 	Plug 'nvim-treesitter/nvim-treesitter-textobjects'
@@ -648,6 +653,17 @@ endfunction
 let mapleader = "\<space>"
 let maplocalleader = ","
 
+
+
+
+let g:completion_chain_complete_list = {
+	    \'default' : [
+	    \    {'complete_items': ['lsp', 'snippet']},
+	    \    {'mode': '<c-p>'},
+	    \    {'mode': '<c-n>'}
+	    \]
+	    \}
+
 lua << EOF
 require('plugins.lsp')
 require("bufferline").setup{}
@@ -663,7 +679,7 @@ require('plugins.formatter')
 require('plugins.lspkind')
 require('plugins.nvim-tree')
 require'telescope'.load_extension('ctags')
-require'telescope'.load_extension('vimsnip')
+--require'telescope'.load_extension('vimsnip')
 require('telescope').load_extension('vim_bookmarks')
 require('plugins.bookmarks')
 require('plugins.rainbow')
@@ -672,7 +688,33 @@ require('plugins.symbols_outline')
 require('plugins.dashboard-nvim')
 require('neogit').setup{}
 require('plugins.fzf')
+
+local remap = vim.api.nvim_set_keymap
+local npairs = require('nvim-autopairs')
+
+-- skip it, if you use another global object
+_G.MUtils= {}
+
+vim.g.completion_confirm_key = ""
+
+MUtils.completion_confirm=function()
+  if vim.fn.pumvisible() ~= 0  then
+    if vim.fn.complete_info()["selected"] ~= -1 then
+      require'completion'.confirmCompletion()
+      return npairs.esc("<c-y>")
+    else
+      vim.api.nvim_select_popupmenu_item(0 , false , false ,{})
+      require'completion'.confirmCompletion()
+      return npairs.esc("<c-n><c-y>")
+    end
+  else
+    return npairs.autopairs_cr()
+  end
+end
+
+remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
 EOF
+
 
 imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
@@ -681,12 +723,17 @@ smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 
 autocmd BufEnter * lua require'completion'.on_attach()
 let g:completion_confirm_key = ""
-imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
-                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 let g:completion_trigger_on_delete = 1
-" imap <silent> <c-n> <Plug>(completion_trigger)
-let g:completion_trigger_keyword_length = 3
-" let g:completion_enable_snippet = 'vim-vsnip'
+let g:completion_trigger_keyword_length = 2
+let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_enable_server_trigger=0
+let g:completion_trigger_character = ['.', '::']
+
+let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+
 
 """function{{{
 function! ProjectFiles() abort
@@ -709,4 +756,5 @@ endfunction
 function! NvimTreeProjectToggle()abort
 	lua require('nvim-tree').toggle({root_dir = vim.call('asyncrun#get_root', '%')})
 endfunction
-""""}}}
+"""}}}
+
