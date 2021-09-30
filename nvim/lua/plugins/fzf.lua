@@ -79,7 +79,25 @@ require'fzf-lua'.setup {
     previewer = false, -- uncomment to override previewer
     prompt = 'Files❯ ',
     cmd = 'fd', -- "find . -type f -printf '%P\n'",
-    fd_opts = [[--color never --type f --follow ]] ..
+    fd_opts = [[--color never --type f --follow -t f]] ..
+        [[--exclude .git --exclude node_modules --exclude '*.pyc' --exclude moc_* --exclude *.o]],
+    git_icons = true, -- show git icons?
+    file_icons = true, -- show file icons?
+    color_icons = true, -- colorize file|git icons
+    actions = {
+      ["default"] = actions.file_edit,
+      ["ctrl-s"] = actions.file_split,
+      ["ctrl-v"] = actions.file_vsplit,
+      ["ctrl-t"] = actions.file_tabedit,
+      ["ctrl-q"] = actions.file_sel_to_qf,
+      ["ctrl-y"] = function(selected) print(selected[2]) end
+    }
+  },
+  my_files = {
+    previewer = false, -- uncomment to override previewer
+    prompt = 'Files❯ ',
+    cmd = 'fd', -- "find . -type f -printf '%P\n'",
+    fd_opts = [[--color never --type f --follow  -t f]] ..
         [[--exclude .git --exclude node_modules --exclude '*.pyc' --exclude moc_* --exclude *.o]],
     git_icons = true, -- show git icons?
     file_icons = true, -- show file icons?

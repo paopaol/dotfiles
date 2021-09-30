@@ -71,4 +71,33 @@ class NYCommand$2 : public QUndoCommand {
 
 #endif /* NYCOMMAND$1_H */
 endsnippet
+
+
+snippet NYJsonSerilize "u12 object json 序列化"
+QJsonObject json;
+QJsonObject object;
+
+auto *widget = d_ptr->object->chartWidget();
+auto rect = widget->boundingRect();
+auto position = widget->pos();
+rect.adjust(position.x(), position.y(), position.x(), position.y());
+auto *style = widget->style();
+
+json["objectType"] = d_ptr->object->objectType();
+json["id"] = IdGenerater::nextId();
+object["type"] = d_ptr->object->graphicType();
+json["object"] = object;
+json["visible"] = d_ptr->object->graphicsItem()->isVisible();
+json["locked"] = d_ptr->object->getLocked();
+json["start"] = NYUtil::fmtPoint(rect.topLeft().toPoint());
+json["end"] = NYUtil::fmtPoint(rect.bottomRight().toPoint());
+endsnippet
 	
+	
+snippet fmtPoint "u12 point 序列化"
+NYUtil::fmtPoint(${1:point});
+endsnippet
+
+snippet fmtColor "u12 color 序列化"
+NYUtil::fmtColor(${1:color});
+endsnippet

@@ -39,7 +39,7 @@ augroup plug
 	Plug 'glepnir/dashboard-nvim'
 	Plug 'TimUntersberger/neogit'
 	Plug 'kazhala/close-buffers.nvim'
-	Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+	Plug 'paopaol/fzf-lua', {'branch': 'main'}
 	Plug 'vijaymarupudi/nvim-fzf'
 	Plug 'weilbith/nvim-floating-tag-preview'
 	Plug 'paopaol/fzf-snippet.nvim' , {'branch': 'main'}
@@ -50,6 +50,7 @@ augroup plug
 	Plug 'ray-x/lsp_signature.nvim'
 	Plug 'nvim-lua/completion-nvim'
 	Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
+	Plug '907th/vim-auto-save'
 
 	Plug 'lilydjwg/fcitx.vim', {'branch':'main'}
 	"""colors
@@ -369,6 +370,7 @@ augroup vimsettings
 	"highlight Pmenu ctermfg=NONE ctermbg=NONE  guibg=NONE guifg=NONE
 	"highlight PmenuSel ctermfg=7 ctermbg=4 guibg=NONE guifg=NONE
 
+    set autowriteall
 	set relativenumber
 	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
 	set number
@@ -527,6 +529,10 @@ nnoremap <silent> n :call WordNavigation('forward')<cr>
 nnoremap <silent> N :call WordNavigation('backward')<cr>
 """"""""}}}
 
+let g:auto_save = 1
+let g:auto_save_silent = 1
+let g:auto_save_events = ["InsertLeave", "TextChanged"]
+
 
 
 """"""functions{{{
@@ -653,7 +659,7 @@ EOF
 
 """function{{{
 function! ProjectFiles() abort
-	lua require('fzf-lua').files({ cwd = vim.call('asyncrun#get_root', '%')})
+	lua require('fzf-lua').my_files({ cwd = vim.call('asyncrun#get_root', '%')})
 endfunction
 
 function! CurrentLines() abort

@@ -56,7 +56,7 @@ wk.register({
   ["<leader>f"] = {name = "+file"},
 
   ["<leader>ff"] = {"<cmd>Telescope file_browser<cr>", "Find File"},
-  ["<leader>fd"] = {"<cmd>FzfLua files<cr>", "Find File"},
+  ["<leader>fd"] = {"<cmd>FzfLua my_files<cr>", "Find File"},
   ["<leader>fr"] = {"<cmd>FzfLua oldfiles<cr>", "Open Recent File"},
   ["<leader>fn"] = {"<cmd>enew<cr>", "New File"},
   ["<leader>fp"] = {"<cmd>call ProjectFiles()<cr>", "ProjectFiles"},
