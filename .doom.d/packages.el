@@ -21,3 +21,6 @@
 (package! helm-ag)
 (package! go-mode)
 (package! evil-textobj-line)
+(package! evil-goggles)
+(package! good-scroll)
+(package! dap-mode)

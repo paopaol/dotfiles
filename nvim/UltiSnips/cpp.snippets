@@ -1,0 +1,74 @@
+
+snippet NYCommandImpl
+#include "NYCommand${1:action}.h"
+
+#include "../../NyMindMapGraphicsWidget/NyMindMapNode.h"
+#include "../NYMindMapObject.h"
+
+class NYCommand$1Private {
+ public:
+  NYMindMapObject *object = nullptr;
+
+  NyMindMapNode *node = nullptr;
+  NyMindMapNode *child = nullptr;
+};
+
+NYCommand$1::NYCommand$1(NYMindMapObject *object,
+									 NyMindMapNode *node)
+	: QUndoCommand(nullptr), d_ptr(new NYCommand$1Private) {
+  Q_D(NYCommand$1);
+
+  d->object = object;
+  d->node = node;
+
+  assert(d->object);
+  assert(d->node);
+}
+
+NYCommand$1::~NYCommand$1() = default;
+
+void NYCommand$1::undo() {
+  Q_D(NYCommand$1);
+  d->object->widget()->lazyDeleteNode(d->child);
+}
+
+void NYCommand$1::redo() {
+  Q_D(NYCommand$1);
+  if (!d->child) {
+	d->child = d->object->addChildNode(d->node);
+	return;
+  }
+
+  d->object->widget()->lazyAddNodeFor(d->node, d->child);
+}
+endsnippet
+
+
+snippet  NYCommandDeclare
+#ifndef NYCOMMAND${1:name}_H
+#define NYCOMMAND$1_H
+
+#include <QUndoCommand>
+
+class NYMindMapObject;
+class NyMindMapNode;
+class NYCommand${2:action}Private;
+class NYCommand$2 : public QUndoCommand {
+  Q_DECLARE_PRIVATE(NYCommand$2)
+
+ public:
+  NYCommand$2(NYMindMapObject *object, NyMindMapNode *node);
+
+  ~NYCommand$2() override;
+
+  void undo() override;
+
+  void redo() override;
+
+ private:
+  QScopedPointer<NYCommand$2Private> d_ptr;
+};
+
+#endif /* NYCOMMAND$1_H */
+endsnippet
+	

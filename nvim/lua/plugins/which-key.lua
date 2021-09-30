@@ -10,6 +10,7 @@ wk.setup {
 }
 
 wk.register({
+  ["<leader><leader>"] = {"<cmd>FzfLua commands<cr>", "commands"},
   ["<leader>1"] = {
     "<cmd>lua require('bufferline').go_to_buffer(1)<cr>", "switch tab 1"
   },
@@ -40,9 +41,11 @@ wk.register({
 })
 
 wk.register({
-  ["<f1>"] = {"<cmd>call NvimTreeProjectToggle()<cr>", "tree"},
+  ["<f1>"] = {"<cmd>NERDTreeToggleVCS<cr>", "tree"},
   ["<f4>"] = {"<cmd>call CmakeBuild()<cr>", "cmake build"},
-  ["K"] = {"<cmd>lua vim.lsp.buf.hover()<cr>", "lsp+hover"},
+  ["K"] = {
+    "<cmd>lua require('lspsaga.hover').render_hover_doc()<cr>", "lsp+hover"
+  },
   ["gd"] = {"<cmd>FzfLua lsp_definitions<cr>", "lsp+definition"},
   ["gr"] = {"<cmd>FzfLua lsp_references<cr>", "lsp+references"},
   ["gf"] = {"<cmd>lua vim.lsp.buf.code_action()<cr>", "quickfix"}
@@ -92,7 +95,10 @@ wk.register({
 wk.register({
   ["<leader>s"] = {name = "+windows"},
 
-  ["<leader>ss"] = {"<cmd>FzfLua grep_curbuf<cr>", "symbol current buffer"},
+  ["<leader>sd"] = {
+    "<cmd>call SymbolsCurrentDirectory()<cr>", "symbol current directory"
+  },
+  ["<leader>ss"] = {"<cmd>FzfLua blines<cr>", "symbol current buffer"},
   ["<leader>sS"] = {
     "<cmd>Telescope current_buffer_fuzzy_find<cr>", "symbol current buffer"
   },
@@ -102,7 +108,7 @@ wk.register({
   ["<leader>sP"] = {
     "<cmd>call SymbolsCurrentProjectAtPoint()<cr>", "symbol project at point"
   },
-  ["<leader>sl"] = {"<cmd>FzfLua lsp_document_symbols<cr>", "symbol"},
+  ["<leader>si"] = {"<cmd>FzfLua lsp_document_symbols<cr>", "symbol"},
   ["<leader>sh"] = {"<cmd>call InterestingWords(\"n\")<cr>", "highlight words"},
   ["<leader>sc"] = {"<cmd>call Uncolor_all_words()<cr>", "unhighlight words"}
 })
@@ -110,8 +116,8 @@ wk.register({
 wk.register({
   ["<leader>g"] = {name = "+git"},
 
-  ["<leader>gs"] = {"<cmd>Git<cr>", "git status"},
   ["<leader>gb"] = {"<cmd>Git blame<cr>", "git blame"},
+  ["<leader>gg"] = {"<cmd>Neogit<cr>", "git status"},
   ["<leader>gl"] = {"<cmd>Gclog<cr>", "git log"},
   ["<leader>gp"] = {"<cmd>Git push<cr>", "git push"},
   ["<leader>gP"] = {"<cmd>Git pull<cr>", "git pull"}
@@ -127,9 +133,15 @@ wk.register({
 })
 
 wk.register({
-  ["<leader>l"] = {name = "+lsp"},
+  ["<leader>p"] = {name = "+project"},
 
-  ["<leader>lr"] = {"<cmd>lua vim.lsp.buf.rename()<cr>", "rename"}
+  ["<leader>ps"] = {"<cmd>FzfLua lsp_workspace_symbols<cr>", "workspace symbol"}
+})
+
+wk.register({
+  ["<leader>c"] = {name = "+code"},
+
+  ["<leader>cr"] = {"<cmd>lua vim.lsp.buf.rename()<cr>", "rename"}
 })
 
 wk.register({["<leader>r"] = {"<cmd>FzfAsyncTask<cr>", "runner"}})

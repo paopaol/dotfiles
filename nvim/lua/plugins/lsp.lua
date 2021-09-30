@@ -1,4 +1,6 @@
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+local util = require 'lspconfig/util'
+
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- capabilities.textDocument.completion.completionItem.resolveSupport = {
 -- 	properties = {
@@ -25,9 +27,11 @@ for _, lsp in ipairs(servers) do nvim_lsp[lsp].setup {on_attach = on_attach} end
 require('lspconfig').clangd.setup({
   cmd = {
     "clangd", "--clang-tidy", "-j=1", "--header-insertion=never",
-    "--completion-style=detailed"
+    "--completion-style=bundled"
   },
-  capabilities = capabilities
+  capabilities = capabilities,
+  root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt",
+                               ".git", ".projectile")
 })
 
 require('lspconfig').cmake.setup({capabilities = capabilities})

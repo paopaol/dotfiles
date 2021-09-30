@@ -17,7 +17,7 @@ augroup plug
 	Plug 'nvim-lua/plenary.nvim'
 	Plug 'nvim-telescope/telescope.nvim', {'branch': 'async_v2'}
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-	Plug 'kyazdani42/nvim-tree.lua'
+	Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
 	Plug 'folke/which-key.nvim', {'branch':'main'}
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'kabouzeid/nvim-lspinstall', {'branch':'main'}
@@ -25,16 +25,12 @@ augroup plug
 	Plug 'MattesGroeger/vim-bookmarks'
 	Plug 'tom-anders/telescope-vim-bookmarks.nvim', {'branch':'main'}
 	Plug 'crispgm/telescope-heading.nvim', {'branch':'main'}
+	Plug 'voldikss/vim-floaterm'
+	Plug 'karb94/neoscroll.nvim'
 	Plug 'hrsh7th/vim-vsnip'
 	Plug 'hrsh7th/vim-vsnip-integ'
-	" Plug 'rafamadriz/friendly-snippets', {'branch':'main'}
-	" Plug 'Shougo/neosnippet.vim'
-	" Plug 'Shougo/neosnippet-snippets'
 	Plug 'SirVer/ultisnips'
-	" Snippets are separated from the engine. Add this if you want them:
 	Plug 'honza/vim-snippets'
-	Plug 'nvim-lua/completion-nvim'
-	Plug 'simrat39/symbols-outline.nvim'
 	Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 	Plug 'mhartington/formatter.nvim'
 	Plug 'onsails/lspkind-nvim'
@@ -48,8 +44,14 @@ augroup plug
 	Plug 'weilbith/nvim-floating-tag-preview'
 	Plug 'paopaol/fzf-snippet.nvim' , {'branch': 'main'}
 	Plug 'paopaol/fzf-asynctask.nvim', {'branch': 'main'}
+	Plug 'romgrk/nvim-treesitter-context'
+	Plug 'preservim/nerdtree'
+	Plug 'folke/todo-comments.nvim' , {'branch': 'main'}
+	Plug 'ray-x/lsp_signature.nvim'
+	Plug 'nvim-lua/completion-nvim'
+	Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 
-
+	Plug 'lilydjwg/fcitx.vim', {'branch':'main'}
 	"""colors
 	Plug 'glepnir/zephyr-nvim', {'branch':'main'}
 	Plug 'Mofiqul/vscode.nvim', {'branch': 'main'}
@@ -57,6 +59,8 @@ augroup plug
 	Plug 'tanvirtin/monokai.nvim'
 	Plug 'rktjmp/lush.nvim', {'branch':'main'}
 	Plug 'npxbr/gruvbox.nvim', {'branch':'main'}
+	Plug 'EdenEast/nightfox.nvim', {'branch':'main'}
+	Plug 'folke/tokyonight.nvim', {'branch':'main'}
 	"""
 
 	Plug 'skanehira/preview-markdown.vim'
@@ -75,14 +79,11 @@ augroup plug
 	Plug 'mg979/vim-visual-multi' 
 	Plug 'pseewald/vim-anyfold' 
 	Plug 'mattn/emmet-vim' 
-	" Plug 'justinmk/vim-sneak' 
 	Plug 'skywind3000/asynctasks.vim' 
 	Plug 'skywind3000/asyncrun.vim' 
 	Plug 'tpope/vim-surround' 
 	Plug 'rakr/vim-one' 
-	" Plug 'rbgrouleff/bclose.vim' 
 	Plug 'tpope/vim-fugitive'
-	Plug 'airblade/vim-gitgutter'
 	Plug 'lfv89/vim-interestingwords'
 	Plug 'kana/vim-textobj-user'
 	Plug 'sgur/vim-textobj-parameter'
@@ -104,52 +105,6 @@ augroup END
 "}}}
 
 
-nmap j <Plug>(accelerated_jk_gj)
-nmap k <Plug>(accelerated_jk_gk)
-
-""""""""vimspector{{{
-let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
-" for normal mode - the word under the cursor
-nmap <f12> <Plug>VimspectorBalloonEval
-" for visual mode, the visually selected text
-xmap <f12> <Plug>VimspectorBalloonEval
-"""}}}
-
-""startify{{{
-"augroup startify
-"	autocmd!
-"	let g:emacs = [
-"				\"███████╗ ███╗   ███╗  █████╗   ██████╗ ███████╗",
-"				\"██╔════╝ ████╗ ████║ ██╔══██╗ ██╔════╝ ██╔════╝",
-"				\"█████╗   ██╔████╔██║ ███████║ ██║      ███████╗",
-"				\"██╔══╝   ██║╚██╔╝██║ ██╔══██║ ██║      ╚════██║",
-"				\"███████╗ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗ ███████║",
-"				\"╚══════╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝ ╚══════╝",
-"				\]
-"	let g:fuck_fuck = [
-"				\"███████╗██╗   ██╗ ██████╗██╗  ██╗    ███████╗██╗   ██╗ ██████╗██╗  ██╗",
-"				\"██╔════╝██║   ██║██╔════╝██║ ██╔╝    ██╔════╝██║   ██║██╔════╝██║ ██╔╝",
-"				\"█████╗  ██║   ██║██║     █████╔╝     █████╗  ██║   ██║██║     █████╔╝ ",
-"				\"██╔══╝  ██║   ██║██║     ██╔═██╗     ██╔══╝  ██║   ██║██║     ██╔═██╗ ",
-"				\"██║     ╚██████╔╝╚██████╗██║  ██╗    ██║     ╚██████╔╝╚██████╗██║  ██╗",
-"				\"╚═╝      ╚═════╝  ╚═════╝╚═╝  ╚═╝    ╚═╝      ╚═════╝  ╚═════╝╚═╝  ╚═╝",
-"				\]
-
-"	let g:fuck = [
-"				\"   ▄████████ ███    █▄   ▄████████    ▄█   ▄█▄ ",
-"				\"  ███    ███ ███    ███ ███    ███   ███ ▄███▀ ",
-"				\"  ███    █▀  ███    ███ ███    █▀    ███▐██▀   ",
-"				\" ▄███▄▄▄     ███    ███ ███         ▄█████▀    ",
-"				\"▀▀███▀▀▀     ███    ███ ███        ▀▀█████▄    ",
-"				\"  ███        ███    ███ ███    █▄    ███▐██▄   ",
-"				\"  ███        ███    ███ ███    ███   ███ ▀███▄ ",
-"				\"  ███        ████████▀  ████████▀    ███   ▀█▀ ",
-"				\"                                     ▀         ",
-"				\]
-"	let g:startify_custom_header =startify#center(g:fuck_fuck)
-"augroup END
-""}}}
-" let g:dashboard_default_executive ='telescope'
 
 "easymotion{{{
 augroup easymotion
@@ -184,7 +139,7 @@ augroup END
 augroup filetype_markdown
 	autocmd!
 	let g:vim_markdown_folding_disabled = 1
-	let g:mkdp_browser = 'edge'
+	" let g:mkdp_browser = 'chrome'
 	" let g:mkdp_open_to_the_world = 1
 augroup END
 " }}}
@@ -204,12 +159,6 @@ augroup lspcxx_hl
 augroup END
 "}}}
 
-
-augroup which-key
-	autocmd!
-
-	autocmd BufNew * highlight WhichKeyFloat ctermbg=NONE ctermfg=NONE
-augroup END
 
 "commentary------------------{{{
 augroup commentary
@@ -286,7 +235,7 @@ augroup window
 
 
 	let g:material_style = 'lighter'
-	colorscheme gruvbox
+	colorscheme tokyonight
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -464,7 +413,7 @@ augroup vimsettings
 	set autoindent
 	set autochdir
 	set smartindent
-    set completeopt=menuone,noinsert
+    set completeopt=menuone,noinsert,noselect
 	" set mouse=a
 
 	set backspace=indent,eol,start
@@ -571,7 +520,6 @@ endfunction
 
 """"""""other{{{
 let g:vim_textobj_parameter_mapping = 'a'
-let g:rainbow_active = 1
 
 let g:BufKillCreateMappings = 0
 let g:rooter_patterns = ['.projectile', '.git/']
@@ -655,17 +603,23 @@ let maplocalleader = ","
 
 
 
-
-let g:completion_chain_complete_list = {
-	    \'default' : [
-	    \    {'complete_items': ['lsp', 'snippet']},
-	    \    {'mode': '<c-p>'},
-	    \    {'mode': '<c-n>'}
-	    \]
-	    \}
+call wilder#setup({'modes': [':', '/', '?']})
+call wilder#set_option('pipeline', [
+      \   wilder#branch(
+      \     wilder#python_file_finder_pipeline({
+      \       'file_command': ['find', '.', '-type', 'f', '-printf', '%P\n'],
+      \       'dir_command': ['find', '.', '-type', 'd', '-printf', '%P\n'],
+      \       'filters': ['fuzzy_filter', 'difflib_sorter'],
+      \     }),
+      \     wilder#cmdline_pipeline(),
+      \     wilder#python_search_pipeline(),
+      \   ),
+      \ ])
 
 lua << EOF
+require('plugins.accelerated')
 require('plugins.lsp')
+require('plugins.lspsaga')
 require("bufferline").setup{}
 require('plugins.bufferline')
 require('plugins.status-line')
@@ -673,65 +627,27 @@ require('plugins.treesitter')
 require('plugins.lspinstall')
 require('plugins.telescope')
 require('plugins.which-key')
-require('nvim-autopairs').setup()
 require('plugins.autopairs')
 require('plugins.formatter')
 require('plugins.lspkind')
-require('plugins.nvim-tree')
 require'telescope'.load_extension('ctags')
---require'telescope'.load_extension('vimsnip')
 require('telescope').load_extension('vim_bookmarks')
 require('plugins.bookmarks')
 require('plugins.rainbow')
 require('plugins.nvim-treesitter')
-require('plugins.symbols_outline')
 require('plugins.dashboard-nvim')
 require('neogit').setup{}
 require('plugins.fzf')
-
-local remap = vim.api.nvim_set_keymap
-local npairs = require('nvim-autopairs')
-
--- skip it, if you use another global object
-_G.MUtils= {}
-
-vim.g.completion_confirm_key = ""
-
-MUtils.completion_confirm=function()
-  if vim.fn.pumvisible() ~= 0  then
-    if vim.fn.complete_info()["selected"] ~= -1 then
-      require'completion'.confirmCompletion()
-      return npairs.esc("<c-y>")
-    else
-      vim.api.nvim_select_popupmenu_item(0 , false , false ,{})
-      require'completion'.confirmCompletion()
-      return npairs.esc("<c-n><c-y>")
-    end
-  else
-    return npairs.autopairs_cr()
-  end
-end
-
-remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
+require('plugins.neoscroll')
+require('plugins.vimspector')
+require('plugins.completion-nvim')
+require('nvim-autopairs')
+require('plugins.ultisnips')
+require('todo-comments').setup()
+require "lsp_signature".setup({hint_prefix = "  "})
+require'treesitter-context'.setup{ enable = true, throttle = true }
 EOF
 
-
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
-autocmd BufEnter * lua require'completion'.on_attach()
-let g:completion_confirm_key = ""
-let g:completion_trigger_on_delete = 1
-let g:completion_trigger_keyword_length = 2
-let g:completion_enable_snippet = 'UltiSnips'
-let g:completion_enable_server_trigger=0
-let g:completion_trigger_character = ['.', '::']
-
-let g:UltiSnipsExpandTrigger="<c-l>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 
 
@@ -740,8 +656,14 @@ function! ProjectFiles() abort
 	lua require('fzf-lua').files({ cwd = vim.call('asyncrun#get_root', '%')})
 endfunction
 
+function! CurrentLines() abort
+	lua require('fzf-lua').blines()
+	lua require('fzf-lua.previewer.builtin').base.toggle_full()
+endfunction
+
+
 function! SymbolsCurrentDirectory() abort
-	lua require('fzf-lua').files({ cwd = '.'})
+	lua require('fzf-lua').live_grep({ cwd = '.'})
 endfunction
 
 function! SymbolsCurrentProjectAtPoint() abort
@@ -757,4 +679,6 @@ function! NvimTreeProjectToggle()abort
 	lua require('nvim-tree').toggle({root_dir = vim.call('asyncrun#get_root', '%')})
 endfunction
 """}}}
+
+let g:fcitx5_remote='fcitx-remote'
 

@@ -35,10 +35,10 @@
         ffip-project-file '(".svn" ".hg" ".git" ".projectile"))
   (map! :map c-mode-map
           :localleader
-          "o o" #'jz-toggle-cpp-h)
+          "o o" #'lsp-clangd-find-other-file)
   (map! :map c++-mode-map
         :localleader
-        "o o" #'jz-toggle-cpp-h)
+        "o o" #'lsp-clangd-find-other-file)
   (map! :leader
         "p u" #'find-file-in-project))
 ;; (map! :leader
@@ -61,10 +61,11 @@
   :n                         "C-j"        #'next-line
   :n                         "C-k"        #'previous-line
   :n                         "gr"         #'lsp-find-references
+  :n                         "gd"         #'lsp-find-definition
   :nv                        "ga"         #'jz-exchange-args)
  (:localleader
   :desc "cpp-short-func-to-long-func" ",yy"          #'cpp-short-func-to-long-func
-  :desc "clang-format-bufer" ","          #'clang-format-buffer))
+  :desc "clang-format-bufer" ","          #'lsp-format-buffer))
 
 (map! (:map override
         "<f2><f2>" #'jz-insert-\;-at-end-of-line))
@@ -121,10 +122,10 @@
       "b K" #'jz-kill-buffer-and-window
       "s h" #'symbol-overlay-put
       "s C" #'symbol-overlay-remove-all
-      "s s" #'helm-do-ag-this-file
-      "s S" #'jz-helm-do-ag-this-file-at-point
-      "s P" #'jz-helm-ag-project-root-at-point
-      "s p" #'helm-do-ag-project-root)
+      "s s" #'counsel-grep-or-swiper
+      "s S" #'swiper-thing-at-point
+      "p u" #'counsel-projectile
+      "s p" #'counsel-ag)
 
 (map! :map symbol-overlay-map
       "h" #'backward-char)
@@ -241,3 +242,26 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
 (add-hook 'evil-normal-state-entry-hook 'ibus-switch-to-en)
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
+(global-set-key (kbd "M-l") 'evil-window-right)
+(global-set-key (kbd "M-h") 'evil-window-left)
+(global-set-key (kbd "M-j") 'evil-window-down)
+(global-set-key (kbd "M-k") 'evil-window-up)
+
+
+;; (use-package! good-scroll
+;;   :ensure t
+;;   :config
+;;   (good-scroll-mode)
+;;   (map! :map evil-motion-state-map
+;;         "C-d" #'good-scroll-down
+;;         "C-u" #'good-scroll-up))
+
+(use-package! evil-goggles
+  :ensure t
+  :config
+  (evil-goggles-mode)
+  (evil-goggles-use-diff-faces))
+
+(require 'dap-cpptools)
+(require 'dap-gdb-lldb)
