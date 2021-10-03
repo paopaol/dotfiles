@@ -41,7 +41,7 @@ wk.register({
 })
 
 wk.register({
-  ["<f1>"] = {"<cmd>NERDTreeToggleVCS<cr>", "tree"},
+  ["<f1>"] = {"<cmd>CHADopen<cr>", "tree"},
   ["<f4>"] = {"<cmd>call CmakeBuild()<cr>", "cmake build"},
   ["K"] = {
     "<cmd>lua require('lspsaga.hover').render_hover_doc()<cr>", "lsp+hover"
@@ -161,7 +161,9 @@ _G.whichkeyrCpp = function()
         buffer = buf
       },
       ["o"] = {"<cmd>ClangdSwitchSourceHeader<cr>", "switch cc/h", buffer = buf},
-      ["d"] = {"<cmd>Dox<cr>", "doxgen", buffer = buf}
+      ["d"] = {"<cmd>Dox<cr>", "doxgen", buffer = buf},
+      ["y"] = {"<cmd>CopyCppMethod<cr>", "copy cpp method", buffer = buf},
+      ["p"] = {"<cmd>PasteCppMethod<cr>", "paste cpp method", buffer = buf}
     }
   })
 end

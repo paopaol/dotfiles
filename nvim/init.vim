@@ -45,7 +45,8 @@ augroup plug
 	Plug 'paopaol/fzf-snippet.nvim' , {'branch': 'main'}
 	Plug 'paopaol/fzf-asynctask.nvim', {'branch': 'main'}
 	Plug 'romgrk/nvim-treesitter-context'
-	Plug 'preservim/nerdtree'
+	" Plug 'preservim/nerdtree'
+	Plug 'ms-jpq/chadtree'
 	Plug 'folke/todo-comments.nvim' , {'branch': 'main'}
 	Plug 'ray-x/lsp_signature.nvim'
 	Plug 'nvim-lua/completion-nvim'
