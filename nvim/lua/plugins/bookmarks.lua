@@ -5,3 +5,4 @@ require('telescope').extensions.vim_bookmarks.all {
     return true
   end
 }
+

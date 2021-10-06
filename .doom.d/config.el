@@ -35,10 +35,10 @@
         ffip-project-file '(".svn" ".hg" ".git" ".projectile"))
   (map! :map c-mode-map
           :localleader
-          "o o" #'lsp-clangd-find-other-file)
+          "o" #'lsp-clangd-find-other-file)
   (map! :map c++-mode-map
         :localleader
-        "o o" #'lsp-clangd-find-other-file)
+        "o" #'lsp-clangd-find-other-file)
   (map! :leader
         "p u" #'find-file-in-project))
 ;; (map! :leader

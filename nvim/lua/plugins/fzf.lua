@@ -20,7 +20,7 @@ require'fzf-lua'.setup {
   },
   -- fzf_bin             = 'sk',        -- use skim instead of fzf?
   fzf_layout = 'reverse', -- fzf '--layout='reverse
-  fzf_args = '-e --no-sort -1', -- adv: fzf extra args, empty unless adv
+  fzf_args = '-e --no-sort', -- adv: fzf extra args, empty unless adv
   fzf_binds = { -- fzf '--bind=' options
     'f2:toggle-preview', 'f3:toggle-preview-wrap', 'ctrl-d:preview-down',
     'ctrl-u:preview-up', 'ctrl-f:page-down', 'ctrl-b:page-up',

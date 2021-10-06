@@ -2,7 +2,6 @@
 let $VIMHOME = fnamemodify(expand('<sfile>'), ':p')
 let $VIMHOME = resolve($VIMHOME)
 let $VIMHOME =  fnamemodify(expand($VIMHOME), ':p:h')
-source $VIMHOME/core/base_setting.vim
 
 
 "plug -----{{{
@@ -10,6 +9,7 @@ augroup plug
 	call plug#begin('~/.vim/plugged')
 	Plug 'paopaol/telescope-ctags.nvim'
 	Plug 'paopaol/telescope-vimsnip.nvim' , {'branch': 'main'}
+	Plug 'paopaol/cpp-mode' , {'branch': 'main'}
 	Plug 'kyazdani42/nvim-web-devicons' " Recommended (for coloured icons)
 	Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 	Plug 'akinsho/nvim-bufferline.lua'
@@ -38,6 +38,7 @@ augroup plug
 	Plug 'p00f/nvim-ts-rainbow'
 	Plug 'glepnir/dashboard-nvim'
 	Plug 'TimUntersberger/neogit'
+	Plug 'f-person/git-blame.nvim'
 	Plug 'kazhala/close-buffers.nvim'
 	Plug 'paopaol/fzf-lua', {'branch': 'main'}
 	Plug 'vijaymarupudi/nvim-fzf'
@@ -45,8 +46,7 @@ augroup plug
 	Plug 'paopaol/fzf-snippet.nvim' , {'branch': 'main'}
 	Plug 'paopaol/fzf-asynctask.nvim', {'branch': 'main'}
 	Plug 'romgrk/nvim-treesitter-context'
-	" Plug 'preservim/nerdtree'
-	Plug 'ms-jpq/chadtree'
+	Plug 'preservim/nerdtree'
 	Plug 'folke/todo-comments.nvim' , {'branch': 'main'}
 	Plug 'ray-x/lsp_signature.nvim'
 	Plug 'nvim-lua/completion-nvim'
@@ -371,7 +371,7 @@ augroup vimsettings
 	"highlight Pmenu ctermfg=NONE ctermbg=NONE  guibg=NONE guifg=NONE
 	"highlight PmenuSel ctermfg=7 ctermbg=4 guibg=NONE guifg=NONE
 
-    set autowriteall
+	set autowriteall
 	set relativenumber
 	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
 	set number
@@ -416,8 +416,8 @@ augroup vimsettings
 	set autoindent
 	set autochdir
 	set smartindent
-    set completeopt=menuone,noinsert,noselect
-	" set mouse=a
+	set completeopt=menuone,noinsert,noselect
+	set mouse=a
 
 	set backspace=indent,eol,start
 	set rnu
@@ -425,8 +425,8 @@ augroup vimsettings
 	set clipboard=unnamed
 	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 	set encoding=utf-8
-	set bg=light
-	set t_Co=256
+	" set bg=light
+	" set t_Co=256
 	" set t_ut=
 	" set term=screen-256color
 
@@ -438,7 +438,6 @@ augroup vimsettings
 
 
 	autocmd InsertLeave * call ImSelectEn()
-	" nnoremap <ESC> <ESC>:call ImSelectEn()<CR>
 
 
 	if has('nvim')
@@ -650,12 +649,17 @@ require('plugins.vimspector')
 require('plugins.completion-nvim')
 require('nvim-autopairs')
 require('plugins.ultisnips')
-require('todo-comments').setup()
+require('plugins.todo')
 require "lsp_signature".setup({hint_prefix = "  "})
 require'treesitter-context'.setup{ enable = true, throttle = true }
 EOF
 
 
+augroup bookmark
+	autocmd!
+	autocmd BufEnter,FileType nerdtree let g:bookmark_no_default_key_mappings=1
+	autocmd BufLeave,FileType nerdtree let g:bookmark_no_default_key_mappings=0
+augroup END
 
 
 """function{{{
@@ -677,14 +681,15 @@ function! SymbolsCurrentProjectAtPoint() abort
 	lua require('fzf-lua').grep_cword({ cwd = vim.call('asyncrun#get_root', '%')})
 endfunction
 
+function! LspRefes() abort
+	lua require('fzf-lua').lsp_references({ cwd = vim.call('asyncrun#get_root', '%')})
+endfunction
+
 
 function! SymbolsCurrentProject() abort
 	lua require('fzf-lua').live_grep({ cwd = vim.call('asyncrun#get_root', '%')})
 endfunction
 
-function! NvimTreeProjectToggle()abort
-	lua require('nvim-tree').toggle({root_dir = vim.call('asyncrun#get_root', '%')})
-endfunction
 """}}}
 
 let g:fcitx5_remote='fcitx-remote'

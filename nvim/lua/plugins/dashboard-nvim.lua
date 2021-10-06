@@ -56,3 +56,5 @@ local image = {
   "    !#####$`                                                                    ."
 }
 vim.api.nvim_set_var('dashboard_custom_header', emacs)
+
+vim.g.dashboard_default_executive = 'fzf_lua'

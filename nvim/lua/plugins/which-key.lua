@@ -41,15 +41,26 @@ wk.register({
 })
 
 wk.register({
-  ["<f1>"] = {"<cmd>CHADopen<cr>", "tree"},
+  ["<f1>"] = {"<cmd>NERDTreeToggleVCS<cr>", "tree"},
   ["<f4>"] = {"<cmd>call CmakeBuild()<cr>", "cmake build"},
   ["K"] = {
     "<cmd>lua require('lspsaga.hover').render_hover_doc()<cr>", "lsp+hover"
   },
-  ["gd"] = {"<cmd>FzfLua lsp_definitions<cr>", "lsp+definition"},
+  ["gd"] = {"<cmd>lua vim.lsp.buf.declaration()<cr>", "lsp+definition"},
   ["gr"] = {"<cmd>FzfLua lsp_references<cr>", "lsp+references"},
   ["gf"] = {"<cmd>lua vim.lsp.buf.code_action()<cr>", "quickfix"}
 
+})
+
+wk.register({
+  ["<leader>d"] = {name = "+debug"},
+
+  ["<leader>ds"] = {"<cmd>VimspectorReset<cr>", "stop/reset"},
+  ["<leader>di"] = {"<cmd>:VimspectorDebugInfo<cr>", "print info"},
+  ["<leader>do"] = {"<cmd>VimspectorShowOutput<cr>", "show output"},
+  ["<leader>dl"] = {"<cmd>:VimspectorToggleLog<cr>", "toggle log"},
+  ["<leader>dw"] = {"<cmd>VimspectorWatch<cr>", "watch"},
+  ["<leader>de"] = {"<cmd>call StartDebug()<cr>", "start/edit"}
 })
 
 wk.register({
@@ -60,7 +71,7 @@ wk.register({
   ["<leader>fr"] = {"<cmd>FzfLua oldfiles<cr>", "Open Recent File"},
   ["<leader>fn"] = {"<cmd>enew<cr>", "New File"},
   ["<leader>fp"] = {"<cmd>call ProjectFiles()<cr>", "ProjectFiles"},
-  ["<leader>fs"] = {"<cmd>w<cr>", "save file"}
+  ["<leader>ft"] = {"<cmd>NERDTreeFind<cr>", "file types"}
 })
 
 wk.register({
@@ -93,15 +104,18 @@ wk.register({
 })
 
 wk.register({
-  ["<leader>s"] = {name = "+windows"},
+  ["<leader>ss"] = {"<cmd>FzfLua grep_visual<cr>", "symbol current buffer"},
+  ["<leader>sS"] = {"<cmd>FzfLua grep_visual<cr>", "symbol current buffer"}
+}, {mode = "v"})
+
+wk.register({
+  ["<leader>s"] = {name = "+search/symbol"},
 
   ["<leader>sd"] = {
     "<cmd>call SymbolsCurrentDirectory()<cr>", "symbol current directory"
   },
   ["<leader>ss"] = {"<cmd>FzfLua blines<cr>", "symbol current buffer"},
-  ["<leader>sS"] = {
-    "<cmd>Telescope current_buffer_fuzzy_find<cr>", "symbol current buffer"
-  },
+  ["<leader>sS"] = {"<cmd>FzfLua grep_cWORD<cr>", "symbol current buffer"},
   ["<leader>sp"] = {
     "<cmd>call SymbolsCurrentProject()<cr>", "symbol project at point"
   },
@@ -128,7 +142,7 @@ wk.register({
 
   ["<leader>tc"] = {"<cmd>FzfLua colorschemes<cr>", "colorscheme"},
   ["<leader>tl"] = {"<cmd>setlocal wrap!<cr>", "line wrap"},
-  ["<leader>tf"] = {"<cmd>Telescope filetypes<cr>", "filetypes"},
+  ["<leader>tf"] = {"<cmd>FzfLua filetypes<cr>", "filetypes"},
   ["<leader>tr"] = {"<cmd>so $VIMHOME/init.vim<cr>", "refresh vimrc"}
 })
 
@@ -141,7 +155,10 @@ wk.register({
 wk.register({
   ["<leader>c"] = {name = "+code"},
 
-  ["<leader>cr"] = {"<cmd>lua vim.lsp.buf.rename()<cr>", "rename"}
+  ["<leader>cr"] = {"<cmd>lua vim.lsp.buf.rename()<cr>", "rename"},
+  ["<leader>cp"] = {
+    "<cmd>FzfLua lsp_live_workspace_symbols<cr>", "workspace_symbolf"
+  }
 })
 
 wk.register({["<leader>r"] = {"<cmd>FzfAsyncTask<cr>", "runner"}})
