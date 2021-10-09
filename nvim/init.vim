@@ -610,17 +610,32 @@ let maplocalleader = ","
 
 
 call wilder#setup({'modes': [':', '/', '?']})
+
 call wilder#set_option('pipeline', [
       \   wilder#branch(
-      \     wilder#python_file_finder_pipeline({
-      \       'file_command': ['find', '.', '-type', 'f', '-printf', '%P\n'],
-      \       'dir_command': ['find', '.', '-type', 'd', '-printf', '%P\n'],
-      \       'filters': ['fuzzy_filter', 'difflib_sorter'],
+      \     wilder#cmdline_pipeline({
+      \       'fuzzy': 1,
+      \       'set_pcre2_pattern': has('nvim'),
       \     }),
-      \     wilder#cmdline_pipeline(),
-      \     wilder#python_search_pipeline(),
+      \     wilder#python_search_pipeline({
+      \       'pattern': 'fuzzy',
+      \     }),
       \   ),
       \ ])
+
+let s:highlighters = [
+        \ wilder#pcre2_highlighter(),
+        \ wilder#basic_highlighter(),
+        \ ]
+
+call wilder#set_option('renderer', wilder#renderer_mux({
+      \ ':': wilder#popupmenu_renderer({
+      \   'highlighter': s:highlighters,
+      \ }),
+      \ '/': wilder#wildmenu_renderer({
+      \   'highlighter': s:highlighters,
+      \ }),
+      \ }))
 
 lua << EOF
 require('plugins.accelerated')
@@ -654,6 +669,8 @@ require "lsp_signature".setup({hint_prefix = "  "})
 require'treesitter-context'.setup{ enable = true, throttle = true }
 EOF
 
+let NERDTreeIgnore=['\.d$[[dir]]', '\.o$[[file]]', 'tmp/cache$[[path]]', 'moc_*', 'Makefile']
+
 
 augroup bookmark
 	autocmd!
@@ -683,6 +700,10 @@ endfunction
 
 function! LspRefes() abort
 	lua require('fzf-lua').lsp_references({ cwd = vim.call('asyncrun#get_root', '%')})
+endfunction
+
+function! ProjectLiveSymbols()abort
+	lua require('fzf-lua').lsp_live_workspace_symbols({ cwd = vim.call('asyncrun#get_root', '%')})
 endfunction
 
 

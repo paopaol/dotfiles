@@ -7,8 +7,8 @@
 (setq doom-localleader-key ",")
 
 (setq package-archives '(("gnu" . "http://mirroes.tuna.tsinghua.edu.cn/elpa/gnu/")
-			 ("org-cn" . "http://mirroes.tuna.tsinghua.edu.cn/elpa/org/")
-			 ("melpa" . "http://mirroes.tuna.tsinghua.edu.cn/elpa/melpa/")))
+  ("org-cn" . "http://mirroes.tuna.tsinghua.edu.cn/elpa/org/")
+  ("melpa" . "http://mirroes.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
 
 (require 'compile)
@@ -38,9 +38,7 @@
           "o" #'lsp-clangd-find-other-file)
   (map! :map c++-mode-map
         :localleader
-        "o" #'lsp-clangd-find-other-file)
-  (map! :leader
-        "p u" #'find-file-in-project))
+        "o" #'lsp-clangd-find-other-file))
 ;; (map! :leader
 ;;       "/ s" #'swiper-thing-at-point)
 (map! :leader
@@ -124,7 +122,7 @@
       "s C" #'symbol-overlay-remove-all
       "s s" #'counsel-grep-or-swiper
       "s S" #'swiper-thing-at-point
-      "p u" #'counsel-projectile
+      "p u" #'find-file-in-project
       "s p" #'counsel-ag)
 
 (map! :map symbol-overlay-map

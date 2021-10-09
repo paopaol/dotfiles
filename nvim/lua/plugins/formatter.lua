@@ -1,6 +1,9 @@
 require('formatter').setup({
   logging = false,
   filetype = {
+    cpp = {
+      function() return {exe = "clang-format", args = {}, stdin = true} end
+    },
     json = {
       -- prettier
       function()

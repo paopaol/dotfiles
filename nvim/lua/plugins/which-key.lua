@@ -47,7 +47,7 @@ wk.register({
     "<cmd>lua require('lspsaga.hover').render_hover_doc()<cr>", "lsp+hover"
   },
   ["gd"] = {"<cmd>lua vim.lsp.buf.declaration()<cr>", "lsp+definition"},
-  ["gr"] = {"<cmd>FzfLua lsp_references<cr>", "lsp+references"},
+  ["gr"] = {"<cmd>call LspRefes()<cr>", "lsp+references"},
   ["gf"] = {"<cmd>lua vim.lsp.buf.code_action()<cr>", "quickfix"}
 
 })
@@ -77,7 +77,10 @@ wk.register({
 wk.register({
   ["<leader>b"] = {name = "+buffer"},
 
-  ["<leader>bb"] = {"<cmd>FzfLua buffers<cr>", "buffer list"},
+  ["<leader>bb"] = {
+    "<cmd>lua require('fzf-lua').buffers({ cwd = vim.call('asyncrun#get_root', '%')})<cr>",
+    "buffer list"
+  },
   ["<leader>bn"] = {"<cmd>bn<cr>", "nest buffer"},
   ["<leader>bp"] = {"<cmd>bp<cr>", "prev buffer"},
   ["<leader>bk"] = {"<cmd>BDelete this<cr>", "buffer kill"},
@@ -156,9 +159,7 @@ wk.register({
   ["<leader>c"] = {name = "+code"},
 
   ["<leader>cr"] = {"<cmd>lua vim.lsp.buf.rename()<cr>", "rename"},
-  ["<leader>cp"] = {
-    "<cmd>FzfLua lsp_live_workspace_symbols<cr>", "workspace_symbolf"
-  }
+  ["<leader>cp"] = {"<cmd>call ProjectLiveSymbols()<cr>", "workspace_symbolf"}
 })
 
 wk.register({["<leader>r"] = {"<cmd>FzfAsyncTask<cr>", "runner"}})
