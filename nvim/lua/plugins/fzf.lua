@@ -3,17 +3,50 @@ local actions = require "fzf-lua.actions"
 require'fzf-lua'.setup {
   winopts = {
     -- split         = "new",           -- open in a split instead?
-    win_height = 0.35, -- window height
-    win_width = 1.0, -- window width
-    win_row = 1, -- window row position (0=top, 1=bottom)
-    win_col = 0.80, -- window col position (0=left, 1=right)
+    height = 0.35, -- window height
+    width = 1.0, -- window width
+    row = 0.9, -- window row position (0=top, 1=bottom)
+    col = 0.80, -- window col position (0=left, 1=right)
     -- win_border = false, -- window border? or borderchars?
+    border = {'╭', '─', '╮', '│', '╯', '─', '╰', '│'},
+    fullscreen = false, -- start fullscreen?
     window_on_create = function()
       vim.cmd("set winhl=Normal:Normal") -- popup bg to match normal windows
       vim.api.nvim_buf_set_keymap(0, "t", "<Esc>", "<C-c>",
                                   {nowait = true, silent = true})
     end,
-    win_border = {'╭', '─', '╮', '│', '╯', '─', '╰', '│'}
+
+    hl = {
+      normal = 'Normal', -- window normal color (fg+bg)
+      border = 'Normal', -- border color (try 'FloatBorder')
+      -- Only valid with the builtin previewer:
+      cursor = 'Cursor', -- cursor highlight (grep/LSP matches)
+      cursorline = 'CursorLine' -- cursor line
+      -- title       = 'Normal',        -- preview border title (file/buffer)
+      -- scrollbar_f = 'PmenuThumb',    -- scrollbar "full" section highlight
+      -- scrollbar_e = 'PmenuSbar',     -- scrollbar "empty" section highlight
+    },
+    preview = {
+      -- default     = 'bat',           -- override the default previewer?
+      -- default uses the 'builtin' previewer
+      border = 'border', -- border|noborder, applies only to
+      -- native fzf previewers (bat/cat/git/etc)
+      wrap = 'nowrap', -- wrap|nowrap
+      hidden = 'nohidden', -- hidden|nohidden
+      vertical = 'down:45%', -- up|down:size
+      horizontal = 'right:60%', -- right|left:size
+      layout = 'flex', -- horizontal|vertical|flex
+      flip_columns = 120, -- #cols to switch to horizontal on flex
+      -- Only valid with the builtin previewer:
+      title = true, -- preview border title (file/buf)?
+      scrollbar = 'float', -- `false` or string:'float|border'
+      -- float:  in-window floating border 
+      -- border: in-border chars (see below)
+      scrolloff = '-2', -- float scrollbar offset from right
+      -- applies only when scrollbar = 'float'
+      scrollchars = {'█', ''} -- scrollbar chars ({ <full>, <empty> }
+      -- applies only when scrollbar = 'border'
+    }
   },
   keymap = {
     -- These override the default tables completely
@@ -221,7 +254,7 @@ require'fzf-lua'.setup {
       ["default"] = actions.buf_edit,
       ["ctrl-s"] = actions.buf_split,
       ["ctrl-v"] = actions.buf_vsplit,
-      ["ctrl-t"] = actions.buf_tabedit,
+      ["ctrl-t"] = actions.buf_tabedit
     }
   },
   quickfix = {

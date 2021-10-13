@@ -432,3 +432,4 @@
   (if (not (use-region-p))
       (er/mark-symbol))
   (helm-ag-project-root))
+(modify-syntax-entry ?_ "w")

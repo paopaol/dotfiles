@@ -2,6 +2,14 @@
 
 ;; Place your private configuration here
 ;;
+(add-hook 'cpp-mode-hook #'(lambda ()
+                             (modify-syntax-entry ?- "w")
+                             (modify-syntax-entry ?_ "w")))
+(define-key evil-outer-text-objects-map "w" 'evil-a-symbol)
+(define-key evil-inner-text-objects-map "w" 'evil-inner-symbol)
+(define-key evil-outer-text-objects-map "o" 'evil-a-word)
+(define-key evil-inner-text-objects-map "o" 'evil-inner-word)
+(defalias 'forward-evil-word 'forward-evil-symbol)
 
 (setq doom-theme 'doom-solarized-dark)
 (setq doom-localleader-key ",")
@@ -120,7 +128,7 @@
       "b K" #'jz-kill-buffer-and-window
       "s h" #'symbol-overlay-put
       "s C" #'symbol-overlay-remove-all
-      "s s" #'counsel-grep-or-swiper
+      "s s" #'swiper
       "s S" #'swiper-thing-at-point
       "p u" #'find-file-in-project
       "s p" #'counsel-ag)
@@ -263,3 +271,23 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
 
 (require 'dap-cpptools)
 (require 'dap-gdb-lldb)
+
+
+
+(use-package! helm
+  :after helm-mode
+  :preface
+  (setq helm-candidate-number-limit 50
+        ;; Remove extraineous helm UI elements
+        helm-display-header-line nil
+        helm-mode-line-string nil
+        helm-ff-auto-update-initial-value nil
+        helm-find-files-doc-header nil
+        ;; Default helm window sizes
+        helm-display-buffer-default-width 1
+        helm-display-buffer-default-height 0.25
+        ;; When calling `helm-semantic-or-imenu', don't immediately jump to
+        ;; symbol at point
+        helm-imenu-execute-action-at-once-if-one nil
+        ;; disable special behavior for left/right, M-left/right keys.
+        helm-ff-lynx-style-map nil))

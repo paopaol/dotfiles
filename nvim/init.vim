@@ -15,7 +15,7 @@ augroup plug
 	Plug 'akinsho/nvim-bufferline.lua'
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
-	Plug 'nvim-telescope/telescope.nvim', {'branch': 'async_v2'}
+	Plug 'nvim-telescope/telescope.nvim', {'branch': 'master'}
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 	Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
 	Plug 'folke/which-key.nvim', {'branch':'main'}
@@ -50,10 +50,15 @@ augroup plug
 	Plug 'folke/todo-comments.nvim' , {'branch': 'main'}
 	Plug 'ray-x/lsp_signature.nvim'
 	Plug 'nvim-lua/completion-nvim'
+	Plug 'steelsojka/completion-buffers'
 	Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 	Plug '907th/vim-auto-save'
+	Plug 'mfussenegger/nvim-dap'
 
-	Plug 'lilydjwg/fcitx.vim', {'branch':'main'}
+	"""indent"
+	Plug 'lukas-reineke/indent-blankline.nvim'
+
+	Plug 'lilydjwg/fcitx.vim', {'branch' : 'fcitx5'}
 	"""colors
 	Plug 'glepnir/zephyr-nvim', {'branch':'main'}
 	Plug 'Mofiqul/vscode.nvim', {'branch': 'main'}
@@ -237,7 +242,7 @@ augroup window
 
 
 	let g:material_style = 'lighter'
-	colorscheme tokyonight
+	colorscheme vscode
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -417,7 +422,7 @@ augroup vimsettings
 	set autochdir
 	set smartindent
 	set completeopt=menuone,noinsert,noselect
-	set mouse=a
+	" set mouse=a
 
 	set backspace=indent,eol,start
 	set rnu
@@ -665,6 +670,7 @@ require('plugins.completion-nvim')
 require('nvim-autopairs')
 require('plugins.ultisnips')
 require('plugins.todo')
+require('plugins.indent')
 require "lsp_signature".setup({hint_prefix = "  "})
 require'treesitter-context'.setup{ enable = true, throttle = true }
 EOF

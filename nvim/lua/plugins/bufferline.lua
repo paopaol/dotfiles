@@ -2,7 +2,11 @@ require"bufferline".setup {
   options = {
     -- view = {'multiwindow'} | {'default'},
     -- numbers = "none" | "ordinal" | "buffer_id" | "both",
-    numbers = "ordinal"
+    numbers = "ordinal",
+    custom_filter = function(buf, buf_nums)
+      return vim.bo[buf].filetype ~= "qf"
+    end
+
     -- number_style = "superscript" | "" | {"none", "subscript"}, -- buffer_id at index 1, ordinal at index 2
     -- mappings = true | false
     -- close_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
@@ -41,5 +45,6 @@ require"bufferline".setup {
     --       -- add custom logic
     --       return buffer_a.modified > buffer_b.modified
     --     end
+
   }
 }
