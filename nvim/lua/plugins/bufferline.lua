@@ -1,11 +1,11 @@
 require"bufferline".setup {
   options = {
-    -- view = {'multiwindow'} | {'default'},
+    view = 'default', -- {'multiwindow'} | {'default'},
     -- numbers = "none" | "ordinal" | "buffer_id" | "both",
     numbers = "ordinal",
     custom_filter = function(buf, buf_nums)
       return vim.bo[buf].filetype ~= "qf"
-    end
+    end,
 
     -- number_style = "superscript" | "" | {"none", "subscript"}, -- buffer_id at index 1, ordinal at index 2
     -- mappings = true | false
@@ -25,21 +25,21 @@ require"bufferline".setup {
     -- show_buffer_icons = true | false,
     -- show_buffer_close_icons = true | false,
     -- show_close_icon = true | false,
-    -- show_tab_indicators = true | false,
+    show_tab_indicators = true, -- | false,
     -- persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
     -- -- can also be a table containing 2 custom separators
     -- -- [focused and unfocused]. eg: { "|", "|" }
-    -- separator_style = "slant" | "padded_slant" | "thick" | "thin" |
+    separator_style = "slant", -- | "padded_slant" | "thick" | "thin" |
     --     {"any", "any"},
-    -- enforce_regular_tabs = false | true,
-    -- always_show_bufferline = true | false,
-    -- offsets = {
-    --   {
-    --     filetype = "NvimTree",
-    --     text = "File Explorer",
-    --     text_align = "center" | "right" | "left"
-    --   }
-    -- },
+    enforce_regular_tabs = false, -- false | true,
+    always_show_bufferline = false,
+    offsets = {
+      {
+        filetype = "NERDTREE",
+        text = "File Explorer",
+        text_align = "left" -- "center" | "right" | "left"
+      }
+    }
     -- sort_by = "extension" | "relative_directory" | "directory" |
     --     function(buffer_a, buffer_b)
     --       -- add custom logic

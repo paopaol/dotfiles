@@ -24,3 +24,4 @@
 (package! evil-goggles)
 (package! good-scroll)
 (package! dap-mode)
+(package! xml-parse)

@@ -7,6 +7,10 @@ let $VIMHOME =  fnamemodify(expand($VIMHOME), ':p:h')
 "plug -----{{{
 augroup plug
 	call plug#begin('~/.vim/plugged')
+	Plug '/home/jz/.vim/plugged/recentfiles.nvim'
+	Plug 'ton/vim-bufsurf'
+	Plug 'akinsho/toggleterm.nvim'
+	Plug 'chiel92/vim-autoformat'
 	Plug 'paopaol/telescope-ctags.nvim'
 	Plug 'paopaol/telescope-vimsnip.nvim' , {'branch': 'main'}
 	Plug 'paopaol/cpp-mode' , {'branch': 'main'}
@@ -22,8 +26,10 @@ augroup plug
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'kabouzeid/nvim-lspinstall', {'branch':'main'}
 	Plug 'windwp/nvim-autopairs'
+	Plug 'vimwiki/vimwiki'
 	Plug 'MattesGroeger/vim-bookmarks'
-	Plug 'tom-anders/telescope-vim-bookmarks.nvim', {'branch':'main'}
+	Plug 'vim-scripts/bufkill.vim'
+	" Plug 'tom-anders/telescope-vim-bookmarks.nvim', {'branch':'main'}
 	Plug 'crispgm/telescope-heading.nvim', {'branch':'main'}
 	Plug 'voldikss/vim-floaterm'
 	Plug 'karb94/neoscroll.nvim'
@@ -38,7 +44,7 @@ augroup plug
 	Plug 'p00f/nvim-ts-rainbow'
 	Plug 'glepnir/dashboard-nvim'
 	Plug 'TimUntersberger/neogit'
-	Plug 'f-person/git-blame.nvim'
+	" Plug 'f-person/git-blame.nvim'
 	Plug 'kazhala/close-buffers.nvim'
 	Plug 'paopaol/fzf-lua', {'branch': 'main'}
 	Plug 'vijaymarupudi/nvim-fzf'
@@ -53,10 +59,13 @@ augroup plug
 	Plug 'steelsojka/completion-buffers'
 	Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 	Plug '907th/vim-auto-save'
-	Plug 'mfussenegger/nvim-dap'
+	Plug 'nvim-neorg/neorg', {'branch':'unstable'}
+
+	Plug 'kristijanhusak/orgmode.nvim'
+    Plug 'chentau/marks.nvim'
 
 	"""indent"
-	Plug 'lukas-reineke/indent-blankline.nvim'
+	" Plug 'lukas-reineke/indent-blankline.nvim'
 
 	Plug 'lilydjwg/fcitx.vim', {'branch' : 'fcitx5'}
 	"""colors
@@ -68,12 +77,17 @@ augroup plug
 	Plug 'npxbr/gruvbox.nvim', {'branch':'main'}
 	Plug 'EdenEast/nightfox.nvim', {'branch':'main'}
 	Plug 'folke/tokyonight.nvim', {'branch':'main'}
+	Plug 'ishan9299/nvim-solarized-lua'
+	Plug 'rafamadriz/neon', {'branch':'main'}
+	Plug 'bluz71/vim-nightfly-guicolors'
+	Plug 'bluz71/vim-moonfly-colors'
+	Plug 'sainnhe/sonokai'
+	Plug 'lourenci/github-colors', {'branch':'main'}
 	"""
 
 	Plug 'skanehira/preview-markdown.vim'
 	Plug 'rhysd/accelerated-jk'
 	Plug 'mhinz/vim-grepper'
-	Plug 'paopaol/vim-terminal-help'
 	Plug 'vim-scripts/DoxygenToolkit.vim'
 	Plug 'plasticboy/vim-markdown'
 	Plug 'terryma/vim-expand-region'
@@ -222,32 +236,22 @@ augroup END
 "}}}
 
 
-"terminal----------{{{
-augroup terminal
-	autocmd!
-
-	let g:terminal_key='<f3>'
-	if has('win32')
-		let g:terminal_shell='powershell.exe'
-	endif
-	let g:terminal_cwd = 2
-	let g:terminal_height = 30
-	autocmd TermOpen * setlocal nobuflisted
-augroup END
-"}}}
-
 """window settings---------{{{
 augroup window
 	autocmd!
 
 
 	let g:material_style = 'lighter'
-	colorscheme vscode
+	colorscheme dawnfox
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
 	map <A-h> <C-W>h
 	map <A-l> <C-W>l
+	cnoremap <C-Enter> <esc>o
+	inoremap <C-c> <esc>
+	vnoremap <silent><expr> <C-g> <esc>
+
 
 	nnoremap Q :cclose<CR>
 	vnoremap Q :cclose<CR>
@@ -358,6 +362,7 @@ augroup END
 "}}}
 
 
+set termguicolors
 
 "vim settings -----------------{{{
 augroup vimsettings
@@ -371,7 +376,16 @@ augroup vimsettings
 		endif
 	endfunction
 
+	"jk移动时光标下上方保留8行
+	set scrolloff=8
+	set sidescrolloff=8
+	set colorcolumn=80
+
+	" 显示左侧图标指示列
+	set signcolumn=yes
 	set termguicolors
+
+	set pumheight=10
 	" In your init.lua or init.vim
 	"highlight Pmenu ctermfg=NONE ctermbg=NONE  guibg=NONE guifg=NONE
 	"highlight PmenuSel ctermfg=7 ctermbg=4 guibg=NONE guifg=NONE
@@ -381,13 +395,16 @@ augroup vimsettings
 	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
 	set number
 	"always show tab
-	set showtabline=2
+	" set showtabline=2
 	let autosave=30
 	set autoread
 	set nohlsearch
 	set nowrap
 	set t_ut=
 	"""""""""""
+	set nocompatible
+	filetype plugin on
+	syntax on
 
 	" TextEdit might fail if hidden is not set.
 	set hidden
@@ -416,7 +433,7 @@ augroup vimsettings
 	set numberwidth=2
 	set foldmethod=manual
 	set cursorline
-	set cursorcolumn
+	" set cursorcolumn
 	set relativenumber
 	set autoindent
 	set autochdir
@@ -614,17 +631,28 @@ let maplocalleader = ","
 
 
 
-call wilder#setup({'modes': [':', '/', '?']})
+call wilder#setup({
+      \ 'modes': [':', '/', '?'],
+      \ 'next_key': '<C-j>',
+      \ 'previous_key': '<C-k>',
+      \ 'accept_key': '<Tab>',
+      \ 'reject_key': '<C-c>',
+      \ })
+
+
 
 call wilder#set_option('pipeline', [
       \   wilder#branch(
+      \     wilder#python_file_finder_pipeline({
+      \       'file_command': ['fd', '-tf'],
+      \       'dir_command': ['fd', '-tf'],
+      \       'filters': ['fuzzy_filter', 'difflib_sorter'],
+      \     }),
       \     wilder#cmdline_pipeline({
       \       'fuzzy': 1,
-      \       'set_pcre2_pattern': has('nvim'),
+      \       'fuzzy_filter': wilder#vim_fuzzy_filter(),
       \     }),
-      \     wilder#python_search_pipeline({
-      \       'pattern': 'fuzzy',
-      \     }),
+      \     wilder#python_search_pipeline(),
       \   ),
       \ ])
 
@@ -646,8 +674,8 @@ lua << EOF
 require('plugins.accelerated')
 require('plugins.lsp')
 require('plugins.lspsaga')
-require("bufferline").setup{}
-require('plugins.bufferline')
+--require("bufferline").setup{}
+--require('plugins.bufferline')
 require('plugins.status-line')
 require('plugins.treesitter')
 require('plugins.lspinstall')
@@ -657,12 +685,12 @@ require('plugins.autopairs')
 require('plugins.formatter')
 require('plugins.lspkind')
 require'telescope'.load_extension('ctags')
-require('telescope').load_extension('vim_bookmarks')
-require('plugins.bookmarks')
+--require('telescope').load_extension('vim_bookmarks')
+--require('plugins.bookmarks')
 require('plugins.rainbow')
 require('plugins.nvim-treesitter')
 require('plugins.dashboard-nvim')
-require('neogit').setup{}
+--require('neogit').setup{}
 require('plugins.fzf')
 require('plugins.neoscroll')
 require('plugins.vimspector')
@@ -670,18 +698,46 @@ require('plugins.completion-nvim')
 require('nvim-autopairs')
 require('plugins.ultisnips')
 require('plugins.todo')
-require('plugins.indent')
+require('plugins.toggle_term')
+require('plugins.marks')
+require('plugins.jz')
+--require('plugins.indent')
 require "lsp_signature".setup({hint_prefix = "  "})
 require'treesitter-context'.setup{ enable = true, throttle = true }
+local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
+parser_configs.norg = {
+    install_info = {
+        url = "https://github.com/nvim-neorg/tree-sitter-norg",
+        files = { "src/parser.c", "src/scanner.cc" },
+        branch = "main"
+    },
+}
+require('neorg').setup {
+        -- Tell Neorg what modules to load
+        load = {
+            ["core.defaults"] = {}, -- Load all the default modules
+            ["core.norg.concealer"] = {}, -- Allows for use of icons
+            ["core.norg.dirman"] = { -- Manage your directories with Neorg
+                config = {
+                    workspaces = {
+                        my_workspace = "~/workspace/jz/note"
+                    }
+                }
+            }
+        },
+    }
 EOF
 
+augroup nerdtree
 let NERDTreeIgnore=['\.d$[[dir]]', '\.o$[[file]]', 'tmp/cache$[[path]]', 'moc_*', 'Makefile']
+autocmd FileType NERDTREE set buflisted
+autocmd FileType tar set buflisted
+augroup END
 
 
 augroup bookmark
 	autocmd!
-	autocmd BufEnter,FileType nerdtree let g:bookmark_no_default_key_mappings=1
-	autocmd BufLeave,FileType nerdtree let g:bookmark_no_default_key_mappings=0
+	let g:bookmark_no_default_key_mappings=1
 augroup END
 
 
@@ -697,7 +753,7 @@ endfunction
 
 
 function! SymbolsCurrentDirectory() abort
-	lua require('fzf-lua').live_grep({ cwd = '.'})
+	lua require('fzf-lua').live_grep_native({ cwd = '.'})
 endfunction
 
 function! SymbolsCurrentProjectAtPoint() abort
@@ -714,7 +770,11 @@ endfunction
 
 
 function! SymbolsCurrentProject() abort
-	lua require('fzf-lua').live_grep({ cwd = vim.call('asyncrun#get_root', '%')})
+	lua require('fzf-lua').live_grep_native({ cwd = vim.call('asyncrun#get_root', '%')})
+endfunction
+
+function! SubProjectFiles() abort
+    lua require('plugins.jz').SubProjectFiles()
 endfunction
 
 """}}}

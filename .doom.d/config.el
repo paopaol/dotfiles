@@ -291,3 +291,9 @@ of[ \t]+\"?\\([a-zA-Z]?:?[^\":\n]+\\)\"?:" 3 2 nil (1))
         helm-imenu-execute-action-at-once-if-one nil
         ;; disable special behavior for left/right, M-left/right keys.
         helm-ff-lynx-style-map nil))
+
+(require 'ivy)
+
+(map! (:map override
+        "<f7>" #'ivy-occur-previous-line
+        "<f8>" #'ivy-occur-next-line))

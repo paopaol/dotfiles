@@ -2,13 +2,13 @@ local actions = require "fzf-lua.actions"
 
 require'fzf-lua'.setup {
   winopts = {
-    -- split         = "new",           -- open in a split instead?
-    height = 0.35, -- window height
+    -- split = "belowright 10new", -- open in a split instead?
+    height = 0.30, -- window height
     width = 1.0, -- window width
-    row = 0.9, -- window row position (0=top, 1=bottom)
+    row = 0.9999, -- window row position (0=top, 1=bottom)
     col = 0.80, -- window col position (0=left, 1=right)
-    -- win_border = false, -- window border? or borderchars?
-    border = {'╭', '─', '╮', '│', '╯', '─', '╰', '│'},
+    -- win_border = 'window border', -- window border? or borderchars?
+    border = 'double',
     fullscreen = false, -- start fullscreen?
     window_on_create = function()
       vim.cmd("set winhl=Normal:Normal") -- popup bg to match normal windows
@@ -18,13 +18,13 @@ require'fzf-lua'.setup {
 
     hl = {
       normal = 'Normal', -- window normal color (fg+bg)
-      border = 'Normal', -- border color (try 'FloatBorder')
+      border = 'FloatBorder', -- 'Normal', -- border color (try 'FloatBorder')
       -- Only valid with the builtin previewer:
       cursor = 'Cursor', -- cursor highlight (grep/LSP matches)
       cursorline = 'CursorLine' -- cursor line
       -- title       = 'Normal',        -- preview border title (file/buffer)
-      -- scrollbar_f = 'PmenuThumb',    -- scrollbar "full" section highlight
-      -- scrollbar_e = 'PmenuSbar',     -- scrollbar "empty" section highlight
+      -- scrollbar_f = 'empty', -- scrollbar "full" section highlight
+      -- scrollbar_e = 'empty' -- scrollbar "empty" section highlight
     },
     preview = {
       -- default     = 'bat',           -- override the default previewer?
@@ -44,7 +44,7 @@ require'fzf-lua'.setup {
       -- border: in-border chars (see below)
       scrolloff = '-2', -- float scrollbar offset from right
       -- applies only when scrollbar = 'float'
-      scrollchars = {'█', ''} -- scrollbar chars ({ <full>, <empty> }
+      scrollchars = {'|', ''} -- scrollbar chars ({ <full>, <empty> }
       -- applies only when scrollbar = 'border'
     }
   },
@@ -67,10 +67,11 @@ require'fzf-lua'.setup {
     fzf = {
       -- fzf '--bind=' options
       ["ctrl-u"] = "unix-line-discard",
-      ["ctrl-f"] = "half-page-down",
-      ["ctrl-b"] = "half-page-up",
+      ["ctrl-f"] = "forward-char",
+      ["ctrl-b"] = "backward-char",
       ["ctrl-a"] = "beginning-of-line",
       ["ctrl-e"] = "end-of-line",
+      ["ctrl-x"] = "delete-char",
       ["alt-a"] = "toggle-all",
       -- Only valid with fzf previewers (bat/cat/git/etc)
       ["shift-down"] = "preview-page-down",
@@ -86,7 +87,9 @@ require'fzf-lua'.setup {
     ['--prompt'] = ' =',
     ['--info'] = 'inline',
     ['--height'] = '100%',
-    ['--layout'] = 'reverse'
+    ['--layout'] = 'reverse',
+    ['--border'] = 'none',
+    ['--color'] = '--color=bg+:red,border:-1'
   },
   -- fzf_args = '-e --no-sort', -- adv: fzf extra args, empty unless adv
 
@@ -200,7 +203,7 @@ require'fzf-lua'.setup {
     input_prompt = 'Grep For❯ ',
     cmd = "rg --vimgrep",
     rg_opts = "--hidden --no-column --line-number --no-heading " ..
-        "--color=always --smart-case -g '!{.git,.cache,node_modules,}/*'",
+        "--color=always --smart-case -g '!{.git,.cache,node_modules,zlib-1.2.11}/*'",
     git_icons = true, -- show git icons?
     file_icons = true, -- show file icons?
     color_icons = true, -- colorize file|git icons
@@ -228,7 +231,8 @@ require'fzf-lua'.setup {
       ["ctrl-v"] = actions.buf_vsplit,
       ["ctrl-t"] = actions.buf_tabedit,
       ["ctrl-x"] = actions.buf_del
-    }
+    },
+    ignore_current_buffer = false
   },
   colorschemes = {
     prompt = 'Colorschemes❯ ',
@@ -264,7 +268,7 @@ require'fzf-lua'.setup {
   },
   lsp = {
     prompt = '❯ ',
-    -- cwd               = vim.loop.cwd(),
+    -- cwd = vim.call('asyncrun#get_root', '%'),
     cwd_only = false, -- show workspace diagnostics only for the files in cwd
     file_icons = true,
     git_icons = false,
@@ -294,5 +298,4 @@ require'fzf-lua'.setup {
   --    clear, bold, black, red, green, yellow
   --    blue, magenta, cyan, grey, dark_grey, white
   file_icon_colors = {["lua"] = "blue"}
-
 }

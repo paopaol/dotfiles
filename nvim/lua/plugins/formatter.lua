@@ -1,5 +1,5 @@
 require('formatter').setup({
-  logging = false,
+  logging = true,
   filetype = {
     cpp = {
       function() return {exe = "clang-format", args = {}, stdin = true} end
@@ -35,6 +35,31 @@ require('formatter').setup({
           exe = "prettier",
           args = {
             "--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'
+          },
+          stdin = true
+        }
+      end
+    },
+    xml = {
+      -- prettier
+      function()
+        return {
+          exe = "/home/jz/node_modules/prettier/bin-prettier.js",
+          args = {
+            "--stdin-filepath", vim.api.nvim_buf_get_name(0),
+									'--tab-width', '2', '--parser', 'xml' },
+          stdin = true
+        }
+      end
+    },
+    rels = {
+      -- prettier
+      function()
+        return {
+          exe = "/home/jz/node_modules/prettier/bin-prettier.js",
+					args = { '--tab-width', '2',
+            '--bracket-same-line', 'true', '--xml-whitespace-sensitivity',
+            'ignore', '--parser', 'xml'
           },
           stdin = true
         }

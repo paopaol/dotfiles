@@ -10,7 +10,7 @@ wk.setup {
 }
 
 wk.register({
-  ["<leader><leader>"] = {"<cmd>FzfLua commands<cr>", "commands"},
+  ["<leader><leader>"] = {"<cmd>call ProjectFiles()<cr>", "projectile"},
   ["<leader>1"] = {
     "<cmd>lua require('bufferline').go_to_buffer(1)<cr>", "switch tab 1"
   },
@@ -45,6 +45,7 @@ wk.register({
   ["<f4>"] = {"<cmd>call CmakeBuild()<cr>", "cmake build"},
   ["K"] = {"<cmd>lua vim.lsp.buf.hover()<cr>", "lsp+hover"},
   ["gd"] = {"<cmd>lua vim.lsp.buf.declaration()<cr>", "lsp+definition"},
+  ["gi"] = {"<cmd>lua vim.lsp.buf.definition()<cr>", "lsp+definition"},
   ["gr"] = {"<cmd>call LspRefes()<cr>", "lsp+references"},
   ["gf"] = {"<cmd>lua vim.lsp.buf.code_action()<cr>", "quickfix"}
 
@@ -64,9 +65,13 @@ wk.register({
 wk.register({
   ["<leader>f"] = {name = "+file"},
 
+  ["<leader>fbb"] = {"<cmd>BookmarkShowAll<cr>", "Bookmarks"},
+  ["<leader>fba"] = {"<cmd>BookmarkAnnotate<cr>", "Add Bookmark"},
+  ["<leader>fbd"] = {"<cmd>BookmarkClear<cr>", "Clear Bookmark"},
+  ["<leader>fbD"] = {"<cmd>BookmarkClearAll<cr>", "Clear All Bookmark"},
   ["<leader>ff"] = {"<cmd>Telescope file_browser<cr>", "Find File"},
-  ["<leader>fd"] = {"<cmd>FzfLua my_files<cr>", "Find File"},
-  ["<leader>fr"] = {"<cmd>FzfLua oldfiles<cr>", "Open Recent File"},
+  ["<leader>fd"] = {"<cmd>call SubProjectFiles()<cr>", "Find File"},
+  ["<leader>fr"] = {"<cmd>FzfRecentFiles<cr>", "Open Recent File"},
   ["<leader>fn"] = {"<cmd>enew<cr>", "New File"},
   ["<leader>fp"] = {"<cmd>call ProjectFiles()<cr>", "ProjectFiles"},
   ["<leader>ft"] = {"<cmd>NERDTreeFind<cr>", "file types"}
@@ -79,9 +84,14 @@ wk.register({
     "<cmd>lua require('fzf-lua').buffers({ cwd = vim.call('asyncrun#get_root', '%')})<cr>",
     "buffer list"
   },
-  ["<leader>bn"] = {"<cmd>bn<cr>", "nest buffer"},
-  ["<leader>bp"] = {"<cmd>b#<cr>", "prev buffer"},
-  ["<leader>bk"] = {"<cmd>BDelete this<cr>", "buffer kill"},
+  ["<leader>bd"] = {
+    "<cmd>lua require('plugins.jz').close_current_buffer()<cr>", "nest buffer"
+  },
+  ["<leader>bn"] = {"<cmd>BufSurfForward<cr>", "nest buffer"},
+  ["<leader>bp"] = {"<cmd>BufSurfBack<cr>", "prev buffer"},
+  ["<leader>bk"] = {
+    "<cmd>lua require('plugins.jz').close_current_buffer()<cr>", "buffer kill"
+  },
   ["<leader>bK"] = {"<cmd>BDelete other<cr>", "buffer kill"},
   ["<leader>bh"] = {"<cmd>Dashboard<cr>", "home"}
 })
@@ -89,7 +99,7 @@ wk.register({
 wk.register({
   ["<leader>i"] = {name = "+insert"},
 
-  ["<leader>is"] = {"<cmd>FzfSnippet<cr>", "insert snippet"}
+  ["<leader>is"] = {"<cmd>FzfUSnippet<cr>", "insert snippet"}
 })
 
 wk.register({
@@ -101,12 +111,15 @@ wk.register({
   ["<leader>wm"] = {"<cmd>normal! <C-W>|<cr>", "max-window"},
   ["<leader>ws"] = {"<cmd>normal! <C-W>s<cr>", "split-window-below"},
   ["<leader>wv"] = {"<cmd>normal! <C-W>v<cr>", "split-window-right"},
+  ["<leader>wt"] = {"<cmd>tabnew<cr>", "new tab"},
+  ["<leader>ww"] = {"<cmd>tabnew<cr>", "new tab"},
+  ["<leader>wp"] = {"<cmd>tabprevious<cr>", "previous tab"},
+  ["<leader>wn"] = {"<cmd>tabnext<cr>", "next tab"},
   ["<leader>wq"] = {"<cmd>qa<cr>", "quit"}
 })
 
 wk.register({
-  ["<leader>ss"] = {"<cmd>FzfLua grep_visual<cr>", "symbol current buffer"},
-  ["<leader>sS"] = {"<cmd>FzfLua grep_visual<cr>", "symbol current buffer"}
+  ["<leader>sS"] = {"<cmd>FzfLua grep_cword<cr>", "symbol current buffer"}
 }, {mode = "v"})
 
 wk.register({
@@ -116,7 +129,7 @@ wk.register({
     "<cmd>call SymbolsCurrentDirectory()<cr>", "symbol current directory"
   },
   ["<leader>ss"] = {"<cmd>FzfLua blines<cr>", "symbol current buffer"},
-  ["<leader>sS"] = {"<cmd>FzfLua grep_cWORD<cr>", "symbol current buffer"},
+  ["<leader>sS"] = {"<cmd>FzfLua grep_cword<cr>", "symbol current buffer"},
   ["<leader>sp"] = {
     "<cmd>call SymbolsCurrentProject()<cr>", "symbol project at point"
   },
@@ -189,7 +202,8 @@ _G.whichkeyrCpp = function()
 end
 
 vim.cmd(([[
-autocmd FileType cmake  lua whichkeyrCmake()
+autocmd FileType cmake,go  lua whichkeyrCmake()
+autocmd FileType cmake,go  set tabstop=2
 ]]))
 _G.whichkeyrCmake = function()
   local buf = vim.api.nvim_get_current_buf()
@@ -207,7 +221,7 @@ _G.whichkeyrCmake = function()
 end
 
 vim.cmd(([[
-autocmd FileType json,css,html,javascript,markdown,yaml,vue,typescript  lua whichkeyrPrettier()
+autocmd FileType json,css,html,javascript,markdown,yaml,vue,typescript lua whichkeyrPrettier()
 ]]))
 _G.whichkeyrPrettier = function()
   local buf = vim.api.nvim_get_current_buf()
@@ -237,6 +251,23 @@ _G.whichkeyrLua = function()
       name = "major",
       [","] = {format_before_save, "formatting", buffer = buf},
       ["r"] = {"<cmd>luafile %<cr>", "run current file", buffer = buf}
+    }
+  })
+end
+
+vim.cmd(([[
+autocmd FileType xml,html  lua whichkeyrXml()
+]]))
+
+_G.whichkeyrXml = function()
+  local buf = vim.api.nvim_get_current_buf()
+  vim.cmd('set shiftwidth=1')
+
+  wk.register({
+    ["<tab>"] = {"<cmd>normal! za<cr>", "expand", buffer = buf},
+    ["<localleader>"] = {
+      name = "major",
+      [","] = {"<cmd>Autoformat<cr>", "formatting", buffer = buf}
     }
   })
 end
