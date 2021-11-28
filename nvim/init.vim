@@ -7,7 +7,9 @@ let $VIMHOME =  fnamemodify(expand($VIMHOME), ':p:h')
 "plug -----{{{
 augroup plug
 	call plug#begin('~/.vim/plugged')
+    Plug 'jackguo380/vim-lsp-cxx-highlight'
 	Plug '/home/jz/.vim/plugged/recentfiles.nvim'
+	Plug '/home/jz/.vim/plugged/fzf-vim-bookmarks.nvim'
 	Plug 'ton/vim-bufsurf'
 	Plug 'akinsho/toggleterm.nvim'
 	Plug 'chiel92/vim-autoformat'
@@ -20,7 +22,7 @@ augroup plug
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
 	Plug 'nvim-telescope/telescope.nvim', {'branch': 'master'}
-	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+	" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 	Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
 	Plug 'folke/which-key.nvim', {'branch':'main'}
 	Plug 'neovim/nvim-lspconfig'
@@ -37,11 +39,11 @@ augroup plug
 	Plug 'hrsh7th/vim-vsnip-integ'
 	Plug 'SirVer/ultisnips'
 	Plug 'honza/vim-snippets'
-	Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+	" Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 	Plug 'mhartington/formatter.nvim'
 	Plug 'onsails/lspkind-nvim'
 	Plug 'voldikss/vim-translator'
-	Plug 'p00f/nvim-ts-rainbow'
+	" Plug 'p00f/nvim-ts-rainbow'
 	Plug 'glepnir/dashboard-nvim'
 	Plug 'TimUntersberger/neogit'
 	" Plug 'f-person/git-blame.nvim'
@@ -51,7 +53,7 @@ augroup plug
 	Plug 'weilbith/nvim-floating-tag-preview'
 	Plug 'paopaol/fzf-snippet.nvim' , {'branch': 'main'}
 	Plug 'paopaol/fzf-asynctask.nvim', {'branch': 'main'}
-	Plug 'romgrk/nvim-treesitter-context'
+	" Plug 'romgrk/nvim-treesitter-context'
 	Plug 'preservim/nerdtree'
 	Plug 'folke/todo-comments.nvim' , {'branch': 'main'}
 	Plug 'ray-x/lsp_signature.nvim'
@@ -674,23 +676,16 @@ lua << EOF
 require('plugins.accelerated')
 require('plugins.lsp')
 require('plugins.lspsaga')
---require("bufferline").setup{}
---require('plugins.bufferline')
+require("bufferline").setup{}
 require('plugins.status-line')
-require('plugins.treesitter')
-require('plugins.lspinstall')
 require('plugins.telescope')
 require('plugins.which-key')
 require('plugins.autopairs')
 require('plugins.formatter')
 require('plugins.lspkind')
 require'telescope'.load_extension('ctags')
---require('telescope').load_extension('vim_bookmarks')
---require('plugins.bookmarks')
-require('plugins.rainbow')
-require('plugins.nvim-treesitter')
 require('plugins.dashboard-nvim')
---require('neogit').setup{}
+require('neogit').setup{}
 require('plugins.fzf')
 require('plugins.neoscroll')
 require('plugins.vimspector')
@@ -701,32 +696,37 @@ require('plugins.todo')
 require('plugins.toggle_term')
 require('plugins.marks')
 require('plugins.jz')
---require('plugins.indent')
 require "lsp_signature".setup({hint_prefix = "  "})
-require'treesitter-context'.setup{ enable = true, throttle = true }
-local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
-parser_configs.norg = {
-    install_info = {
-        url = "https://github.com/nvim-neorg/tree-sitter-norg",
-        files = { "src/parser.c", "src/scanner.cc" },
-        branch = "main"
-    },
-}
-require('neorg').setup {
-        -- Tell Neorg what modules to load
-        load = {
-            ["core.defaults"] = {}, -- Load all the default modules
-            ["core.norg.concealer"] = {}, -- Allows for use of icons
-            ["core.norg.dirman"] = { -- Manage your directories with Neorg
-                config = {
-                    workspaces = {
-                        my_workspace = "~/workspace/jz/note"
-                    }
-                }
-            }
-        },
-    }
+----require('plugins.treesitter')
+--require('plugins.lspinstall')
+--require('plugins.rainbow')
+--require('plugins.nvim-treesitter')
+--require('plugins.indent')
+--require('plugins.bufferline')
 EOF
+" --require'treesitter-context'.setup{ enable = true, throttle = true }
+" --local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
+" --parser_configs.norg = {
+" --    install_info = {
+" --        url = "https://github.com/nvim-neorg/tree-sitter-norg",
+" --        files = { "src/parser.c", "src/scanner.cc" },
+" --        branch = "main"
+" --    },
+" --}
+" --require('neorg').setup {
+" --        -- Tell Neorg what modules to load
+" --        load = {
+" --            ["core.defaults"] = {}, -- Load all the default modules
+" --            ["core.norg.concealer"] = {}, -- Allows for use of icons
+" --            ["core.norg.dirman"] = { -- Manage your directories with Neorg
+" --                config = {
+" --                    workspaces = {
+" --                        my_workspace = "~/workspace/jz/note"
+" --                    }
+" --                }
+" --            }
+" --        },
+" --    }
 
 augroup nerdtree
 let NERDTreeIgnore=['\.d$[[dir]]', '\.o$[[file]]', 'tmp/cache$[[path]]', 'moc_*', 'Makefile']
@@ -740,6 +740,7 @@ augroup bookmark
 	let g:bookmark_no_default_key_mappings=1
 augroup END
 
+let g:lsp_cxx_hl_use_text_props = 1
 
 """function{{{
 function! ProjectFiles() abort

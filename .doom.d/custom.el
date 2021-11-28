@@ -83,6 +83,7 @@
     (cons 340 "#858FA5")
     (cons 360 "#858FA5")))
  '(vc-annotate-very-old-color nil)
+ '(warning-suppress-types '((doom-first-input-hook) (doom-first-input-hook)))
  '(yas-also-auto-indent-first-line t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

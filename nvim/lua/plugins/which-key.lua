@@ -65,7 +65,7 @@ wk.register({
 wk.register({
   ["<leader>f"] = {name = "+file"},
 
-  ["<leader>fbb"] = {"<cmd>BookmarkShowAll<cr>", "Bookmarks"},
+  ["<leader>fbb"] = {"<cmd>FzfVimBookmarkes<cr>", "Bookmarks"},
   ["<leader>fba"] = {"<cmd>BookmarkAnnotate<cr>", "Add Bookmark"},
   ["<leader>fbd"] = {"<cmd>BookmarkClear<cr>", "Clear Bookmark"},
   ["<leader>fbD"] = {"<cmd>BookmarkClearAll<cr>", "Clear All Bookmark"},

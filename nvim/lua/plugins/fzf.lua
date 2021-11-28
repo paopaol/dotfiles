@@ -1,4 +1,5 @@
 local actions = require "fzf-lua.actions"
+local utils = require "fzf-lua.utils"
 
 require'fzf-lua'.setup {
   winopts = {
@@ -258,7 +259,27 @@ require'fzf-lua'.setup {
       ["default"] = actions.buf_edit,
       ["ctrl-s"] = actions.buf_split,
       ["ctrl-v"] = actions.buf_vsplit,
-      ["ctrl-t"] = actions.buf_tabedit
+      ["ctrl-t"] = actions.buf_tabedit,
+      ["alt-q"] = function(selected, _)
+        local qf_list = {}
+        for i = 1, #selected do
+          -- [4]  fzf.lua:1: local actions = require "fzf-lua.actions"
+          local _, oneline = string.match(selected[i], '^([%d])(.*)')
+          print(oneline)
+          oneline = utils.strip_ansi_coloring(string.match(oneline, '[%d+]*'))
+          local file, line, col, text = oneline:match(
+                                            "^([^ :]+):(%d+):(%d+):(.*)")
+          if file and line and col then
+            table.insert(qf_list,
+                         {filename = file, lnum = line, col = col, text = text})
+          else
+            table.insert(qf_list, {filename = oneline, lnum = 1, col = 1})
+          end
+        end
+        vim.fn.setqflist(qf_list)
+        vim.cmd 'copen'
+
+      end
     }
   },
   quickfix = {
