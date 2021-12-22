@@ -35,8 +35,9 @@ require"bufferline".setup {
     always_show_bufferline = false,
     offsets = {
       {
-        filetype = "NERDTREE",
+        filetype = "nerdtree",
         text = "File Explorer",
+        highlight = "Directory",
         text_align = "left" -- "center" | "right" | "left"
       }
     }

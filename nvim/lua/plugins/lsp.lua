@@ -23,6 +23,8 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -------------------------------------------
 -- clangd
 -------------------------------------------
+local cmds = configs.clangd.commands
+configs.clangd = nil
 if not configs.clangd then
   configs.clangd = {
     default_config = {
@@ -34,7 +36,8 @@ if not configs.clangd then
       capabilities = capabilities,
       root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt",
                                    ".git", ".projectile")
-    }
+    },
+    commands = cmds
   }
 end
 lspconfig.clangd.setup {}

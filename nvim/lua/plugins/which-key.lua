@@ -189,7 +189,7 @@ _G.whichkeyrCpp = function()
     ["<localleader>"] = {
       name = "major",
       [","] = {
-        "<cmd>lua vim.lsp.buf.formatting()<cr>",
+        "<cmd>Autoformat<cr>",
         "formatting",
         buffer = buf
       },

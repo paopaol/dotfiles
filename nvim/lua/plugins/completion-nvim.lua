@@ -7,6 +7,7 @@ vim.g.completion_enable_auto_signature = 0
 vim.g.completion_sorting = 'none'
 vim.g.completion_trigger_on_delete = 1
 vim.g.completion_matching_ignore_case = 1
+vim.g.completion_trigger_keyword_length = 3
 vim.g.completion_matching_strategy_list = {'fuzzy', 'exact', 'substring'}
 vim.g.completion_trigger_character = {'.', '::', '->'}
 vim.cmd(([[

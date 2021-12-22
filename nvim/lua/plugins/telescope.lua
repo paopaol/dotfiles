@@ -6,6 +6,7 @@ local utils = require('telescope.utils')
 
 ts.setup({
   defaults = {
+    preview = nil,
     prompt_prefix = " ",
 
     vimgrep_arguments = {'ag', '--nogroup', '--nocolor', '--column'},
@@ -21,12 +22,33 @@ ts.setup({
       width = 0.99,
       -- preview_cutoff = 120,
       -- prompt_position = "top",
-      horizontal = {mirror = false},
-      vertical = {mirror = true, preview_height = 25}
+      -- horizontal = {mirror = false},
+      -- vertical = {mirror = true, preview_height = 25},
+
+      bottom_pane = {height = 25, preview_cutoff = 120, prompt_position = "top"},
+      center = {
+        height = 0.4,
+        preview_cutoff = 40,
+        prompt_position = "top",
+        width = 0.5
+      },
+      cursor = {height = 0.9, preview_cutoff = 40, width = 0.8},
+      horizontal = {
+        height = 0.9,
+        preview_cutoff = 120,
+        prompt_position = "bottom",
+        width = 0.8
+      },
+      vertical = {
+        height = 0.9,
+        preview_cutoff = 40,
+        prompt_position = "bottom",
+        width = 0.8
+      }
     },
     max_results = 100,
 
-    border = {},
+    border = nil,
     borderchars = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},
     color_devicons = true,
     use_less = false,

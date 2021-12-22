@@ -1,8 +1,21 @@
 require'nvim-treesitter.configs'.setup {
+  indent = {enable = false},
+  autotag = {enable = true},
+  ensure_installed = {'bash', 'css', 'html', 'rust', 'toml', 'yaml', 'cpp', 'c'},
+  highlight = {enable = true, additional_vim_regex_highlighting = false},
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      -- init_selection = "gnn",
+      node_incremental = "vv"
+      -- scope_incremental = "grc",
+      -- node_decremental = "grm"
+    }
+  },
   textobjects = {
+    enable = true,
     select = {
       enable = true,
-      -- Automatically jump forward to textobj, similar to targets.vim 
       lookahead = true,
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm

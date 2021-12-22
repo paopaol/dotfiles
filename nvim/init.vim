@@ -7,10 +7,12 @@ let $VIMHOME =  fnamemodify(expand($VIMHOME), ':p:h')
 "plug -----{{{
 augroup plug
 	call plug#begin('~/.vim/plugged')
-    Plug 'jackguo380/vim-lsp-cxx-highlight'
 	Plug '/home/jz/.vim/plugged/recentfiles.nvim'
 	Plug '/home/jz/.vim/plugged/fzf-vim-bookmarks.nvim'
+	Plug '/home/jz/.vim/plugged/fzf-files-explorer.nvim'
 	Plug 'ton/vim-bufsurf'
+	Plug 'mfussenegger/nvim-dap'
+	Plug 'Pocco81/DAPInstall.nvim',{'branch':'main'}
 	Plug 'akinsho/toggleterm.nvim'
 	Plug 'chiel92/vim-autoformat'
 	Plug 'paopaol/telescope-ctags.nvim'
@@ -22,7 +24,7 @@ augroup plug
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
 	Plug 'nvim-telescope/telescope.nvim', {'branch': 'master'}
-	" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 	Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
 	Plug 'folke/which-key.nvim', {'branch':'main'}
 	Plug 'neovim/nvim-lspconfig'
@@ -31,7 +33,6 @@ augroup plug
 	Plug 'vimwiki/vimwiki'
 	Plug 'MattesGroeger/vim-bookmarks'
 	Plug 'vim-scripts/bufkill.vim'
-	" Plug 'tom-anders/telescope-vim-bookmarks.nvim', {'branch':'main'}
 	Plug 'crispgm/telescope-heading.nvim', {'branch':'main'}
 	Plug 'voldikss/vim-floaterm'
 	Plug 'karb94/neoscroll.nvim'
@@ -39,7 +40,7 @@ augroup plug
 	Plug 'hrsh7th/vim-vsnip-integ'
 	Plug 'SirVer/ultisnips'
 	Plug 'honza/vim-snippets'
-	" Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+	Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 	Plug 'mhartington/formatter.nvim'
 	Plug 'onsails/lspkind-nvim'
 	Plug 'voldikss/vim-translator'
@@ -53,7 +54,7 @@ augroup plug
 	Plug 'weilbith/nvim-floating-tag-preview'
 	Plug 'paopaol/fzf-snippet.nvim' , {'branch': 'main'}
 	Plug 'paopaol/fzf-asynctask.nvim', {'branch': 'main'}
-	" Plug 'romgrk/nvim-treesitter-context'
+        Plug 'romgrk/nvim-treesitter-context'
 	Plug 'preservim/nerdtree'
 	Plug 'folke/todo-comments.nvim' , {'branch': 'main'}
 	Plug 'ray-x/lsp_signature.nvim'
@@ -64,10 +65,8 @@ augroup plug
 	Plug 'nvim-neorg/neorg', {'branch':'unstable'}
 
 	Plug 'kristijanhusak/orgmode.nvim'
-    Plug 'chentau/marks.nvim'
+	Plug 'chentau/marks.nvim'
 
-	"""indent"
-	" Plug 'lukas-reineke/indent-blankline.nvim'
 
 	Plug 'lilydjwg/fcitx.vim', {'branch' : 'fcitx5'}
 	"""colors
@@ -244,7 +243,7 @@ augroup window
 
 
 	let g:material_style = 'lighter'
-	colorscheme dawnfox
+	colorscheme vscode
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -676,7 +675,6 @@ lua << EOF
 require('plugins.accelerated')
 require('plugins.lsp')
 require('plugins.lspsaga')
-require("bufferline").setup{}
 require('plugins.status-line')
 require('plugins.telescope')
 require('plugins.which-key')
@@ -697,36 +695,35 @@ require('plugins.toggle_term')
 require('plugins.marks')
 require('plugins.jz')
 require "lsp_signature".setup({hint_prefix = "  "})
-----require('plugins.treesitter')
 --require('plugins.lspinstall')
 --require('plugins.rainbow')
---require('plugins.nvim-treesitter')
+require('plugins.nvim-treesitter')
 --require('plugins.indent')
---require('plugins.bufferline')
+require('plugins.bufferline')
+require'treesitter-context'.setup{ enable = true, throttle = true }
+local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
+parser_configs.norg = {
+    install_info = {
+        url = "https://github.com/nvim-neorg/tree-sitter-norg",
+        files = { "src/parser.c", "src/scanner.cc" },
+        branch = "main"
+    },
+}
+require('neorg').setup {
+        -- Tell Neorg what modules to load
+        load = {
+            ["core.defaults"] = {}, -- Load all the default modules
+            ["core.norg.concealer"] = {}, -- Allows for use of icons
+            ["core.norg.dirman"] = { -- Manage your directories with Neorg
+                config = {
+                    workspaces = {
+                        my_workspace = "~/workspace/jz/note"
+                    }
+                }
+            }
+        },
+    }
 EOF
-" --require'treesitter-context'.setup{ enable = true, throttle = true }
-" --local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
-" --parser_configs.norg = {
-" --    install_info = {
-" --        url = "https://github.com/nvim-neorg/tree-sitter-norg",
-" --        files = { "src/parser.c", "src/scanner.cc" },
-" --        branch = "main"
-" --    },
-" --}
-" --require('neorg').setup {
-" --        -- Tell Neorg what modules to load
-" --        load = {
-" --            ["core.defaults"] = {}, -- Load all the default modules
-" --            ["core.norg.concealer"] = {}, -- Allows for use of icons
-" --            ["core.norg.dirman"] = { -- Manage your directories with Neorg
-" --                config = {
-" --                    workspaces = {
-" --                        my_workspace = "~/workspace/jz/note"
-" --                    }
-" --                }
-" --            }
-" --        },
-" --    }
 
 augroup nerdtree
 let NERDTreeIgnore=['\.d$[[dir]]', '\.o$[[file]]', 'tmp/cache$[[path]]', 'moc_*', 'Makefile']
@@ -740,7 +737,6 @@ augroup bookmark
 	let g:bookmark_no_default_key_mappings=1
 augroup END
 
-let g:lsp_cxx_hl_use_text_props = 1
 
 """function{{{
 function! ProjectFiles() abort
