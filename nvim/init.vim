@@ -36,10 +36,6 @@ augroup plug
 	Plug 'crispgm/telescope-heading.nvim', {'branch':'main'}
 	Plug 'voldikss/vim-floaterm'
 	Plug 'karb94/neoscroll.nvim'
-	Plug 'hrsh7th/vim-vsnip'
-	Plug 'hrsh7th/vim-vsnip-integ'
-	Plug 'SirVer/ultisnips'
-	Plug 'honza/vim-snippets'
 	Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 	Plug 'mhartington/formatter.nvim'
 	Plug 'onsails/lspkind-nvim'
@@ -58,8 +54,8 @@ augroup plug
 	Plug 'preservim/nerdtree'
 	Plug 'folke/todo-comments.nvim' , {'branch': 'main'}
 	Plug 'ray-x/lsp_signature.nvim'
-	Plug 'nvim-lua/completion-nvim'
-	Plug 'steelsojka/completion-buffers'
+	" Plug 'nvim-lua/completion-nvim'
+	" Plug 'steelsojka/completion-buffers'
 	Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 	Plug '907th/vim-auto-save'
 	Plug 'nvim-neorg/neorg', {'branch':'unstable'}
@@ -122,6 +118,12 @@ augroup plug
 	Plug 'godlygeek/tabular'
 	Plug 'AndrewRadev/sideways.vim'
 	Plug 'rust-lang/rust.vim'
+
+	Plug 'hrsh7th/cmp-nvim-lsp' , {'branch':'main'}
+	Plug 'hrsh7th/cmp-path', {'branch':'main'}
+	Plug 'hrsh7th/nvim-cmp', {'branch':'main'}
+	Plug 'SirVer/ultisnips', {'branch':'main'}
+	Plug 'quangnguyen30192/cmp-nvim-ultisnips' , {'branch':'main'}
 	call plug#end()
 augroup END
 "}}}
@@ -243,7 +245,7 @@ augroup window
 
 
 	let g:material_style = 'lighter'
-	colorscheme vscode
+	colorscheme gruvbox
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -342,8 +344,8 @@ augroup window
 	""window resie
 	nnoremap <A--> :resize -1<CR>
 	nnoremap <A-=> :resize +1<CR>
-	nnoremap <silent> <tab> :call JumpRight()<CR>
-	nnoremap <silent> <S-tab> :SidewaysJumpRight<CR>
+	" nnoremap <silent> <tab> :call JumpRight()<CR>
+	" nnoremap <silent> <S-tab> :SidewaysJumpRight<CR>
 	nnoremap <silent> <A-<> :SidewaysLeft<CR>
 	nnoremap <silent> <A->> :SidewaysRight<CR>
 augroup END
@@ -687,9 +689,10 @@ require('neogit').setup{}
 require('plugins.fzf')
 require('plugins.neoscroll')
 require('plugins.vimspector')
-require('plugins.completion-nvim')
+--require('plugins.completion-nvim')
 require('nvim-autopairs')
 require('plugins.ultisnips')
+require('plugins.nvim-cmp')
 require('plugins.todo')
 require('plugins.toggle_term')
 require('plugins.marks')
