@@ -243,7 +243,7 @@ augroup window
 
 
 	let g:material_style = 'lighter'
-	colorscheme vscode
+	colorscheme github-colors
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
