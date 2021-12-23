@@ -1,8 +1,10 @@
 -- Setup nvim-cmp.
 local cmp = require 'cmp'
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
-
+-- completion.keyword_length~
 cmp.setup({
+  completion = {keyword_length = 3},
+  experimental = {native_menu = true},
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
@@ -19,6 +21,10 @@ cmp.setup({
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       cmp_ultisnips_mappings.jump_backwards(fallback)
     end, {"i", "s", "c"}),
+    ['<C-e>'] = function()
+      cmp.abort()
+      -- vim.cmd("normal A")
+    end,
     ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i', 'c'}),
     ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i', 'c'}),
     ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
@@ -40,3 +46,8 @@ cmp.setup.cmdline(':', {
 
 --------------------------------------------------------------------------------
 -- 
+
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
+                                                                     .protocol
+                                                                     .make_client_capabilities())
+require('lspconfig').clangd.setup {capabilities = capabilities}
