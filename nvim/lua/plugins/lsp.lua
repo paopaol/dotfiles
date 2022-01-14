@@ -30,7 +30,7 @@ if not configs.clangd then
     default_config = {
       cmd = {
         "clangd", "--clang-tidy", "-j=1", "--header-insertion=never",
-        "--completion-style=bundled"
+        "--completion-style=detailed"
       },
       filetypes = {'cpp', 'c'},
       capabilities = capabilities,
@@ -41,6 +41,16 @@ if not configs.clangd then
   }
 end
 lspconfig.clangd.setup {}
+
+-- lspconfig.ccls.setup {
+--   root_dir = util.root_pattern("compile_commands.json", ".ccls", ".git",
+--                                ".projectile"),
+--   init_options = {
+--     compilationDatabaseDirectory = "build",
+--     index = {threads = 1},
+--     clang = {excludeArgs = {"-frounding-math"}}
+--   }
+-- }
 
 -------------------------------------------
 -- cmake

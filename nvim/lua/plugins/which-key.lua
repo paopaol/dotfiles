@@ -69,7 +69,10 @@ wk.register({
   ["<leader>fba"] = {"<cmd>BookmarkAnnotate<cr>", "Add Bookmark"},
   ["<leader>fbd"] = {"<cmd>BookmarkClear<cr>", "Clear Bookmark"},
   ["<leader>fbD"] = {"<cmd>BookmarkClearAll<cr>", "Clear All Bookmark"},
-  ["<leader>ff"] = {"<cmd>Telescope file_browser<cr>", "Find File"},
+  ["<leader>ff"] = {
+    "<cmd>lua require 'telescope'.extensions.file_browser.file_browser()<cr>",
+    "Find File"
+  },
   ["<leader>fd"] = {"<cmd>call SubProjectFiles()<cr>", "Find File"},
   ["<leader>fr"] = {"<cmd>FzfRecentFiles<cr>", "Open Recent File"},
   ["<leader>fn"] = {"<cmd>enew<cr>", "New File"},
@@ -127,6 +130,10 @@ wk.register({
 
   ["<leader>sd"] = {
     "<cmd>call SymbolsCurrentDirectory()<cr>", "symbol current directory"
+  },
+  ["<leader>sf"] = {
+    "<cmd>lua require 'telescope.builtin'.live_grep({ cwd = vim.call('asyncrun#get_root', '%')})<cr>",
+    "Find File"
   },
   ["<leader>ss"] = {"<cmd>FzfLua blines<cr>", "symbol current buffer"},
   ["<leader>sS"] = {"<cmd>FzfLua grep_cword<cr>", "symbol current buffer"},
@@ -189,7 +196,7 @@ _G.whichkeyrCpp = function()
     ["<localleader>"] = {
       name = "major",
       [","] = {
-        "<cmd>Autoformat<cr>",
+        "<cmd>lua vim.lsp.buf.formatting()<cr>",
         "formatting",
         buffer = buf
       },

@@ -7,6 +7,10 @@ let $VIMHOME =  fnamemodify(expand($VIMHOME), ':p:h')
 "plug -----{{{
 augroup plug
 	call plug#begin('~/.vim/plugged')
+	Plug 'SirVer/ultisnips'
+	Plug 'honza/vim-snippets'
+	Plug 'mbbill/fencview'
+	Plug 'nvim-telescope/telescope-file-browser.nvim'
 	Plug '/home/jz/.vim/plugged/recentfiles.nvim'
 	Plug '/home/jz/.vim/plugged/fzf-vim-bookmarks.nvim'
 	Plug '/home/jz/.vim/plugged/fzf-files-explorer.nvim'
@@ -80,6 +84,7 @@ augroup plug
 	Plug 'bluz71/vim-moonfly-colors'
 	Plug 'sainnhe/sonokai'
 	Plug 'lourenci/github-colors', {'branch':'main'}
+	Plug 'ayu-theme/ayu-vim'
 	"""
 
 	Plug 'skanehira/preview-markdown.vim'
@@ -122,7 +127,6 @@ augroup plug
 	Plug 'hrsh7th/cmp-nvim-lsp' , {'branch':'main'}
 	Plug 'hrsh7th/cmp-path', {'branch':'main'}
 	Plug 'hrsh7th/nvim-cmp', {'branch':'main'}
-	Plug 'SirVer/ultisnips', {'branch':'main'}
 	Plug 'quangnguyen30192/cmp-nvim-ultisnips' , {'branch':'main'}
 	call plug#end()
 augroup END
@@ -243,9 +247,12 @@ augroup END
 augroup window
 	autocmd!
 
-
+	set termguicolors     " enable true colors support
 	let g:material_style = 'lighter'
-	colorscheme gruvbox
+	let ayucolor="light"  " for light version of theme
+	" let ayucolor="mirage" " for mirage version of theme
+	" let ayucolor="dark"   " for dark version of theme
+	colorscheme ayu
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -260,6 +267,7 @@ augroup window
 	vnoremap Q :cclose<CR>
 
 	cnoremap <C-a> <Home>
+	inoremap <C-a> <C-G>U<Home>
 
 	nnoremap <C-b> <Left>
 	inoremap <C-b> <Left>
@@ -269,7 +277,8 @@ augroup window
 	nnoremap <C-e> <End>a
 	inoremap <C-e> <End>
 	vnoremap <C-e> <End>a
-	cnoremap <C-e> <End>a
+	cnoremap <C-e> <End>
+
 
 
 	nnoremap <C-f> <Right>
@@ -441,7 +450,8 @@ augroup vimsettings
 	set autoindent
 	set autochdir
 	set smartindent
-	set completeopt=menuone,noinsert,noselect
+	" set completeopt=menuone,noinsert,noselect
+	set completeopt=menu,menuone,noselect
 	" set mouse=a
 
 	set backspace=indent,eol,start
@@ -781,3 +791,4 @@ endfunction
 
 let g:fcitx5_remote='fcitx-remote'
 
+let g:translator_default_engines = ['bing']
