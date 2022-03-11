@@ -41,7 +41,7 @@ wk.register({
 })
 
 wk.register({
-  ["<f1>"] = {"<cmd>NERDTreeToggleVCS<cr>", "tree"},
+  ["<f1>"] = {"<cmd>call ProjectTree()<cr>", "tree"},
   ["<f4>"] = {"<cmd>call CmakeBuild()<cr>", "cmake build"},
   ["K"] = {"<cmd>lua vim.lsp.buf.hover()<cr>", "lsp+hover"},
   ["gd"] = {"<cmd>lua vim.lsp.buf.declaration()<cr>", "lsp+definition"},
@@ -122,7 +122,9 @@ wk.register({
 })
 
 wk.register({
-  ["<leader>sS"] = {"<cmd>FzfLua grep_cword<cr>", "symbol current buffer"}
+  ["<leader>sS"] = {"<cmd>FzfLua grep_cword<cr>", "symbol current buffer"},
+  ["<leader>tt"] = {":Translate<cr>", "translate"},
+  [",,"] = {":lua vim.lsp.buf.range_formatting()<cr>", "formatting"}
 }, {mode = "v"})
 
 wk.register({
@@ -161,6 +163,7 @@ wk.register({
 wk.register({
   ["<leader>t"] = {name = "+tools/toggle"},
 
+  ["<leader>tt"] = {"<cmd>Translate<cr>", "translate"},
   ["<leader>tc"] = {"<cmd>FzfLua colorschemes<cr>", "colorscheme"},
   ["<leader>tl"] = {"<cmd>setlocal wrap!<cr>", "line wrap"},
   ["<leader>tf"] = {"<cmd>FzfLua filetypes<cr>", "filetypes"},
