@@ -273,25 +273,6 @@ augroup window
 	nnoremap Q :cclose<CR>
 	vnoremap Q :cclose<CR>
 
-	cnoremap <C-a> <Home>
-	inoremap <C-a> <C-G>U<Home>
-
-	nnoremap <C-b> <Left>
-	inoremap <C-b> <Left>
-	vnoremap <C-b> <Left>
-	cnoremap <C-b> <Left>
-
-	nnoremap <C-e> <End>a
-	inoremap <C-e> <End>
-	vnoremap <C-e> <End>a
-	cnoremap <C-e> <End>
-
-
-
-	nnoremap <C-f> <Right>
-	inoremap <C-f> <Right>
-	vnoremap <C-f> <Right>
-	cnoremap <C-f> <Right>
 
 	cnoremap <C-j> <Down>
 	inoremap <C-j> <Down>
@@ -387,6 +368,7 @@ set termguicolors
 
 lua << EOF
 require('plugins.setup')
+require('plugins.keymap')
 EOF
 augroup vimsettings
 	autocmd!
@@ -402,8 +384,8 @@ augroup vimsettings
 	filetype plugin on
 	syntax on
 
-	set shortmess+=c
-	set clipboard+=unnamedplus
+	" set shortmess+=c
+	" set clipboard+=unnamedplus
 	if has("autocmd")
 		au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 	endif

@@ -38,7 +38,8 @@ vim.o.smartindent = true
 vim.o.completeopt = 'menu,menuone,noselect'
 vim.o.backspace = 'indent,eol,start'
 vim.o.rnu = true
--- vim.o.clipboard+=unnamedplus
+vim.o.clipboard = 'unnamedplus'
+vim.o.shortmess = 'filnxtToOFcI'
 
 ---plugins
 vim.g.auto_save = 1
