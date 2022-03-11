@@ -31,3 +31,4 @@ require("toggleterm").setup {
     highlights = {border = "Normal", background = "Normal"}
   }
 }
+vim.cmd [[autocmd TermEnter term://*toggleterm#* set winhighlight=]]

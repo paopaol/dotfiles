@@ -7,6 +7,10 @@ let $VIMHOME =  fnamemodify(expand($VIMHOME), ':p:h')
 "plug -----{{{
 augroup plug
 	call plug#begin('~/.vim/plugged')
+	Plug 'SirVer/ultisnips'
+	Plug 'honza/vim-snippets'
+	Plug 'mbbill/fencview'
+	Plug 'nvim-telescope/telescope-file-browser.nvim'
 	Plug '/home/jz/.vim/plugged/recentfiles.nvim'
 	Plug '/home/jz/.vim/plugged/fzf-vim-bookmarks.nvim'
 	Plug '/home/jz/.vim/plugged/fzf-files-explorer.nvim'
@@ -19,7 +23,7 @@ augroup plug
 	Plug 'paopaol/telescope-vimsnip.nvim' , {'branch': 'main'}
 	Plug 'paopaol/cpp-mode' , {'branch': 'main'}
 	Plug 'kyazdani42/nvim-web-devicons' " Recommended (for coloured icons)
-	Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+	Plug 'nvim-lualine/lualine.nvim'
 	Plug 'akinsho/nvim-bufferline.lua'
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
@@ -36,10 +40,6 @@ augroup plug
 	Plug 'crispgm/telescope-heading.nvim', {'branch':'main'}
 	Plug 'voldikss/vim-floaterm'
 	Plug 'karb94/neoscroll.nvim'
-	Plug 'hrsh7th/vim-vsnip'
-	Plug 'hrsh7th/vim-vsnip-integ'
-	Plug 'SirVer/ultisnips'
-	Plug 'honza/vim-snippets'
 	Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 	Plug 'mhartington/formatter.nvim'
 	Plug 'onsails/lspkind-nvim'
@@ -56,10 +56,12 @@ augroup plug
 	Plug 'paopaol/fzf-asynctask.nvim', {'branch': 'main'}
         Plug 'romgrk/nvim-treesitter-context'
 	Plug 'preservim/nerdtree'
+	Plug 't9md/vim-choosewin'
+	Plug 'weilbith/nerdtree_choosewin-plugin'
 	Plug 'folke/todo-comments.nvim' , {'branch': 'main'}
 	Plug 'ray-x/lsp_signature.nvim'
-	Plug 'nvim-lua/completion-nvim'
-	Plug 'steelsojka/completion-buffers'
+	" Plug 'nvim-lua/completion-nvim'
+	" Plug 'steelsojka/completion-buffers'
 	Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 	Plug '907th/vim-auto-save'
 	Plug 'nvim-neorg/neorg', {'branch':'unstable'}
@@ -70,10 +72,10 @@ augroup plug
 
 	Plug 'lilydjwg/fcitx.vim', {'branch' : 'fcitx5'}
 	"""colors
-	Plug 'glepnir/zephyr-nvim', {'branch':'main'}
 	Plug 'Mofiqul/vscode.nvim', {'branch': 'main'}
 	Plug 'marko-cerovac/material.nvim', {'branch':'main'}
-	Plug 'tanvirtin/monokai.nvim'
+	" Plug 'tanvirtin/monokai.nvim'
+	Plug 'keyvchan/monokai.nvim'
 	Plug 'rktjmp/lush.nvim', {'branch':'main'}
 	Plug 'npxbr/gruvbox.nvim', {'branch':'main'}
 	Plug 'EdenEast/nightfox.nvim', {'branch':'main'}
@@ -84,6 +86,7 @@ augroup plug
 	Plug 'bluz71/vim-moonfly-colors'
 	Plug 'sainnhe/sonokai'
 	Plug 'lourenci/github-colors', {'branch':'main'}
+	Plug 'ayu-theme/ayu-vim', {'branch':'main'}
 	"""
 
 	Plug 'skanehira/preview-markdown.vim'
@@ -122,6 +125,12 @@ augroup plug
 	Plug 'godlygeek/tabular'
 	Plug 'AndrewRadev/sideways.vim'
 	Plug 'rust-lang/rust.vim'
+
+	Plug 'hrsh7th/cmp-nvim-lsp' , {'branch':'main'}
+	Plug 'hrsh7th/cmp-path', {'branch':'main'}
+	Plug 'hrsh7th/nvim-cmp', {'branch':'main'}
+	Plug 'hrsh7th/cmp-buffer', {'branch':'main'} 
+	Plug 'quangnguyen30192/cmp-nvim-ultisnips' , {'branch':'main'}
 	call plug#end()
 augroup END
 "}}}
@@ -241,9 +250,16 @@ augroup END
 augroup window
 	autocmd!
 
-
+	" set termguicolors     " enable true colors support
 	let g:material_style = 'lighter'
-	colorscheme github-colors
+	let ayucolor="light"  " for light version of theme
+	" let ayucolor="mirage" " for mirage version of theme
+	" let ayucolor="dark"   " for dark version of theme
+	let g:github_comment_style = "italic"
+	let g:github_keyword_style = "italic"
+	let g:github_function_style = "italic"
+	let g:github_variable_style = "italic"
+	colorscheme gruvbox
 
 	map <A-j> <C-W>j
 	map <A-k> <C-W>k
@@ -258,6 +274,7 @@ augroup window
 	vnoremap Q :cclose<CR>
 
 	cnoremap <C-a> <Home>
+	inoremap <C-a> <C-G>U<Home>
 
 	nnoremap <C-b> <Left>
 	inoremap <C-b> <Left>
@@ -267,7 +284,8 @@ augroup window
 	nnoremap <C-e> <End>a
 	inoremap <C-e> <End>
 	vnoremap <C-e> <End>a
-	cnoremap <C-e> <End>a
+	cnoremap <C-e> <End>
+
 
 
 	nnoremap <C-f> <Right>
@@ -336,14 +354,14 @@ augroup window
 	endfunction
 
 	""quick fix"
-	nnoremap <F8> :cn<CR>zz
-	nnoremap <F7> :cp<CR>zz
+	nnoremap <silent> <F8> :cn<CR>zz
+	nnoremap <silent> <F7> :cp<CR>zz
 
 	""window resie
 	nnoremap <A--> :resize -1<CR>
 	nnoremap <A-=> :resize +1<CR>
-	nnoremap <silent> <tab> :call JumpRight()<CR>
-	nnoremap <silent> <S-tab> :SidewaysJumpRight<CR>
+	" nnoremap <silent> <tab> :call JumpRight()<CR>
+	" nnoremap <silent> <S-tab> :SidewaysJumpRight<CR>
 	nnoremap <silent> <A-<> :SidewaysLeft<CR>
 	nnoremap <silent> <A->> :SidewaysRight<CR>
 augroup END
@@ -366,6 +384,10 @@ augroup END
 set termguicolors
 
 "vim settings -----------------{{{
+
+lua << EOF
+require('plugins.setup')
+EOF
 augroup vimsettings
 	autocmd!
 	function! ImSelectEn()
@@ -377,88 +399,15 @@ augroup vimsettings
 		endif
 	endfunction
 
-	"jk移动时光标下上方保留8行
-	set scrolloff=8
-	set sidescrolloff=8
-	set colorcolumn=80
-
-	" 显示左侧图标指示列
-	set signcolumn=yes
-	set termguicolors
-
-	set pumheight=10
-	" In your init.lua or init.vim
-	"highlight Pmenu ctermfg=NONE ctermbg=NONE  guibg=NONE guifg=NONE
-	"highlight PmenuSel ctermfg=7 ctermbg=4 guibg=NONE guifg=NONE
-
-	set autowriteall
-	set relativenumber
-	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin
-	set number
-	"always show tab
-	" set showtabline=2
-	let autosave=30
-	set autoread
-	set nohlsearch
-	set nowrap
-	set t_ut=
-	"""""""""""
-	set nocompatible
 	filetype plugin on
 	syntax on
 
-	" TextEdit might fail if hidden is not set.
-	set hidden
-
-	" Some servers have issues with backup files, see #649.
-	set nobackup
-	set nowritebackup
-	set noswapfile
-
-	" Give more space for displaying messages.
-	set cmdheight=1
-
-	" | Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable |
-	" delays and poor user experience.
-	set updatetime=300
-
-	" Don't pass messages to |ins-completion-menu|.
 	set shortmess+=c
-	" set guioptions-=e
-
-
-
-	" Always show the signcolumn, otherwise it would shift the text each time
-	" diagnostics appear/become resolved.
-	set signcolumn=yes
-	set numberwidth=2
-	set foldmethod=manual
-	set cursorline
-	" set cursorcolumn
-	set relativenumber
-	set autoindent
-	set autochdir
-	set smartindent
-	set completeopt=menuone,noinsert,noselect
-	" set mouse=a
-
-	set backspace=indent,eol,start
-	set rnu
-
-	set clipboard=unnamed
-	set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
-	set encoding=utf-8
-	" set bg=light
-	" set t_Co=256
-	" set t_ut=
-	" set term=screen-256color
-
+	set clipboard+=unnamedplus
 	if has("autocmd")
 		au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 	endif
 	""""""""'
-
-
 
 	autocmd InsertLeave * call ImSelectEn()
 
@@ -552,9 +501,6 @@ nnoremap <silent> n :call WordNavigation('forward')<cr>
 nnoremap <silent> N :call WordNavigation('backward')<cr>
 """"""""}}}
 
-let g:auto_save = 1
-let g:auto_save_silent = 1
-let g:auto_save_events = ["InsertLeave", "TextChanged"]
 
 
 
@@ -687,14 +633,15 @@ require('neogit').setup{}
 require('plugins.fzf')
 require('plugins.neoscroll')
 require('plugins.vimspector')
-require('plugins.completion-nvim')
+--require('plugins.completion-nvim')
 require('nvim-autopairs')
 require('plugins.ultisnips')
+require('plugins.nvim-cmp')
 require('plugins.todo')
 require('plugins.toggle_term')
 require('plugins.marks')
 require('plugins.jz')
-require "lsp_signature".setup({hint_prefix = "  "})
+--require "lsp_signature".setup({hint_prefix = "  "})
 --require('plugins.lspinstall')
 --require('plugins.rainbow')
 require('plugins.nvim-treesitter')
@@ -726,6 +673,7 @@ require('neorg').setup {
 EOF
 
 augroup nerdtree
+let g:NERDTreeMapActivateNode = '<cr>'
 let NERDTreeIgnore=['\.d$[[dir]]', '\.o$[[file]]', 'tmp/cache$[[path]]', 'moc_*', 'Makefile']
 autocmd FileType NERDTREE set buflisted
 autocmd FileType tar set buflisted
@@ -774,7 +722,14 @@ function! SubProjectFiles() abort
     lua require('plugins.jz').SubProjectFiles()
 endfunction
 
+function! ProjectTree() abort
+    let root = asyncrun#get_root('%')
+    execute ':NERDTreeToggle ' . root
+endfunction
+
 """}}}
 
 let g:fcitx5_remote='fcitx-remote'
 
+let g:translator_default_engines = ['google']
+let g:translator_window_type = 'popup'
