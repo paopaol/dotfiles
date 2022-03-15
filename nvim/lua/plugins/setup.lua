@@ -45,3 +45,7 @@ vim.o.shortmess = 'filnxtToOFcI'
 vim.g.auto_save = 1
 vim.g.auto_save_silent = 1
 vim.g.auto_save_events = {"InsertLeave", "TextChanged"}
+
+vim.g.interestingWordsDefaultMappings = 0
+
+vim.g.vim_markdown_folding_disabled = 1

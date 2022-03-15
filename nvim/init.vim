@@ -44,7 +44,7 @@ augroup plug
 	Plug 'mhartington/formatter.nvim'
 	Plug 'onsails/lspkind-nvim'
 	Plug 'voldikss/vim-translator'
-	" Plug 'p00f/nvim-ts-rainbow'
+	Plug 'p00f/nvim-ts-rainbow'
 	Plug 'glepnir/dashboard-nvim'
 	Plug 'TimUntersberger/neogit'
 	" Plug 'f-person/git-blame.nvim'
@@ -166,14 +166,6 @@ augroup filetype_cpp
 augroup END
 " }}}
 
-"markdown {{{
-augroup filetype_markdown
-	autocmd!
-	let g:vim_markdown_folding_disabled = 1
-	" let g:mkdp_browser = 'chrome'
-	" let g:mkdp_open_to_the_world = 1
-augroup END
-" }}}
 
 "xml_html filetype_xml {{{
 augroup filetype_xml
@@ -200,37 +192,6 @@ augroup END
 "}}}
 
 
-"greper-----------{{{
-augroup grepper
-	autocmd!
-
-	function! GrepperProjectSymbolAtPoint() abort
-		execute ':Grepper -dir repo -cword -noprompt '
-	endfunction
-
-	function! GrepperCurrentDirectorySymbolAtPoint() abort
-		execute ':Grepper  -cword -noprompt -dir cwd'
-	endfunction
-
-	function! GrepperProjectSymbol()abort
-		execute ':Grepper -dir repo'
-	endfunction
-
-	function! GrepperCurrentBufferAtPoint() abort
-		execute ':Grepper -buffer -cword -noprompt'
-	endfunction
-
-	function! GrepperCurrentBuffer() abort
-		execute ':Grepper -buffer'
-	endfunction
-
-
-	runtime plugin/grepper.vim    " initialize g:grepper with default values
-	let g:grepper.repo = ['.projectile', '.git']
-	let g:grepper.tools = ['ag']
-	let g:grepper.ag = { 'grepprg':'ag  --vimgrep -i' }
-augroup END
-"}}}
 
 " AnyFold-----------{{{
 augroup AnyFold
@@ -260,28 +221,6 @@ augroup window
 	let g:github_function_style = "italic"
 	let g:github_variable_style = "italic"
 	colorscheme gruvbox
-
-	map <A-j> <C-W>j
-	map <A-k> <C-W>k
-	map <A-h> <C-W>h
-	map <A-l> <C-W>l
-	cnoremap <C-Enter> <esc>o
-	inoremap <C-c> <esc>
-	vnoremap <silent><expr> <C-g> <esc>
-
-
-	nnoremap Q :cclose<CR>
-	vnoremap Q :cclose<CR>
-
-
-	cnoremap <C-j> <Down>
-	inoremap <C-j> <Down>
-	cnoremap <C-k> <Up>
-	inoremap <C-k> <Up>
-	nnoremap <C-j> 5j
-	nnoremap <C-k> 5k
-
-
 
 
 	"跳转到函数的参数"
@@ -334,17 +273,9 @@ augroup window
 		call CursorForward()
 	endfunction
 
-	""quick fix"
-	nnoremap <silent> <F8> :cn<CR>zz
-	nnoremap <silent> <F7> :cp<CR>zz
 
-	""window resie
-	nnoremap <A--> :resize -1<CR>
-	nnoremap <A-=> :resize +1<CR>
 	" nnoremap <silent> <tab> :call JumpRight()<CR>
 	" nnoremap <silent> <S-tab> :SidewaysJumpRight<CR>
-	nnoremap <silent> <A-<> :SidewaysLeft<CR>
-	nnoremap <silent> <A->> :SidewaysRight<CR>
 augroup END
 "}}}
 
@@ -361,8 +292,6 @@ augroup asyncrun
 augroup END
 "}}}
 
-
-set termguicolors
 
 "vim settings -----------------{{{
 
@@ -402,14 +331,11 @@ augroup vimsettings
 			set pyxversion=3
 		endif
 	endif
-	xnoremap > >gv
-	xnoremap < <gv
 	nnoremap <F2><F2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 	inoremap <F2><F2>   <C-o>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
 	vnoremap <F2><F2> :call Jz_insert_semicolon_end_of_line()<CR>
 	" select block
 	" vnoremap v a}o0
-	tnoremap <Esc> <C-\><C-n>
 	au FocusGained * :checktime
 augroup END
 "}}}
@@ -615,7 +541,6 @@ require('neogit').setup{}
 require('plugins.fzf')
 require('plugins.neoscroll')
 require('plugins.vimspector')
---require('plugins.completion-nvim')
 require('nvim-autopairs')
 require('plugins.ultisnips')
 require('plugins.nvim-cmp')
@@ -624,8 +549,7 @@ require('plugins.toggle_term')
 require('plugins.marks')
 require('plugins.jz')
 --require "lsp_signature".setup({hint_prefix = "  "})
---require('plugins.lspinstall')
---require('plugins.rainbow')
+require('plugins.rainbow')
 require('plugins.nvim-treesitter')
 --require('plugins.indent')
 require('plugins.bufferline')
@@ -667,49 +591,6 @@ augroup bookmark
 	let g:bookmark_no_default_key_mappings=1
 augroup END
 
-
-"""function{{{
-function! ProjectFiles() abort
-	lua require('fzf-lua').my_files({ cwd = vim.call('asyncrun#get_root', '%')})
-endfunction
-
-function! CurrentLines() abort
-	lua require('fzf-lua').blines()
-	lua require('fzf-lua.previewer.builtin').base.toggle_full()
-endfunction
-
-
-function! SymbolsCurrentDirectory() abort
-	lua require('fzf-lua').live_grep_native({ cwd = '.'})
-endfunction
-
-function! SymbolsCurrentProjectAtPoint() abort
-	lua require('fzf-lua').grep_cword({ cwd = vim.call('asyncrun#get_root', '%')})
-endfunction
-
-function! LspRefes() abort
-	lua require('fzf-lua').lsp_references({ cwd = vim.call('asyncrun#get_root', '%')})
-endfunction
-
-function! ProjectLiveSymbols()abort
-	lua require('fzf-lua').lsp_live_workspace_symbols({ cwd = vim.call('asyncrun#get_root', '%')})
-endfunction
-
-
-function! SymbolsCurrentProject() abort
-	lua require('fzf-lua').live_grep_native({ cwd = vim.call('asyncrun#get_root', '%')})
-endfunction
-
-function! SubProjectFiles() abort
-    lua require('plugins.jz').SubProjectFiles()
-endfunction
-
-function! ProjectTree() abort
-    let root = asyncrun#get_root('%')
-    execute ':NERDTreeToggle ' . root
-endfunction
-
-"""}}}
 
 let g:fcitx5_remote='fcitx-remote'
 

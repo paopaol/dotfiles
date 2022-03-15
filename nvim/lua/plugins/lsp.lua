@@ -43,12 +43,14 @@ end
 lspconfig.clangd.setup {}
 
 -- lspconfig.ccls.setup {
---   root_dir = util.root_pattern("compile_commands.json", ".ccls", ".git",
---                                ".projectile"),
+--   cmd = {"ccls"},
+--   filetypes = {"c", "cpp", "objc", "objcpp"},
+--   root_dir = nvim_lsp.util.root_pattern(".projectile"),
 --   init_options = {
+--     highlight = {lsRanges = true},
+--     cache = {directory = "/tmp/.ccls-cache"},
 --     compilationDatabaseDirectory = "build",
---     index = {threads = 1},
---     clang = {excludeArgs = {"-frounding-math"}}
+--     index = {threads = 1}
 --   }
 -- }
 

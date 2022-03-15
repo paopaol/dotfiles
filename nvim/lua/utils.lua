@@ -10,4 +10,8 @@ function M.has_width_gt(cols)
   return vim.fn.winwidth(0) / 2 > cols
 end
 
+function M.open_current_file_use_qtcreator()
+  vim.cmd(string.format("silent ! qtcreator -client %s &", vim.fn.expand("%")))
+end
+
 return M
