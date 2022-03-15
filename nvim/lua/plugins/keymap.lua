@@ -1,36 +1,39 @@
 local keymap = function(mode, key, action)
   vim.api.nvim_set_keymap(mode, key, action, {noremap = true, silent = true})
 end
+local unsilent_keymap = function(mode, key, action)
+  vim.api.nvim_set_keymap(mode, key, action, {noremap = true, silent = false})
+end
 
 -- begin of line
 keymap('i', '<C-a>', '<Home>')
-keymap('c', '<C-a>', '<C-G>U<Home>')
+unsilent_keymap('c', '<C-a>', '<Home>')
 
 -- end of line
 keymap('n', '<C-e>', '<End>a')
 keymap('i', '<C-e>', '<End>')
 keymap('v', '<C-e>', '<esc><End>a')
-keymap('c', '<C-e>', '<End>')
+unsilent_keymap('c', '<C-e>', '<End>')
 
 -- backward char
 keymap('n', '<C-b>', '<Left>')
 keymap('i', '<C-b>', '<Left>')
 keymap('v', '<C-b>', '<Left>')
-keymap('c', '<C-b>', '<Left>')
+unsilent_keymap('c', '<C-b>', '<Left>')
 
 -- forward char
 keymap('n', '<C-f>', '<Right>')
 keymap('i', '<C-f>', '<Right>')
 keymap('v', '<C-f>', '<Right>')
-keymap('c', '<C-f>', '<Right>')
+unsilent_keymap('c', '<C-f>', '<Right>')
 
 ---next line
-keymap('c', '<C-j>', '<Down>')
+unsilent_keymap('c', '<C-j>', '<Down>')
 keymap('i', '<C-j>', '<Down>')
 keymap('n', '<C-j>', '5j')
 
 -- previus line
-keymap('c', '<C-k>', '<Up>')
+unsilent_keymap('c', '<C-k>', '<Up>')
 keymap('i', '<C-k>', '<Up>')
 keymap('n', '<C-k>', '5k')
 
