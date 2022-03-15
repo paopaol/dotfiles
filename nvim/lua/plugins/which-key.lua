@@ -200,9 +200,8 @@ _G.whichkeyrCmake = function()
   })
 end
 
-vim.cmd(([[
-autocmd FileType json,css,html,javascript,markdown,yaml,vue,typescript lua whichkeyrPrettier()
-]]))
+vim.cmd(
+    ([[ autocmd FileType json,css,html,javascript,markdown,yaml,vue,typescript lua whichkeyrPrettier() ]]))
 _G.whichkeyrPrettier = function()
   local buf = vim.api.nvim_get_current_buf()
 
@@ -219,10 +218,7 @@ local function format_before_save()
   vim.cmd('write')
 end
 
-vim.cmd(([[
-autocmd FileType lua  lua whichkeyrLua()
-]]))
-
+vim.cmd(([[ autocmd FileType lua  lua whichkeyrLua() ]]))
 _G.whichkeyrLua = function()
   local buf = vim.api.nvim_get_current_buf()
 
@@ -235,9 +231,7 @@ _G.whichkeyrLua = function()
   })
 end
 
-vim.cmd(([[
-autocmd FileType xml,html  lua whichkeyrXml()
-]]))
+vim.cmd(([[ autocmd FileType xml,html  lua whichkeyrXml() ]]))
 
 _G.whichkeyrXml = function()
   local buf = vim.api.nvim_get_current_buf()
