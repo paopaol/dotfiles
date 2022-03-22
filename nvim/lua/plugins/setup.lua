@@ -41,6 +41,17 @@ vim.o.rnu = true
 vim.o.clipboard = 'unnamedplus'
 vim.o.shortmess = 'filnxtToOFcI'
 
+-- color
+vim.g.oceanic_next_terminal_bold = 1
+vim.g.oceanic_next_terminal_italic = 1
+vim.cmd([[colorscheme OceanicNext]])
+-- vim.cmd([[
+--   hi Normal guibg=NONE ctermbg=NONE
+--   hi LineNr guibg=NONE ctermbg=NONE
+--   hi SignColumn guibg=NONE ctermbg=NONE
+--   hi EndOfBuffer guibg=NONE ctermbg=NONE
+-- ]])
+
 ---plugins
 vim.g.auto_save = 1
 vim.g.auto_save_silent = 1

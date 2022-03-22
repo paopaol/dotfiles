@@ -151,7 +151,9 @@ wk.register({
 wk.register({
   ["<leader>p"] = {name = "+project"},
 
-  ["<leader>ps"] = {command("FzfLua lsp_workspace_symbols"), "workspace symbol"}
+  ["<leader>ps"] = {command("FzfLua lsp_workspace_symbols"), "workspace symbol"},
+  ["<leader>pe"] = {command("AsyncTaskEdit"), "async edit"},
+  ["<leader>pS"] = {command("AsyncStop"), "async stop"}
 })
 
 wk.register({

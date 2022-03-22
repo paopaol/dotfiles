@@ -46,7 +46,7 @@ augroup plug
 	Plug 'voldikss/vim-translator'
 	Plug 'p00f/nvim-ts-rainbow'
 	Plug 'glepnir/dashboard-nvim'
-	Plug 'TimUntersberger/neogit'
+	" Plug 'TimUntersberger/neogit'
 	" Plug 'f-person/git-blame.nvim'
 	Plug 'kazhala/close-buffers.nvim'
 	Plug 'paopaol/fzf-lua', {'branch': 'main'}
@@ -54,14 +54,12 @@ augroup plug
 	Plug 'weilbith/nvim-floating-tag-preview'
 	Plug 'paopaol/fzf-snippet.nvim' , {'branch': 'main'}
 	Plug 'paopaol/fzf-asynctask.nvim', {'branch': 'main'}
-        Plug 'romgrk/nvim-treesitter-context'
+	Plug 'romgrk/nvim-treesitter-context'
 	Plug 'preservim/nerdtree'
 	Plug 't9md/vim-choosewin'
 	Plug 'weilbith/nerdtree_choosewin-plugin'
 	Plug 'folke/todo-comments.nvim' , {'branch': 'main'}
 	Plug 'ray-x/lsp_signature.nvim'
-	" Plug 'nvim-lua/completion-nvim'
-	" Plug 'steelsojka/completion-buffers'
 	Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 	Plug '907th/vim-auto-save'
 	Plug 'nvim-neorg/neorg', {'branch':'unstable'}
@@ -72,9 +70,9 @@ augroup plug
 
 	Plug 'lilydjwg/fcitx.vim', {'branch' : 'fcitx5'}
 	"""colors
+	Plug 'mhartington/oceanic-next'
 	Plug 'Mofiqul/vscode.nvim', {'branch': 'main'}
 	Plug 'marko-cerovac/material.nvim', {'branch':'main'}
-	" Plug 'tanvirtin/monokai.nvim'
 	Plug 'keyvchan/monokai.nvim'
 	Plug 'rktjmp/lush.nvim', {'branch':'main'}
 	Plug 'npxbr/gruvbox.nvim', {'branch':'main'}
@@ -125,6 +123,7 @@ augroup plug
 	Plug 'godlygeek/tabular'
 	Plug 'AndrewRadev/sideways.vim'
 	Plug 'rust-lang/rust.vim'
+	Plug 'matveyt/vim-qmake'
 
 	Plug 'hrsh7th/cmp-nvim-lsp' , {'branch':'main'}
 	Plug 'hrsh7th/cmp-path', {'branch':'main'}
@@ -220,7 +219,7 @@ augroup window
 	let g:github_keyword_style = "italic"
 	let g:github_function_style = "italic"
 	let g:github_variable_style = "italic"
-	colorscheme gruvbox
+	" colorscheme gruvbox
 
 
 	"跳转到函数的参数"
@@ -537,7 +536,7 @@ require('plugins.formatter')
 require('plugins.lspkind')
 require'telescope'.load_extension('ctags')
 require('plugins.dashboard-nvim')
-require('neogit').setup{}
+--require('neogit').setup{}
 require('plugins.fzf')
 require('plugins.neoscroll')
 require('plugins.vimspector')
