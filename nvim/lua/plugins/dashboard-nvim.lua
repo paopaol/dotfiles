@@ -2,11 +2,11 @@ vim.api.nvim_set_var('dashboard_default_executive', 'telescope')
 vim.api.nvim_set_var('dashboard_custom_shortcut', {
   find_file = 'SPC f f',
   last_session = 'SPC s l',
-  find_history = 'SPC f h',
-  new_file = 'SPC c n',
+  find_history = 'SPC f r',
+  new_file = 'SPC f n',
   change_colorscheme = 'SPC t c',
   find_word = 'SPC f a',
-  book_marks = 'SPC f b'
+  book_marks = 'SPC f b b'
 })
 local emacs = {
   "███████╗ ███╗   ███╗  █████╗   ██████╗ ███████╗",
@@ -56,5 +56,4 @@ local image = {
   "    !#####$`                                                                    ."
 }
 vim.api.nvim_set_var('dashboard_custom_header', emacs)
-
 vim.g.dashboard_default_executive = 'fzf_lua'

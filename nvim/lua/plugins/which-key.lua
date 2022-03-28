@@ -64,7 +64,7 @@ wk.register({
   ["<leader>fn"] = {command("enew"), "New File"},
   ["<leader>ft"] = {command("NERDTreeFind"), "file types"},
   ["<leader>fr"] = {command("FzfRecentFiles"), "Open Recent File"},
-  ["<leader>ff"] = {telescope.extensions.file_browser.file_browser, "Find File"},
+  ["<leader>ff"] = {command("FzfFilesExplorer"), "Find File"},
   ["<leader>fd"] = {jz.SubProjectFiles, "Find File"},
   ["<leader>fp"] = {search.project_files, "ProjectFiles"},
   ["<leader>fq"] = {utils.open_current_file_use_qtcreator, "open in qtcreator"}
@@ -151,6 +151,7 @@ wk.register({
 wk.register({
   ["<leader>p"] = {name = "+project"},
 
+  ["<leader>pp"] = {command("Telescope projects"), "projects"},
   ["<leader>ps"] = {command("FzfLua lsp_workspace_symbols"), "workspace symbol"},
   ["<leader>pe"] = {command("AsyncTaskEdit"), "async edit"},
   ["<leader>pS"] = {command("AsyncStop"), "async stop"}

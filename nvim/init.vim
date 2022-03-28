@@ -7,8 +7,12 @@ let $VIMHOME =  fnamemodify(expand($VIMHOME), ':p:h')
 "plug -----{{{
 augroup plug
 	call plug#begin('~/.vim/plugged')
-	Plug 'SirVer/ultisnips'
-	Plug 'honza/vim-snippets'
+	" Plug 'SirVer/ultisnips'
+	" Plug 'paopaol/fzf-snippet.nvim' , {'branch': 'main'}
+    Plug 'rafamadriz/friendly-snippets', {'branch': 'main'}
+	Plug 'L3MON4D3/LuaSnip'
+	Plug 'saadparwaiz1/cmp_luasnip'
+	" Plug 'honza/vim-snippets'
 	Plug 'mbbill/fencview'
 	Plug 'nvim-telescope/telescope-file-browser.nvim'
 	Plug '/home/jz/.vim/plugged/recentfiles.nvim'
@@ -27,6 +31,7 @@ augroup plug
 	Plug 'akinsho/nvim-bufferline.lua'
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
+	Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make', 'branch': 'main' }
 	Plug 'nvim-telescope/telescope.nvim', {'branch': 'master'}
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 	Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
@@ -46,13 +51,13 @@ augroup plug
 	Plug 'voldikss/vim-translator'
 	Plug 'p00f/nvim-ts-rainbow'
 	Plug 'glepnir/dashboard-nvim'
+	Plug 'ahmedkhalf/project.nvim', {'branch': 'main'}
 	" Plug 'TimUntersberger/neogit'
 	" Plug 'f-person/git-blame.nvim'
 	Plug 'kazhala/close-buffers.nvim'
 	Plug 'paopaol/fzf-lua', {'branch': 'main'}
 	Plug 'vijaymarupudi/nvim-fzf'
 	Plug 'weilbith/nvim-floating-tag-preview'
-	Plug 'paopaol/fzf-snippet.nvim' , {'branch': 'main'}
 	Plug 'paopaol/fzf-asynctask.nvim', {'branch': 'main'}
 	Plug 'romgrk/nvim-treesitter-context'
 	Plug 'preservim/nerdtree'
@@ -84,7 +89,7 @@ augroup plug
 	Plug 'bluz71/vim-moonfly-colors'
 	Plug 'sainnhe/sonokai'
 	Plug 'lourenci/github-colors', {'branch':'main'}
-	Plug 'ayu-theme/ayu-vim', {'branch':'main'}
+	Plug 'ayu-theme/ayu-vim'
 	"""
 
 	Plug 'skanehira/preview-markdown.vim'
@@ -541,12 +546,14 @@ require('plugins.fzf')
 require('plugins.neoscroll')
 require('plugins.vimspector')
 require('nvim-autopairs')
-require('plugins.ultisnips')
+--require('plugins.ultisnips')
+require('plugins.luasnip')
 require('plugins.nvim-cmp')
 require('plugins.todo')
 require('plugins.toggle_term')
 require('plugins.marks')
 require('plugins.jz')
+require('plugins.project')
 --require "lsp_signature".setup({hint_prefix = "  "})
 require('plugins.rainbow')
 require('plugins.nvim-treesitter')

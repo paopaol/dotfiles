@@ -1,23 +1,12 @@
--- Setup nvim-cmp.
 local cmp = require 'cmp'
-local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
--- completion.keyword_length~
 cmp.setup({
   completion = {keyword_length = 1},
   experimental = {view = {entries = "native"}},
   snippet = {
     -- REQUIRED - you must specify a snippet engine
-    expand = function(args)
-      vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-    end
+    expand = function(args) require('luasnip').lsp_expand(args.body) end
   },
   mapping = {
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
-    end, {"i", "s"}),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      cmp_ultisnips_mappings.jump_backwards(fallback)
-    end, {"i", "s"}),
     ['<C-e>'] = cmp.mapping(function()
       cmp.close()
       vim.cmd("startinsert!")
@@ -44,8 +33,7 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({select = true}) -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   },
   sources = cmp.config.sources({
-    {name = 'nvim_lsp'}, {name = 'buffer'}
-    -- , {name = 'ultisnips'}
+    {name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'luasnip'}
   })
 })
 
@@ -58,9 +46,3 @@ cmp.setup.cmdline(':', {
 })
 
 --------------------------------------------------------------------------------
--- 
-
--- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
---                                                                      .protocol
---                                                                      .make_client_capabilities())
--- require('lspconfig').clangd.setup {capabilities = capabilities}
