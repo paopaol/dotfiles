@@ -44,7 +44,14 @@ vim.o.shortmess = 'filnxtToOFcI'
 -- color
 vim.g.oceanic_next_terminal_bold = 1
 vim.g.oceanic_next_terminal_italic = 1
-vim.cmd([[colorscheme OceanicNext]])
+
+vim.g.vscode_style = "light"
+vim.g.vscode_transparent = 1
+vim.g.vscode_italic_comment = 1
+vim.cmd([[
+  colorscheme vscode
+  set background=light
+]])
 -- vim.cmd([[
 --   hi Normal guibg=NONE ctermbg=NONE
 --   hi LineNr guibg=NONE ctermbg=NONE

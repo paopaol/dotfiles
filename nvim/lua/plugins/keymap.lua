@@ -63,3 +63,8 @@ keymap('x', '<', '<gv')
 
 -- terminal
 keymap('t', '<esc>', '<C-\\><C-n>')
+
+-- virual mode,which-key works bad
+keymap('v', ',!', ':!bash<cr>')
+keymap('v', ',tt', ':Translate<cr>')
+keymap('v', ',,', ':lua vim.lsp.buf.range_formatting()<cr>')

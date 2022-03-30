@@ -6,11 +6,12 @@ local configs = require('lspconfig.configs')
 --
 --
 
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  require("aerial").on_attach(client, bufnr)
 end
 
 local servers = {"clangd", "rust_analyzer", "tsserver"}

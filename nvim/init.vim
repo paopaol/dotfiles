@@ -9,7 +9,7 @@ augroup plug
 	call plug#begin('~/.vim/plugged')
 	" Plug 'SirVer/ultisnips'
 	" Plug 'paopaol/fzf-snippet.nvim' , {'branch': 'main'}
-    Plug 'rafamadriz/friendly-snippets', {'branch': 'main'}
+	Plug 'rafamadriz/friendly-snippets', {'branch': 'main'}
 	Plug 'L3MON4D3/LuaSnip'
 	Plug 'saadparwaiz1/cmp_luasnip'
 	" Plug 'honza/vim-snippets'
@@ -52,6 +52,7 @@ augroup plug
 	Plug 'p00f/nvim-ts-rainbow'
 	Plug 'glepnir/dashboard-nvim'
 	Plug 'ahmedkhalf/project.nvim', {'branch': 'main'}
+	Plug 'stevearc/aerial.nvim'
 	" Plug 'TimUntersberger/neogit'
 	" Plug 'f-person/git-blame.nvim'
 	Plug 'kazhala/close-buffers.nvim'
@@ -99,7 +100,7 @@ augroup plug
 	Plug 'plasticboy/vim-markdown'
 	Plug 'terryma/vim-expand-region'
 	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-	Plug 'dhruvasagar/vim-table-mode'
+	" Plug 'dhruvasagar/vim-table-mode'
 	Plug 'easymotion/vim-easymotion'
 	Plug 'haya14busa/incsearch.vim'
 	Plug 'haya14busa/incsearch-easymotion.vim'
@@ -134,7 +135,6 @@ augroup plug
 	Plug 'hrsh7th/cmp-path', {'branch':'main'}
 	Plug 'hrsh7th/nvim-cmp', {'branch':'main'}
 	Plug 'hrsh7th/cmp-buffer', {'branch':'main'} 
-	Plug 'quangnguyen30192/cmp-nvim-ultisnips' , {'branch':'main'}
 	call plug#end()
 augroup END
 "}}}
@@ -215,16 +215,12 @@ augroup END
 augroup window
 	autocmd!
 
-	" set termguicolors     " enable true colors support
 	let g:material_style = 'lighter'
 	let ayucolor="light"  " for light version of theme
-	" let ayucolor="mirage" " for mirage version of theme
-	" let ayucolor="dark"   " for dark version of theme
 	let g:github_comment_style = "italic"
 	let g:github_keyword_style = "italic"
 	let g:github_function_style = "italic"
 	let g:github_variable_style = "italic"
-	" colorscheme gruvbox
 
 
 	"跳转到函数的参数"
@@ -559,6 +555,8 @@ require('plugins.rainbow')
 require('plugins.nvim-treesitter')
 --require('plugins.indent')
 require('plugins.bufferline')
+require('plugins.aerial')
+
 require'treesitter-context'.setup{ enable = true, throttle = true }
 local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
 parser_configs.norg = {
