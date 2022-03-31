@@ -334,24 +334,6 @@ augroup END
 
 
 """"""""""functions{{{{
-function! CmakeFormatCurrentFile() abort
-	silent :w
-	silent :!cmake-format  -i %
-	silent :e!
-endfunction
-
-
-
-function! ProjectRelativeFilePath() abort
-	let root = asyncrun#get_root('%')
-	let absfile = fnamemodify(expand('%'),':p')
-	if has('win32')
-		let root = escape(root, '\')
-	endif
-	let relativePath = substitute(absfile, root, "pro", "")
-	return relativePath
-endfunction
-
 
 function! Jz_insert_semicolon_end_of_line()
 	let save_cursor = getcurpos()
@@ -359,32 +341,6 @@ function! Jz_insert_semicolon_end_of_line()
 	call setpos('.', save_cursor)
 endfunction
 
-function! SaveBuf() abort
-	if !&modifiable
-		return
-	endif
-	if bufname('%') != ''
-		execute  ':w'
-	endif
-endfunction
-
-function! LspFormat() abort
-	if &ft == 'cpp'
-		execute ':Neoformat'
-	elseif &ft == 'cmake'
-		call CmakeFormatCurrentFile()
-	else
-		execute ':Format'
-	endif
-	call SaveBuf()
-endfunction
-
-
-function! CmakeBuild()abort
-	let root = asyncrun#get_root('%')
-	execute ':lcd ' . root . '/build'
-	execute ':AsyncRun -cwd=<root>/build/ cmake --build <root>/build'
-endfunction
 """""}}}
 
 
@@ -401,71 +357,6 @@ nnoremap <silent> N :call WordNavigation('backward')<cr>
 """"""""}}}
 
 
-
-
-""""""functions{{{
-function! StartDebug() abort
-	let root = asyncrun#get_root('%')
-	if filereadable(root . '/.vimspector.json')
-		:call vimspector#Continue()
-		return
-	else
-		if &ft == 'cpp' || &ft == 'c'
-			execute ':edit ' . root . '/.vimspector.json' 
-			let cpp_config = ' {
-						\"configurations": {
-							\"Launch": {
-								\"adapter": "vscode-cpptools",
-								\"configuration": {
-									\"request": "launch",
-									\"program": "${workspaceRoot}/build/main",
-									\"args": [],
-									\"cwd": "${workspaceRoot}/build",
-									\"environment": [],
-									\"externalConsole": true,
-									\"MIMode": "gdb",
-									\"setupCommands": [ {
-										\"description": "Enable pretty-printing for gdb",
-										\"text": "-enable-pretty-printing",
-										\"ignoreFailures": true } ] } },
-										\"Attach": {
-											\"adapter": "vscode-cpptools",
-											\"configuration": {
-												\"request": "attach",
-												\"program": "<path to binary>",
-												\"MIMode": "<lldb or gdb>" } } } } '
-			call append(line('$'), cpp_config)
-		endif
-	endif
-endfunction
-
-function! Jz_get_signature_help() abort
-	let result = CocAction("getHover")
-
-	if len(result) == 0
-		return
-	endif
-
-
-	let  signatures = split(result[0], "---")
-	let header = matchlist(signatures[0], ' \(.\+\) `\(.\+\)`') 
-	if header[1] == "function"
-		let func = split(signatures[2], "\n")
-		call remove(func, 0)
-		call remove(func, len(func) - 1)
-		echo func[0]
-	elseif header[1] == "instance-method"
-		let func = split(signatures[2], "\n")
-		call remove(func, 0)
-		if stridx(func[0],"//") >= 0
-			call remove(func, 0)
-		endif
-		call remove(func, len(func) - 1)
-		echo join(func, "")
-	endif
-endfunction
-
-"""""""""}}}}
 
 let mapleader = "\<space>"
 let maplocalleader = ","

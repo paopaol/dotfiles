@@ -19,4 +19,6 @@ function M.uncolor_all_words()
   vim.g.nohlsearch = true
 end
 
+function M.rootdir() return vim.call('asyncrun#get_root', '%') end
+
 return M

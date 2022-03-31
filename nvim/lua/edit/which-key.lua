@@ -33,7 +33,6 @@ wk.register({
 
   ["<f1>"] = {search.project_tree, "tree"},
   ["<f3>"] = {command("AerialToggle"), "symbols list"},
-  ["<f4>"] = {vim.fn.CmakeBuild, "cmake build"},
   ["K"] = {vim.lsp.buf.hover, "lsp+hover"},
   ["gd"] = {vim.lsp.buf.declaration, "lsp+definition"},
   ["gi"] = {vim.lsp.buf.definition, "lsp+definition"},
@@ -47,8 +46,7 @@ wk.register({
     i = {command("VimspectorDebugInfo"), "print info"},
     o = {command("VimspectorShowOutput"), "show output"},
     l = {command("VimspectorToggleLog"), "toggle log"},
-    w = {command("VimspectorWatch"), "watch"},
-    e = {vim.fn.StartDebug, "start/edit"}
+    w = {command("VimspectorWatch"), "watch"}
   },
   ["<leader>f"] = {
     name = "+file",

@@ -1,4 +1,5 @@
 local remap = vim.api.nvim_set_keymap
+
 remap('n', '<f12>', 'call <Plug>VimspectorBalloonEval()',
       {expr = true, noremap = true})
 remap('x', '<f12>', 'call <Plug>VimspectorBalloonEval()',
