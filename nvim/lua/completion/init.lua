@@ -1,0 +1,1 @@
+require('completion.nvim-cmp')

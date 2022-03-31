@@ -1,11 +1,10 @@
 local wk = require("which-key")
 
-local utils = require('utils')
-local search = require('search')
+local utils = require('base.utils')
+local search = require('base.search')
 local bufferline = require('bufferline')
-local telescope = require('telescope')
 local fzflua = require('fzf-lua')
-local jz = require('plugins.jz')
+local jz = require('base.jz')
 
 local function rootdir() return vim.call('asyncrun#get_root', '%') end
 
@@ -111,7 +110,7 @@ wk.register({
     p = {search.project_current_symbols, "symbol project at point"},
     P = {search.project_symbol_at_point, "symbol project at point"},
     d = {search.directory_live_symbol, "symbol current directory"},
-    c = {vim.fn.Uncolor_all_words, "unhighlight words"}
+    c = {utils.uncolor_all_words, "unhighlight words"}
   },
   ["<leader>g"] = {
     name = "+git",
@@ -156,82 +155,3 @@ wk.register({
   ["<leader>r"] = {command("FzfAsyncTask"), "runner"}
 
 })
-
-vim.cmd(([[
-autocmd FileType cpp   lua whichkeyrCpp()
-]]))
-_G.whichkeyrCpp = function()
-  local buf = vim.api.nvim_get_current_buf()
-
-  wk.register({
-    ["<localleader>"] = {
-      name = "major",
-      [","] = {vim.lsp.buf.formatting, "formatting", buffer = buf},
-      ["o"] = {command("ClangdSwitchSourceHeader"), "switch cc/h", buffer = buf},
-      ["d"] = {command("Dox"), "doxgen", buffer = buf},
-      ["y"] = {command("CopyCppMethod"), "copy cpp method", buffer = buf},
-      ["p"] = {command("PasteCppMethod"), "paste cpp method", buffer = buf}
-    }
-  })
-end
-
-vim.cmd(([[
-autocmd FileType cmake,go  lua whichkeyrCmake()
-autocmd FileType cmake,go  set tabstop=2
-]]))
-_G.whichkeyrCmake = function()
-  local buf = vim.api.nvim_get_current_buf()
-
-  wk.register({
-    ["<localleader>"] = {
-      name = "major",
-      [","] = {vim.lsp.buf.formatting, "formatting", buffer = buf}
-    }
-  })
-end
-
-vim.cmd(
-    ([[ autocmd FileType json,css,html,javascript,markdown,yaml,vue,typescript lua whichkeyrPrettier() ]]))
-_G.whichkeyrPrettier = function()
-  local buf = vim.api.nvim_get_current_buf()
-
-  wk.register({
-    ["<localleader>"] = {
-      name = "major",
-      [","] = {command("FormatWrite"), "formatting", buffer = buf}
-    }
-  })
-end
-
-local function format_before_save()
-  vim.cmd('FormatWrite')
-  vim.cmd('write')
-end
-
-vim.cmd(([[ autocmd FileType lua  lua whichkeyrLua() ]]))
-_G.whichkeyrLua = function()
-  local buf = vim.api.nvim_get_current_buf()
-
-  wk.register({
-    ["<localleader>"] = {
-      name = "major",
-      [","] = {format_before_save, "formatting", buffer = buf},
-      ["r"] = {command("luafile %"), "run current file", buffer = buf}
-    }
-  })
-end
-
-vim.cmd(([[ autocmd FileType xml,html  lua whichkeyrXml() ]]))
-
-_G.whichkeyrXml = function()
-  local buf = vim.api.nvim_get_current_buf()
-  vim.cmd('set shiftwidth=1')
-
-  wk.register({
-    ["<localleader>"] = {
-      name = "major",
-      [","] = {command("Autoformat"), "formatting", buffer = buf}
-    },
-    ["<tab>"] = {command("normal! za"), "expand", buffer = buf}
-  })
-end

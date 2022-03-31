@@ -46,8 +46,9 @@ require('formatter').setup({
         return {
           exe = "/home/jz/node_modules/prettier/bin-prettier.js",
           args = {
-            "--stdin-filepath", vim.api.nvim_buf_get_name(0),
-									'--tab-width', '2', '--parser', 'xml' },
+            "--stdin-filepath", vim.api.nvim_buf_get_name(0), '--tab-width',
+            '2', '--parser', 'xml'
+          },
           stdin = true
         }
       end
@@ -57,9 +58,9 @@ require('formatter').setup({
       function()
         return {
           exe = "/home/jz/node_modules/prettier/bin-prettier.js",
-					args = { '--tab-width', '2',
-            '--bracket-same-line', 'true', '--xml-whitespace-sensitivity',
-            'ignore', '--parser', 'xml'
+          args = {
+            '--tab-width', '2', '--bracket-same-line', 'true',
+            '--xml-whitespace-sensitivity', 'ignore', '--parser', 'xml'
           },
           stdin = true
         }

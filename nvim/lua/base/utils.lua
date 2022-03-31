@@ -14,4 +14,9 @@ function M.open_current_file_use_qtcreator()
   vim.cmd(string.format("silent ! qtcreator -client %s &", vim.fn.expand("%")))
 end
 
+function M.uncolor_all_words()
+  vim.fn.UncolorAllWords()
+  vim.g.nohlsearch = true
+end
+
 return M

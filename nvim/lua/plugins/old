@@ -1,9 +1,0 @@
-History{
-		path = "/tmp/1",
-		time = 123
-	}
-
-History{
-		path = "/etc/passwd",
-		time = 666
-	}

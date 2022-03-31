@@ -4,15 +4,11 @@ let $VIMHOME = resolve($VIMHOME)
 let $VIMHOME =  fnamemodify(expand($VIMHOME), ':p:h')
 
 
-"plug -----{{{
 augroup plug
 	call plug#begin('~/.vim/plugged')
-	" Plug 'SirVer/ultisnips'
-	" Plug 'paopaol/fzf-snippet.nvim' , {'branch': 'main'}
 	Plug 'rafamadriz/friendly-snippets', {'branch': 'main'}
 	Plug 'L3MON4D3/LuaSnip'
 	Plug 'saadparwaiz1/cmp_luasnip'
-	" Plug 'honza/vim-snippets'
 	Plug 'mbbill/fencview'
 	Plug 'nvim-telescope/telescope-file-browser.nvim'
 	Plug '/home/jz/.vim/plugged/recentfiles.nvim'
@@ -72,6 +68,7 @@ augroup plug
 
 	Plug 'kristijanhusak/orgmode.nvim'
 	Plug 'chentau/marks.nvim'
+	Plug 'kevinhwang91/nvim-bqf' , {'branch':'main'}
 
 
 	Plug 'lilydjwg/fcitx.vim', {'branch' : 'fcitx5'}
@@ -137,8 +134,6 @@ augroup plug
 	Plug 'hrsh7th/cmp-buffer', {'branch':'main'} 
 	call plug#end()
 augroup END
-"}}}
-
 
 
 "easymotion{{{
@@ -295,10 +290,6 @@ augroup END
 
 "vim settings -----------------{{{
 
-lua << EOF
-require('plugins.setup')
-require('plugins.keymap')
-EOF
 augroup vimsettings
 	autocmd!
 	function! ImSelectEn()
@@ -474,17 +465,13 @@ function! Jz_get_signature_help() abort
 	endif
 endfunction
 
-
-function! Uncolor_all_words() abort
-	call UncolorAllWords()
-	set nohlsearch
-endfunction
 """""""""}}}}
 
 let mapleader = "\<space>"
 let maplocalleader = ","
 
 
+lua require('init')
 
 call wilder#setup({
       \ 'modes': [':', '/', '?'],
@@ -525,78 +512,4 @@ call wilder#set_option('renderer', wilder#renderer_mux({
       \ }),
       \ }))
 
-lua << EOF
-require('plugins.accelerated')
-require('plugins.lsp')
-require('plugins.lspsaga')
-require('plugins.status-line')
-require('plugins.telescope')
-require('plugins.which-key')
-require('plugins.autopairs')
-require('plugins.formatter')
-require('plugins.lspkind')
-require'telescope'.load_extension('ctags')
-require('plugins.dashboard-nvim')
---require('neogit').setup{}
-require('plugins.fzf')
-require('plugins.neoscroll')
-require('plugins.vimspector')
-require('nvim-autopairs')
---require('plugins.ultisnips')
-require('plugins.luasnip')
-require('plugins.nvim-cmp')
-require('plugins.todo')
-require('plugins.toggle_term')
-require('plugins.marks')
-require('plugins.jz')
-require('plugins.project')
---require "lsp_signature".setup({hint_prefix = "  "})
-require('plugins.rainbow')
-require('plugins.nvim-treesitter')
---require('plugins.indent')
-require('plugins.bufferline')
-require('plugins.aerial')
 
-require'treesitter-context'.setup{ enable = true, throttle = true }
-local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
-parser_configs.norg = {
-    install_info = {
-        url = "https://github.com/nvim-neorg/tree-sitter-norg",
-        files = { "src/parser.c", "src/scanner.cc" },
-        branch = "main"
-    },
-}
-require('neorg').setup {
-        -- Tell Neorg what modules to load
-        load = {
-            ["core.defaults"] = {}, -- Load all the default modules
-            ["core.norg.concealer"] = {}, -- Allows for use of icons
-            ["core.norg.dirman"] = { -- Manage your directories with Neorg
-                config = {
-                    workspaces = {
-                        my_workspace = "~/workspace/jz/note"
-                    }
-                }
-            }
-        },
-    }
-EOF
-
-augroup nerdtree
-let g:NERDTreeMapActivateNode = '<cr>'
-let NERDTreeIgnore=['\.d$[[dir]]', '\.o$[[file]]', 'tmp/cache$[[path]]', 'moc_*', 'Makefile']
-autocmd FileType NERDTREE set buflisted
-autocmd FileType tar set buflisted
-augroup END
-
-
-augroup bookmark
-	autocmd!
-	let g:bookmark_no_default_key_mappings=1
-augroup END
-
-
-let g:fcitx5_remote='fcitx-remote'
-
-let g:translator_default_engines = ['google']
-let g:translator_window_type = 'popup'
