@@ -136,50 +136,12 @@ augroup plug
 augroup END
 
 
-"easymotion{{{
-augroup easymotion
-	function! s:config_easyfuzzymotion(...) abort
-		return extend(copy({
-					\   'converters': [incsearch#config#fuzzyword#converter()],
-					\   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
-					\   'keymap': {"\<CR>": '<Over>(easymotion)'},
-					\   'is_expr': 0,
-					\   'is_stay': 1
-					\ }), get(a:, 1, {}))
-	endfunction
-	noremap <silent><expr> <C-s> incsearch#go(<SID>config_easyfuzzymotion())
-augroup END
-""}}}
-
 "filetype file settings ---------------------{{{
 augroup filetype_vim
 	autocmd!
 	autocmd FileType vim setlocal foldmethod=marker
 augroup END
-augroup filetype_cpp
-	autocmd!
-	autocmd FileType cpp,c set tabstop=4  
-	autocmd FileType cpp,c set shiftwidth=4  
-	autocmd FileType cpp,c set expandtab  
-	autocmd FileType cpp,c set softtabstop=4 
-augroup END
 " }}}
-
-
-"xml_html filetype_xml {{{
-augroup filetype_xml
-	autocmd!
-	autocmd FileType xml    	set tabstop=2
-augroup END
-"}}}
-
-"lspcxx_hl{{{
-augroup lspcxx_hl
-	autocmd!
-	" let g:lsp_cxx_hl_light_bg = 1
-	autocmd FileType cpp  highlight  LspCxxHlSymField ctermfg=Blue guifg=Green
-augroup END
-"}}}
 
 
 "commentary------------------{{{
@@ -189,8 +151,6 @@ augroup commentary
 	autocmd FileType cpp setlocal commentstring=//\ %s
 augroup END
 "}}}
-
-
 
 " AnyFold-----------{{{
 augroup AnyFold

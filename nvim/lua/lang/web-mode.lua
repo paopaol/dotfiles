@@ -18,6 +18,10 @@ end
 
 vim.cmd(
     ([[ autocmd FileType json,css,html,javascript,markdown,yaml,vue,typescript lua whichkeyrPrettier() ]]))
+vim.cmd(([[
+	autocmd FileType xml set tabstop=2
+]]))
+
 _G.whichkeyrPrettier = function()
   local buf = vim.api.nvim_get_current_buf()
 

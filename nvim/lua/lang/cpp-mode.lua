@@ -71,5 +71,9 @@ _G.whichkeyrCpp = function()
 end
 
 vim.cmd(([[
-autocmd FileType cpp   lua whichkeyrCpp()
+augroup filetype_cpp
+	autocmd!
+	autocmd FileType cpp,c set tabstop=4  shiftwidth=4  softtabstop=4 expandtab  
+    autocmd FileType cpp,c lua whichkeyrCpp()
+augroup END
 ]]))
