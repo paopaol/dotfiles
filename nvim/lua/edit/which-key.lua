@@ -75,7 +75,11 @@ wk.register({
     p = {command("BufSurfBack"), "prev buffer"},
     K = {command("BDelete other"), "buffer kill"},
     h = {command("Dashboard"), "home"},
-    b = {function() telein.buffers({cwd = rootdir(), show_all_buffers=false}) end, "buffer list"}
+    b = {
+      function()
+        telein.buffers({cwd = rootdir(), show_all_buffers = false})
+      end, "buffer list"
+    }
   },
   ["<leader>w"] = {
     name = "+windows",
@@ -97,7 +101,9 @@ wk.register({
     name = "+search/symbol",
 
     h = {"<cmd>call InterestingWords('n')<cr>", "highlight words"},
-    s = {command("Telescope current_buffer_fuzzy_find"), "symbol current buffer"},
+    s = {
+      command("Telescope current_buffer_fuzzy_find"), "symbol current buffer"
+    },
     S = {search.current_buffer_symbol_at_point, "symbol current buffer"},
     i = {search.lsp_document_symbols, "symbol"},
     p = {search.project_current_symbols, "symbol project at point"},
@@ -118,7 +124,9 @@ wk.register({
   ["<leader>t"] = {
     name = "+tools/toggle",
 
-    c = {function() telein.colorscheme({enable_preview = true}) end, "colorscheme"},
+    c = {
+      function() telein.colorscheme({enable_preview = true}) end, "colorscheme"
+    },
     l = {command("setlocal wrap!"), "line wrap"},
     f = {command("Telescope filetypes"), "filetypes"},
     r = {command("so $VIMHOME/init.vim"), "refresh vimrc"}
@@ -134,7 +142,7 @@ wk.register({
     e = {command("AsyncTaskEdit"), "async edit"},
     r = {search.project_oldfiles, "project recent files"},
     f = {search.project_files, "project files"},
-    d = {jz.SubProjectFiles, "Find File"},
+    d = {jz.SubProjectFiles, "Find File"}
   },
 
   ["<leader>c"] = {
@@ -143,32 +151,28 @@ wk.register({
     r = {vim.lsp.buf.rename, "rename"},
     p = {search.project_live_symbols, "workspace_symbolf"},
     e = {
-      function() telein.diagnostics({cwd = rootdir()}) end,
-      "workspace_symbolf"
+      function() telein.diagnostics({cwd = rootdir()}) end, "workspace_symbolf"
     }
   },
   ["<leader>i"] = {
     name = "+insert",
 
-    s = {command("Telescope luasnip"), "snippet"},
+    s = {command("Telescope luasnip"), "snippet"}
   },
 
   ["<leader>r"] = {
     name = "+runner",
 
-    r = {function()require('telescope').extensions.asynctasks.all()end, "run"},
+    r = {function() require('telescope').extensions.asynctasks.all() end, "run"},
     s = {command("AsyncStop"), "async stop"}
-  },
+  }
 })
 
 wk.register({
-  ["<C-x>i"] = {
-    name = "+insert",
-    s = {command("Telescope luasnip"), "snippet"},
-  },
-  ["<f2><f2>"] = {utils.insert_semicolon_end_of_line, "insert semicolon"},
+  ["<C-x>i"] = {name = "+insert", s = {command("Telescope luasnip"), "snippet"}},
+  ["<f2><f2>"] = {utils.insert_semicolon_end_of_line, "insert semicolon"}
 }, {mode = "i"})
 
 wk.register({
-  ["<f2><f2>"] = {utils.insert_semicolon_end_of_line, "insert semicolon"},
+  ["<f2><f2>"] = {utils.insert_semicolon_end_of_line, "insert semicolon"}
 }, {mode = "v"})

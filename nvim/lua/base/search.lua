@@ -4,11 +4,11 @@ local M = {}
 
 local function rootdir() return vim.call('asyncrun#get_root', '%') end
 
-M.project_files = function() require('telescope.builtin').find_files({cwd = rootdir()}) end
-
-M.project_tree = function()
-  vim.cmd(string.format("silent NvimTreeToggle"))
+M.project_files = function()
+  require('telescope.builtin').find_files({cwd = rootdir()})
 end
+
+M.project_tree = function() vim.cmd(string.format("silent NvimTreeToggle")) end
 
 M.project_current_symbols = function()
   require('telescope.builtin').live_grep({cwd = rootdir()})
@@ -35,25 +35,24 @@ M.directory_live_symbol = function()
 end
 
 M.file_browser = function()
-  require('telescope').extensions.file_browser.file_browser({path = utils.current_dir()}) 
+  require('telescope').extensions.file_browser.file_browser({
+    path = utils.current_dir()
+  })
 end
 
 M.lsp_document_symbols = function()
-  require('telescope.builtin').lsp_document_symbols({symbol_width = 70, symbol_type_width = 15, ignore_filename = true}) 
+  require('telescope.builtin').lsp_document_symbols({
+    symbol_width = 70,
+    symbol_type_width = 15,
+    ignore_filename = true
+  })
 end
 
-
-M.oldfiles = function()
-  require('telescope.builtin').oldfiles() 
-end
+M.oldfiles = function() require('telescope.builtin').oldfiles() end
 
 M.project_oldfiles = function()
-  local opt = {
-    cwd_only = true,
-    hidden = true
-  }
-  require('telescope.builtin').oldfiles(opt) 
+  local opt = {cwd_only = true, hidden = true}
+  require('telescope.builtin').oldfiles(opt)
 end
-
 
 return M

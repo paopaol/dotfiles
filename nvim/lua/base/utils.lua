@@ -28,12 +28,11 @@ function M.keymap(mode, key, action)
 end
 
 function M.insert_semicolon_end_of_line()
-    local save_cursor = vim.fn.getcurpos()
-    vim.cmd([[normal! A;]])
-    vim.fn.setpos('.', save_cursor)
+  local save_cursor = vim.fn.getcurpos()
+  vim.cmd([[normal! A;]])
+  vim.fn.setpos('.', save_cursor)
 end
 
 function M.command(cmd) return function() vim.cmd(cmd) end end
-
 
 return M

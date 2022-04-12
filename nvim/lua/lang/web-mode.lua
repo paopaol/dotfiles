@@ -32,4 +32,3 @@ vim.cmd(
 vim.cmd(([[
 	autocmd FileType xml set tabstop=2
 ]]))
-

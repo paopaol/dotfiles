@@ -71,10 +71,9 @@ keymap('v', ',,', ':lua vim.lsp.buf.range_formatting()<cr>')
 
 ---move line down or up
 keymap('n', '<A-Down>', ":MoveLine(1)<CR>")
-keymap('n', '<A-Up>',   ":MoveLine(-1)<CR>")
+keymap('n', '<A-Up>', ":MoveLine(-1)<CR>")
 keymap('v', '<A-Down>', ":MoveBlock(1)<CR>")
-keymap('v', '<A-Up>',   ":MoveBlock(-1)<CR>")
-
+keymap('v', '<A-Up>', ":MoveBlock(-1)<CR>")
 
 keymap('n', 'N', ":call WordNavigation('forward')<cr>")
 keymap('n', 'n', ":call WordNavigation('backward')<cr>")

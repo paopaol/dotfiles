@@ -1,8 +1,7 @@
-
 local M = {}
 
 M.SubProjectFiles = function()
-    require("telescope.builtin").fd({cwd = vim.fn.expand('%:h')})
+  require("telescope.builtin").fd({cwd = vim.fn.expand('%:h')})
 end
 
 --------------------------
@@ -83,28 +82,24 @@ end
 
 -- "跳转到函数的参数"
 function M.jumpright()
-    local save_cursor = vim.fn.getcurpos()
-    vim.cmd([[SidewaysJumpRight]])
-    local cur_cursor = vim.fn.getcurpos()
-    if save_cursor[2] ~= cur_cursor[2] or save_cursor[3] ~= cur_cursor[3] then
-        return
-    end
+  local save_cursor = vim.fn.getcurpos()
+  vim.cmd([[SidewaysJumpRight]])
+  local cur_cursor = vim.fn.getcurpos()
+  if save_cursor[2] ~= cur_cursor[2] or save_cursor[3] ~= cur_cursor[3] then
+    return
+  end
 
-    vim.fn.setpos('.', {0 , vim.fn.line('.'), 0})
-    local match_num = vim.fn.search('(', 'n', vim.fn.line('.'))
-    if match_num == 0 then
-        return
-    end
+  vim.fn.setpos('.', {0, vim.fn.line('.'), 0})
+  local match_num = vim.fn.search('(', 'n', vim.fn.line('.'))
+  if match_num == 0 then return end
 
-    vim.fn. search('(', '', vim.fn.line('.'))
-    local content = vim.fn.getline('.')
-    local idx = vim.fn.stridx(content, "(")
-    if idx < 0 then
-        return
-    end
-    local current = vim.fn.getcurpos()
-    current[3]  = current[3] + 1
-    vim.fn.setpos('.', current)
+  vim.fn.search('(', '', vim.fn.line('.'))
+  local content = vim.fn.getline('.')
+  local idx = vim.fn.stridx(content, "(")
+  if idx < 0 then return end
+  local current = vim.fn.getcurpos()
+  current[3] = current[3] + 1
+  vim.fn.setpos('.', current)
 end
 
 return M
