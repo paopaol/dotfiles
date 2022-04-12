@@ -7,9 +7,8 @@ local utils = require('telescope.utils')
 ts.setup({
   defaults = {
     preview = nil,
-    prompt_prefix = " ",
+    prompt_prefix = ">",
 
-    vimgrep_arguments = {'ag', '--nogroup', '--nocolor', '--column'},
     sorting_strategy = "ascending",
     initial_mode = "insert",
     selection_strategy = "reset",
@@ -20,11 +19,6 @@ ts.setup({
     winblend = 0,
     layout_config = {
       width = 0.99,
-      -- preview_cutoff = 120,
-      -- prompt_position = "top",
-      -- horizontal = {mirror = false},
-      -- vertical = {mirror = true, preview_height = 25},
-
       bottom_pane = {height = 25, preview_cutoff = 120, prompt_position = "top"},
       center = {
         height = 0.4,
@@ -40,10 +34,10 @@ ts.setup({
         width = 0.8
       },
       vertical = {
-        height = 0.9,
+        height = 0.8,
         preview_cutoff = 40,
         prompt_position = "bottom",
-        width = 0.8
+        width = 0.9
       }
     },
     max_results = 100,
@@ -62,7 +56,8 @@ require('telescope').setup {
       i = {
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
-        ["<esc>"] = actions.close
+        ["<esc>"] = actions.close,
+        ["<C-h>"] = actions.which_key
       },
       n = {["<esc>"] = actions.close}
     }
@@ -70,26 +65,6 @@ require('telescope').setup {
 }
 
 local MyTelescope = {}
-
-function MyTelescope.entry_gen_from_recentfiles(opts)
-  local displayer = entry_display.create {
-    separator = " | ",
-    items = {{width = 50}, {width = 300}, {remaining = true}}
-  }
-
-  local make_display = function(entry)
-    local hl_group
-    local basename = vim.fn.fnamemodify(entry.value, ":t")
-    local dir = vim.fn.fnamemodify(entry.value, ":p:h")
-
-    basename, hl_group = utils.transform_devicons(entry.value, basename, false)
-    return displayer {{basename, hl_group}, dir}
-  end
-
-  return function(entry)
-    return {value = entry, ordinal = entry, display = make_display}
-  end
-end
 
 function MyTelescope.entry_gen_from_buffers(opts)
   local displayer = entry_display.create {
@@ -120,7 +95,7 @@ end
 require("telescope").setup {
   extensions = {
     file_browser = {
-      theme = "ivy",
+      theme = nil,
       mappings = {
         ["i"] = {
           -- your custom insert mode mappings
@@ -148,5 +123,15 @@ require('telescope').setup {
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('vim_bookmarks')
+require('telescope').load_extension('luasnip')
+
+local bookmark_actions = require('telescope').extensions.vim_bookmarks.actions
+require('telescope').extensions.vim_bookmarks.all {
+    attach_mappings = function(_, map)
+        map('i', '<A-x>', bookmark_actions.delete_selected_or_at_cursor)
+        return true
+    end
+}
 
 return MyTelescope

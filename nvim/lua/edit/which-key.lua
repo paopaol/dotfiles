@@ -3,8 +3,8 @@ local wk = require("which-key")
 local utils = require('base.utils')
 local search = require('base.search')
 local bufferline = require('bufferline')
-local fzflua = require('fzf-lua')
 local jz = require('base.jz')
+local telein = require('telescope.builtin')
 
 local function rootdir() return vim.call('asyncrun#get_root', '%') end
 
@@ -20,7 +20,7 @@ wk.setup {
 }
 
 wk.register({
-  ["<leader><leader>"] = {search.project_files, "projectile"},
+  ["<leader><leader>"] = {command("Telescope resume"), "resume"},
   ["<leader>1"] = {function() bufferline.go_to_buffer(1) end, "buffer 1"},
   ["<leader>2"] = {function() bufferline.go_to_buffer(2) end, "buffer 2"},
   ["<leader>3"] = {function() bufferline.go_to_buffer(3) end, "buffer 3"},
@@ -31,7 +31,10 @@ wk.register({
   ["<leader>8"] = {function() bufferline.go_to_buffer(8) end, "buffer 8"},
   ["<leader>9"] = {function() bufferline.go_to_buffer(9) end, "buffer 9"},
 
+  ["<tab>"] = {jz.jumpright, "right arg"},
+  ["<S-tab>"] = {command("SidewaysJumpLeft"), "left arg"},
   ["<f1>"] = {search.project_tree, "tree"},
+  ["<f2><f2>"] = {utils.insert_semicolon_end_of_line, "insert semicolon"},
   ["<f3>"] = {command("AerialToggle"), "symbols list"},
   ["K"] = {vim.lsp.buf.hover, "lsp+hover"},
   ["gd"] = {vim.lsp.buf.declaration, "lsp+definition"},
@@ -53,16 +56,14 @@ wk.register({
 
     ["2"] = {command("silent !dolphin smb://192.168.0.200 &"), "200"},
     H = {command("silent !dolphin $HOME &"), "home"},
-    bb = {command("FzfVimBookmarkes"), "Bookmarks"},
+    bb = {command("Telescope vim_bookmarks all"), "Bookmarks"},
     ba = {command("BookmarkAnnotate"), "Add Bookmark"},
     bd = {command("BookmarkClear"), "Clear Bookmark"},
     bD = {command("BookmarkClearAll"), "Clear All Bookmark"},
     n = {command("enew"), "New File"},
-    t = {command("NERDTreeFind"), "file types"},
-    r = {command("FzfRecentFiles"), "Open Recent File"},
-    f = {command("FzfFilesExplorer"), "Find File"},
-    d = {jz.SubProjectFiles, "Find File"},
-    p = {search.project_files, "ProjectFiles"},
+    t = {command("NvimTreeFindFileToggle"), "file tree"},
+    r = {search.oldfiles, "Open Recent File"},
+    f = {search.file_browser, "file browser"},
     q = {utils.open_current_file_use_qtcreator, "open in qtcreator"}
   },
   ["<leader>b"] = {
@@ -74,14 +75,8 @@ wk.register({
     p = {command("BufSurfBack"), "prev buffer"},
     K = {command("BDelete other"), "buffer kill"},
     h = {command("Dashboard"), "home"},
-    b = {function() fzflua.buffers({cwd = rootdir()}) end, "buffer list"}
+    b = {function() telein.buffers({cwd = rootdir(), show_all_buffers=false}) end, "buffer list"}
   },
-  ["<leader>i"] = {
-    name = "+insert",
-
-    s = {command("FzfUSnippet"), "insert snippet"}
-  },
-
   ["<leader>w"] = {
     name = "+windows",
 
@@ -102,9 +97,9 @@ wk.register({
     name = "+search/symbol",
 
     h = {"<cmd>call InterestingWords('n')<cr>", "highlight words"},
-    s = {command("FzfLua blines"), "symbol current buffer"},
-    S = {command("FzfLua grep_cword"), "symbol current buffer"},
-    i = {command("FzfLua lsp_document_symbols"), "symbol"},
+    s = {command("Telescope current_buffer_fuzzy_find"), "symbol current buffer"},
+    S = {search.current_buffer_symbol_at_point, "symbol current buffer"},
+    i = {search.lsp_document_symbols, "symbol"},
     p = {search.project_current_symbols, "symbol project at point"},
     P = {search.project_symbol_at_point, "symbol project at point"},
     d = {search.directory_live_symbol, "symbol current directory"},
@@ -123,9 +118,9 @@ wk.register({
   ["<leader>t"] = {
     name = "+tools/toggle",
 
-    c = {command("FzfLua colorschemes"), "colorscheme"},
+    c = {function() telein.colorscheme({enable_preview = true}) end, "colorscheme"},
     l = {command("setlocal wrap!"), "line wrap"},
-    f = {command("FzfLua filetypes"), "filetypes"},
+    f = {command("Telescope filetypes"), "filetypes"},
     r = {command("so $VIMHOME/init.vim"), "refresh vimrc"}
   },
 
@@ -134,10 +129,12 @@ wk.register({
   ["<leader>p"] = {
     name = "+project",
 
-    p = {command("FzfProjects"), "projects"},
-    s = {command("FzfLua lsp_workspace_symbols"), "workspace symbol"},
+    p = {command("Telescope projects"), "projects"},
+    s = {command("Telescope lsp_dynamic_workspace_symbols"), "workspace symbol"},
     e = {command("AsyncTaskEdit"), "async edit"},
-    S = {command("AsyncStop"), "async stop"}
+    r = {search.project_oldfiles, "project recent files"},
+    f = {search.project_files, "project files"},
+    d = {jz.SubProjectFiles, "Find File"},
   },
 
   ["<leader>c"] = {
@@ -146,10 +143,32 @@ wk.register({
     r = {vim.lsp.buf.rename, "rename"},
     p = {search.project_live_symbols, "workspace_symbolf"},
     e = {
-      function() fzflua.lsp_document_diagnostics({cwd = rootdir()}) end,
+      function() telein.diagnostics({cwd = rootdir()}) end,
       "workspace_symbolf"
     }
   },
-  ["<leader>r"] = {command("FzfAsyncTask"), "runner"}
+  ["<leader>i"] = {
+    name = "+insert",
 
+    s = {command("Telescope luasnip"), "snippet"},
+  },
+
+  ["<leader>r"] = {
+    name = "+runner",
+
+    r = {function()require('telescope').extensions.asynctasks.all()end, "run"},
+    s = {command("AsyncStop"), "async stop"}
+  },
 })
+
+wk.register({
+  ["<C-x>i"] = {
+    name = "+insert",
+    s = {command("Telescope luasnip"), "snippet"},
+  },
+  ["<f2><f2>"] = {utils.insert_semicolon_end_of_line, "insert semicolon"},
+}, {mode = "i"})
+
+wk.register({
+  ["<f2><f2>"] = {utils.insert_semicolon_end_of_line, "insert semicolon"},
+}, {mode = "v"})

@@ -1,5 +1,6 @@
 require('setup')
 
+require('imselect')
 require('lsp.init')
 require('lang.init')
 require('completion.init')

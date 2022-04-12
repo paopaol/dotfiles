@@ -21,4 +21,19 @@ end
 
 function M.rootdir() return vim.call('asyncrun#get_root', '%') end
 
+function M.current_dir() return vim.fn.expand('%:h') end
+
+function M.keymap(mode, key, action)
+  vim.api.nvim_set_keymap(mode, key, action, {noremap = true, silent = true})
+end
+
+function M.insert_semicolon_end_of_line()
+    local save_cursor = vim.fn.getcurpos()
+    vim.cmd([[normal! A;]])
+    vim.fn.setpos('.', save_cursor)
+end
+
+function M.command(cmd) return function() vim.cmd(cmd) end end
+
+
 return M

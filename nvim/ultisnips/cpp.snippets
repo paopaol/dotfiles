@@ -1,31 +1,103 @@
-# A valid snippet should starts with:
-#
-#		snippet trigger_word [ "description" [ options ] ]
-#
-# and end with:
-#
-#		endsnippet
-#
-# Snippet options:
-#
-#		b - Beginning of line.
-#		i - In-word expansion.
-#		w - Word boundary.
-#		r - Regular expression
-#		e - Custom context snippet
-#		A - Snippet will be triggered automatically, when condition matches.
-#
-# Basic example:
-#
-#		snippet emitter "emitter properties" b
-#		private readonly ${1} = new Emitter<$2>()
-#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
-#		endsnippet
-#
-# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
-snippet forr "for loop (const auto &)"
-for (const auto &${1:v}:${2:values}) {
-	${VISUAL}$0
+snippet NYCommandImpl
+#include "NYCommand${1:action}.h"
+
+#include "../../NyMindMapGraphicsWidget/NyMindMapNode.h"
+#include "../NYMindMapObject.h"
+
+class NYCommand$1Private {
+ public:
+  NYMindMapObject *object = nullptr;
+
+  NyMindMapNode *node = nullptr;
+  NyMindMapNode *child = nullptr;
+};
+
+NYCommand$1::NYCommand$1(NYMindMapObject *object,
+									 NyMindMapNode *node)
+	: QUndoCommand(nullptr), d_ptr(new NYCommand$1Private) {
+  Q_D(NYCommand$1);
+
+  d->object = object;
+  d->node = node;
+
+  assert(d->object);
+  assert(d->node);
 }
+
+NYCommand$1::~NYCommand$1() = default;
+
+void NYCommand$1::undo() {
+  Q_D(NYCommand$1);
+  d->object->widget()->lazyDeleteNode(d->child);
+}
+
+void NYCommand$1::redo() {
+  Q_D(NYCommand$1);
+  if (!d->child) {
+	d->child = d->object->addChildNode(d->node);
+	return;
+  }
+
+  d->object->widget()->lazyAddNodeFor(d->node, d->child);
+}
+endsnippet
+
+
+snippet  NYCommandDeclare
+#ifndef NYCOMMAND${1:name}_H
+#define NYCOMMAND$1_H
+
+#include <QUndoCommand>
+
+class NYMindMapObject;
+class NyMindMapNode;
+class NYCommand${2:action}Private;
+class NYCommand$2 : public QUndoCommand {
+  Q_DECLARE_PRIVATE(NYCommand$2)
+
+ public:
+  NYCommand$2(NYMindMapObject *object, NyMindMapNode *node);
+
+  ~NYCommand$2() override;
+
+  void undo() override;
+
+  void redo() override;
+
+ private:
+  QScopedPointer<NYCommand$2Private> d_ptr;
+};
+
+#endif /* NYCOMMAND$1_H */
+endsnippet
+
+
+snippet NYJsonSerilize "u12 object json 序列化"
+QJsonObject json;
+QJsonObject object;
+
+auto *widget = d_ptr->object->chartWidget();
+auto rect = widget->boundingRect();
+auto position = widget->pos();
+rect.adjust(position.x(), position.y(), position.x(), position.y());
+auto *style = widget->style();
+
+json["objectType"] = d_ptr->object->objectType();
+json["id"] = IdGenerater::nextId();
+object["type"] = d_ptr->object->graphicType();
+json["object"] = object;
+json["visible"] = d_ptr->object->graphicsItem()->isVisible();
+json["locked"] = d_ptr->object->getLocked();
+json["start"] = NYUtil::fmtPoint(rect.topLeft().toPoint());
+json["end"] = NYUtil::fmtPoint(rect.bottomRight().toPoint());
+endsnippet
+	
+	
+snippet fmtPoint "u12 point 序列化"
+NYUtil::fmtPoint(${1:point});
+endsnippet
+
+snippet fmtColor "u12 color 序列化"
+NYUtil::fmtColor(${1:color});
 endsnippet

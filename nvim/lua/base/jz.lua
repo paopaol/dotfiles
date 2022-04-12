@@ -1,28 +1,8 @@
-local fzf = require('fzf-lua')
 
 local M = {}
 
-local function project_current_project_dir(dir)
-  dir = dir or vim.fn.expand('%', ":p:h")
-  dir = vim.fn.fnamemodify(dir, ':p:h')
-
-  local found = vim.fn.readdir(dir, function(n)
-    local f = string.match(n, '.pro$')
-    return f ~= nil
-  end)
-
-  if next(found) ~= nil then return dir end
-
-  dir = vim.fn.fnamemodify(dir, ':h')
-  if dir == '/' then return nil end
-
-  return project_current_project_dir(dir)
-end
-
 M.SubProjectFiles = function()
-  local dir = project_current_project_dir()
-  print(dir)
-  fzf.my_files({cwd = dir})
+    require("telescope.builtin").fd({cwd = vim.fn.expand('%:h')})
 end
 
 --------------------------
@@ -54,12 +34,6 @@ local filter_buffers = function(opts, unfiltered)
   return bufnrs, excluded
 end
 
--- local width = vim.api.nvim_win_get_width(0)
--- local height = vim.api.nvim_win_get_height(0)
--- local pos = vim.api.nvim_win_get_position(0)
--- vim.api.nvim_win_set_buf(0, bufnr)
--- print(vim.inspect(vim.api.nvim_list_bufs()))
--- nvim_win_get_config(0)   
 local function all_winnr() return vim.api.nvim_tabpage_list_wins(0) end
 
 local function is_current_buf_loaded_other_window()
@@ -105,6 +79,32 @@ function M.close_current_buffer()
     vim.api.nvim_win_set_buf(0, bufnr)
     vim.o.ft = "FALLBACK"
   end
+end
+
+-- "跳转到函数的参数"
+function M.jumpright()
+    local save_cursor = vim.fn.getcurpos()
+    vim.cmd([[SidewaysJumpRight]])
+    local cur_cursor = vim.fn.getcurpos()
+    if save_cursor[2] ~= cur_cursor[2] or save_cursor[3] ~= cur_cursor[3] then
+        return
+    end
+
+    vim.fn.setpos('.', {0 , vim.fn.line('.'), 0})
+    local match_num = vim.fn.search('(', 'n', vim.fn.line('.'))
+    if match_num == 0 then
+        return
+    end
+
+    vim.fn. search('(', '', vim.fn.line('.'))
+    local content = vim.fn.getline('.')
+    local idx = vim.fn.stridx(content, "(")
+    if idx < 0 then
+        return
+    end
+    local current = vim.fn.getcurpos()
+    current[3]  = current[3] + 1
+    vim.fn.setpos('.', current)
 end
 
 return M

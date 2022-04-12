@@ -5,7 +5,7 @@ vim.cmd([[
 
 require('bqf').setup({
   auto_enable = true,
-  auto_resize_height = true, -- highly recommended enable
+  auto_resize_height = false, -- highly recommended enable
   preview = {
     win_height = 20,
     win_vheight = 20,

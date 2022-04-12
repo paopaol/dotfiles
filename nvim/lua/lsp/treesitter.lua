@@ -11,7 +11,7 @@ treesitter.setup({
   textobjects = {enable = true},
   indent = {enable = false},
   autotag = {enable = true},
-  ensure_installed = {'bash', 'css', 'html', 'rust', 'toml', 'yaml', 'cpp', 'c'}
+  -- ensure_installed = {'bash', 'css', 'html', 'rust', 'toml', 'yaml', 'cpp', 'c'}
 })
 
 require'treesitter-context'.setup {enable = true, throttle = true}

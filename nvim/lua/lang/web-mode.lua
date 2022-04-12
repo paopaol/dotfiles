@@ -2,7 +2,6 @@ local wk = require("which-key")
 
 local function command(cmd) return function() vim.cmd(cmd) end end
 
-vim.cmd(([[ autocmd FileType xml,html  lua whichkeyrXml() ]]))
 _G.whichkeyrXml = function()
   local buf = vim.api.nvim_get_current_buf()
   vim.cmd('set shiftwidth=1')
@@ -15,12 +14,7 @@ _G.whichkeyrXml = function()
     ["<tab>"] = {command("normal! za"), "expand", buffer = buf}
   })
 end
-
-vim.cmd(
-    ([[ autocmd FileType json,css,html,javascript,markdown,yaml,vue,typescript lua whichkeyrPrettier() ]]))
-vim.cmd(([[
-	autocmd FileType xml set tabstop=2
-]]))
+vim.cmd(([[ autocmd FileType xml,html  lua whichkeyrXml() ]]))
 
 _G.whichkeyrPrettier = function()
   local buf = vim.api.nvim_get_current_buf()
@@ -32,3 +26,10 @@ _G.whichkeyrPrettier = function()
     }
   })
 end
+
+vim.cmd(
+    ([[ autocmd FileType json,css,html,javascript,yaml,vue,typescript lua whichkeyrPrettier() ]]))
+vim.cmd(([[
+	autocmd FileType xml set tabstop=2
+]]))
+

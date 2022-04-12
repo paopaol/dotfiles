@@ -11,9 +11,6 @@ augroup plug
 	Plug 'saadparwaiz1/cmp_luasnip'
 	Plug 'mbbill/fencview'
 	Plug 'nvim-telescope/telescope-file-browser.nvim'
-	Plug '/home/jz/.vim/plugged/recentfiles.nvim'
-	Plug '/home/jz/.vim/plugged/fzf-vim-bookmarks.nvim'
-	Plug '/home/jz/.vim/plugged/fzf-files-explorer.nvim'
 	Plug 'ton/vim-bufsurf'
 	Plug 'mfussenegger/nvim-dap'
 	Plug 'Pocco81/DAPInstall.nvim',{'branch':'main'}
@@ -30,10 +27,9 @@ augroup plug
 	Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make', 'branch': 'main' }
 	Plug 'nvim-telescope/telescope.nvim', {'branch': 'master'}
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-	Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
 	Plug 'folke/which-key.nvim', {'branch':'main'}
 	Plug 'neovim/nvim-lspconfig'
-	Plug 'kabouzeid/nvim-lspinstall', {'branch':'main'}
+	Plug 'williamboman/nvim-lsp-installer', {'branch':'main'}
 	Plug 'windwp/nvim-autopairs'
 	Plug 'vimwiki/vimwiki'
 	Plug 'MattesGroeger/vim-bookmarks'
@@ -57,8 +53,6 @@ augroup plug
 	Plug 'weilbith/nvim-floating-tag-preview'
 	Plug 'paopaol/fzf-asynctask.nvim', {'branch': 'main'}
 	Plug 'romgrk/nvim-treesitter-context'
-	Plug 'preservim/nerdtree'
-	Plug 't9md/vim-choosewin'
 	Plug 'weilbith/nerdtree_choosewin-plugin'
 	Plug 'folke/todo-comments.nvim' , {'branch': 'main'}
 	Plug 'ray-x/lsp_signature.nvim'
@@ -88,6 +82,7 @@ augroup plug
 	Plug 'sainnhe/sonokai'
 	Plug 'lourenci/github-colors', {'branch':'main'}
 	Plug 'ayu-theme/ayu-vim'
+	Plug 'dracula/vim', { 'as': 'dracula' }
 	"""
 
 	Plug 'skanehira/preview-markdown.vim'
@@ -97,24 +92,22 @@ augroup plug
 	Plug 'plasticboy/vim-markdown'
 	Plug 'terryma/vim-expand-region'
 	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-	" Plug 'dhruvasagar/vim-table-mode'
 	Plug 'easymotion/vim-easymotion'
 	Plug 'haya14busa/incsearch.vim'
 	Plug 'haya14busa/incsearch-easymotion.vim'
 	Plug 'haya14busa/incsearch-fuzzy.vim'
-	Plug 'mg979/vim-visual-multi' 
-	Plug 'pseewald/vim-anyfold' 
-	Plug 'mattn/emmet-vim' 
-	Plug 'skywind3000/asynctasks.vim' 
-	Plug 'skywind3000/asyncrun.vim' 
-	Plug 'tpope/vim-surround' 
-	Plug 'rakr/vim-one' 
+	Plug 'mg979/vim-visual-multi'
+	Plug 'pseewald/vim-anyfold'
+	Plug 'mattn/emmet-vim'
+	Plug 'skywind3000/asynctasks.vim'
+	Plug 'skywind3000/asyncrun.vim'
+	Plug 'tpope/vim-surround'
+	Plug 'rakr/vim-one'
 	Plug 'tpope/vim-fugitive'
 	Plug 'lfv89/vim-interestingwords'
 	Plug 'kana/vim-textobj-user'
 	Plug 'sgur/vim-textobj-parameter'
 	Plug 'rhysd/vim-textobj-anyblock'
-	Plug 'tpope/vim-commentary'
 	Plug 'thinca/vim-qfreplace'
 	Plug 'markonm/traces.vim'
 	Plug 'othree/html5.vim'
@@ -131,196 +124,17 @@ augroup plug
 	Plug 'hrsh7th/cmp-nvim-lsp' , {'branch':'main'}
 	Plug 'hrsh7th/cmp-path', {'branch':'main'}
 	Plug 'hrsh7th/nvim-cmp', {'branch':'main'}
-	Plug 'hrsh7th/cmp-buffer', {'branch':'main'} 
+	Plug 'hrsh7th/cmp-buffer', {'branch':'main'}
+	Plug 'tom-anders/telescope-vim-bookmarks.nvim', {'branch':'main'}
+	Plug 'GustavoKatel/telescope-asynctasks.nvim', {'branch':'main'}
+	Plug 'benfowler/telescope-luasnip.nvim'
+	Plug 'kyazdani42/nvim-tree.lua'
+	Plug 'fedepujol/move.nvim', {'branch':'main'}
+	Plug 'numToStr/Comment.nvim'
+	Plug 'folke/lua-dev.nvim', {'branch':'main'}
+	Plug 'j-hui/fidget.nvim', {'branch':'main'}
 	call plug#end()
 augroup END
-
-
-"filetype file settings ---------------------{{{
-augroup filetype_vim
-	autocmd!
-	autocmd FileType vim setlocal foldmethod=marker
-augroup END
-" }}}
-
-
-"commentary------------------{{{
-augroup commentary
-	autocmd!
-
-	autocmd FileType cpp setlocal commentstring=//\ %s
-augroup END
-"}}}
-
-" AnyFold-----------{{{
-augroup AnyFold
-	autocmd!
-	" autocmd Filetype * AnyFoldActivate
-	" let g:anyfold_fold_comments=1
-	" set foldlevel=0
-	nnoremap zm :AnyFoldActivate<CR>zM
-	vnoremap zm :AnyFoldActivate<CR>zM
-	nnoremap zr zR
-	vnoremap zr zR
-augroup END
-"}}}
-
-
-"""window settings---------{{{
-augroup window
-	autocmd!
-
-	let g:material_style = 'lighter'
-	let ayucolor="light"  " for light version of theme
-	let g:github_comment_style = "italic"
-	let g:github_keyword_style = "italic"
-	let g:github_function_style = "italic"
-	let g:github_variable_style = "italic"
-
-
-	"跳转到函数的参数"
-	function! JumpRight() abort
-		""先进行参数jump，如果成功，那么就不找"("了
-		let save_cursor = getcurpos()
-		:SidewaysJumpRight
-		let cur_cursor = getcurpos()
-		if save_cursor[1] != cur_cursor[1] || save_cursor[2] != cur_cursor[2]
-			return
-		endif
-	endfunction
-
-
-	function! BeginOfLine() abort
-		call setpos('.', [0 , line('.'), 0])
-	endfunction
-
-	function! CursorForward()abort
-		let current = getcurpos()
-		let current[2] += 1
-		call setpos('.', current)
-	endfunction
-
-
-
-	"跳转到函数的参数"
-	function! JumpRight() abort
-		""先进行参数jump，如果成功，那么就不找"("了
-		let save_cursor = getcurpos()
-		:SidewaysJumpRight
-		let cur_cursor = getcurpos()
-		if save_cursor[1] != cur_cursor[1] || save_cursor[2] != cur_cursor[2]
-			return
-		endif
-
-		""""从行首查找("""""
-		call BeginOfLine()
-		let match_num = search('(', 'n', line('.'))
-		if match_num == 0
-			return
-		endif
-		call search('(', '', line('.'))
-
-		let content = getline('.')
-		let idx = stridx(content, "(") 
-		if idx < 0
-			return
-		endif
-		call CursorForward()
-	endfunction
-
-
-	" nnoremap <silent> <tab> :call JumpRight()<CR>
-	" nnoremap <silent> <S-tab> :SidewaysJumpRight<CR>
-augroup END
-"}}}
-
-"asyncrun"""""""""""""""""""""""""""""{{{
-augroup asyncrun
-	autocmd!
-
-	if has('win32')
-		let g:asyncrun_encs = 'gbk'
-	endif
-	let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', '.projectile']
-	let g:asyncrun_open=30
-	let g:asyncrun_save=2
-augroup END
-"}}}
-
-
-"vim settings -----------------{{{
-
-augroup vimsettings
-	autocmd!
-	function! ImSelectEn()
-		if has('win32')
-			call system('im-select 1033')
-		else
-			" call system('ibus engine xkb:us::eng')
-			call system('/mnt/c/Windows/System32/im-select.exe 1033')
-		endif
-	endfunction
-
-	filetype plugin on
-	syntax on
-
-	" set shortmess+=c
-	" set clipboard+=unnamedplus
-	if has("autocmd")
-		au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-	endif
-	""""""""'
-
-	autocmd InsertLeave * call ImSelectEn()
-
-
-	if has('nvim')
-	else
-		if has('win32')
-			" set pythonthreedll=python38.dll
-		else
-			set pyxversion=3
-		endif
-	endif
-	nnoremap <F2><F2> :<C-u>call Jz_insert_semicolon_end_of_line()<CR>
-	inoremap <F2><F2>   <C-o>:<C-u>call Jz_insert_semicolon_end_of_line()<CR>
-	vnoremap <F2><F2> :call Jz_insert_semicolon_end_of_line()<CR>
-	" select block
-	" vnoremap v a}o0
-	au FocusGained * :checktime
-augroup END
-"}}}
-
-
-
-""""""""""functions{{{{
-
-function! Jz_insert_semicolon_end_of_line()
-	let save_cursor = getcurpos()
-	execute "normal! A;"
-	call setpos('.', save_cursor)
-endfunction
-
-"""""}}}
-
-
-
-
-
-""""""""other{{{
-let g:vim_textobj_parameter_mapping = 'a'
-
-let g:BufKillCreateMappings = 0
-let g:rooter_patterns = ['.projectile', '.git/']
-nnoremap <silent> n :call WordNavigation('forward')<cr>
-nnoremap <silent> N :call WordNavigation('backward')<cr>
-""""""""}}}
-
-
-
-let mapleader = "\<space>"
-let maplocalleader = ","
-
 
 lua require('init')
 
@@ -331,8 +145,6 @@ call wilder#setup({
       \ 'accept_key': '<Tab>',
       \ 'reject_key': '<C-c>',
       \ })
-
-
 
 call wilder#set_option('pipeline', [
       \   wilder#branch(
@@ -362,5 +174,4 @@ call wilder#set_option('renderer', wilder#renderer_mux({
       \   'highlighter': s:highlighters,
       \ }),
       \ }))
-
 

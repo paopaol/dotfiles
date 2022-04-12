@@ -1,0 +1,10 @@
+vim.cmd([[
+  if has('win32')
+    let g:asyncrun_encs = 'gbk'
+  endif
+]])
+
+vim.g.asyncrun_rootmarks = {'.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', '.projectile'}
+vim.g.asyncrun_open=30
+vim.g.asyncrun_save=2
+

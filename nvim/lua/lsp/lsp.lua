@@ -1,121 +1,32 @@
 local util = require 'lspconfig/util'
-local nvim_lsp = require 'lspconfig'
-local lspconfig = require('lspconfig')
-local configs = require('lspconfig.configs')
---
---
---
 
-local on_attach = function(client, bufnr)
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+require"fidget".setup{}
 
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-  require("aerial").on_attach(client, bufnr)
-end
+local lsp_installer = require("nvim-lsp-installer")
 
-local servers = {"clangd", "rust_analyzer", "tsserver"}
-for _, lsp in ipairs(servers) do nvim_lsp[lsp].setup {on_attach = on_attach} end
---
+lsp_installer.on_server_ready(function(server)
+    local opts = {}
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--------------------------------------------
--- clangd
--------------------------------------------
-local cmds = configs.clangd.commands
-configs.clangd = nil
-if not configs.clangd then
-  configs.clangd = {
-    default_config = {
-      cmd = {
-        "clangd", "--clang-tidy", "-j=1", "--header-insertion=never",
-        "--completion-style=detailed"
-      },
-      filetypes = {'cpp', 'c'},
-      capabilities = capabilities,
-      root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt",
-                                   ".git", ".projectile")
-    },
-    commands = cmds
-  }
-end
-lspconfig.clangd.setup {}
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
 
--- lspconfig.ccls.setup {
---   cmd = {"ccls"},
---   filetypes = {"c", "cpp", "objc", "objcpp"},
---   root_dir = nvim_lsp.util.root_pattern(".projectile"),
---   init_options = {
---     highlight = {lsRanges = true},
---     cache = {directory = "/tmp/.ccls-cache"},
---     compilationDatabaseDirectory = "build",
---     index = {threads = 1}
---   }
--- }
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    opts.capabilities = capabilities
+    opts.root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt",
+                                   ".git", ".projectile", ".svn")
+    opts.on_attach = function(client, bufnr)
+     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
--------------------------------------------
--- cmake
--------------------------------------------
-if not configs.cmake then
-  configs.cmake = {
-    default_config = {
-      cmd = {"cmake-language-server"},
-      filetypes = {'cmake'},
-      capabilities = capabilities,
-      root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt",
-                                   ".git", ".projectile")
-    }
-  }
-end
-lspconfig.cmake.setup {}
+     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+     require("aerial").on_attach(client, bufnr)
+    end
 
--------------------------------------------
--- lua
--------------------------------------------
--- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-local sumneko_root_path = vim.fn.stdpath('cache') ..
-                              '/lspconfig/sumneko_lua/lua-language-server'
--- local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name ..
---                            "/lua-language-server"
-local sumneko_binary =
-    "/home/jz/.local/share/nvim/lspinstall/lua/./sumneko-lua-language-server"
-
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
-
-if not configs.sumneko_lua then
-  configs.sumneko_lua = {
-    default_config = {
-      cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-      filetypes = {'lua'},
-      capabilities = capabilities,
-      root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt",
-                                   ".git", ".projectile"),
-      settings = {
-        Lua = {
-          runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            version = 'LuaJIT',
-            -- Setup your lua path
-            path = runtime_path
-          },
-          diagnostics = {
-            enable = true,
-            -- Get the language server to recognize the `vim` global
-            globals = {'vim'}
-          },
-          workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = "/opt/nvim-linux64/share/nvim/runtime/lua/"
-          },
-          -- Do not send telemetry data containing a randomized but unique identifier
-          telemetry = {enable = false}
-        }
-      }
-    }
-  }
-end
-lspconfig.sumneko_lua.setup {}
+    if server.name == "cmake" then
+      opts.filetypes = {'cmake'}
+    elseif server.name == "sumneko_lua" then
+       opts = require("lua-dev").setup({})
+    elseif server.name == "clangd" then
+      opts.cmd = {"clangd", "--clang-tidy", "-j=1", "--header-insertion=never", "--completion-style=detailed" }
+    end
+    server:setup(opts)
+end)

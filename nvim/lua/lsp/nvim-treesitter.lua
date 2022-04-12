@@ -1,7 +1,7 @@
 require'nvim-treesitter.configs'.setup {
   indent = {enable = false},
   autotag = {enable = true},
-  ensure_installed = {'bash', 'css', 'html', 'rust', 'toml', 'yaml', 'cpp', 'c'},
+  -- ensure_installed = {'bash', 'css', 'html', 'rust', 'toml', 'yaml', 'cpp', 'c'},
   highlight = {enable = true, additional_vim_regex_highlighting = false},
   incremental_selection = {
     enable = true,
