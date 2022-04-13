@@ -48,10 +48,7 @@ augroup plug
 	" Plug 'TimUntersberger/neogit'
 	" Plug 'f-person/git-blame.nvim'
 	Plug 'kazhala/close-buffers.nvim'
-	Plug 'paopaol/fzf-lua', {'branch': 'main'}
-	Plug 'vijaymarupudi/nvim-fzf'
 	Plug 'weilbith/nvim-floating-tag-preview'
-	Plug 'paopaol/fzf-asynctask.nvim', {'branch': 'main'}
 	Plug 'romgrk/nvim-treesitter-context'
 	Plug 'weilbith/nerdtree_choosewin-plugin'
 	Plug 'folke/todo-comments.nvim' , {'branch': 'main'}
