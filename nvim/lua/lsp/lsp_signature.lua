@@ -1,3 +1,5 @@
+local M = {}
+
 local cfg = {
   debug = false, -- set to true to enable debug logging
   log_path = "debug_log_file_path", -- debug log path
@@ -35,4 +37,9 @@ local cfg = {
   timer_interval = 200, -- default timer check interval set to lower value if you want to reduce latency
   toggle_key = nil -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
 }
-require'lsp_signature'.on_attach(cfg)
+
+M.on_attach_lsp_signature = function(bufnr)
+  -- require"lsp_signature".on_attach(cfg, bufnr)
+end
+
+return M

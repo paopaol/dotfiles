@@ -15,12 +15,14 @@ lsp_installer.on_server_ready(function(server)
                                     "compile_flags.txt", ".git", ".projectile",
                                     ".svn")
   opts.on_attach = function(client, bufnr)
+
     local function buf_set_option(...)
       vim.api.nvim_buf_set_option(bufnr, ...)
     end
 
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
     require("aerial").on_attach(client, bufnr)
+    require"lsp.lsp_signature".on_attach_lsp_signature(bufnr)
   end
 
   if server.name == "cmake" then
