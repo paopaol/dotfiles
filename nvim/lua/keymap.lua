@@ -1,8 +1,8 @@
 local keymap = function(mode, key, action)
-  vim.api.nvim_set_keymap(mode, key, action, {noremap = true, silent = true})
+  vim.api.nvim_set_keymap(mode, key, action, { noremap = true, silent = true })
 end
 local unsilent_keymap = function(mode, key, action)
-  vim.api.nvim_set_keymap(mode, key, action, {noremap = true, silent = false})
+  vim.api.nvim_set_keymap(mode, key, action, { noremap = true, silent = false })
 end
 
 -- begin of line
@@ -75,5 +75,5 @@ keymap('n', '<A-Up>', ":MoveLine(-1)<CR>")
 keymap('v', '<A-Down>', ":MoveBlock(1)<CR>")
 keymap('v', '<A-Up>', ":MoveBlock(-1)<CR>")
 
-keymap('n', 'N', ":call WordNavigation('forward')<cr>")
-keymap('n', 'n', ":call WordNavigation('backward')<cr>")
+keymap('n', 'n', ":call WordNavigation('1')<cr>")
+keymap('n', 'N', ":call WordNavigation('0')<cr>")
