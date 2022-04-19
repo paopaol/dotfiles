@@ -1,4 +1,5 @@
 local util = require 'lspconfig/util'
+local utils = require 'base.utils'
 local lsp_installer = require("nvim-lsp-installer")
 
 -- propgress
@@ -31,7 +32,7 @@ lsp_installer.on_server_ready(function(server)
     opts = require("lua-dev").setup({})
   elseif server.name == "clangd" then
     opts.cmd = {
-      "clangd", "--clang-tidy", "-j=1", "--header-insertion=never",
+      "clangd", "--clang-tidy", "-j=1", "--header-insertion=never", "--limit-results=0","--use-dirty-headers", "--compile-commands-dir=build",
       "--completion-style=detailed"
     }
   end

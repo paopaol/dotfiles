@@ -2,7 +2,7 @@ require('formatter').setup({
   logging = true,
   filetype = {
     cpp = {
-      function() return {exe = "clang-format", args = {}, stdin = true} end
+      function() return { exe = "clang-format", args = {}, stdin = true } end
     },
     json = {
       -- prettier
@@ -10,7 +10,7 @@ require('formatter').setup({
         return {
           exe = "prettier",
           args = {
-            "--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'
+            "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'
           },
           stdin = true
         }
@@ -22,7 +22,7 @@ require('formatter').setup({
         return {
           exe = "prettier",
           args = {
-            "--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'
+            "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--double-quote'
           },
           stdin = true
         }
@@ -34,7 +34,7 @@ require('formatter').setup({
         return {
           exe = "prettier",
           args = {
-            "--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'
+            "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--double-quote'
           },
           stdin = true
         }
@@ -44,9 +44,9 @@ require('formatter').setup({
       -- prettier
       function()
         return {
-          exe = "/home/jz/node_modules/prettier/bin-prettier.js",
+          exe = "prettier",
           args = {
-            "--stdin-filepath", vim.api.nvim_buf_get_name(0), '--tab-width',
+            "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--tab-width',
             '2', '--parser', 'xml'
           },
           stdin = true
@@ -57,7 +57,7 @@ require('formatter').setup({
       -- prettier
       function()
         return {
-          exe = "/home/jz/node_modules/prettier/bin-prettier.js",
+          exe = "prettier",
           args = {
             '--tab-width', '2', '--bracket-same-line', 'true',
             '--xml-whitespace-sensitivity', 'ignore', '--parser', 'xml'
@@ -72,19 +72,18 @@ require('formatter').setup({
         return {
           exe = "prettier",
           args = {
-            "--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'
+            "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--double-quote'
           },
           stdin = true
         }
       end
     },
     markdown = {
-      -- prettier
       function()
         return {
           exe = "prettier",
           args = {
-            "--stdin-filepath", vim.api.nvim_buf_get_name(0), '--insert-pragma'
+            "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--semi", "--arrow-parens always", "--tab-width 2", "--parser markdown"
           },
           stdin = true
         }
@@ -93,7 +92,7 @@ require('formatter').setup({
     lua = {
       -- luafmt
       function()
-        return {exe = "lua-format", args = {"--indent-width=2"}, stdin = true}
+        return { exe = "lua-format", args = { "--indent-width=2" }, stdin = true }
       end
     }
   }

@@ -6,7 +6,6 @@ return require('packer').startup(function()
 	use { 'folke/which-key.nvim', branch = 'main' }
 	use { 'rafamadriz/friendly-snippets', branch = 'main' }
 	use 'L3MON4D3/LuaSnip'
-	use 'saadparwaiz1/cmp_luasnip'
 	use 'mbbill/fencview'
 	use { 'nvim-telescope/telescope.nvim', branch = 'master' }
 	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', branch = 'main' }
@@ -15,6 +14,8 @@ return require('packer').startup(function()
 	use { 'GustavoKatel/telescope-asynctasks.nvim', branch = 'main' }
 	use 'benfowler/telescope-luasnip.nvim'
 	use 'nvim-telescope/telescope-file-browser.nvim'
+
+
 
 	use 'ton/vim-bufsurf'
 	use 'mfussenegger/nvim-dap'
@@ -44,7 +45,7 @@ return require('packer').startup(function()
 	use 'glepnir/dashboard-nvim'
 	use { 'ahmedkhalf/project.nvim', branch = 'main' }
 	use 'stevearc/aerial.nvim'
-	--use 'TimUntersberger/neogit'
+	use 'TimUntersberger/neogit'
 	--use 'f-person/git-blame.nvim'
 	use 'kazhala/close-buffers.nvim'
 	use 'weilbith/nvim-floating-tag-preview'
@@ -80,7 +81,6 @@ return require('packer').startup(function()
 	use { 'dracula/vim', as = 'dracula' }
 	---"""
 
-	use 'skanehira/preview-markdown.vim'
 	use 'rhysd/accelerated-jk'
 	use 'mhinz/vim-grepper'
 	use 'vim-scripts/DoxygenToolkit.vim'
@@ -116,10 +116,13 @@ return require('packer').startup(function()
 	use 'rust-lang/rust.vim'
 	use 'matveyt/vim-qmake'
 
+    --cmp
 	use { 'hrsh7th/cmp-nvim-lsp', branch = 'main' }
 	use { 'hrsh7th/cmp-path', branch = 'main' }
 	use { 'hrsh7th/nvim-cmp', branch = 'main' }
 	use { 'hrsh7th/cmp-buffer', branch = 'main' }
+	use 'saadparwaiz1/cmp_luasnip'
+    use 'hrsh7th/cmp-nvim-lsp-signature-help'
 
 	use 'kyazdani42/nvim-tree.lua'
 	use { 'fedepujol/move.nvim', branch = 'main' }
