@@ -1,4 +1,5 @@
 require('setup')
+require('theme')
 
 require('imselect')
 require('lsp.init')
@@ -8,5 +9,5 @@ require('debugger.init')
 require('tools.init')
 require('edit.init')
 require('menu.init')
-
 require('keymap')
+require('menu.wilder')

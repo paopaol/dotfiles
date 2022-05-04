@@ -57,15 +57,14 @@ _G.whichkeyrCpp = function()
   local buf = vim.api.nvim_get_current_buf()
 
   wk.register({
-    ["<f5>"] = {start_debug, "debug", buffer = buf},
+    ["<f5>"] = { start_debug, "debug", buffer = buf },
     ["<localleader>"] = {
       name = "major",
 
-      [","] = {vim.lsp.buf.formatting, "formatting", buffer = buf},
-      ["o"] = {command("ClangdSwitchSourceHeader"), "switch cc/h", buffer = buf},
-      ["d"] = {command("Dox"), "doxgen", buffer = buf},
-      ["y"] = {command("CopyCppMethod"), "copy cpp method", buffer = buf},
-      ["p"] = {command("PasteCppMethod"), "paste cpp method", buffer = buf}
+      [","] = { vim.lsp.buf.formatting, "formatting", buffer = buf },
+      ["o"] = { command("ClangdSwitchSourceHeader"), "switch cc/h", buffer = buf },
+      ["y"] = { command("CopyCppMethod"), "copy cpp method", buffer = buf },
+      ["p"] = { command("PasteCppMethod"), "paste cpp method", buffer = buf }
     }
   })
 end
@@ -78,3 +77,54 @@ augroup filetype_cpp
   autocmd FileType cpp,c lua whichkeyrCpp()
 augroup END
 ]]))
+
+
+require("clangd_extensions").setup({
+  extensions = {
+    autoSetHints = true,
+    hover_with_actions = true,
+    inlay_hints = {
+      only_current_line = false,
+      only_current_line_autocmd = "CursorHold",
+      show_parameter_hints = true,
+      parameter_hints_prefix = "<- ",
+      other_hints_prefix = "=> ",
+      max_len_align = false,
+      max_len_align_padding = 1,
+      right_align = false,
+      right_align_padding = 7,
+      highlight = "Comment",
+      priority = 100,
+    },
+    ast = {
+      role_icons = {
+        type = "",
+        declaration = "",
+        expression = "",
+        specifier = "",
+        statement = "",
+        ["template argument"] = "",
+      },
+
+      kind_icons = {
+        Compound = "",
+        Recovery = "",
+        TranslationUnit = "",
+        PackExpansion = "",
+        TemplateTypeParm = "",
+        TemplateTemplateParm = "",
+        TemplateParamObject = "",
+      },
+
+      highlights = {
+        detail = "Comment",
+      },
+      memory_usage = {
+        border = "none",
+      },
+      symbol_info = {
+        border = "none",
+      }
+    }
+  }
+})

@@ -77,3 +77,7 @@ keymap('v', '<A-Up>', ":MoveBlock(-1)<CR>")
 
 keymap('n', 'n', ":call WordNavigation('1')<cr>")
 keymap('n', 'N', ":call WordNavigation('0')<cr>")
+
+
+
+keymap('v', 'gcy', ":lua ___gdc('v')<cr>")

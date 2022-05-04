@@ -10,7 +10,7 @@ _G.whichkeyrCmake = function()
   wk.register({
     ["<localleader>"] = {
       name = "major",
-      [","] = {vim.lsp.buf.formatting, "formatting", buffer = buf}
+      [","] = { vim.lsp.buf.formatting, "formatting", buffer = buf }
     }
   })
 end

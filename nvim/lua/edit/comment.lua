@@ -1,5 +1,7 @@
 require('Comment').setup()
 
+
+
 local U = require("Comment.utils")
 local A = require("Comment.api")
 
@@ -12,6 +14,7 @@ function _G.___gdc(vmode)
   vim.api.nvim_buf_set_lines(0, srow, srow, false, lines)
 
   -- Doing the comment
+  --
   A.comment_linewise_op(vmode)
 
   -- Move the cursor
@@ -20,3 +23,5 @@ function _G.___gdc(vmode)
   local _, col = U.grab_indent(line[1])
   vim.api.nvim_win_set_cursor(0, {erow, col})
 end
+
+

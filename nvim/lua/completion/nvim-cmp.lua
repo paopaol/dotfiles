@@ -38,8 +38,14 @@ cmp.setup({
     end, { 's' }),
 
     ['<backspace>'] = cmp.mapping(function()
+      local key = vim.api.nvim_replace_termcodes("<C-o>", true, false, true)
+      vim.api.nvim_feedkeys(key, 's', true)
+      vim.api.nvim_feedkeys('c', 'v', true)
     end, { 's' }),
     ['<delete>'] = cmp.mapping(function()
+      local key = vim.api.nvim_replace_termcodes("<C-o>", true, false, true)
+      vim.api.nvim_feedkeys(key, 's', true);
+      vim.api.nvim_feedkeys('c', 'v', true);
     end, { 's' }),
     ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
     ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
@@ -48,14 +54,10 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({ select = true }) -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   },
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' }, { name = 'buffer' }, { name = 'luasnip' }, {name = 'nvim_lsp_signature_help'}
+    { name = 'nvim_lsp' }, { name = 'buffer' }, { name = 'luasnip' }, { name = 'nvim_lsp_signature_help' }, { name = 'path' }
   })
 })
 
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
--- cmp.setup.cmdline('/', { sources = { { name = 'buffer' } } })
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
--- cmp.setup.cmdline(':', {
---   sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } })
--- })
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))

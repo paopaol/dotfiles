@@ -35,7 +35,7 @@ require"bufferline".setup {
     always_show_bufferline = false,
     offsets = {
       {
-        filetype = "nerdtree",
+        filetype = "NvimTree",
         text = "File Explorer",
         highlight = "Directory",
         text_align = "left" -- "center" | "right" | "left"

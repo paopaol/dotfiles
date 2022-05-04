@@ -94,11 +94,6 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\accelerated-jk",
     url = "https://github.com/rhysd/accelerated-jk"
   },
-  ["aerial.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\aerial.nvim",
-    url = "https://github.com/stevearc/aerial.nvim"
-  },
   ["asyncrun.vim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\asyncrun.vim",
@@ -109,15 +104,15 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\asynctasks.vim",
     url = "https://github.com/skywind3000/asynctasks.vim"
   },
-  ["ayu-vim"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\ayu-vim",
-    url = "https://github.com/ayu-theme/ayu-vim"
-  },
   ["bufkill.vim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\bufkill.vim",
     url = "https://github.com/vim-scripts/bufkill.vim"
+  },
+  ["clangd_extensions.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\clangd_extensions.nvim",
+    url = "https://github.com/p00f/clangd_extensions.nvim"
   },
   ["close-buffers.nvim"] = {
     loaded = true,
@@ -128,6 +123,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-buffer",
     url = "https://github.com/hrsh7th/cmp-buffer"
+  },
+  ["cmp-cmdline"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-cmdline",
+    url = "https://github.com/hrsh7th/cmp-cmdline"
   },
   ["cmp-nvim-lsp"] = {
     loaded = true,
@@ -154,10 +154,10 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\dashboard-nvim",
     url = "https://github.com/glepnir/dashboard-nvim"
   },
-  dracula = {
+  ["diffview.nvim"] = {
     loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\dracula",
-    url = "https://github.com/dracula/vim"
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\diffview.nvim",
+    url = "https://github.com/sindrets/diffview.nvim"
   },
   ["emmet-vim"] = {
     loaded = true,
@@ -189,16 +189,6 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\friendly-snippets",
     url = "https://github.com/rafamadriz/friendly-snippets"
   },
-  ["github-colors"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\github-colors",
-    url = "https://github.com/lourenci/github-colors"
-  },
-  ["gruvbox.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\gruvbox.nvim",
-    url = "https://github.com/npxbr/gruvbox.nvim"
-  },
   ["html5.vim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\html5.vim",
@@ -219,10 +209,15 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\incsearch.vim",
     url = "https://github.com/haya14busa/incsearch.vim"
   },
-  ["lsp_signature.nvim"] = {
+  ["litee-calltree.nvim"] = {
     loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lsp_signature.nvim",
-    url = "https://github.com/ray-x/lsp_signature.nvim"
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\litee-calltree.nvim",
+    url = "https://github.com/ldelossa/litee-calltree.nvim"
+  },
+  ["litee.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\litee.nvim",
+    url = "https://github.com/ldelossa/litee.nvim"
   },
   ["lspkind-nvim"] = {
     loaded = true,
@@ -239,17 +234,9 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
-  ["lush.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lush.nvim",
-    url = "https://github.com/rktjmp/lush.nvim"
-  },
   ["markdown-preview.nvim"] = {
-    commands = { "MarkdownPreview" },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\markdown-preview.nvim",
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\markdown-preview.nvim",
     url = "https://github.com/iamcco/markdown-preview.nvim"
   },
   ["marks.nvim"] = {
@@ -257,30 +244,21 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\marks.nvim",
     url = "https://github.com/chentau/marks.nvim"
   },
-  ["material.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\material.nvim",
-    url = "https://github.com/marko-cerovac/material.nvim"
-  },
-  ["monokai.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\monokai.nvim",
-    url = "https://github.com/keyvchan/monokai.nvim"
-  },
   ["move.nvim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\move.nvim",
     url = "https://github.com/fedepujol/move.nvim"
   },
+  neogen = {
+    config = { "\27LJ\2\n8\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\vneogen\frequire\0" },
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\neogen",
+    url = "https://github.com/danymat/neogen"
+  },
   neogit = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\neogit",
     url = "https://github.com/TimUntersberger/neogit"
-  },
-  neon = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\neon",
-    url = "https://github.com/rafamadriz/neon"
   },
   neorg = {
     loaded = true,
@@ -291,11 +269,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\neoscroll.nvim",
     url = "https://github.com/karb94/neoscroll.nvim"
-  },
-  ["nightfox.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nightfox.nvim",
-    url = "https://github.com/EdenEast/nightfox.nvim"
   },
   ["nvim-autopairs"] = {
     loaded = true,
@@ -337,11 +310,6 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
-  ["nvim-solarized-lua"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-solarized-lua",
-    url = "https://github.com/ishan9299/nvim-solarized-lua"
-  },
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-tree.lua",
@@ -372,16 +340,6 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
-  ["oceanic-next"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\oceanic-next",
-    url = "https://github.com/mhartington/oceanic-next"
-  },
-  ["orgmode.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\orgmode.nvim",
-    url = "https://github.com/kristijanhusak/orgmode.nvim"
-  },
   ["packer.nvim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\packer.nvim",
@@ -402,6 +360,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\project.nvim",
     url = "https://github.com/ahmedkhalf/project.nvim"
   },
+  ["renamer.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\renamer.nvim",
+    url = "https://github.com/filipdutescu/renamer.nvim"
+  },
   ["rust.vim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\rust.vim",
@@ -411,11 +374,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\sideways.vim",
     url = "https://github.com/AndrewRadev/sideways.vim"
-  },
-  sonokai = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\sonokai",
-    url = "https://github.com/sainnhe/sonokai"
   },
   tabular = {
     loaded = true,
@@ -447,6 +405,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope-luasnip.nvim",
     url = "https://github.com/benfowler/telescope-luasnip.nvim"
   },
+  ["telescope-ui-select.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope-ui-select.nvim",
+    url = "https://github.com/nvim-telescope/telescope-ui-select.nvim"
+  },
   ["telescope-vim-bookmarks.nvim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope-vim-bookmarks.nvim",
@@ -457,6 +420,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["themer.lua"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\themer.lua",
+    url = "https://github.com/themercorp/themer.lua"
+  },
   ["todo-comments.nvim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\todo-comments.nvim",
@@ -466,11 +434,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
-  },
-  ["tokyonight.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\tokyonight.nvim",
-    url = "https://github.com/folke/tokyonight.nvim"
   },
   ["traces.vim"] = {
     loaded = true,
@@ -547,16 +510,6 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-markdown",
     url = "https://github.com/plasticboy/vim-markdown"
   },
-  ["vim-moonfly-colors"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-moonfly-colors",
-    url = "https://github.com/bluz71/vim-moonfly-colors"
-  },
-  ["vim-nightfly-guicolors"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-nightfly-guicolors",
-    url = "https://github.com/bluz71/vim-nightfly-guicolors"
-  },
   ["vim-one"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-one",
@@ -617,16 +570,6 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vimspector",
     url = "https://github.com/puremourning/vimspector"
   },
-  vimwiki = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vimwiki",
-    url = "https://github.com/vimwiki/vimwiki"
-  },
-  ["vscode.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vscode.nvim",
-    url = "https://github.com/Mofiqul/vscode.nvim"
-  },
   ["which-key.nvim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\which-key.nvim",
@@ -640,12 +583,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
-
--- Command lazy-loads
-time([[Defining lazy-load commands]], true)
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file MarkdownPreview lua require("packer.load")({'markdown-preview.nvim'}, { cmd = "MarkdownPreview", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-time([[Defining lazy-load commands]], false)
-
+-- Config for: neogen
+time([[Config for neogen]], true)
+try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\vneogen\frequire\0", "config", "neogen")
+time([[Config for neogen]], false)
 if should_profile then save_profiles() end
 
 end)

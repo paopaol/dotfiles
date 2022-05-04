@@ -3,6 +3,9 @@ vim.cmd([[
   let maplocalleader = ","
 ]])
 
+
+vim.o.guifont = 'FiraCode Nerd Font Mono:h11'
+
 vim.o.pumheight = 10
 vim.o.numberwidth = 2
 -- 显示左侧图标指示列
@@ -17,6 +20,7 @@ vim.o.termguicolors = true
 vim.o.autowriteall = true
 vim.o.relativenumber = true
 vim.o.fileencodings = 'utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin'
+vim.o.fileformat = 'unix'
 vim.o.encoding = 'utf-8'
 vim.o.number = true
 -- vim.o.autosave = 30
@@ -46,32 +50,15 @@ vim.o.rnu = true
 vim.o.clipboard = 'unnamedplus'
 vim.o.shortmess = 'filnxtToOFcI'
 
-vim.cmd([[ au FocusGained * :checktime ]])
+-- vim.cmd([[ au FocusGained * :checktime ]])
 
--- color
-vim.g.oceanic_next_terminal_bold = 1
-vim.g.oceanic_next_terminal_italic = 1
-vim.g.vscode_style = "light"
-vim.g.vscode_transparent = 1
-vim.g.vscode_italic_comment = 1
-vim.cmd([[
-  set background=light
-  colorscheme dracula
-
-  let g:material_style = 'lighter'
-  let ayucolor="light"  " for light version of theme
-  let g:github_comment_style = "italic"
-  let g:github_keyword_style = "italic"
-  let g:github_function_style = "italic"
-  let g:github_variable_style = "italic"
-]])
 
 ---external plugins
 vim.g.auto_save = 1
 vim.g.auto_save_silent = 1
-vim.g.auto_save_events = {"InsertLeave", "TextChanged"}
+vim.g.auto_save_events = { "InsertLeave", "TextChanged" }
 vim.g.interestingWordsDefaultMappings = 0
 vim.g.vim_markdown_folding_disabled = 1
 vim.g.vim_textobj_parameter_mapping = 'a'
 vim.g.BufKillCreateMappings = 0
-vim.g.rooter_patterns = {'.projectile', '.git/', '.svn/'}
+vim.g.rooter_patterns = { '.projectile', '.git/', '.svn/' }

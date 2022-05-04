@@ -8,8 +8,8 @@ _G.whichkeyMarkdown = function()
     ["<localleader>"] = {
       name = "major",
 
-      [","] = {utils.command("FormatWrite"), "formatting", buffer = buf},
-      ["p"] = {utils.command("MarkdownPreview"), "preview", buffer = buf}
+      [","] = { utils.command("FormatWrite"), "formatting", buffer = buf },
+      ["p"] = { utils.command("MarkdownPreview"), "preview", buffer = buf }
     }
   })
 end
