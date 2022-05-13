@@ -15,9 +15,10 @@ return require('packer').startup(function()
   use 'benfowler/telescope-luasnip.nvim'
   use 'nvim-telescope/telescope-file-browser.nvim'
   use { 'nvim-telescope/telescope-ui-select.nvim' }
+  use 'paopaol/cpp-mode'
+  use 'chentau/marks.nvim'
 
   -- use { 'vim-scripts/vcscommand.vim' }
-
   use {
     "danymat/neogen",
     config = function()
@@ -26,9 +27,16 @@ return require('packer').startup(function()
     requires = "nvim-treesitter/nvim-treesitter",
   }
 
+  -- svn
+  use { 'vim-scripts/vcscommand.vim',
+    config = function()
+      vim.g.no_plugin_maps = 1
+    end,
+  }
+
   use 'ton/vim-bufsurf'
   use 'mfussenegger/nvim-dap'
-  use { 'Pocco81/DAPInstall.nvim', branch = 'main' }
+  use { 'ravenxrz/DAPInstall.nvim', branch = 'main' }
   use 'akinsho/toggleterm.nvim'
   use 'chiel92/vim-autoformat'
   use 'kyazdani42/nvim-web-devicons'
@@ -45,6 +53,10 @@ return require('packer').startup(function()
   use { 'williamboman/nvim-lsp-installer', branch = 'main' }
   use 'p00f/clangd_extensions.nvim'
 
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+  }
 
   use 'windwp/nvim-autopairs'
   use 'MattesGroeger/vim-bookmarks'
@@ -54,9 +66,17 @@ return require('packer').startup(function()
   use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'mhartington/formatter.nvim'
   use 'onsails/lspkind-nvim'
+  -- use { 'tami5/lspsaga.nvim' }
+  use 'kaputi/e-kaput.nvim'
+  use 'Thiago4532/lsp-semantic.nvim'
   use 'voldikss/vim-translator'
   use 'p00f/nvim-ts-rainbow'
-  use 'glepnir/dashboard-nvim'
+  use {
+    'goolord/alpha-nvim',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+  }
+
+
   use { 'ahmedkhalf/project.nvim', branch = 'main' }
   -- use 'stevearc/aerial.nvim'
   use 'TimUntersberger/neogit'
@@ -70,16 +90,19 @@ return require('packer').startup(function()
   use '907th/vim-auto-save'
   use { 'nvim-neorg/neorg', branch = 'main' }
 
-  use 'chentau/marks.nvim'
   use { 'kevinhwang91/nvim-bqf', branch = 'main' }
 
 
   use { 'lilydjwg/fcitx.vim', branch = 'fcitx5' }
-  use({ "themercorp/themer.lua" })
+  -- use({ "themercorp/themer.lua" })
+  use 'RRethy/nvim-base16'
+  use 'Mofiqul/vscode.nvim'
+  use 'ray-x/starry.nvim'
 
   use 'rhysd/accelerated-jk'
   use 'mhinz/vim-grepper'
   use 'vim-scripts/DoxygenToolkit.vim'
+
   use 'plasticboy/vim-markdown'
   use 'terryma/vim-expand-region'
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install' }
@@ -95,7 +118,7 @@ return require('packer').startup(function()
   use 'tpope/vim-surround'
   use 'rakr/vim-one'
   use 'tpope/vim-fugitive'
-  use 'lfv89/vim-interestingwords'
+  -- use 'lfv89/vim-interestingwords'
   use 'kana/vim-textobj-user'
   use 'sgur/vim-textobj-parameter'
   use 'rhysd/vim-textobj-anyblock'
@@ -105,12 +128,13 @@ return require('packer').startup(function()
   use 'mklabs/vim-json'
   use 'kana/vim-textobj-line'
   use 'cespare/vim-toml'
-  use 'itchyny/vim-cursorword'
+  use 'yamatsum/nvim-cursorline'
   use 'puremourning/vimspector'
   use 'godlygeek/tabular'
   use 'AndrewRadev/sideways.vim'
   use 'rust-lang/rust.vim'
   use 'matveyt/vim-qmake'
+  use 'leisiji/interestingwords.nvim'
 
   --cmp
   use { 'hrsh7th/cmp-nvim-lsp', branch = 'main' }
@@ -120,6 +144,7 @@ return require('packer').startup(function()
   use 'saadparwaiz1/cmp_luasnip'
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
   use 'hrsh7th/cmp-cmdline'
+  use 'paopaol/cmp-doxygen'
 
   use 'kyazdani42/nvim-tree.lua'
   use { 'fedepujol/move.nvim', branch = 'main' }

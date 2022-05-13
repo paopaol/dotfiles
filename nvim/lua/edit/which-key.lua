@@ -5,6 +5,7 @@ local search = require('base.search')
 local bufferline = require('bufferline')
 local jz = require('base.jz')
 local telein = require('telescope.builtin')
+local svn = require('tools.svn')
 
 local function rootdir() return vim.call('asyncrun#get_root', '%') end
 
@@ -12,7 +13,7 @@ local function command(cmd) return function() vim.cmd(cmd) end end
 
 wk.setup {
   window = {
-    border = "none", -- none, single, double, shadow
+    border = "double", -- none, single, double, shadow
     position = "bottom", -- bottom, top
     margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
     padding = { 2, 2, 2, 2 } -- extra window padding [top, right, bottom, left]
@@ -65,6 +66,7 @@ wk.register({
     t = { command("NvimTreeFindFileToggle"), "file tree" },
     r = { search.oldfiles, "Open Recent File" },
     f = { search.file_browser, "file browser" },
+    F = { search.project_files, "project files" },
     q = { utils.open_current_file_use_qtcreator, "open in qtcreator" }
   },
   ["<leader>b"] = {
@@ -75,9 +77,12 @@ wk.register({
     n = { command("BufSurfForward"), "nest buffer" },
     p = { command("BufSurfBack"), "prev buffer" },
     K = { command("BDelete other"), "buffer kill" },
-    h = { command("Dashboard"), "home" },
+    h = { command("Alpha"), "home" },
     b = {
       search.buffers, "buffer list"
+    },
+    B = {
+      search.project_buffers, "project buffers"
     }
   },
   ["<leader>w"] = {
@@ -99,7 +104,7 @@ wk.register({
   ["<leader>s"] = {
     name = "+search/symbol",
 
-    h = { "<cmd>call InterestingWords('n')<cr>", "highlight words" },
+    h = { command("Interestingwords --toggle"), "highlight words" },
     s = {
       command("Telescope current_buffer_fuzzy_find"), "symbol current buffer"
     },
@@ -108,7 +113,7 @@ wk.register({
     p = { search.project_current_symbols, "symbol project at point" },
     P = { search.project_symbol_at_point, "symbol project at point" },
     d = { search.directory_live_symbol, "symbol current directory" },
-    c = { utils.uncolor_all_words, "unhighlight words" }
+    c = { utils.uncolor_all_words, "unhighlight words" },
   },
   ["<leader>g"] = {
     name = "+git",
@@ -117,7 +122,7 @@ wk.register({
     g = { command("Git"), "git status" },
     l = { command("Gclog"), "git log" },
     p = { command("Git push"), "git push" },
-    P = { command("Git pull"), "git pull" }
+    P = { command("Git pull"), "git pull" },
   },
 
   ["<leader>t"] = {
@@ -139,13 +144,14 @@ wk.register({
     e = { command("AsyncTaskEdit"), "async edit" },
     r = { search.project_oldfiles, "project recent files" },
     f = { search.project_files, "project files" },
-    d = { jz.SubProjectFiles, "Find File" }
+    d = { jz.SubProjectFiles, "Find File" },
+    b = { search.project_buffers, "Project buffers" }
   },
 
   ["<leader>c"] = {
     name = "+code",
 
-    r = { vim.lsp.buf.rename, "rename" },
+    r = { require('renamer').rename, "rename" },
     c = { search.lsp_calltree, "calltree" },
     p = { search.project_live_symbols, "workspace_symbolf" },
     e = {
@@ -165,6 +171,18 @@ wk.register({
     s = { command("AsyncStop"), "async stop" }
   },
 
+  ["<leader>v"] = {
+    name = "+svn",
+
+    d = { svn.svn_diff_current_buf, "svn diff current" },
+    l = { svn.svn_log_current_buf, "svn log current" },
+    L = { svn.svn_log_project, "svn log project" },
+    b = { svn.svn_blame, "svn blame current" },
+    u = { svn.svn_update, "svn update" },
+    c = { svn.svn_commit, "svn commit" },
+    a = { svn.svn_add_current_file, "svn add current file" },
+  },
+
   [","] = {
     name = "+all-major",
 
@@ -175,7 +193,7 @@ wk.register({
     p = { search.project_live_symbols, "workspace_symbolf" },
     e = {
       function() telein.diagnostics({ cwd = rootdir() }) end, "workspace_symbolf"
-    }
+    },
   },
 })
 

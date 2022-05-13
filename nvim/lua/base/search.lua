@@ -3,6 +3,17 @@ local strings = require "plenary.strings"
 local entry_display = require "telescope.pickers.entry_display"
 local Path = require "plenary.path"
 local tutils = require "telescope.utils"
+local actions = require "telescope.actions"
+local action_set = require "telescope.actions.set"
+local action_state = require "telescope.actions.state"
+local finders = require "telescope.finders"
+local make_entry = require "telescope.make_entry"
+local Path = require "plenary.path"
+local pickers = require "telescope.pickers"
+local previewers = require "telescope.previewers"
+local p_window = require "telescope.pickers.window"
+local sorters = require "telescope.sorters"
+local state = require "telescope.state"
 
 local M = {}
 
@@ -118,6 +129,96 @@ function T.gen_from_buffer(opts)
   end
 end
 
+local function apply_cwd_only_aliases(opts)
+  local has_cwd_only = opts.cwd_only ~= nil
+  local has_only_cwd = opts.only_cwd ~= nil
+
+  if has_only_cwd and not has_cwd_only then
+    -- Internally, use cwd_only
+    opts.cwd_only = opts.only_cwd
+    opts.only_cwd = nil
+  end
+
+  return opts
+end
+
+local function project_buffers(opts)
+  local conf = require("telescope.config").values
+  local filter = vim.tbl_filter
+  opts = apply_cwd_only_aliases(opts)
+  local bufnrs = filter(function(b)
+    if 1 ~= vim.fn.buflisted(b) then
+      return false
+    end
+    -- only hide unloaded buffers if opts.show_all_buffers is false, keep them listed if true or nil
+    if opts.show_all_buffers == false and not vim.api.nvim_buf_is_loaded(b) then
+      return false
+    end
+    if opts.ignore_current_buffer and b == vim.api.nvim_get_current_buf() then
+      return false
+    end
+    if opts.cwd_only and not string.find(vim.api.nvim_buf_get_name(b), vim.loop.cwd(), 1, true) then
+      return false
+    end
+    return true
+  end, vim.api.nvim_list_bufs())
+  if not next(bufnrs) then
+    return
+  end
+  if opts.sort_mru then
+    table.sort(bufnrs, function(a, b)
+      return vim.fn.getbufinfo(a)[1].lastused > vim.fn.getbufinfo(b)[1].lastused
+    end)
+  end
+
+  local buffers = {}
+  local default_selection_idx = 1
+  for _, bufnr in ipairs(bufnrs) do
+
+    local fullname = string.lower(vim.api.nvim_buf_get_name(bufnr))
+    local root = string.lower(rootdir())
+    if string.find(fullname, root) ~= 1 then
+      goto continue
+    end
+
+    local flag = bufnr == vim.fn.bufnr "" and "%" or (bufnr == vim.fn.bufnr "#" and "#" or " ")
+
+    if opts.sort_lastused and not opts.ignore_current_buffer and flag == "#" then
+      default_selection_idx = 2
+    end
+
+    local element = {
+      bufnr = bufnr,
+      flag = flag,
+      info = vim.fn.getbufinfo(bufnr)[1],
+    }
+
+    if opts.sort_lastused and (flag == "#" or flag == "%") then
+      local idx = ((buffers[1] ~= nil and buffers[1].flag == "%") and 2 or 1)
+      table.insert(buffers, idx, element)
+    else
+      table.insert(buffers, element)
+    end
+    ::continue::
+  end
+
+  if not opts.bufnr_width then
+    local max_bufnr = math.max(unpack(bufnrs))
+    opts.bufnr_width = #tostring(max_bufnr)
+  end
+
+  pickers.new(opts, {
+    prompt_title = "Buffers",
+    finder = finders.new_table {
+      results = buffers,
+      entry_maker = opts.entry_maker or make_entry.gen_from_buffer(opts),
+    },
+    previewer = conf.grep_previewer(opts),
+    sorter = conf.generic_sorter(opts),
+    default_selection_index = default_selection_idx,
+  }):find()
+end
+
 M.project_files = function()
   require('telescope.builtin').find_files({ cwd = rootdir() })
 end
@@ -180,5 +281,12 @@ end
 M.lsp_calltree = function()
   vim.lsp.buf.incoming_calls()
 end
+
+
+M.project_buffers = function()
+  local opt = { cwd = rootdir(), show_all_buffers = false, entry_maker = T.gen_from_buffer() }
+  project_buffers(opt)
+end
+
 
 return M

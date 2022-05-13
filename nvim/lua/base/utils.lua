@@ -15,7 +15,7 @@ function M.open_current_file_use_qtcreator()
 end
 
 function M.uncolor_all_words()
-  vim.fn.UncolorAllWords()
+  vim.cmd([[Interestingwords --remove_all]])
   vim.g.nohlsearch = true
 end
 
@@ -24,7 +24,7 @@ function M.rootdir() return vim.call('asyncrun#get_root', '%') end
 function M.current_dir() return vim.fn.expand('%:h') end
 
 function M.keymap(mode, key, action)
-  vim.api.nvim_set_keymap(mode, key, action, {noremap = true, silent = true})
+  vim.api.nvim_set_keymap(mode, key, action, { noremap = true, silent = true })
 end
 
 function M.insert_semicolon_end_of_line()
@@ -34,5 +34,9 @@ function M.insert_semicolon_end_of_line()
 end
 
 function M.command(cmd) return function() vim.cmd(cmd) end end
+
+function M.format_buffer()
+  vim.lsp.buf.format({ async = true })
+end
 
 return M

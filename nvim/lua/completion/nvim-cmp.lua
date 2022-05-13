@@ -1,6 +1,34 @@
 local cmp = require 'cmp'
 local lspkind = require('lspkind')
 
+local kind_icons = {
+  Text = "",
+  Method = "",
+  Function = "",
+  Constructor = "",
+  Field = "",
+  Variable = "",
+  Class = "ﴯ",
+  Interface = "",
+  Module = "",
+  Property = "ﰠ",
+  Unit = "",
+  Value = "",
+  Enum = "",
+  Keyword = "",
+  Snippet = "",
+  Color = "",
+  File = "",
+  Reference = "",
+  Folder = "",
+  EnumMember = "",
+  Constant = "",
+  Struct = "",
+  Event = "",
+  Operator = "",
+  TypeParameter = ""
+}
+
 cmp.setup({
   completion = { keyword_length = 1 },
   experimental = { view = { entries = "native" } },
@@ -9,14 +37,32 @@ cmp.setup({
     expand = function(args) require('luasnip').lsp_expand(args.body) end
   },
   formatting = {
-    format = lspkind.cmp_format({
-      mode = 'symbol', -- show only symbol annotations
-      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-      -- The function below will be called before any actual modifications from lspkind
-      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-      before = function(entry, vim_item) return vim_item end
-    })
+    format = function(entry, vim_item)
+      -- Kind icons
+      vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+      -- Source
+      vim_item.menu = ({
+        buffer = "[Buffer]",
+        nvim_lsp = "[LSP]",
+        luasnip = "[LuaSnip]",
+        nvim_lua = "[Lua]",
+        latex_symbols = "[LaTeX]",
+        doxygen = "[Doxygen]",
+        path = "[Path]",
+      })[entry.source.name]
+      return vim_item
+    end
   },
+  -- formatting = {
+  --   format = lspkind.cmp_format({
+  --     mode = 'symbol', -- show only symbol annotations
+  --     maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+  --     -- The function below will be called before any actual modifications from lspkind
+  --     -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+  --     before = function(entry, vim_item) return vim_item end,
+  --
+  --   })
+  -- },
   mapping = {
     ['<C-e>'] = cmp.mapping(function()
       cmp.close()
@@ -54,7 +100,7 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({ select = true }) -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   },
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' }, { name = 'buffer' }, { name = 'luasnip' }, { name = 'nvim_lsp_signature_help' }, { name = 'path' }
+    { name = 'nvim_lsp' }, { name = 'buffer' }, { name = 'luasnip' }, { name = 'nvim_lsp_signature_help' }, { name = 'path' }, { name = 'doxygen' }
   })
 })
 

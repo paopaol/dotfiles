@@ -19,11 +19,11 @@ wilder.set_option('pipeline', {
   ),
 })
 
-wilder.set_option('renderer', wilder.popupmenu_renderer(
-  wilder.popupmenu_border_theme({
-    highlighter = wilder.basic_highlighter(),
-    min_width = '100%', -- minimum height of the popupmenu, can also be a number
-    max_height = '25%',
-    reverse = 0, -- if 1, shows the candidates from bottom to top
-  })
-))
+-- wilder.set_option('renderer', wilder.popupmenu_renderer(
+--   wilder.popupmenu_border_theme({
+--     highlighter = wilder.basic_highlighter(),
+--     min_width = '100%', -- minimum height of the popupmenu, can also be a number
+--     max_height = '25%',
+--     reverse = 0, -- if 1, shows the candidates from bottom to top
+--   })
+-- ))

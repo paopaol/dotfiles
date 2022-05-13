@@ -61,7 +61,7 @@ _G.whichkeyrCpp = function()
     ["<localleader>"] = {
       name = "major",
 
-      [","] = { vim.lsp.buf.formatting, "formatting", buffer = buf },
+      [","] = { utils.format_buffer, "formatting", buffer = buf },
       ["o"] = { command("ClangdSwitchSourceHeader"), "switch cc/h", buffer = buf },
       ["y"] = { command("CopyCppMethod"), "copy cpp method", buffer = buf },
       ["p"] = { command("PasteCppMethod"), "paste cpp method", buffer = buf }

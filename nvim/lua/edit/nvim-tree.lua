@@ -27,7 +27,7 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
     }
   },
   hijack_directories = {enable = true, auto_open = true},
-  update_focused_file = {enable = false, update_cwd = false, ignore_list = {}},
+  update_focused_file = {enable = true, update_cwd = true, ignore_list = {}},
   ignore_ft_on_setup = {},
   system_open = {cmd = nil, args = {}},
   diagnostics = {

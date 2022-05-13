@@ -1,4 +1,5 @@
 local wk = require("which-key")
+local utils = require('base.utils')
 
 local function command(cmd) return function() vim.cmd(cmd) end end
 
@@ -11,7 +12,7 @@ _G.whichkeyrLua = function()
   wk.register({
     ["<localleader>"] = {
       name = "major",
-      [","] = { vim.lsp.buf.formatting, "formatting", buffer = buf },
+      [","] = { utils.format_buffer, "formatting", buffer = buf },
       ["r"] = { command("luafile %"), "run current file", buffer = buf }
     }
   })

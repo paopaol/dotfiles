@@ -1,59 +1,36 @@
-vim.api.nvim_set_var('dashboard_default_executive', 'telescope')
-vim.api.nvim_set_var('dashboard_custom_shortcut', {
-  find_file = 'SPC f f',
-  last_session = 'SPC s l',
-  find_history = 'SPC f r',
-  new_file = 'SPC f n',
-  change_colorscheme = 'SPC t c',
-  find_word = 'SPC f a',
-  book_marks = 'SPC f b b'
-})
-local emacs = {
-  "███████╗ ███╗   ███╗  █████╗   ██████╗ ███████╗",
-  "██╔════╝ ████╗ ████║ ██╔══██╗ ██╔════╝ ██╔════╝",
-  "█████╗   ██╔████╔██║ ███████║ ██║      ███████╗",
-  "██╔══╝   ██║╚██╔╝██║ ██╔══██║ ██║      ╚════██║",
-  "███████╗ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗ ███████║",
-  "╚══════╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝ ╚══════╝"
-}
+local alpha = require 'alpha'
+local startify = require 'alpha.themes.startify'
 
-local image = {
-  "                                                          .::::::::'            .",
-  "                                                      ':.          .`:!'        .",
-  "                                                   :'':````            ..``     .",
-  "                                                ':...                    . ``   .",
-  "   .|####@:                                  .:`.`                         .``  .",
-  "  .%#########$'                            `: ..                            ..``.",
-  "   !#######!                             '' ..                                .''",
-  " ;@########|.                          :' .                                     '",
-  "   .%######!                        .:' .                                      .`",
-  "  :@##########@;                  `:. .                                       ...",
-  ":&###############&:             ::  .                                         ...",
-  "@######################%`    .!: ..                                          .. .",
-  "&###############@|` `%#####$|` ..                                            .  .",
-  "'$###############;       !%$##&'                                            ..  .",
-  " ;###############;   .'%|`:%#@:                                            ..   .",
-  "  `$###################;  !&;`                                             ..   .",
-  "   !###############@%'                                                    ..    .",
-  "   '$#############@|'                                                     .     .",
-  "    !##################@;                                                ..     .",
-  "  :@######################!                                             ..      .",
-  "  `$########################%.                                          ..      .",
-  "  :&##########################;                                        .        .",
-  "  '$#############&'  .|#######!                                        .        .",
-  "    ..  :@#######;     .|####@:                                       ..        .",
-  "        '&######&:     '&####%.                                     .|!         .",
-  "         |######;      !#####|                                     '!:.         .",
-  "        :@######%.    .%####&'                                     `|&:         .",
-  "        .%#####@;     `$####!                                     .%##|.        .",
-  "        |####$`       `$###%.                                `. .`!###!         .",
-  "       !####%.        !#####|.                              .%#|!@###&'         .",
-  "      |####$`         |###&@###|'                     .::'. :%' :@###&'         .",
-  "     :@###&' ``.'::::::::::::::::::'.                    .'`!######@%!``:` ..   .",
-  "     ;####%::::::::::::::::::'`.':::`                  .:'':!&###@!'::::``:`    .",
-  ".:;:;&###$'       .`'::::::`                                .:::::'`'::::;;:`   .",
-  "   .|###@;                                               .'`.      .``.         .",
-  "    !#####$`                                                                    ."
+
+startify.section.header.val = {
+	[[███████╗ ███╗   ███╗  █████╗   ██████╗ ███████╗]],
+	[[██╔════╝ ████╗ ████║ ██╔══██╗ ██╔════╝ ██╔════╝]],
+	[[█████╗   ██╔████╔██║ ███████║ ██║      ███████╗]],
+	[[██╔══╝   ██║╚██╔╝██║ ██╔══██║ ██║      ╚════██║]],
+	[[███████╗ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗ ███████║]],
+	[[╚══════╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝ ╚══════╝]],
 }
-vim.api.nvim_set_var('dashboard_custom_header', emacs)
-vim.g.dashboard_default_executive = 'Telescope'
+startify.section.top_buttons.val = {
+	startify.button("e", "  New file", ":ene <BAR> startinsert <CR>", nil),
+}
+-- disable MRU
+startify.section.mru.val = { { type = "padding", val = 0 } }
+-- disable MRU cwd
+startify.section.mru_cwd.val = { { type = "padding", val = 0 } }
+-- disable nvim_web_devicons
+startify.nvim_web_devicons.enabled = true
+startify.nvim_web_devicons.highlight = true
+-- startify.nvim_web_devicons.highlight = 'Keyword'
+--
+startify.section.bottom_buttons.val = {
+	startify.button("q", "  Quit NVIM", ":qa<CR>", nil),
+}
+startify.section.footer = {
+	{ type = "text", val = "footer" },
+}
+-- ignore filetypes in MRU
+startify.mru_opts.ignore = function(path, ext)
+	return (string.find(path, "COMMIT_EDITMSG"))
+			or (vim.tbl_contains(nil, ext))
+end
+alpha.setup(startify.config)

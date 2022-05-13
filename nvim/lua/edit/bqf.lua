@@ -4,7 +4,7 @@ vim.cmd([[
 ]])
 
 require('bqf').setup({
-  auto_enable = true,
+  auto_enable = false,
   auto_resize_height = false, -- highly recommended enable
   preview = {
     win_height = 20,
@@ -36,10 +36,4 @@ require('bqf').setup({
     tabc = '',
     ptogglemode = 'z,'
   }
-  -- filter = {
-  --   fzf = {
-  --     action_for = {['ctrl-s'] = 'split', ['ctrl-t'] = 'tab drop'},
-  --     extra_opts = {'--bind', 'ctrl-o:toggle-all', '--prompt', '> '}
-  --   }
-  -- }
 })

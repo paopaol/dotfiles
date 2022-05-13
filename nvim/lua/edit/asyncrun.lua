@@ -5,7 +5,7 @@ vim.cmd([[
 ]])
 
 vim.g.asyncrun_rootmarks = {
-  '.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', '.projectile'
+  '.git', '.root', '.bzr', '_darcs', 'build.xml', '.projectile'
 }
 vim.g.asyncrun_open = 30
 vim.g.asyncrun_save = 2

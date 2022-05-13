@@ -75,9 +75,16 @@ keymap('n', '<A-Up>', ":MoveLine(-1)<CR>")
 keymap('v', '<A-Down>', ":MoveBlock(1)<CR>")
 keymap('v', '<A-Up>', ":MoveBlock(-1)<CR>")
 
-keymap('n', 'n', ":call WordNavigation('1')<cr>")
-keymap('n', 'N', ":call WordNavigation('0')<cr>")
+keymap('n', 'n', ":Interestingwords --navigate<cr>")
+keymap('n', 'N', ":Interestingwords --navigate b<cr>")
 
 
 
 keymap('v', 'gcy', ":lua ___gdc('v')<cr>")
+
+local format_json_region = function(opts)
+  local cmd = string.format("silent  %d,%d !prettier.cmd --stdin-filepath=1.json", opts.line1, opts.line2)
+  vim.cmd(cmd)
+end
+
+vim.api.nvim_create_user_command("JsonFormatRegion", format_json_region, { range = 2 })

@@ -77,7 +77,7 @@ _G.packer_plugins = {
   ["DAPInstall.nvim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\DAPInstall.nvim",
-    url = "https://github.com/Pocco81/DAPInstall.nvim"
+    url = "https://github.com/ravenxrz/DAPInstall.nvim"
   },
   ["DoxygenToolkit.vim"] = {
     loaded = true,
@@ -93,6 +93,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\accelerated-jk",
     url = "https://github.com/rhysd/accelerated-jk"
+  },
+  ["alpha-nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\alpha-nvim",
+    url = "https://github.com/goolord/alpha-nvim"
   },
   ["asyncrun.vim"] = {
     loaded = true,
@@ -129,6 +134,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-cmdline",
     url = "https://github.com/hrsh7th/cmp-cmdline"
   },
+  ["cmp-doxygen"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-doxygen",
+    url = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-doxygen"
+  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-nvim-lsp",
@@ -149,15 +159,20 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
-  ["dashboard-nvim"] = {
+  ["cpp-mode"] = {
     loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\dashboard-nvim",
-    url = "https://github.com/glepnir/dashboard-nvim"
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cpp-mode",
+    url = "https://github.com/paopaol/cpp-mode"
   },
   ["diffview.nvim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\diffview.nvim",
     url = "https://github.com/sindrets/diffview.nvim"
+  },
+  ["e-kaput.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\e-kaput.nvim",
+    url = "https://github.com/kaputi/e-kaput.nvim"
   },
   ["emmet-vim"] = {
     loaded = true,
@@ -209,6 +224,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\incsearch.vim",
     url = "https://github.com/haya14busa/incsearch.vim"
   },
+  ["interestingwords.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\interestingwords.nvim",
+    url = "https://github.com/leisiji/interestingwords.nvim"
+  },
   ["litee-calltree.nvim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\litee-calltree.nvim",
@@ -218,6 +238,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\litee.nvim",
     url = "https://github.com/ldelossa/litee.nvim"
+  },
+  ["lsp-semantic.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lsp-semantic.nvim",
+    url = "https://github.com/Thiago4532/lsp-semantic.nvim"
   },
   ["lspkind-nvim"] = {
     loaded = true,
@@ -275,6 +300,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-autopairs",
     url = "https://github.com/windwp/nvim-autopairs"
   },
+  ["nvim-base16"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-base16",
+    url = "https://github.com/RRethy/nvim-base16"
+  },
   ["nvim-bqf"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-bqf",
@@ -289,6 +319,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-cursorline"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-cursorline",
+    url = "https://github.com/yamatsum/nvim-cursorline"
   },
   ["nvim-dap"] = {
     loaded = true,
@@ -375,6 +410,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\sideways.vim",
     url = "https://github.com/AndrewRadev/sideways.vim"
   },
+  ["starry.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\starry.nvim",
+    url = "https://github.com/ray-x/starry.nvim"
+  },
   tabular = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\tabular",
@@ -420,11 +460,6 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
-  ["themer.lua"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\themer.lua",
-    url = "https://github.com/themercorp/themer.lua"
-  },
   ["todo-comments.nvim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\todo-comments.nvim",
@@ -439,6 +474,17 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\traces.vim",
     url = "https://github.com/markonm/traces.vim"
+  },
+  ["trouble.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\trouble.nvim",
+    url = "https://github.com/folke/trouble.nvim"
+  },
+  ["vcscommand.vim"] = {
+    config = { "\27LJ\2\n0\0\0\2\0\3\0\0056\0\0\0009\0\1\0)\1\1\0=\1\2\0K\0\1\0\19no_plugin_maps\6g\bvim\0" },
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vcscommand.vim",
+    url = "https://github.com/vim-scripts/vcscommand.vim"
   },
   ["vim-anyfold"] = {
     loaded = true,
@@ -465,11 +511,6 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-bufsurf",
     url = "https://github.com/ton/vim-bufsurf"
   },
-  ["vim-cursorword"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-cursorword",
-    url = "https://github.com/itchyny/vim-cursorword"
-  },
   ["vim-easymotion"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-easymotion",
@@ -494,11 +535,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-grepper",
     url = "https://github.com/mhinz/vim-grepper"
-  },
-  ["vim-interestingwords"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-interestingwords",
-    url = "https://github.com/lfv89/vim-interestingwords"
   },
   ["vim-json"] = {
     loaded = true,
@@ -570,6 +606,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vimspector",
     url = "https://github.com/puremourning/vimspector"
   },
+  ["vscode.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vscode.nvim",
+    url = "https://github.com/Mofiqul/vscode.nvim"
+  },
   ["which-key.nvim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\which-key.nvim",
@@ -587,6 +628,10 @@ time([[Defining packer_plugins]], false)
 time([[Config for neogen]], true)
 try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\vneogen\frequire\0", "config", "neogen")
 time([[Config for neogen]], false)
+-- Config for: vcscommand.vim
+time([[Config for vcscommand.vim]], true)
+try_loadstring("\27LJ\2\n0\0\0\2\0\3\0\0056\0\0\0009\0\1\0)\1\1\0=\1\2\0K\0\1\0\19no_plugin_maps\6g\bvim\0", "config", "vcscommand.vim")
+time([[Config for vcscommand.vim]], false)
 if should_profile then save_profiles() end
 
 end)

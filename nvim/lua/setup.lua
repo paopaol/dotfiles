@@ -50,7 +50,8 @@ vim.o.rnu = true
 vim.o.clipboard = 'unnamedplus'
 vim.o.shortmess = 'filnxtToOFcI'
 
--- vim.cmd([[ au FocusGained * :checktime ]])
+vim.cmd([[ au FocusGained * :checktime ]])
+
 
 
 ---external plugins
@@ -61,4 +62,4 @@ vim.g.interestingWordsDefaultMappings = 0
 vim.g.vim_markdown_folding_disabled = 1
 vim.g.vim_textobj_parameter_mapping = 'a'
 vim.g.BufKillCreateMappings = 0
-vim.g.rooter_patterns = { '.projectile', '.git/', '.svn/' }
+vim.g.rooter_patterns = { '.projectile', '.git/' }
