@@ -1,0 +1,7 @@
+{
+  "/**": {
+    "prefix": "/**",
+    "body": ["/**", "* @brief ${1:document}", "*/"],
+    "description": "insert document"
+  }
+}

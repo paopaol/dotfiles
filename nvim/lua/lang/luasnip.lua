@@ -46,4 +46,11 @@ vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true 
 vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
 vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
 
-require("luasnip.loaders.from_vscode").lazy_load()
+local function get_snippet_rtp()
+  local tb = vim.tbl_map(function(itm)
+    return vim.fn.fnamemodify(itm, ":h")
+  end, vim.api.nvim_get_runtime_file("package.json", true))
+  return tb
+end
+
+require("luasnip.loaders.from_vscode").lazy_load({ paths = get_snippet_rtp() })
