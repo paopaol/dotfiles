@@ -42,7 +42,7 @@ wk.register({
   ["gi"] = { vim.lsp.buf.definition, "lsp+definition" },
   ["gr"] = { search.project_lsp_ref, "lsp+references" },
   ["gf"] = { vim.lsp.buf.code_action, "quickfix" },
-  ["gcy"] = { ___gdc, "comment and yank" },
+  ["gy"] = { ___gdc, "comment and yank" },
 
   ["<leader>d"] = {
     name = "+debug",

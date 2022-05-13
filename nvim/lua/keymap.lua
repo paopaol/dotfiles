@@ -80,7 +80,7 @@ keymap('n', 'N', ":Interestingwords --navigate b<cr>")
 
 
 
-keymap('v', 'gcy', ":lua ___gdc('v')<cr>")
+keymap('v', 'gy', ":lua ___gdc('v')<cr>")
 
 local format_json_region = function(opts)
   local cmd = string.format("silent  %d,%d !prettier.cmd --stdin-filepath=1.json", opts.line1, opts.line2)
