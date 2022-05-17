@@ -16,7 +16,7 @@ return require('packer').startup(function()
   use 'nvim-telescope/telescope-file-browser.nvim'
   use { 'nvim-telescope/telescope-ui-select.nvim' }
   use 'paopaol/cpp-mode'
-  use 'chentau/marks.nvim'
+  use 'chentoast/marks.nvim'
 
   -- use { 'vim-scripts/vcscommand.vim' }
   use {

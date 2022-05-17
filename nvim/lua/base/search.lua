@@ -220,38 +220,43 @@ local function project_buffers(opts)
 end
 
 M.project_files = function()
-  require('telescope.builtin').find_files({ cwd = rootdir() })
+  require('telescope.builtin').find_files({ cwd = rootdir(), push_cursor_on_edit = true })
 end
 
 M.project_tree = function() vim.cmd(string.format("silent NvimTreeToggle")) end
 
 M.project_current_symbols = function()
-  require('telescope.builtin').live_grep({ cwd = rootdir() })
+  require('telescope.builtin').live_grep({ cwd = rootdir(), push_cursor_on_edit = true })
 end
 
 M.project_live_symbols = function()
-  require('telescope.builtin').lsp_dynamic_workspace_symbols({ cwd = rootdir() })
+  require('telescope.builtin').lsp_dynamic_workspace_symbols({ cwd = rootdir(), push_cursor_on_edit = true })
 end
 
 M.project_lsp_ref = function()
-  require('telescope.builtin').lsp_references({ cwd = rootdir() })
+  require('telescope.builtin').lsp_references({ cwd = rootdir(), push_cursor_on_edit = true })
 end
 
 M.project_symbol_at_point = function()
-  require('telescope.builtin').grep_string({ cwd = rootdir() })
+  require('telescope.builtin').grep_string({ cwd = rootdir(), push_cursor_on_edit = true })
 end
 
 M.current_buffer_symbol_at_point = function()
-  require('telescope.builtin').grep_string({ search_dirs = { vim.fn.expand('%') } })
+  require('telescope.builtin').grep_string({ search_dirs = { vim.fn.expand('%') }, push_cursor_on_edit = true })
 end
 
 M.directory_live_symbol = function()
-  require('telescope.builtin').live_grep({ cwd = '.' })
+  require('telescope.builtin').live_grep({ cwd = '.', push_cursor_on_edit = true })
+end
+
+M.search_current_buffer = function()
+  require('telescope.builtin').current_buffer_fuzzy_find({ push_cursor_on_edit = true })
 end
 
 M.file_browser = function()
   require('telescope').extensions.file_browser.file_browser({
-    path = utils.current_dir()
+    path = utils.current_dir(),
+    grouped = true
   })
 end
 
@@ -259,22 +264,23 @@ M.lsp_document_symbols = function()
   require('telescope.builtin').lsp_document_symbols({
     symbol_width = 70,
     symbol_type_width = 15,
-    ignore_filename = true
+    ignore_filename = true,
+    push_cursor_on_edit = true
   })
 end
 
 M.oldfiles = function()
-  local opt = { hidden = true, entry_maker = T.gen_from_file() }
+  local opt = { hidden = true, entry_maker = T.gen_from_file(), push_cursor_on_edit = true }
   require('telescope.builtin').oldfiles(opt)
 end
 
 M.project_oldfiles = function()
-  local opt = { cwd_only = true, hidden = true, entry_maker = T.gen_from_file() }
+  local opt = { cwd_only = true, hidden = true, entry_maker = T.gen_from_file(), push_cursor_on_edit = true }
   require('telescope.builtin').oldfiles(opt)
 end
 
 M.buffers = function()
-  local opt = { cwd = rootdir(), show_all_buffers = false, entry_maker = T.gen_from_buffer() }
+  local opt = { cwd = rootdir(), show_all_buffers = false, entry_maker = T.gen_from_buffer(), push_cursor_on_edit = true }
   require('telescope.builtin').buffers(opt)
 end
 
@@ -287,6 +293,28 @@ M.project_buffers = function()
   local opt = { cwd = rootdir(), show_all_buffers = false, entry_maker = T.gen_from_buffer() }
   project_buffers(opt)
 end
+
+local exploer_dir = function(dir)
+  if vim.fn.has('win32') then
+    vim.cmd("silent !start " .. dir)
+  end
+end
+
+
+M.exploer_dir_project = function()
+  exploer_dir(rootdir())
+end
+
+M.exploer_dir_current = function()
+  exploer_dir(vim.fn.expand("%:p:h", nil, nil))
+end
+
+
+M.open_with_defualt = function()
+  exploer_dir(vim.fn.expand("%", nil, nil))
+end
+
+
 
 
 return M

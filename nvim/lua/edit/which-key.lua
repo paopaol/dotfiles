@@ -67,6 +67,9 @@ wk.register({
     r = { search.oldfiles, "Open Recent File" },
     f = { search.file_browser, "file browser" },
     F = { search.project_files, "project files" },
+    p = { search.exploer_dir_project, "externl open project dir" },
+    d = { search.exploer_dir_current, "externl open current dir" },
+    o = { search.open_with_defualt, "externl open" },
     q = { utils.open_current_file_use_qtcreator, "open in qtcreator" }
   },
   ["<leader>b"] = {
@@ -106,7 +109,7 @@ wk.register({
 
     h = { command("Interestingwords --toggle"), "highlight words" },
     s = {
-      command("Telescope current_buffer_fuzzy_find"), "symbol current buffer"
+      search.search_current_buffer, "symbol current buffer"
     },
     S = { search.current_buffer_symbol_at_point, "symbol current buffer" },
     i = { search.lsp_document_symbols, "symbol" },
