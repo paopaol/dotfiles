@@ -63,3 +63,5 @@ vim.g.vim_markdown_folding_disabled = 1
 vim.g.vim_textobj_parameter_mapping = 'a'
 vim.g.BufKillCreateMappings = 0
 vim.g.rooter_patterns = { '.projectile', '.git/' }
+
+vim.g.clever_f_across_no_line = 1

@@ -34,6 +34,8 @@ return require('packer').startup(function()
     end,
   }
 
+  use {'rhysd/clever-f.vim'}
+
   use 'ton/vim-bufsurf'
   use 'mfussenegger/nvim-dap'
   use { 'ravenxrz/DAPInstall.nvim', branch = 'main' }
@@ -145,6 +147,7 @@ return require('packer').startup(function()
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
   use 'hrsh7th/cmp-cmdline'
   use 'paopaol/cmp-doxygen'
+  use 'tzachar/cmp-tabnine'
 
   use 'kyazdani42/nvim-tree.lua'
   use { 'fedepujol/move.nvim', branch = 'main' }

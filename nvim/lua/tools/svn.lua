@@ -17,7 +17,7 @@ end
 
 
 M.svn_blame = function()
-  local cmd = string.format('silent !\"D:\\Program Files\\TortoiseSVN\\bin\\TortoiseProc.exe\"  /command:blame /path:\"%s\" /line:%d /notempfile /closeonend\"', vim.fn.expand("%"), vim.fn.line("."))
+  local cmd = string.format('silent !\"D:\\Program Files\\TortoiseSVN\\bin\\TortoiseProc.exe\"  /command:blame /path:\"%s\" /line:%d /notempfile /closeonend &\"', vim.fn.expand("%"), vim.fn.line("."))
   vim.cmd(cmd)
 end
 
