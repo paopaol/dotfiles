@@ -53,6 +53,13 @@ wk.register({
     l = { command("VimspectorToggleLog"), "toggle log" },
     w = { command("VimspectorWatch"), "watch" }
   },
+
+  ["<leader>o"] = {
+    name = "+open",
+
+    p = { search.exploer_dir_project, "externl open project dir" },
+    d = { search.exploer_dir_current, "externl open current dir" },
+  },
   ["<leader>f"] = {
     name = "+file",
 
@@ -67,8 +74,6 @@ wk.register({
     r = { search.oldfiles, "Open Recent File" },
     f = { search.file_browser, "file browser" },
     F = { search.project_files, "project files" },
-    p = { search.exploer_dir_project, "externl open project dir" },
-    d = { search.exploer_dir_current, "externl open current dir" },
     o = { search.open_with_defualt, "externl open" },
     q = { utils.open_current_file_use_qtcreator, "open in qtcreator" }
   },
