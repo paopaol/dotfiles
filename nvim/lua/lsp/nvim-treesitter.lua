@@ -1,8 +1,8 @@
-require'nvim-treesitter.configs'.setup {
-  indent = {enable = false},
-  autotag = {enable = true},
+require 'nvim-treesitter.configs'.setup {
+  indent = { enable = false },
+  autotag = { enable = true },
   -- ensure_installed = {'bash', 'css', 'html', 'rust', 'toml', 'yaml', 'cpp', 'c'},
-  highlight = {enable = true, additional_vim_regex_highlighting = false},
+  highlight = { enable = true, additional_vim_regex_highlighting = false },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -29,13 +29,30 @@ require'nvim-treesitter.configs'.setup {
     move = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {["]]"] = "@function.outer", ["]c"] = "@class.outer"},
-      goto_next_end = {["]M"] = "@function.outer", ["]["] = "@class.outer"},
+      goto_next_start = { ["]]"] = "@function.outer", ["]c"] = "@class.outer" },
+      goto_next_end = { ["]M"] = "@function.outer", ["]["] = "@class.outer" },
       goto_previous_start = {
         ["[["] = "@function.outer",
         ["[c"] = "@class.outer"
       },
-      goto_previous_end = {["[M"] = "@function.outer", ["[]"] = "@class.outer"}
+      goto_previous_end = { ["[M"] = "@function.outer", ["[]"] = "@class.outer" }
+    }
+  },
+  nt_cpp_tools = {
+    enable = false,
+    preview = {
+      quit = 'q', -- optional keymapping for quit preview
+      accept = '<tab>' -- optional keymapping for accept preview
+    },
+    custom_impl_commands = {
+      TSCppImplWrite = {
+        output_cb = require 'nvim-treesitter.nt-cpp-tools.output_handlers'.add_to_cpp
+        -- output_cb = function(output, _)
+        --   print(output)
+        --   vim.fn.setreg(0, output)
+        -- end
+      }
+      -- <custom_command> = { output_cb = <function (output_str, context)> }
     }
   }
 }

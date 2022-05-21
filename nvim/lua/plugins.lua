@@ -16,6 +16,10 @@ return require('packer').startup(function()
   use 'nvim-telescope/telescope-file-browser.nvim'
   use { 'nvim-telescope/telescope-ui-select.nvim' }
   use 'paopaol/cpp-mode'
+  use {
+    "Badhi/nvim-treesitter-cpp-tools",
+    branch = 'refactor/op_handlers'
+  }
   use 'chentoast/marks.nvim'
 
   -- use { 'vim-scripts/vcscommand.vim' }
@@ -34,7 +38,7 @@ return require('packer').startup(function()
     end,
   }
 
-  use {'rhysd/clever-f.vim'}
+  use { 'rhysd/clever-f.vim' }
 
   use 'ton/vim-bufsurf'
   use 'mfussenegger/nvim-dap'
@@ -97,6 +101,7 @@ return require('packer').startup(function()
 
   use { 'lilydjwg/fcitx.vim', branch = 'fcitx5' }
   -- use({ "themercorp/themer.lua" })
+  use "projekt0n/github-nvim-theme"
   use 'RRethy/nvim-base16'
   use 'Mofiqul/vscode.nvim'
   use 'ray-x/starry.nvim'
@@ -114,6 +119,14 @@ return require('packer').startup(function()
   use 'haya14busa/incsearch-fuzzy.vim'
   use 'mg979/vim-visual-multi'
   use 'pseewald/vim-anyfold'
+  use { 'anuvyklack/pretty-fold.nvim',
+    requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
+    config = function()
+      require('pretty-fold').setup()
+      require('pretty-fold.preview').setup()
+    end
+  }
+
   use 'mattn/emmet-vim'
   use 'skywind3000/asynctasks.vim'
   use 'skywind3000/asyncrun.vim'

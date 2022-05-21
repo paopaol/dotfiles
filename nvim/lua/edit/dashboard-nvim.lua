@@ -14,9 +14,9 @@ startify.section.top_buttons.val = {
 	startify.button("e", "  New file", ":ene <BAR> startinsert <CR>", nil),
 }
 -- disable MRU
-startify.section.mru.val = { { type = "padding", val = 0 } }
+startify.section.mru.val = { { type = "padding", val = 1 } }
 -- disable MRU cwd
-startify.section.mru_cwd.val = { { type = "padding", val = 0 } }
+startify.section.mru_cwd.val = { { type = "padding", val = 1 } }
 -- disable nvim_web_devicons
 startify.nvim_web_devicons.enabled = true
 startify.nvim_web_devicons.highlight = true
