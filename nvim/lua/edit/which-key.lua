@@ -37,6 +37,18 @@ wk.register({
   ["<f1>"] = { search.project_tree, "tree" },
   ["<f2><f2>"] = { utils.insert_semicolon_end_of_line, "insert semicolon" },
   ["<f3>"] = { command("AerialToggle"), "symbols list" },
+  ["<f4>"] = { function()
+    local opts = {
+      focusable = true,
+      border = 'rounded',
+      prefix = '',
+    }
+    local _, winid = vim.diagnostic.open_float(nil, opts)
+    if winid and vim.api.nvim_win_is_valid(winid) then
+      vim.api.nvim_win_set_height(winid, 5);
+      vim.api.nvim_win_set_width(winid, 60);
+    end
+  end, "show diagnostics" },
   ["K"] = { vim.lsp.buf.hover, "lsp+hover" },
   ["gd"] = { vim.lsp.buf.declaration, "lsp+definition" },
   ["gi"] = { vim.lsp.buf.definition, "lsp+definition" },
@@ -163,7 +175,10 @@ wk.register({
     c = { search.lsp_calltree, "calltree" },
     p = { search.project_live_symbols, "workspace_symbolf" },
     e = {
-      function() telein.diagnostics({ cwd = rootdir() }) end, "workspace_symbolf"
+      function() telein.diagnostics({ cwd = rootdir(), bufnr = 0 }) end, "workspace diagnostics"
+    },
+    E = {
+      function() telein.diagnostics({ cwd = rootdir() }) end, "workspace diagnostics"
     }
   },
   ["<leader>i"] = {
@@ -200,7 +215,7 @@ wk.register({
     c = { search.lsp_calltree, "calltree" },
     p = { search.project_live_symbols, "workspace_symbolf" },
     e = {
-      function() telein.diagnostics({ cwd = rootdir() }) end, "workspace_symbolf"
+      function() telein.diagnostics({ cwd = rootdir(), bufnr = 0 }) end, "document diagnostics"
     },
   },
 })
