@@ -17,8 +17,7 @@ return require('packer').startup(function()
   use { 'nvim-telescope/telescope-ui-select.nvim' }
   use 'paopaol/cpp-mode'
   use {
-    "Badhi/nvim-treesitter-cpp-tools",
-    branch = 'refactor/op_handlers'
+    "Badhi/nvim-treesitter-cpp-tools"
   }
   use 'chentoast/marks.nvim'
 

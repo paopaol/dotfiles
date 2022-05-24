@@ -25,13 +25,13 @@ vim.cmd([[
 ]])
 
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-  underline = true,
-  virtual_text = true
-}
-)
-
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--   vim.lsp.diagnostic.on_publish_diagnostics, {
+--   underline = true,
+--   virtual_text = true
+-- }
+-- )
+--
 lsp_installer.on_server_ready(function(server)
   local opts = {}
 
@@ -64,3 +64,17 @@ lsp_installer.on_server_ready(function(server)
   end
   server:setup(opts)
 end)
+
+vim.diagnostic.config({
+  virtual_text = false,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = alse,
+})
+
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+  callback = function()
+    vim.diagnostic.open_float(nil)
+  end
+})

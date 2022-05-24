@@ -20,12 +20,14 @@ keymap('n', '<C-b>', '<Left>')
 keymap('i', '<C-b>', '<Left>')
 keymap('v', '<C-b>', '<Left>')
 unsilent_keymap('c', '<C-b>', '<Left>')
+keymap('i', '<A-b>', '<C-Left>')
 
 -- forward char
 keymap('n', '<C-f>', '<Right>')
 keymap('i', '<C-f>', '<Right>')
 keymap('v', '<C-f>', '<Right>')
 unsilent_keymap('c', '<C-f>', '<Right>')
+keymap('i', '<A-f>', '<C-Right>')
 
 ---next line
 unsilent_keymap('c', '<C-j>', '<Down>')
@@ -38,9 +40,7 @@ keymap('i', '<C-k>', '<Up>')
 keymap('n', '<C-k>', '5k')
 
 -- leave insert
-keymap('i', '<C-c>', '<esc>')
-
--- quickfix
+keymap('i', '<C-c>', '<esc>');
 keymap('n', 'Q', ':cclose<CR>')
 keymap('v', 'Q', ':cclose<CR>')
 keymap('n', '<F8>', ':cn<CR>zz')
