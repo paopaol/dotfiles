@@ -105,12 +105,8 @@ reg_keymap({
   p = { command("BufSurfBack"), "prev buffer" },
   K = { command("BDelete other"), "buffer kill" },
   h = { command("Alpha"), "home" },
-  b = {
-    search.buffers, "buffer list"
-  },
-  B = {
-    search.project_buffers, "project buffers"
-  }
+  b = { search.buffers, "buffer list" },
+  B = { search.project_buffers, "project buffers" }
 }, { "n" }, "<leader>b"
 )
 
@@ -137,9 +133,7 @@ reg_keymap({
   name = "+search/symbol",
 
   h = { command("Interestingwords --toggle"), "highlight words" },
-  s = {
-    search.search_current_buffer, "symbol current buffer"
-  },
+  s = { search.search_current_buffer, "symbol current buffer" },
   S = { search.current_buffer_symbol_at_point, "symbol current buffer" },
   i = { search.lsp_document_symbols, "symbol" },
   p = { search.project_current_symbols, "symbol project at point" },
