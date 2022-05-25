@@ -39,4 +39,13 @@ function M.format_buffer()
   vim.lsp.buf.format({ async = true })
 end
 
+function M.open200()
+  if vim.fn.has('win32') then
+    vim.cmd([[silent ! start \\192.168.0.200\共享文件目录\1.共享文件夹\6.临时文件\jinzhao]])
+  else
+    vim.cmd([[silent ! dolphin smb://192.168.0.200 &]])
+  end
+
+end
+
 return M
