@@ -65,3 +65,8 @@ vim.g.BufKillCreateMappings = 0
 vim.g.rooter_patterns = { '.projectile', '.git/' }
 
 vim.g.clever_f_across_no_line = 1
+
+vim.cmd([[ 
+autocmd FileType * if &modifiable|setlocal fileformat=unix|endif
+autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif
+]])

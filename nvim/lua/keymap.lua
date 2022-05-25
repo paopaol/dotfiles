@@ -88,3 +88,18 @@ local format_json_region = function(opts)
 end
 
 vim.api.nvim_create_user_command("JsonFormatRegion", format_json_region, { range = 2 })
+
+vim.api.nvim_create_user_command("LineDiagnostic",
+  function()
+    local opts = {
+      focusable = true,
+      border = 'rounded',
+      prefix = '',
+    }
+    local _, winid = vim.diagnostic.open_float(nil, opts)
+    if winid and vim.api.nvim_win_is_valid(winid) then
+      vim.api.nvim_win_set_height(winid, 5);
+      vim.api.nvim_win_set_width(winid, 60);
+    end
+  end
+  , {})
