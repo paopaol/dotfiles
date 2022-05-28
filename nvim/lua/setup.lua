@@ -50,6 +50,7 @@ vim.o.rnu = true
 vim.o.clipboard = 'unnamedplus'
 vim.o.shortmess = 'filnxtToOFcI'
 
+
 vim.cmd([[ au FocusGained * :checktime ]])
 
 
@@ -70,3 +71,11 @@ vim.cmd([[
 autocmd FileType * if &modifiable|setlocal fileformat=unix|endif
 autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif
 ]])
+
+-- let g:autocwd_patternwd_pairs = [
+-- 	\['*.vim', '%:p:h'],
+-- 	\['*.py', '%:p:h'],
+-- 	\['*/vim74/*', '/home/testid/vim74'],
+-- 	\['*/blender-2.68/*', '/home/testid/blender-2.68'],
+-- 	\]
+vim.g.autocwd_patternwd_pairs = { { '*', '%:p:h' } }

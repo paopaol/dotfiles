@@ -46,8 +46,8 @@ wk.register({
     }
     local _, winid = vim.diagnostic.open_float(nil, opts)
     if winid and vim.api.nvim_win_is_valid(winid) then
-      vim.api.nvim_win_set_height(winid, 5);
-      vim.api.nvim_win_set_width(winid, 60);
+      vim.api.nvim_win_set_height(winid, 7);
+      vim.api.nvim_win_set_width(winid, 80);
     end
   end, "show diagnostics" },
   ["K"] = { vim.lsp.buf.hover, "lsp+hover" },

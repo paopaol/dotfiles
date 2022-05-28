@@ -116,7 +116,7 @@ vim.g.starry_set_hl = false -- Note: enable for nvim 0.6+, it is faster (loading
 vim.g.starry_daylight_switch = true --this allow using brighter color
 --" other themes: dracula, oceanic, dracula_blood, 'deep ocean', darker, palenight, monokai, mariana, emerald, middlenight_blue
 
-vim.cmd([[ colorscheme github_light ]])
+vim.cmd([[ colorscheme monokai ]])
 
 
 -- require("github-theme").setup({

@@ -254,11 +254,6 @@ _G.packer_plugins = {
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\litee.nvim",
     url = "https://github.com/ldelossa/litee.nvim"
   },
-  ["lsp-semantic.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lsp-semantic.nvim",
-    url = "https://github.com/Thiago4532/lsp-semantic.nvim"
-  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lspkind-nvim",
@@ -314,11 +309,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-autopairs",
     url = "https://github.com/windwp/nvim-autopairs"
-  },
-  ["nvim-base16"] = {
-    loaded = true,
-    path = "C:\\Users\\lenovo\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-base16",
-    url = "https://github.com/RRethy/nvim-base16"
   },
   ["nvim-bqf"] = {
     loaded = true,
@@ -655,18 +645,18 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: vcscommand.vim
-time([[Config for vcscommand.vim]], true)
-try_loadstring("\27LJ\2\n0\0\0\2\0\3\0\0056\0\0\0009\0\1\0)\1\1\0=\1\2\0K\0\1\0\19no_plugin_maps\6g\bvim\0", "config", "vcscommand.vim")
-time([[Config for vcscommand.vim]], false)
--- Config for: pretty-fold.nvim
-time([[Config for pretty-fold.nvim]], true)
-try_loadstring("\27LJ\2\na\0\0\3\0\4\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\0016\0\0\0'\2\3\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\24pretty-fold.preview\nsetup\16pretty-fold\frequire\0", "config", "pretty-fold.nvim")
-time([[Config for pretty-fold.nvim]], false)
 -- Config for: neogen
 time([[Config for neogen]], true)
 try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\vneogen\frequire\0", "config", "neogen")
 time([[Config for neogen]], false)
+-- Config for: pretty-fold.nvim
+time([[Config for pretty-fold.nvim]], true)
+try_loadstring("\27LJ\2\na\0\0\3\0\4\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\0016\0\0\0'\2\3\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\24pretty-fold.preview\nsetup\16pretty-fold\frequire\0", "config", "pretty-fold.nvim")
+time([[Config for pretty-fold.nvim]], false)
+-- Config for: vcscommand.vim
+time([[Config for vcscommand.vim]], true)
+try_loadstring("\27LJ\2\n0\0\0\2\0\3\0\0056\0\0\0009\0\1\0)\1\1\0=\1\2\0K\0\1\0\19no_plugin_maps\6g\bvim\0", "config", "vcscommand.vim")
+time([[Config for vcscommand.vim]], false)
 if should_profile then save_profiles() end
 
 end)
