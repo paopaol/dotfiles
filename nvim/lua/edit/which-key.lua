@@ -32,8 +32,8 @@ end
 
 
 wk.register({
-  ["<tab>"] = { jz.jumpright, "right arg" },
-  ["<S-tab>"] = { command("SidewaysJumpLeft"), "left arg" },
+  -- ["<tab>"] = { jz.jumpright, "right arg" },
+  -- ["<S-tab>"] = { command("SidewaysJumpLeft"), "left arg" },
   ["<f1>"] = { search.project_tree, "tree" },
   ["<f2><f2>"] = { utils.insert_semicolon_end_of_line, "insert semicolon" },
   ["<f3>"] = { command("AerialToggle"), "symbols list" },

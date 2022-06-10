@@ -2,7 +2,7 @@ local cb = require 'diffview.config'.diffview_callback
 
 require 'diffview'.setup {
 	diff_binaries = false, -- Show diffs for binaries
-	enhanced_diff_hl = false, -- See ':h diffview-config-enhanced_diff_hl'
+	enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
 	use_icons = true, -- Requires nvim-web-devicons
 	icons = { -- Only applies when use_icons is true.
 		folder_closed = "",
@@ -27,14 +27,6 @@ require 'diffview'.setup {
 		win_config = { -- See ':h diffview-config-win_config'
 			position = "bottom",
 			height = 16,
-		},
-		log_options = {
-			max_count = 256, -- Limit the number of commits
-			follow = false, -- Follow renames (only for single file)
-			all = false, -- Include all refs under 'refs/' including HEAD
-			merges = false, -- List only merge commits
-			no_merges = false, -- List no merge commits
-			reverse = false, -- List commits in reverse order
 		},
 	},
 	default_args = { -- Default args prepended to the arg-list for the listed commands

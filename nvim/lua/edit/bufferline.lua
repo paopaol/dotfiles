@@ -1,36 +1,15 @@
-require"bufferline".setup {
+require "bufferline".setup {
   options = {
+    mode = "tabs", -- can also be set to "tabs" to see tabpages
     view = 'default', -- {'multiwindow'} | {'default'},
-    -- numbers = "none" | "ordinal" | "buffer_id" | "both",
+    themable = false,
     numbers = "ordinal",
     custom_filter = function(buf, buf_nums)
       return vim.bo[buf].filetype ~= "qf"
     end,
 
-    -- number_style = "superscript" | "" | {"none", "subscript"}, -- buffer_id at index 1, ordinal at index 2
-    -- mappings = true | false
-    -- close_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-    -- right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-    -- left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
-    -- middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
-    -- buffer_close_icon = "",
-    -- modified_icon = "●",
-    -- close_icon = "",
-    -- left_trunc_marker = "",
-    -- right_trunc_marker = ""
-    -- max_name_length = 18,
-    -- max_prefix_length = 15, -- prefix used when a buffer is deduplicated
-    -- tab_size = 18,
-    -- diagnostics = false | "nvim_lsp",
-    -- show_buffer_icons = true | false,
-    -- show_buffer_close_icons = true | false,
-    -- show_close_icon = true | false,
-    show_tab_indicators = true, -- | false,
-    -- persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-    -- -- can also be a table containing 2 custom separators
-    -- -- [focused and unfocused]. eg: { "|", "|" }
+    show_tab_indicators = false, -- | false,
     separator_style = "slant", -- | "padded_slant" | "thick" | "thin" |
-    --     {"any", "any"},
     enforce_regular_tabs = false, -- false | true,
     always_show_bufferline = false,
     offsets = {
@@ -41,11 +20,5 @@ require"bufferline".setup {
         text_align = "left" -- "center" | "right" | "left"
       }
     }
-    -- sort_by = "extension" | "relative_directory" | "directory" |
-    --     function(buffer_a, buffer_b)
-    --       -- add custom logic
-    --       return buffer_a.modified > buffer_b.modified
-    --     end
-
   }
 }

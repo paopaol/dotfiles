@@ -97,13 +97,13 @@
 --
 -- require("telescope").load_extension("themes")
 
-vim.g.starry_italic_comments = true
-vim.g.starry_italic_string = true
+vim.g.starry_italic_comments = false
+vim.g.starry_italic_string = false
 vim.g.starry_italic_keywords = false
 vim.g.starry_italic_functions = false
-vim.g.starry_italic_variables = true
+vim.g.starry_italic_variables = false
 vim.g.starry_contrast = true
-vim.g.starry_borders = true
+vim.g.starry_borders = false
 vim.g.starry_disable_background = false
 vim.g.starry_style_fix = false --disable random loading
 vim.g.starry_style = "moonlight" --load moonlight everytime or
@@ -116,7 +116,7 @@ vim.g.starry_set_hl = false -- Note: enable for nvim 0.6+, it is faster (loading
 vim.g.starry_daylight_switch = true --this allow using brighter color
 --" other themes: dracula, oceanic, dracula_blood, 'deep ocean', darker, palenight, monokai, mariana, emerald, middlenight_blue
 
-vim.cmd([[ colorscheme monokai ]])
+vim.cmd([[ colorscheme github_light_colorblind ]])
 
 
 -- require("github-theme").setup({
@@ -137,3 +137,4 @@ vim.cmd([[ colorscheme monokai ]])
 -- 		}
 -- 	end
 -- })
+--

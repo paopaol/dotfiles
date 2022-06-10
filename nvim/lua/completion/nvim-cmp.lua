@@ -38,6 +38,13 @@ cmp.setup({
   },
   formatting = {
     format = function(entry, vim_item)
+      local ELLIPSIS_CHAR = '…'
+      local MAX_LABEL_WIDTH = 50
+      local label = vim_item.abbr
+      local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
+      if truncated_label ~= label then
+        vim_item.abbr = truncated_label .. ELLIPSIS_CHAR
+      end
       -- Kind icons
       vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       -- Source
@@ -49,21 +56,10 @@ cmp.setup({
         latex_symbols = "[LaTeX]",
         doxygen = "[Doxygen]",
         path = "[Path]",
-        cmp_tabnine = "[TABNINE]",
       })[entry.source.name]
       return vim_item
     end
   },
-  -- formatting = {
-  --   format = lspkind.cmp_format({
-  --     mode = 'symbol', -- show only symbol annotations
-  --     maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-  --     -- The function below will be called before any actual modifications from lspkind
-  --     -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-  --     before = function(entry, vim_item) return vim_item end,
-  --
-  --   })
-  -- },
   mapping = {
     ['<C-e>'] = cmp.mapping(function()
       cmp.close()
@@ -101,7 +97,13 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({ select = true }) -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   },
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' }, { name = 'buffer' }, { name = 'luasnip' }, { name = 'nvim_lsp_signature_help' }, { name = 'path' }, { name = 'doxygen' }
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+    { name = 'luasnip' },
+    { name = 'nvim_lsp_signature_help' },
+    { name = 'path' },
+    -- { name = 'doxygen' },
+    -- { name = 'copilot' }
   })
 })
 
@@ -109,26 +111,12 @@ cmp.setup({
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
-local tabnine = require('cmp_tabnine.config')
-tabnine:setup({
-  max_lines = 1000;
-  max_num_results = 20;
-  sort = true;
-  run_on_every_keystroke = true;
-  snippet_placeholder = '..';
-  ignored_file_types = { -- default is not to ignore
-    -- uncomment to ignore in lua:
-    -- lua = true
-  };
-  show_prediction_strength = false;
-})
 
 local compare = require('cmp.config.compare')
 cmp.setup({
   sorting = {
     priority_weight = 2,
     comparators = {
-      require('cmp_tabnine.compare'),
       compare.offset,
       compare.exact,
       compare.score,
@@ -139,4 +127,7 @@ cmp.setup({
       compare.order,
     },
   },
+  -- completion = {
+  --   autocomplete = true
+  -- }
 })

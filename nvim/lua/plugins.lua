@@ -149,16 +149,30 @@ return require('packer').startup(function()
 	use 'matveyt/vim-qmake'
 	use 'leisiji/interestingwords.nvim'
 
+	use { "github/copilot.vim" }
+	use {
+		"zbirenbaum/copilot.lua",
+		event = { "VimEnter" },
+		config = function()
+			vim.defer_fn(function()
+				require("copilot").setup()
+			end, 100)
+		end,
+	}
+
 	--cmp
 	use { 'hrsh7th/cmp-nvim-lsp', branch = 'main' }
 	use { 'hrsh7th/cmp-path', branch = 'main' }
 	use { 'hrsh7th/nvim-cmp', branch = 'main' }
 	use { 'hrsh7th/cmp-buffer', branch = 'main' }
+	use {
+		"zbirenbaum/copilot-cmp",
+		after = { "copilot.lua", "nvim-cmp" },
+	}
 	use 'saadparwaiz1/cmp_luasnip'
 	use 'hrsh7th/cmp-nvim-lsp-signature-help'
 	use 'hrsh7th/cmp-cmdline'
 	use 'paopaol/cmp-doxygen'
-	use 'tzachar/cmp-tabnine'
 
 	use 'kyazdani42/nvim-tree.lua'
 	use { 'fedepujol/move.nvim', branch = 'main' }

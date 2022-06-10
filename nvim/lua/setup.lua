@@ -4,7 +4,8 @@ vim.cmd([[
 ]])
 
 
-vim.o.guifont = 'FiraCode Nerd Font Mono:h11'
+-- vim.o.guifont = 'FiraCode Nerd Font Mono:h11'
+vim.o.guifont = 'Fira Code:h10.5'
 
 vim.o.pumheight = 10
 vim.o.numberwidth = 2
@@ -54,7 +55,6 @@ vim.o.shortmess = 'filnxtToOFcI'
 vim.cmd([[ au FocusGained * :checktime ]])
 
 
-
 ---external plugins
 vim.g.auto_save = 1
 vim.g.auto_save_silent = 1
@@ -64,18 +64,10 @@ vim.g.vim_markdown_folding_disabled = 1
 vim.g.vim_textobj_parameter_mapping = 'a'
 vim.g.BufKillCreateMappings = 0
 vim.g.rooter_patterns = { '.projectile', '.git/' }
-
+vim.g.autocwd_patternwd_pairs = { { '*', '%:p:h' } }
 vim.g.clever_f_across_no_line = 1
 
 vim.cmd([[ 
 autocmd FileType * if &modifiable|setlocal fileformat=unix|endif
 autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif
 ]])
-
--- let g:autocwd_patternwd_pairs = [
--- 	\['*.vim', '%:p:h'],
--- 	\['*.py', '%:p:h'],
--- 	\['*/vim74/*', '/home/testid/vim74'],
--- 	\['*/blender-2.68/*', '/home/testid/blender-2.68'],
--- 	\]
-vim.g.autocwd_patternwd_pairs = { { '*', '%:p:h' } }
