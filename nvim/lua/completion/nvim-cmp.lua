@@ -43,7 +43,7 @@ cmp.setup({
       local label = vim_item.abbr
       local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
       if truncated_label ~= label then
-        vim_item.abbr = truncated_label .. ELLIPSIS_CHAR
+        vim_item.abbr = string.format('%s%s', truncated_label, ELLIPSIS_CHAR)
       end
       -- Kind icons
       vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
@@ -97,11 +97,11 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({ select = true }) -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   },
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'buffer' },
-    { name = 'luasnip' },
-    { name = 'nvim_lsp_signature_help' },
-    { name = 'path' },
+    { name = 'nvim_lsp', max_item_count = 20 },
+    { name = 'buffer', max_item_count = 20 },
+    { name = 'luasnip', max_item_count = 20 },
+    { name = 'nvim_lsp_signature_help', max_item_count = 20 },
+    { name = 'path', max_item_count = 20 },
     -- { name = 'doxygen' },
     -- { name = 'copilot' }
   })
