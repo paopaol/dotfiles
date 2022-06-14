@@ -104,7 +104,6 @@ cmp.setup({
     { name = 'nvim_lsp_signature_help', max_item_count = 20 },
     { name = 'path', max_item_count = 20 },
     { name = 'doxygen' },
-    { name = 'copilot' }
   })
 })
 
