@@ -57,13 +57,13 @@ wk.register({
 reg_keymap({
   name = "+file",
 
-  F = { search.project_files, "project files" },
+  f = { search.project_files, "project files" },
   H = { command("silent !dolphin $HOME &"), "home" },
   bD = { command("BookmarkClearAll"), "Clear All Bookmark" },
   ba = { command("BookmarkAnnotate"), "Add Bookmark" },
   bb = { command("Telescope vim_bookmarks all"), "Bookmarks" },
   bd = { command("BookmarkClear"), "Clear Bookmark" },
-  f = { search.file_browser, "file browser" },
+  F = { search.file_browser, "file browser" },
   n = { command("enew"), "New File" },
   o = { search.open_with_defualt, "externl open" },
   q = { utils.open_current_file_use_qtcreator, "open in qtcreator" },
