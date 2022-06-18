@@ -10,6 +10,7 @@ ts.setup({
     selection_strategy = "reset",
     sorting_strategy = "ascending",
     color_devicons = true,
+    scroll_strategy = "limit",
     layout_strategy = "vertical",
     initial_mode = "insert",
     layout_config = {
