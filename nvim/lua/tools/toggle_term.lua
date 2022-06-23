@@ -1,5 +1,5 @@
 local vimshell = vim.o.shell
-if vim.fn.has('win32') then
+if vim.fn.has('win32') == 1 then
   vimshell = 'powershell'
 end
 

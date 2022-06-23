@@ -11,3 +11,4 @@ vim.cmd([[
   autocmd InsertLeave * lua im_select()
 ]])
 
+

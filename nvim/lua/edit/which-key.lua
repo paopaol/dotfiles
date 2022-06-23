@@ -38,7 +38,7 @@ wk.register({
   ["<f2><f2>"] = { utils.insert_semicolon_end_of_line, "insert semicolon" },
   ["<f3>"] = { command("AerialToggle"), "symbols list" },
   ["<f4>"] = { command("TroubleToggle"), "diagnostic list" },
-  ["<C-S-k>"] = { function()
+  ["<A-,>"] = { function()
     local opts = {
       focusable = true,
       border = 'rounded',

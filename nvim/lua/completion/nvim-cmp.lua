@@ -1,6 +1,10 @@
 local cmp = require 'cmp'
 local lspkind = require('lspkind')
 
+
+
+
+
 local kind_icons = {
   Text = "",
   Method = "",
@@ -29,6 +33,10 @@ local kind_icons = {
   TypeParameter = ""
 }
 
+local function trim(str)
+  return (string.gsub(str, "^%s*(.-)%s*$", "%1"))
+end
+
 cmp.setup({
   completion = { keyword_length = 1 },
   experimental = { view = { entries = "native" } },
@@ -40,13 +48,17 @@ cmp.setup({
     format = function(entry, vim_item)
       local ELLIPSIS_CHAR = '…'
       local MAX_LABEL_WIDTH = 50
-      local label = vim_item.abbr
+
+      -- vim_item.abbr = trim(vim_item.abbr)
+      local label = trim(vim_item.abbr)
       local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
       if truncated_label ~= label then
         vim_item.abbr = string.format('%s%s', truncated_label, ELLIPSIS_CHAR)
       end
       -- Kind icons
       vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+
+      -- vim_item.dup = ({ buffer = 0 })[entry.source.name] or 0
       -- Source
       vim_item.menu = ({
         buffer = "[Buffer]",
@@ -98,12 +110,12 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({ select = true }) -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   },
   sources = cmp.config.sources({
-    { name = 'nvim_lsp', max_item_count = 20 },
-    { name = 'buffer', max_item_count = 20 },
-    { name = 'luasnip', max_item_count = 20 },
-    { name = 'nvim_lsp_signature_help', max_item_count = 20 },
-    { name = 'path', max_item_count = 20 },
-    { name = 'doxygen' },
+    { name = 'nvim_lsp', max_item_count = 20, dup = 0 },
+    { name = 'buffer', max_item_count = 20, dup = 0 },
+    { name = 'luasnip', max_item_count = 20, dup = 0 },
+    { name = 'nvim_lsp_signature_help', max_item_count = 20, dup = 0 },
+    { name = 'path', max_item_count = 20, dup = 0 },
+    { name = 'doxygen', dup = 0 },
   })
 })
 
@@ -112,20 +124,30 @@ local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
 
+-- local compare = require('cmp.config.compare')
+-- cmp.setup({
+--   sorting = {
+--     priority_weight = 2,
+--     comparators = {
+--       compare.offset,
+--       compare.exact,
+--       compare.score,
+--       compare.recently_used,
+--       compare.kind,
+--       compare.sort_text,
+--       compare.length,
+--       compare.order,
+--     },
+--   },
+--   -- completion = {
+--   --   autocomplete = true
+--   -- }
+-- })
 local compare = require('cmp.config.compare')
 cmp.setup({
   sorting = {
     priority_weight = 2,
-    comparators = {
-      compare.offset,
-      compare.exact,
-      compare.score,
-      compare.recently_used,
-      compare.kind,
-      compare.sort_text,
-      compare.length,
-      compare.order,
-    },
+    comparators = nil,
   },
   -- completion = {
   --   autocomplete = true
