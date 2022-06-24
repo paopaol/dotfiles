@@ -2,9 +2,6 @@ local cmp = require 'cmp'
 local lspkind = require('lspkind')
 
 
-
-
-
 local kind_icons = {
   Text = "",
   Method = "",
@@ -43,6 +40,11 @@ cmp.setup({
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args) require('luasnip').lsp_expand(args.body) end
+  },
+
+  matching = {
+    disallow_prefix_unmatching = false,
+    disallow_partial_matching = true,
   },
   formatting = {
     format = function(entry, vim_item)
@@ -124,25 +126,22 @@ local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
 
--- local compare = require('cmp.config.compare')
--- cmp.setup({
---   sorting = {
---     priority_weight = 2,
---     comparators = {
---       compare.offset,
---       compare.exact,
---       compare.score,
---       compare.recently_used,
---       compare.kind,
---       compare.sort_text,
---       compare.length,
---       compare.order,
---     },
---   },
---   -- completion = {
---   --   autocomplete = true
---   -- }
--- })
+local compare = require('cmp.config.compare')
+cmp.setup({
+  sorting = {
+    priority_weight = 2,
+    comparators = {
+      compare.sort_text,
+      compare.offset,
+      compare.exact,
+      compare.score,
+      compare.recently_used,
+      compare.kind,
+      compare.length,
+      compare.order,
+    },
+  },
+})
 local compare = require('cmp.config.compare')
 cmp.setup({
   sorting = {
