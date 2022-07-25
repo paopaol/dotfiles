@@ -1,4 +1,4 @@
-require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
+require 'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
   auto_reload_on_write = true,
   disable_netrw = false,
   hijack_cursor = false,
@@ -11,7 +11,7 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
   sort_by = "name",
   update_cwd = true,
   view = {
-    width = 30,
+    width = 40,
     height = 30,
     side = "left",
     preserve_window_proportions = false,
@@ -25,19 +25,19 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
       }
     }
   },
-  hijack_directories = {enable = true, auto_open = true},
-  update_focused_file = {enable = false, update_cwd = true, ignore_list = {}},
+  hijack_directories = { enable = true, auto_open = true },
+  update_focused_file = { enable = false, update_cwd = true, ignore_list = {} },
   ignore_ft_on_setup = {},
-  system_open = {cmd = nil, args = {}},
+  system_open = { cmd = nil, args = {} },
   diagnostics = {
     enable = false,
     show_on_dirs = false,
-    icons = {hint = "", info = "", warning = "", error = ""}
+    icons = { hint = "", info = "", warning = "", error = "" }
   },
-  filters = {dotfiles = false, custom = {}, exclude = {}},
-  git = {enable = true, ignore = true, timeout = 400},
+  filters = { dotfiles = false, custom = {}, exclude = {} },
+  git = { enable = true, ignore = true, timeout = 400 },
   actions = {
-    change_dir = {enable = true, global = false},
+    change_dir = { enable = true, global = false },
     open_file = {
       quit_on_open = false,
       resize_window = false,
@@ -48,12 +48,12 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
           filetype = {
             "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame"
           },
-          buftype = {"nofile", "terminal", "help"}
+          buftype = { "nofile", "terminal", "help" }
         }
       }
     }
   },
-  trash = {cmd = "trash", require_confirm = true},
+  trash = { cmd = "trash", require_confirm = true },
   log = {
     enable = false,
     truncate = false,

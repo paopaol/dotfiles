@@ -117,14 +117,14 @@ return require('packer').startup(function()
   use 'haya14busa/incsearch-fuzzy.vim'
   use 'mg979/vim-visual-multi'
   use 'pseewald/vim-anyfold'
-  use { 'anuvyklack/pretty-fold.nvim',
-    requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
-    config = function()
-      require('pretty-fold').setup()
-      require('pretty-fold.preview').setup()
-    end
+  use { 'anuvyklack/fold-preview.nvim',
+   requires = 'anuvyklack/keymap-amend.nvim',
+   config = function()
+      require('fold-preview').setup({
+	default_keybindings= true
+      })
+   end
   }
-
   use 'mattn/emmet-vim'
   use 'skywind3000/asynctasks.vim'
   use 'skywind3000/asyncrun.vim'

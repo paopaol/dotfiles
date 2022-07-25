@@ -1,8 +1,8 @@
 local keymap = function(mode, key, action)
-	vim.api.nvim_set_keymap(mode, key, action, { noremap = true, silent = true })
+  vim.api.nvim_set_keymap(mode, key, action, { noremap = true, silent = true })
 end
 local unsilent_keymap = function(mode, key, action)
-	vim.api.nvim_set_keymap(mode, key, action, { noremap = true, silent = false })
+  vim.api.nvim_set_keymap(mode, key, action, { noremap = true, silent = false })
 end
 
 -- begin of line
@@ -85,23 +85,23 @@ keymap('v', '<A-x>', ":")
 keymap('v', 'gy', ":lua ___gdc('v')<cr>")
 
 local format_json_region = function(opts)
-	local cmd = string.format("silent  %d,%d !prettier.cmd --stdin-filepath=1.json", opts.line1, opts.line2)
-	vim.cmd(cmd)
+  local cmd = string.format("silent  %d,%d !prettier --stdin-filepath=1.json", opts.line1, opts.line2)
+  vim.cmd(cmd)
 end
 
 vim.api.nvim_create_user_command("JsonFormatRegion", format_json_region, { range = 2 })
 
 vim.api.nvim_create_user_command("LineDiagnostic",
-	function()
-		local opts = {
-			focusable = true,
-			border = 'rounded',
-			prefix = '',
-		}
-		local _, winid = vim.diagnostic.open_float(nil, opts)
-		if winid and vim.api.nvim_win_is_valid(winid) then
-			vim.api.nvim_win_set_height(winid, 5);
-			vim.api.nvim_win_set_width(winid, 60);
-		end
-	end
-	, {})
+  function()
+    local opts = {
+      focusable = true,
+      border = 'rounded',
+      prefix = '',
+    }
+    local _, winid = vim.diagnostic.open_float(nil, opts)
+    if winid and vim.api.nvim_win_is_valid(winid) then
+      vim.api.nvim_win_set_height(winid, 5);
+      vim.api.nvim_win_set_width(winid, 60);
+    end
+  end
+  , {})
