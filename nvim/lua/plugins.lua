@@ -54,7 +54,7 @@ return require('packer').startup(function()
 
   use 'neovim/nvim-lspconfig'
   use 'filipdutescu/renamer.nvim'
-  use 'ldelossa/litee.nvim'
+  use {'ldelossa/litee.nvim', branch='main'}
   use 'ldelossa/litee-calltree.nvim'
   use { 'williamboman/nvim-lsp-installer', branch = 'main' }
   use 'p00f/clangd_extensions.nvim'
