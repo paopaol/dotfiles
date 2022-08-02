@@ -64,7 +64,8 @@ _G.whichkeyrCpp = function()
       [","] = { utils.format_buffer, "formatting", buffer = buf },
       ["o"] = { command("ClangdSwitchSourceHeader"), "switch cc/h", buffer = buf },
       ["y"] = { command("CopyCppMethod"), "copy cpp method", buffer = buf },
-      ["p"] = { command("PasteCppMethod"), "paste cpp method", buffer = buf }
+      ["p"] = { command("PasteCppMethod"), "paste cpp method", buffer = buf },
+      ["g"] = { command("TSCppDefineClassFunc"), "define class func", buffer = buf }
     }
   })
 end
