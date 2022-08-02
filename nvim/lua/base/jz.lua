@@ -68,15 +68,16 @@ function M.close_current_buffer()
   if not is_current_buf_loaded_other_window() then need_force_delete = true end
 
   if #list > 1 then vim.cmd('BufSurfBack') end
-  if need_force_delete then
+  if need_force_delete and vim.api.nvim_buf_is_valid(curr_bufnr) then
     vim.api.nvim_buf_delete(curr_bufnr, {force = true})
-    return
   end
 
+  local list = filter_buffers({}, vim.api.nvim_list_bufs())
   if #list == 1 then
-    local bufnr = vim.fn.bufnr('Scratch', 1)
-    vim.api.nvim_win_set_buf(0, bufnr)
-    vim.o.ft = "FALLBACK"
+    -- local bufnr = vim.fn.bufnr('Scratch', 1)
+    -- vim.api.nvim_win_set_buf(0, bufnr)
+    -- vim.o.ft = "FALLBACK"
+    vim.cmd([[Alpha]])
   end
 end
 

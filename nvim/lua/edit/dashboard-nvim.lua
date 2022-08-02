@@ -10,8 +10,11 @@ startify.section.header.val = {
 	[[███████╗ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗ ███████║]],
 	[[╚══════╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝ ╚══════╝]],
 }
+-- startify.section.top_buttons.val = {
+-- 	startify.button("e", "  New file", ":ene <BAR> startinsert <CR>", nil),
+-- }
 startify.section.top_buttons.val = {
-	startify.button("e", "  New file", ":ene <BAR> startinsert <CR>", nil),
+	--	startify.button(),
 }
 -- disable MRU
 startify.section.mru.val = { { type = "padding", val = 1 } }
@@ -29,8 +32,12 @@ startify.section.footer = {
 	{ type = "text", val = "footer" },
 }
 -- ignore filetypes in MRU
-startify.mru_opts.ignore = function(path, ext)
-	return (string.find(path, "COMMIT_EDITMSG"))
-			or (vim.tbl_contains(nil, ext))
-end
+-- startify.mru_opts.ignore = function(path, ext)
+-- 	return (string.find(path, "COMMIT_EDITMSG"))
+-- 			or (vim.tbl_contains(nil, ext))
+-- end
+
+
+
+
 alpha.setup(startify.config)

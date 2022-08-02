@@ -1,7 +1,7 @@
 require "bufferline".setup {
   options = {
     -- mode = "tabs", -- can also be set to "tabs" to see tabpages
-    view = 'default', -- {'multiwindow'} | {'default'},
+    view = 'multiwindow', -- {'multiwindow'} | {'default'},
     themable = false,
     numbers = "ordinal",
     custom_filter = function(buf, buf_nums)
