@@ -1,7 +1,7 @@
 local M = {}
 
 M.SubProjectFiles = function()
-  require("telescope.builtin").fd({cwd = vim.fn.expand('%:h')})
+  require("telescope.builtin").fd({ cwd = vim.fn.expand('%:h') })
 end
 
 --------------------------
@@ -69,15 +69,15 @@ function M.close_current_buffer()
 
   if #list > 1 then vim.cmd('BufSurfBack') end
   if need_force_delete and vim.api.nvim_buf_is_valid(curr_bufnr) then
-    vim.api.nvim_buf_delete(curr_bufnr, {force = true})
+    vim.api.nvim_buf_delete(curr_bufnr, { force = true })
   end
 
   local list = filter_buffers({}, vim.api.nvim_list_bufs())
   if #list == 1 then
-    -- local bufnr = vim.fn.bufnr('Scratch', 1)
-    -- vim.api.nvim_win_set_buf(0, bufnr)
-    -- vim.o.ft = "FALLBACK"
-    vim.cmd([[Alpha]])
+    if vim.api.nvim_buf_get_name(list[1]) == '' then
+      vim.cmd([[Alpha]])
+      vim.cmd([[BDelete other]])
+    end
   end
 end
 
@@ -90,7 +90,7 @@ function M.jumpright()
     return
   end
 
-  vim.fn.setpos('.', {0, vim.fn.line('.'), 0})
+  vim.fn.setpos('.', { 0, vim.fn.line('.'), 0 })
   local match_num = vim.fn.search('(', 'n', vim.fn.line('.'))
   if match_num == 0 then return end
 
