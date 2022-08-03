@@ -179,7 +179,8 @@ reg_keymap({
 	c = { command("Telescope themes"), "colorscheme" },
 	f = { command("Telescope filetypes"), "filetypes" },
 	l = { command("setlocal wrap!"), "line wrap" },
-	r = { command("so $VIMHOME/init.vim"), "refresh vimrc" }
+	r = { command("so $VIMHOME/init.vim"), "refresh vimrc" },
+	u = { command("PackerSync"), "update plugins" }
 }, { "n" }, "<leader>t"
 )
 
@@ -287,7 +288,6 @@ reg_keymap({
 	["7"] = { function() bufferline.go_to_buffer(7, true) end, "buffer 7" },
 	["8"] = { function() bufferline.go_to_buffer(8, true) end, "buffer 8" },
 	["9"] = { function() bufferline.go_to_buffer(9, true) end, "buffer 9" },
-
 }, { "n" }, "<leader>"
 )
 
