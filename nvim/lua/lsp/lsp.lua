@@ -57,7 +57,7 @@ lsp_installer.on_server_ready(function(server)
   }
 
   opts.handlers = {
-    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border, height=15, width=100 }),
     ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
   }
 
