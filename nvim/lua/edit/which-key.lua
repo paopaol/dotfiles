@@ -1,24 +1,30 @@
 local wk = require("which-key")
 
-local utils = require('base.utils')
-local search = require('base.search')
-local bufferline = require('bufferline')
-local jz = require('base.jz')
-local telein = require('telescope.builtin')
-local svn = require('tools.svn')
+local utils = require("base.utils")
+local search = require("base.search")
+local bufferline = require("bufferline")
+local jz = require("base.jz")
+local telein = require("telescope.builtin")
+local svn = require("tools.svn")
 
-local function rootdir() return vim.call('asyncrun#get_root', '%') end
+local function rootdir()
+  return vim.call("asyncrun#get_root", "%")
+end
 
-local function command(cmd) return function() vim.cmd(cmd) end end
+local function command(cmd)
+  return function()
+    vim.cmd(cmd)
+  end
+end
 
-wk.setup {
+wk.setup({
   window = {
     border = "double", -- none, single, double, shadow
     position = "bottom", -- bottom, top
     margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
-    padding = { 2, 2, 2, 2 } -- extra window padding [top, right, bottom, left]
-  }
-}
+    padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+  },
+})
 
 local reg_keymap = function(map, modes, leader)
   for _, mode in ipairs(modes) do
@@ -40,8 +46,6 @@ local reg_noneleader_keymap = function(map, modes)
   end
 end
 
-
-
 wk.register({
   -- ["<tab>"] = { jz.jumpright, "right arg" },
   -- ["<S-tab>"] = { command("SidewaysJumpLeft"), "left arg" },
@@ -49,26 +53,27 @@ wk.register({
   ["<f2><f2>"] = { utils.insert_semicolon_end_of_line, "insert semicolon" },
   ["<f3>"] = { command("AerialToggle"), "symbols list" },
   ["<f4>"] = { command("TroubleToggle"), "diagnostic list" },
-  ["<A-,>"] = { function()
-    local opts = {
-      focusable = true,
-      border = 'rounded',
-      prefix = '',
-    }
-    local _, winid = vim.diagnostic.open_float(nil, opts)
-    if winid and vim.api.nvim_win_is_valid(winid) then
-      vim.api.nvim_win_set_height(winid, 15);
-      vim.api.nvim_win_set_width(winid, 100);
-    end
-  end, "show diagnostics" },
+  ["<A-,>"] = {
+    function()
+      local opts = {
+        focusable = true,
+        border = "rounded",
+        prefix = "",
+      }
+      local _, winid = vim.diagnostic.open_float(nil, opts)
+      if winid and vim.api.nvim_win_is_valid(winid) then
+        vim.api.nvim_win_set_height(winid, 15)
+        vim.api.nvim_win_set_width(winid, 100)
+      end
+    end,
+    "show diagnostics",
+  },
   ["K"] = { vim.lsp.buf.hover, "lsp+hover" },
 })
 
 reg_noneleader_keymap({
   ["<A-\\>"] = { command("ToggleTermToggleAll"), "terminal" },
-}, { "n", "v", "i", "t" }
-)
-
+}, { "n", "v", "i", "t" })
 
 -- files
 reg_keymap({
@@ -86,9 +91,7 @@ reg_keymap({
   q = { utils.open_current_file_use_qtcreator, "open in qtcreator" },
   r = { search.oldfiles, "Open Recent File" },
   t = { command("NvimTreeFindFileToggle"), "file tree" },
-}, { "n" }, "<leader>f"
-)
-
+}, { "n" }, "<leader>f")
 
 -- debug
 reg_keymap({
@@ -98,9 +101,8 @@ reg_keymap({
   l = { command("VimspectorToggleLog"), "toggle log" },
   o = { command("VimspectorShowOutput"), "show output" },
   s = { command("VimspectorReset"), "stop/reset" },
-  w = { command("VimspectorWatch"), "watch" }
-}, { "n" }, "<leader>d"
-)
+  w = { command("VimspectorWatch"), "watch" },
+}, { "n" }, "<leader>d")
 
 -- open
 reg_keymap({
@@ -109,8 +111,7 @@ reg_keymap({
   ["2"] = { utils.open200, "200" },
   d = { search.exploer_dir_current, "externl open current dir" },
   p = { search.exploer_dir_project, "externl open project dir" },
-}, { "n" }, "<leader>o"
-)
+}, { "n" }, "<leader>o")
 
 -- buffer
 reg_keymap({
@@ -123,9 +124,8 @@ reg_keymap({
   K = { command("BDelete other"), "buffer kill" },
   h = { command("Alpha"), "home" },
   b = { search.buffers, "buffer list" },
-  B = { search.project_buffers, "project buffers" }
-}, { "n" }, "<leader>b"
-)
+  B = { search.project_buffers, "project buffers" },
+}, { "n" }, "<leader>b")
 
 -- windows
 reg_keymap({
@@ -142,8 +142,7 @@ reg_keymap({
   t = { command("tabnew"), "new tab" },
   v = { command("wincmd v"), "split-window-right" },
   w = { command("tabnew"), "new tab" },
-}, { "n" }, "<leader>w"
-)
+}, { "n" }, "<leader>w")
 
 -- serach/symbol
 reg_keymap({
@@ -157,8 +156,7 @@ reg_keymap({
   P = { search.project_symbol_at_point, "symbol project at point" },
   d = { search.directory_live_symbol, "symbol current directory" },
   c = { utils.uncolor_all_words, "unhighlight words" },
-}, { "n" }, "<leader>s"
-)
+}, { "n" }, "<leader>s")
 
 -- git
 reg_keymap({
@@ -169,8 +167,7 @@ reg_keymap({
   g = { command("Git"), "git status" },
   l = { command("Gclog"), "git log" },
   p = { command("Git push"), "git push" },
-}, { "n" }, "<leader>g"
-)
+}, { "n" }, "<leader>g")
 
 -- tools
 reg_keymap({
@@ -180,9 +177,8 @@ reg_keymap({
   f = { command("Telescope filetypes"), "filetypes" },
   l = { command("setlocal wrap!"), "line wrap" },
   r = { command("so $VIMHOME/init.vim"), "refresh vimrc" },
-  u = { command("PackerSync"), "update plugins" }
-}, { "n" }, "<leader>t"
-)
+  u = { command("PackerSync"), "update plugins" },
+}, { "n" }, "<leader>t")
 
 -- project
 reg_keymap({
@@ -195,8 +191,7 @@ reg_keymap({
   p = { command("Telescope projects"), "projects" },
   r = { search.project_oldfiles, "project recent files" },
   s = { command("Telescope lsp_dynamic_workspace_symbols"), "workspace symbol" },
-}, { "n" }, "<leader>p"
-)
+}, { "n" }, "<leader>p")
 
 -- code
 reg_keymap({
@@ -206,30 +201,36 @@ reg_keymap({
   c = { search.lsp_calltree, "calltree" },
   p = { search.project_live_symbols, "workspace_symbolf" },
   e = {
-    function() telein.diagnostics({ cwd = rootdir(), bufnr = 0 }) end, "workspace diagnostics"
+    function()
+      telein.diagnostics({ cwd = rootdir(), bufnr = 0 })
+    end,
+    "workspace diagnostics",
   },
   E = {
-    function() telein.diagnostics({ cwd = rootdir() }) end, "workspace diagnostics"
-  }
-}, { "n" }, "<leader>c"
-)
+    function()
+      telein.diagnostics({ cwd = rootdir() })
+    end,
+    "workspace diagnostics",
+  },
+}, { "n" }, "<leader>c")
 
 reg_keymap({
   name = "+insert",
 
-  s = { command("Telescope luasnip disable_ft=true"), "snippet" }
-}, { "n" }, "<leader>i"
-)
-
+  s = { command("Telescope luasnip disable_ft=true"), "snippet" },
+}, { "n" }, "<leader>i")
 
 reg_keymap({
   name = "+runner",
 
-  r = { function() require('telescope').extensions.asynctasks.all() end, "run" },
-  s = { command("AsyncStop"), "async stop" }
-}, { "n" }, "<leader>r"
-)
-
+  r = {
+    function()
+      require("telescope").extensions.asynctasks.all()
+    end,
+    "run",
+  },
+  s = { command("AsyncStop"), "async stop" },
+}, { "n" }, "<leader>r")
 
 reg_keymap({
   name = "+svn",
@@ -241,63 +242,117 @@ reg_keymap({
   u = { svn.svn_update, "svn update" },
   c = { svn.svn_commit, "svn commit" },
   a = { svn.svn_add_current_file, "svn add current file" },
-}, { "n" }, "<leader>v"
-)
-
+}, { "n" }, "<leader>v")
 
 reg_keymap({
   name = "+all-major",
 
-  d = { command('Dox'), "anotaion func" },
-  D = { command('Neogen class'), "anotaion class" },
-  f = { command('Neogen file'), "anotaion file" },
+  d = { command("Dox"), "anotaion func" },
+  D = { command("Neogen class"), "anotaion class" },
+  f = { command("Neogen file"), "anotaion file" },
   c = { search.lsp_calltree, "calltree" },
   p = { search.project_live_symbols, "workspace_symbolf" },
   e = {
-    function() telein.diagnostics({ cwd = rootdir(), bufnr = 0 }) end, "document diagnostics"
+    function()
+      telein.diagnostics({ cwd = rootdir(), bufnr = 0 })
+    end,
+    "document diagnostics",
   },
   ["tt"] = { command("Translate"), "translate" },
-}, { "n" }, ","
-)
+}, { "n" }, ",")
 
 reg_keymap({
   name = "+all-major",
 
   ["<f2>"] = { utils.insert_semicolon_end_of_line, "insert semicolon" },
-}, { "n", "i" }, "<f2>"
-)
-
+}, { "n", "i" }, "<f2>")
 
 reg_keymap({
   name = "+insert",
 
-  s = { command("Telescope luasnip disable_ft=true"), "snippet" }
-}, { "i" }, "<C-x>i"
-)
+  s = { command("Telescope luasnip disable_ft=true"), "snippet" },
+}, { "i" }, "<C-x>i")
 
 reg_keymap({
   name = "+all",
 
   ["<leader>"] = { command("Telescope resume"), "resume" },
-  ["1"] = { function() bufferline.go_to_buffer(1, true) end, "buffer 1" },
-  ["2"] = { function() bufferline.go_to_buffer(2, true) end, "buffer 2" },
-  ["3"] = { function() bufferline.go_to_buffer(3, true) end, "buffer 3" },
-  ["4"] = { function() bufferline.go_to_buffer(4, true) end, "buffer 4" },
-  ["5"] = { function() bufferline.go_to_buffer(5, true) end, "buffer 5" },
-  ["6"] = { function() bufferline.go_to_buffer(6, true) end, "buffer 6" },
-  ["7"] = { function() bufferline.go_to_buffer(7, true) end, "buffer 7" },
-  ["8"] = { function() bufferline.go_to_buffer(8, true) end, "buffer 8" },
-  ["9"] = { function() bufferline.go_to_buffer(9, true) end, "buffer 9" },
-}, { "n" }, "<leader>"
-)
+  ["1"] = {
+    function()
+      bufferline.go_to_buffer(1, true)
+    end,
+    "buffer 1",
+  },
+  ["2"] = {
+    function()
+      bufferline.go_to_buffer(2, true)
+    end,
+    "buffer 2",
+  },
+  ["3"] = {
+    function()
+      bufferline.go_to_buffer(3, true)
+    end,
+    "buffer 3",
+  },
+  ["4"] = {
+    function()
+      bufferline.go_to_buffer(4, true)
+    end,
+    "buffer 4",
+  },
+  ["5"] = {
+    function()
+      bufferline.go_to_buffer(5, true)
+    end,
+    "buffer 5",
+  },
+  ["6"] = {
+    function()
+      bufferline.go_to_buffer(6, true)
+    end,
+    "buffer 6",
+  },
+  ["7"] = {
+    function()
+      bufferline.go_to_buffer(7, true)
+    end,
+    "buffer 7",
+  },
+  ["8"] = {
+    function()
+      bufferline.go_to_buffer(8, true)
+    end,
+    "buffer 8",
+  },
+  ["9"] = {
+    function()
+      bufferline.go_to_buffer(9, true)
+    end,
+    "buffer 9",
+  },
+}, { "n" }, "<leader>")
 
 reg_keymap({
   name = "+goto",
 
-  ["d"] = { command("Telescope lsp_definitions"), "lsp+definition" },
-  ["i"] = { command("Telescope lsp_definitions"), "lsp+definition" },
-  ["r"] = { search.project_lsp_ref, "lsp+references" },
-  ["f"] = { vim.lsp.buf.code_action, "quickfix" },
-  ["y"] = { ___gdc, "comment and yank" },
-}, { "n" }, "g"
-)
+  d = { command("Telescope lsp_definitions"), "lsp+definition" },
+  i = { command("Telescope lsp_definitions"), "lsp+definition" },
+  v = {
+    function()
+      vim.cmd([[wincmd v]])
+      vim.cmd([[Telescope lsp_definitions]])
+    end,
+    "lsp+definition",
+  },
+  s = {
+    function()
+      vim.cmd([[wincmd s]])
+      vim.cmd([[Telescope lsp_definitions]])
+    end,
+    "lsp+definition",
+  },
+  r = { search.project_lsp_ref, "lsp+references" },
+  f = { vim.lsp.buf.code_action, "quickfix" },
+  y = { ___gdc, "comment and yank" },
+}, { "n" }, "g")
