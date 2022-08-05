@@ -343,14 +343,14 @@ reg_keymap({
       vim.cmd([[wincmd v]])
       vim.cmd([[Telescope lsp_definitions]])
     end,
-    "lsp+definition",
+    "lsp+definition/vsplit",
   },
   s = {
     function()
       vim.cmd([[wincmd s]])
       vim.cmd([[Telescope lsp_definitions]])
     end,
-    "lsp+definition",
+    "lsp+definition/split",
   },
   r = { search.project_lsp_ref, "lsp+references" },
   f = { vim.lsp.buf.code_action, "quickfix" },
