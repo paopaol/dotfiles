@@ -1,6 +1,6 @@
 local neogit = require("neogit")
 
-neogit.setup {
+neogit.setup({
   disable_signs = false,
   disable_hint = false,
   disable_context_highlighting = false,
@@ -11,7 +11,7 @@ neogit.setup {
   disable_builtin_notifications = false,
   use_magit_keybindings = false,
   commit_popup = {
-      kind = "split",
+    kind = "split",
   },
   -- Change the default way of opening neogit
   kind = "tab",
@@ -35,40 +35,38 @@ neogit.setup {
     --   }
     -- }
     --
-    diffview = false
+    diffview = false,
   },
   -- Setting any section to `false` will make the section not render at all
   sections = {
     untracked = {
-      folded = true
+      folded = true,
     },
     unstaged = {
-      folded = true
+      folded = true,
     },
     staged = {
-      folded = true
+      folded = true,
     },
     stashes = {
-      folded = true
+      folded = true,
     },
     unpulled = {
-      folded = true
+      folded = true,
     },
     unmerged = {
-      folded = true
+      folded = true,
     },
     recent = {
-      folded = true
+      folded = true,
     },
   },
-  -- override/add mappings
-  mappings = {
-    -- modify status buffer mappings
-    status = {
-      -- Adds a mapping with "B" as key that does the "BranchPopup" command
-      ["B"] = "BranchPopup",
-      -- Removes the default mapping of "s"
-      ["s"] = "",
-    }
-  }
-}
+  -- -- override/add mappings
+  -- mappings = {
+  --   -- modify status buffer mappings
+  --   status = {
+  --     -- Adds a mapping with "B" as key that does the "BranchPopup" command
+  --     ["B"] = "BranchPopup",
+  --   },
+  -- },
+})
