@@ -1,0 +1,12 @@
+[Unit]
+Description=xkeysnail
+
+[Service]
+Environment=DISPLAY=:0
+ExecStart=xkeysnail -q /home/jz/.config/xkeysnail/config.py
+Type=simple
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
