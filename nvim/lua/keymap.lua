@@ -104,3 +104,9 @@ vim.api.nvim_create_user_command("LineDiagnostic", function()
     vim.api.nvim_win_set_width(winid, 60)
   end
 end, {})
+
+local format_xml_region = function(opts)
+  local cmd = string.format("silent  %d,%d !prettier --stdin-filepath=1.html", opts.line1, opts.line2)
+  vim.cmd(cmd)
+end
+vim.api.nvim_create_user_command("XmlFormatRegion", format_xml_region, { range = 2 })
