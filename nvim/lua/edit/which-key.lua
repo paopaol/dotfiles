@@ -85,7 +85,7 @@ reg_keymap({
   ba = { command("BookmarkAnnotate"), "Add Bookmark" },
   bb = { command("Telescope vim_bookmarks all"), "Bookmarks" },
   bd = { command("BookmarkClear"), "Clear Bookmark" },
-  F = { search.file_browser, "file browser" },
+  d = { search.file_browser, "file browser" },
   n = { command("enew"), "New File" },
   o = { search.open_with_defualt, "externl open" },
   q = { utils.open_current_file_use_qtcreator, "open in qtcreator" },
@@ -173,7 +173,7 @@ reg_keymap({
 reg_keymap({
   name = "+tools/toggle",
 
-  c = { command("Telescope themes"), "colorscheme" },
+  c = { command("Telescope colorscheme enable_preview=true"), "colorscheme" },
   f = { command("Telescope filetypes"), "filetypes" },
   l = { command("setlocal wrap!"), "line wrap" },
   r = { command("so $VIMHOME/init.vim"), "refresh vimrc" },
