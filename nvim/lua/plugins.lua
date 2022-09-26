@@ -104,6 +104,8 @@ return require("packer").startup(function()
   use({ "lilydjwg/fcitx.vim", branch = "fcitx5" })
   -- use({ "themercorp/themer.lua" })
   use("projekt0n/github-nvim-theme")
+  use {'shaunsingh/oxocarbon.nvim', run = './install.sh'}
+
   use("Mofiqul/vscode.nvim")
   use("ray-x/starry.nvim")
 
@@ -184,4 +186,5 @@ return require("packer").startup(function()
   use("numToStr/Comment.nvim")
   use({ "folke/lua-dev.nvim", branch = "main" })
   use({ "j-hui/fidget.nvim", branch = "main" })
+  use 'Civitasv/cmake-tools.nvim'
 end)

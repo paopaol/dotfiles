@@ -1,7 +1,7 @@
 local formatting = require("null-ls").builtins.formatting
 require("null-ls").setup({
   sources = {
-    formatting.stylua,
+    -- formatting.stylua,
     formatting.shfmt,
     formatting.prettier.with({
       filetypes = {
