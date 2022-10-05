@@ -52,6 +52,8 @@ vim.o.shortmess = "filnxtToOFcI"
 
 vim.cmd([[ au FocusGained * :checktime ]])
 
+vim.g.python3_host_prog = "/opt/rh/rh-python38/root/bin/python3"
+
 ---external plugins
 vim.g.auto_save = 1
 vim.g.auto_save_silent = 1

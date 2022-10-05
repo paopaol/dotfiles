@@ -1,7 +1,7 @@
 local formatting = require("null-ls").builtins.formatting
 require("null-ls").setup({
   sources = {
-    -- formatting.stylua,
+    formatting.stylua,
     formatting.shfmt,
     formatting.prettier.with({
       filetypes = {
@@ -19,7 +19,7 @@ require("null-ls").setup({
         "yaml",
         "graphql",
       },
-      prefer_local = "node_modules/.bin",
+      -- prefer_local = "node_modules/.bin",
     }),
   },
 })

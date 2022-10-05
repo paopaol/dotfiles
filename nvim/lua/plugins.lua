@@ -14,15 +14,12 @@ return require("packer").startup(function()
   use({ "GustavoKatel/telescope-asynctasks.nvim", branch = "main" })
   use("benfowler/telescope-luasnip.nvim")
   use("nvim-telescope/telescope-file-browser.nvim")
-  use({ "nvim-telescope/telescope-ui-select.nvim" })
+  -- use({ "nvim-telescope/telescope-ui-select.nvim" })
   use("paopaol/cpp-mode")
-  use({
-    "Badhi/nvim-treesitter-cpp-tools",
-  })
+  use({ "Badhi/nvim-treesitter-cpp-tools" })
   use("chentoast/marks.nvim")
   use("yssl/AutoCWD.vim")
 
-  -- use { 'vim-scripts/vcscommand.vim' }
   use({
     "danymat/neogen",
     config = function()
@@ -31,19 +28,11 @@ return require("packer").startup(function()
     requires = "nvim-treesitter/nvim-treesitter",
   })
 
-  -- svn
-  use({
-    "vim-scripts/vcscommand.vim",
-    config = function()
-      vim.g.no_plugin_maps = 1
-    end,
-  })
-
   use({ "rhysd/clever-f.vim" })
-
   use("ton/vim-bufsurf")
   use("mfussenegger/nvim-dap")
-  use({ "ravenxrz/DAPInstall.nvim", branch = "main" })
+  -- use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+  -- use({ "ravenxrz/DAPInstall.nvim", branch = "main" })
   use("akinsho/toggleterm.nvim")
   use("chiel92/vim-autoformat")
   use("kyazdani42/nvim-web-devicons")
@@ -54,18 +43,18 @@ return require("packer").startup(function()
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 
   use("neovim/nvim-lspconfig")
-  use("filipdutescu/renamer.nvim")
+  -- use("filipdutescu/renamer.nvim")
   use({ "ldelossa/litee.nvim", branch = "main" })
   use("ldelossa/litee-calltree.nvim")
   -- use { 'williamboman/nvim-lsp-installer', branch = 'main' }
   use({ "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" })
 
-  use("p00f/clangd_extensions.nvim")
+  -- use("p00f/clangd_extensions.nvim")
 
-  use({
-    "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-  })
+  -- use({
+  -- 	"folke/trouble.nvim",
+  -- 	requires = "kyazdani42/nvim-web-devicons",
+  -- })
 
   use("windwp/nvim-autopairs")
   use("MattesGroeger/vim-bookmarks")
@@ -90,28 +79,28 @@ return require("packer").startup(function()
   -- use 'stevearc/aerial.nvim'
   use("TimUntersberger/neogit")
   --use 'f-person/git-blame.nvim'
-  use("sindrets/diffview.nvim")
+  -- use("sindrets/diffview.nvim")
   use("kazhala/close-buffers.nvim")
-  use("weilbith/nvim-floating-tag-preview")
+  -- use("weilbith/nvim-floating-tag-preview")
   use("romgrk/nvim-treesitter-context")
   use({ "folke/todo-comments.nvim", branch = "main" })
   use({ "gelguy/wilder.nvim" })
   use("907th/vim-auto-save")
   use({ "nvim-neorg/neorg", branch = "main" })
 
-  use({ "kevinhwang91/nvim-bqf", branch = "main" })
+  -- use({ "kevinhwang91/nvim-bqf", branch = "main" })
 
   use({ "lilydjwg/fcitx.vim", branch = "fcitx5" })
   -- use({ "themercorp/themer.lua" })
   use("projekt0n/github-nvim-theme")
-  use {'shaunsingh/oxocarbon.nvim', run = './install.sh'}
+  use({ "shaunsingh/oxocarbon.nvim", run = "./install.sh" })
 
   use("Mofiqul/vscode.nvim")
   use("ray-x/starry.nvim")
 
   -- use 'rhysd/accelerated-jk'
   use("rainbowhxch/accelerated-jk.nvim")
-  use("mhinz/vim-grepper")
+  -- use("mhinz/vim-grepper")
   use("vim-scripts/DoxygenToolkit.vim")
 
   use("plasticboy/vim-markdown")
@@ -123,15 +112,15 @@ return require("packer").startup(function()
   use("haya14busa/incsearch-fuzzy.vim")
   use("mg979/vim-visual-multi")
   use("pseewald/vim-anyfold")
-  use({
-    "anuvyklack/fold-preview.nvim",
-    requires = "anuvyklack/keymap-amend.nvim",
-    config = function()
-      require("fold-preview").setup({
-        default_keybindings = true,
-      })
-    end,
-  })
+  -- use({
+  -- 	"anuvyklack/fold-preview.nvim",
+  -- 	requires = "anuvyklack/keymap-amend.nvim",
+  -- 	config = function()
+  -- 		require("fold-preview").setup({
+  -- 			default_keybindings = true,
+  -- 		})
+  -- 	end,
+  -- })
   use("mattn/emmet-vim")
   use("skywind3000/asynctasks.vim")
   use("skywind3000/asyncrun.vim")
@@ -156,26 +145,11 @@ return require("packer").startup(function()
   use("matveyt/vim-qmake")
   use("leisiji/interestingwords.nvim")
 
-  -- use { "github/copilot.vim" }
-  -- use {
-  -- 	"zbirenbaum/copilot.lua",
-  -- 	event = { "VimEnter" },
-  -- 	config = function()
-  -- 		vim.defer_fn(function()
-  -- 			require("copilot").setup()
-  -- 		end, 100)
-  -- 	end,
-  -- }
-
   --cmp
   use({ "hrsh7th/cmp-nvim-lsp", branch = "main" })
   use({ "hrsh7th/cmp-path", branch = "main" })
   use({ "hrsh7th/nvim-cmp", branch = "main" })
   use({ "hrsh7th/cmp-buffer", branch = "main" })
-  -- use {
-  --   "zbirenbaum/copilot-cmp",
-  --   after = { "copilot.lua", "nvim-cmp" },
-  -- }
   use("saadparwaiz1/cmp_luasnip")
   use("hrsh7th/cmp-nvim-lsp-signature-help")
   use("hrsh7th/cmp-cmdline")
@@ -186,5 +160,5 @@ return require("packer").startup(function()
   use("numToStr/Comment.nvim")
   use({ "folke/lua-dev.nvim", branch = "main" })
   use({ "j-hui/fidget.nvim", branch = "main" })
-  use 'Civitasv/cmake-tools.nvim'
+  use("Civitasv/cmake-tools.nvim")
 end)
