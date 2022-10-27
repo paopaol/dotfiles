@@ -17,3 +17,5 @@ require('edit.neogit')
 require('edit.which-key')
 require('edit.themer')
 require('edit.cursorline')
+-- require('edit.refactoring')
+

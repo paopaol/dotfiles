@@ -57,6 +57,18 @@ local start_debug = function()
   end
 end
 
+local gtest_set_cmd = function()
+  local cmake = require("cmake-tools")
+
+  local callback = function()
+    local cmake_config = require("cmake-tools.config"):new()
+    local result = cmake_config:get_launch_target()
+    vim.cmd(string.format("GTestCmd %s", result["data"]))
+  end
+
+  cmake.select_launch_target(callback)
+end
+
 _G.whichkeyrCpp = function()
   local buf = vim.api.nvim_get_current_buf()
 
@@ -70,6 +82,8 @@ _G.whichkeyrCpp = function()
       ["y"] = { command("CopyCppMethod"), "copy cpp method", buffer = buf },
       ["p"] = { command("PasteCppMethod"), "paste cpp method", buffer = buf },
       ["g"] = { command("TSCppDefineClassFunc"), "define class func", buffer = buf },
+      ["ts"] = { gtest_set_cmd, "gtest set cmd", buffer = buf },
+      ["tr"] = { command("GTestRunUnderCursor"), "run gtest under cursor", buffer = buf },
     },
   })
 end

@@ -1,7 +1,7 @@
 require("Comment").setup({})
 
 local U = require("Comment.utils")
-local Op = require("Comment.opfunc")
+local api = require("Comment.api")
 local A = vim.api
 
 function _G.___gdc(vmode)
@@ -13,7 +13,7 @@ function _G.___gdc(vmode)
     ctype = U.ctype.line, -- Use line style comment
     range = range,
   }
-  local lcs, rcs = U.parse_cstr(cfg, ctx)
+
   local lines = U.get_lines(range)
 
   -- Copying the block
@@ -21,14 +21,7 @@ function _G.___gdc(vmode)
   A.nvim_buf_set_lines(0, srow, srow, false, lines)
 
   -- Doing the comment
-  Op.linewise({
-    cfg = cfg,
-    cmode = ctx.cmode,
-    lines = lines,
-    lcs = lcs,
-    rcs = rcs,
-    range = range,
-  })
+  api.toggle.linewise(vmode)
 
   -- Move the cursor
   local erow = srow + 1

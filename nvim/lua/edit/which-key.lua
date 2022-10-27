@@ -7,6 +7,30 @@ local jz = require("base.jz")
 local telein = require("telescope.builtin")
 local svn = require("tools.svn")
 
+local Terminal = require("toggleterm.terminal").Terminal
+function cppman()
+  vim.ui.input({ prompt = "Enter c++ symbol: " }, function(input)
+    if not input then
+      return
+    end
+
+    local trim = function(input)
+      return (string.gsub(input, "^%s*(.-)%s*$", "%1"))
+    end
+    input = trim(input)
+
+    if input == "" then
+      return
+    end
+
+    local cmd = string.format("cppman %s", input)
+    local lazygit = Terminal:new({ cmd = cmd, direction = "float", float_opts = {
+      border = "double",
+    } })
+    lazygit:toggle()
+  end)
+end
+
 local function rootdir()
   return vim.call("asyncrun#get_root", "%")
 end
@@ -157,6 +181,13 @@ reg_keymap({
   d = { search.directory_live_symbol, "symbol current directory" },
   c = { utils.uncolor_all_words, "unhighlight words" },
 }, { "n" }, "<leader>s")
+
+-- help
+reg_keymap({
+  name = "+help",
+
+  m = { cppman, "cppman" },
+}, { "n" }, "<leader>h")
 
 -- git
 reg_keymap({

@@ -443,3 +443,5 @@ bind l select-pane -R
 
 bind / split-window -h
 bind - split-window -v
+
+set-option -ga terminal-overrides ",*256col*:RGB"

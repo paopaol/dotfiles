@@ -18,6 +18,7 @@ require("null-ls").setup({
         "json",
         "yaml",
         "graphql",
+        "toml",
       },
       -- prefer_local = "node_modules/.bin",
     }),

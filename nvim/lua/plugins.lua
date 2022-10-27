@@ -14,11 +14,16 @@ return require("packer").startup(function()
   use({ "GustavoKatel/telescope-asynctasks.nvim", branch = "main" })
   use("benfowler/telescope-luasnip.nvim")
   use("nvim-telescope/telescope-file-browser.nvim")
-  -- use({ "nvim-telescope/telescope-ui-select.nvim" })
+  use({ "nvim-telescope/telescope-ui-select.nvim" })
   use("paopaol/cpp-mode")
+  use("paopaol/vim-gtest")
   use({ "Badhi/nvim-treesitter-cpp-tools" })
   use("chentoast/marks.nvim")
-  use("yssl/AutoCWD.vim")
+  -- use("yssl/AutoCWD.vim")
+  use({
+    "AckslD/messages.nvim",
+    config = 'require("messages").setup()',
+  })
 
   use({
     "danymat/neogen",

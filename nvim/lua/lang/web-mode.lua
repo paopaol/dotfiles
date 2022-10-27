@@ -32,7 +32,7 @@ _G.whichkeyrPrettier = function()
   })
 end
 
-vim.cmd([[ autocmd FileType json,css,html,javascript,yaml,vue,typescript lua whichkeyrPrettier() ]])
+vim.cmd([[ autocmd FileType json,css,html,javascript,yaml,vue,typescript,toml lua whichkeyrPrettier() ]])
 vim.cmd([[
 	autocmd FileType xml set tabstop=2
 ]])

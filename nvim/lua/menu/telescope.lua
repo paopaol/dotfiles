@@ -53,6 +53,13 @@ ts.setup({
       preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
     },
   }),
+  pickers = {
+    live_grep = {
+      mappings = {
+        i = { ["<c-f>"] = actions.to_fuzzy_refine },
+      },
+    },
+  },
 })
 
 require("telescope").setup({
@@ -68,10 +75,27 @@ require("telescope").setup({
     },
   },
 })
+local action_state = require("telescope.actions.state")
+local file_browser_change_dir = function(path)
+  local prompt_bufnr = vim.api.nvim_get_current_buf()
+  local current_picker = action_state.get_current_picker(prompt_bufnr)
+  local finder = current_picker.finder
+  finder.path = path
+  finder.files = true
+  current_picker:refresh(false, { reset_prompt = true })
+end
 
+require("telescope").load_extension("file_browser")
 require("telescope").setup({
   extensions = {
     file_browser = {
+      on_input_filter_cb = function(prompt)
+        if prompt == "~/" then
+          file_browser_change_dir(vim.env.HOME .. "/")
+        elseif prompt == "/" then
+          file_browser_change_dir("/")
+        end
+      end,
       theme = nil,
       mappings = {
         ["i"] = {
@@ -84,7 +108,6 @@ require("telescope").setup({
     },
   },
 })
-require("telescope").load_extension("file_browser")
 
 require("telescope").setup({
   extensions = {
@@ -101,6 +124,15 @@ require("telescope").setup({
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("vim_bookmarks")
 require("telescope").load_extension("luasnip")
+
+require("telescope").setup({
+  extensions = {
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown({}),
+    },
+  },
+})
+require("telescope").load_extension("ui-select")
 
 local bookmark_actions = require("telescope").extensions.vim_bookmarks.actions
 require("telescope").extensions.vim_bookmarks.all({

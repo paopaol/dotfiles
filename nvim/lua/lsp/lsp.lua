@@ -61,9 +61,14 @@ end
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-local luadev = require("lua-dev").setup({})
-luadev.settings.Lua.format = false
-require("lspconfig").sumneko_lua.setup(luadev)
+require("neodev").setup({})
+require("lspconfig").sumneko_lua.setup({
+  settings = {
+    Lua = {
+      format = false,
+    },
+  },
+})
 
 require("lspconfig").cmake.setup({
   handlers = lsphandlers,

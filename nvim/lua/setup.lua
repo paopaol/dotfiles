@@ -67,3 +67,14 @@ vim.g.autocwd_patternwd_pairs = { { "*", "%:p:h" } }
 vim.g.clever_f_across_no_line = 1
 
 vim.cmd([[ autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif ]])
+
+if vim.fn.has("wsl") == 1 then
+  vim.cmd([[
+  augroup Yank
+
+  autocmd!
+  autocmd TextYankPost * :call system('/mnt/c/windows/system32/clip.exe ',@")
+  augroup END
+  ]])
+end
+require("messages").setup()
