@@ -208,6 +208,7 @@ reg_keymap({
   f = { command("Telescope filetypes"), "filetypes" },
   l = { command("setlocal wrap!"), "line wrap" },
   r = { command("so $VIMHOME/init.vim"), "refresh vimrc" },
+  m = { search.man, "man page" },
   u = { command("PackerSync"), "update plugins" },
 }, { "n" }, "<leader>t")
 

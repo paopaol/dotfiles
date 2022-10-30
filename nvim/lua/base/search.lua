@@ -314,6 +314,10 @@ M.open_with_defualt = function()
   exploer_dir(vim.fn.expand("%", nil, nil))
 end
 
+M.man = function()
+  local opt = { sections = { "ALL" } }
+  require('telescope.builtin').man_pages(opt)
+end
 
 
 
