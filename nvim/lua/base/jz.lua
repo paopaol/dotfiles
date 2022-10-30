@@ -1,7 +1,7 @@
 local M = {}
 
 M.SubProjectFiles = function()
-  require("telescope.builtin").fd({ cwd = vim.fn.expand('%:h') })
+  require("telescope.builtin").fd({ cwd = vim.fn.expand("%:h") })
 end
 
 --------------------------
@@ -11,7 +11,9 @@ local filter_buffers = function(opts, unfiltered)
 
   local excluded = {}
   local bufnrs = vim.tbl_filter(function(b)
-    if 1 ~= vim.fn.buflisted(b) then excluded[b] = true end
+    if 1 ~= vim.fn.buflisted(b) then
+      excluded[b] = true
+    end
     -- only hide unloaded buffers if opts.show_all_buffers is false, keep them listed if true or nil
     if opts.show_all_buffers == false and not vim.api.nvim_buf_is_loaded(b) then
       excluded[b] = true
@@ -19,12 +21,13 @@ local filter_buffers = function(opts, unfiltered)
     if opts.ignore_current_buffer and b == vim.api.nvim_get_current_buf() then
       excluded[b] = true
     end
-    if opts.current_tab_only and not curtab_bufnrs[b] then excluded[b] = true end
+    if opts.current_tab_only and not curtab_bufnrs[b] then
+      excluded[b] = true
+    end
     if opts.no_term_buffers and utils.is_term_buffer(b) then
       excluded[b] = true
     end
-    if opts.cwd_only and
-        not path.is_relative(vim.api.nvim_buf_get_name(b), vim.loop.cwd()) then
+    if opts.cwd_only and not path.is_relative(vim.api.nvim_buf_get_name(b), vim.loop.cwd()) then
       excluded[b] = true
     end
     return not excluded[b]
@@ -33,10 +36,12 @@ local filter_buffers = function(opts, unfiltered)
   return bufnrs, excluded
 end
 
-local function all_winnr() return vim.api.nvim_tabpage_list_wins(0) end
+local function all_winnr()
+  return vim.api.nvim_tabpage_list_wins(0)
+end
 
 local function is_current_buf_loaded_other_window()
-  local current_bufnr = vim.fn.bufnr('%')
+  local current_bufnr = vim.fn.bufnr("%")
   local current_winnr = vim.fn.winnr()
 
   local all = all_winnr()
@@ -46,7 +51,9 @@ local function is_current_buf_loaded_other_window()
 
     if win_nr ~= current_winnr then
       local attached_bufnr = vim.api.nvim_win_get_buf(winid)
-      if current_bufnr == attached_bufnr then return true end
+      if current_bufnr == attached_bufnr then
+        return true
+      end
     end
   end
   return nil
@@ -55,26 +62,32 @@ end
 function M.close_current_buffer()
   local list = filter_buffers({}, vim.api.nvim_list_bufs())
 
-  local ft = vim.api.nvim_buf_get_option(0, 'ft')
+  local ft = vim.api.nvim_buf_get_option(0, "ft")
   if ft == "FALLBACK" then
     print("can't close fallback buffer")
     return
   end
 
-  if not next(list) then return end
+  if not next(list) then
+    return
+  end
 
-  local curr_bufnr = vim.fn.bufnr('%')
+  local curr_bufnr = vim.fn.bufnr("%")
   local need_force_delete
-  if not is_current_buf_loaded_other_window() then need_force_delete = true end
+  if not is_current_buf_loaded_other_window() then
+    need_force_delete = true
+  end
 
-  if #list > 1 then vim.cmd('BufSurfBack') end
+  if #list > 1 then
+    vim.cmd("BufSurfBack")
+  end
   if need_force_delete and vim.api.nvim_buf_is_valid(curr_bufnr) then
     vim.api.nvim_buf_delete(curr_bufnr, { force = true })
   end
 
   local list = filter_buffers({}, vim.api.nvim_list_bufs())
   if #list == 1 then
-    if vim.api.nvim_buf_get_name(list[1]) == '' then
+    if vim.api.nvim_buf_get_name(list[1]) == "" then
       vim.cmd([[Alpha]])
       vim.cmd([[BDelete other]])
     end
@@ -90,17 +103,21 @@ function M.jumpright()
     return
   end
 
-  vim.fn.setpos('.', { 0, vim.fn.line('.'), 0 })
-  local match_num = vim.fn.search('(', 'n', vim.fn.line('.'))
-  if match_num == 0 then return end
+  vim.fn.setpos(".", { 0, vim.fn.line("."), 0 })
+  local match_num = vim.fn.search("(", "n", vim.fn.line("."))
+  if match_num == 0 then
+    return
+  end
 
-  vim.fn.search('(', '', vim.fn.line('.'))
-  local content = vim.fn.getline('.')
+  vim.fn.search("(", "", vim.fn.line("."))
+  local content = vim.fn.getline(".")
   local idx = vim.fn.stridx(content, "(")
-  if idx < 0 then return end
+  if idx < 0 then
+    return
+  end
   local current = vim.fn.getcurpos()
   current[3] = current[3] + 1
-  vim.fn.setpos('.', current)
+  vim.fn.setpos(".", current)
 end
 
 return M
