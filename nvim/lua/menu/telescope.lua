@@ -45,9 +45,6 @@ ts.setup({
       },
     },
     borderchars = {
-      -- prompt = { " ", " ", " ", " ", " ", " ", " ", " " },
-      -- preview = { " ", " ", " ", " ", " ", " ", " ", " " },
-      -- results = { "─", " ", " ", " ", "─", "─", " ", " " },
       prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
       results = { " " },
       preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
@@ -124,6 +121,7 @@ require("telescope").setup({
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("vim_bookmarks")
 require("telescope").load_extension("luasnip")
+require("telescope").load_extension("heading")
 
 require("telescope").setup({
   extensions = {

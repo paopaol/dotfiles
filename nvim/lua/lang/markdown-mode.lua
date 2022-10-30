@@ -17,6 +17,13 @@ _G.whichkeyMarkdown = function()
       ["p"] = { utils.command("MarkdownPreview"), "preview", buffer = buf },
     },
   })
+  wk.register({
+    ["<leader>"] = {
+      name = "major",
+
+      ["si"] = { function () vim.cmd("Telescope heading") end, "heading", buffer = buf },
+    },
+  })
 end
 
 vim.cmd([[ autocmd FileType markdown lua whichkeyMarkdown() ]])
