@@ -140,12 +140,3 @@ require("telescope").extensions.vim_bookmarks.all({
   end,
 })
 
-require("telescope").setup({
-  extensions = {
-    ["ui-select"] = {
-      require("telescope.themes").get_dropdown({
-        -- even more opts
-      }),
-    },
-  },
-})
