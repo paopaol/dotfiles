@@ -25,4 +25,4 @@ _G.whichkeySpecial2 = function()
   })
 end
 
-vim.cmd([[ autocmd FileType fugitiveblame lua whichkeySpecial2() ]])
+vim.cmd([[ autocmd FileType fugitiveblame,git lua whichkeySpecial2() ]])

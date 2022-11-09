@@ -1,3 +1,4 @@
+require('impatient')
 vim.cmd([[packadd packer.nvim]])
 
 return require("packer").startup(function()
@@ -166,4 +167,6 @@ return require("packer").startup(function()
   use({ "folke/lua-dev.nvim", branch = "main" })
   use({ "j-hui/fidget.nvim", branch = "main" })
   use("Civitasv/cmake-tools.nvim")
+  use 'lewis6991/impatient.nvim'
+  use 'ethanholz/nvim-lastplace'
 end)

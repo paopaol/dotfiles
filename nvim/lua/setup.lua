@@ -78,3 +78,4 @@ if vim.fn.has("wsl") == 1 then
   ]])
 end
 require("messages").setup()
+require'nvim-lastplace'.setup{}
