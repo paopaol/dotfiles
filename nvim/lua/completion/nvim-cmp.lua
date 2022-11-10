@@ -72,6 +72,7 @@ cmp.setup({
         doxygen = "[Doxygen]",
         path = "[Path]",
         copilot = "[Copilot]",
+        emmet_vim = "[emmet]",
       })[entry.source.name]
       return vim_item
     end,
@@ -121,6 +122,7 @@ cmp.setup({
     { name = "nvim_lsp_signature_help", max_item_count = 20, dup = 0 },
     { name = "path", max_item_count = 20, dup = 0 },
     { name = "doxygen", dup = 0 },
+    -- { name = 'emmet_vim',dup = 0 },
   }),
 })
 

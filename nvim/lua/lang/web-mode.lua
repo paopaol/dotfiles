@@ -36,3 +36,14 @@ vim.cmd([[ autocmd FileType json,css,html,javascript,yaml,vue,typescript,toml lu
 vim.cmd([[
 	autocmd FileType xml set tabstop=2
 ]])
+
+require'nvim-treesitter.configs'.setup {
+  autotag = {
+    enable = true,
+    filetypes = { "html" , "xml" },
+  }
+}
+-- OR
+require('nvim-ts-autotag').setup({
+  filetypes = { "html" , "xml" },
+})

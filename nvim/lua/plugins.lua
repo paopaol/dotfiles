@@ -33,7 +33,7 @@ return require("packer").startup(function()
     end,
     requires = "nvim-treesitter/nvim-treesitter",
   })
-
+	use ('windwp/nvim-ts-autotag')
   use({ "rhysd/clever-f.vim" })
   use("ton/vim-bufsurf")
   use("mfussenegger/nvim-dap")
@@ -156,6 +156,8 @@ return require("packer").startup(function()
   use({ "hrsh7th/cmp-path", branch = "main" })
   use({ "hrsh7th/nvim-cmp", branch = "main" })
   use({ "hrsh7th/cmp-buffer", branch = "main" })
+  use("dcampos/cmp-emmet-vim")
+
   use("saadparwaiz1/cmp_luasnip")
   use("hrsh7th/cmp-nvim-lsp-signature-help")
   use("hrsh7th/cmp-cmdline")
