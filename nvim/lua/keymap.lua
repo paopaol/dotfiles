@@ -85,6 +85,8 @@ keymap("v", "<A-x>", ":")
 
 keymap("v", "gy", ":lua ___gdc('v')<cr>")
 
+keymap("v", "<leader>tv", ":lua require('edit.hex-view').view() <cr>")
+
 vim.api.nvim_create_user_command("LineDiagnostic", function()
   local opts = {
     focusable = true,
@@ -97,3 +99,5 @@ vim.api.nvim_create_user_command("LineDiagnostic", function()
     vim.api.nvim_win_set_width(winid, 60)
   end
 end, {})
+
+

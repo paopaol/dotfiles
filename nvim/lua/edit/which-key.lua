@@ -6,6 +6,7 @@ local bufferline = require("bufferline")
 local jz = require("base.jz")
 local telein = require("telescope.builtin")
 local svn = require("tools.svn")
+local hexview = require("edit.hex-view")
 
 local Terminal = require("toggleterm.terminal").Terminal
 function cppman()
@@ -211,6 +212,7 @@ reg_keymap({
   m = { search.man, "man page" },
   u = { command("PackerSync"), "update plugins" },
 }, { "n" }, "<leader>t")
+
 
 -- project
 reg_keymap({

@@ -92,7 +92,6 @@ return require("packer").startup(function()
   use({ "folke/todo-comments.nvim", branch = "main" })
   use({ "gelguy/wilder.nvim" })
   use("907th/vim-auto-save")
-  use({ "nvim-neorg/neorg", branch = "main" })
 
   -- use({ "kevinhwang91/nvim-bqf", branch = "main" })
 
@@ -171,4 +170,5 @@ return require("packer").startup(function()
   use("Civitasv/cmake-tools.nvim")
   use 'lewis6991/impatient.nvim'
   use 'ethanholz/nvim-lastplace'
+  use ({ "nvim-neorg/neorg",branch = "main" })
 end)
