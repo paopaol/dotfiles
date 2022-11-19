@@ -17,5 +17,6 @@ require('edit.neogit')
 require('edit.which-key')
 require('edit.themer')
 require('edit.cursorline')
+require('edit.tmux')
+require('edit.venn')
 -- require('edit.refactoring')
-

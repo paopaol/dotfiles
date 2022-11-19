@@ -129,6 +129,51 @@ function T.gen_from_buffer(opts)
   end
 end
 
+function T.gen_from_lsp_location(opts)
+  local lookup_keys = {
+    ordinal = 1,
+    value = 1,
+    filename = 1,
+    cwd = 2,
+  }
+  opts = opts or {}
+
+  local mt_file_entry = {}
+
+  mt_file_entry.cwd = vim.fn.expand(opts.cwd or vim.loop.cwd())
+  mt_file_entry.display = function(entry)
+    local filename = entry.value.filename
+    local basename = vim.fn.fnamemodify(filename, ":t")
+
+    local displayer = entry_display.create {
+      separator = " | ",
+      items = { { width = 50 }, { width = 300 }, { remaining = true } }
+    }
+
+    local hl_group
+    basename, hl_group = tutils.transform_devicons(filename, basename, false)
+    return displayer { { basename, hl_group }, entry.value.text }
+  end
+
+  mt_file_entry.__index = function(t, k)
+    local raw = rawget(mt_file_entry, k)
+    if raw then
+      return raw
+    end
+
+    return rawget(t, rawget(lookup_keys, k))
+  end
+
+  return function(entry)
+    return setmetatable({
+      filename = entry.filename,
+      lnum = entry.lnum,
+      ordinal =  entry.text,
+      value = entry
+    }, mt_file_entry)
+  end
+end
+
 local function apply_cwd_only_aliases(opts)
   local has_cwd_only = opts.cwd_only ~= nil
   local has_only_cwd = opts.only_cwd ~= nil
@@ -234,7 +279,8 @@ M.project_live_symbols = function()
 end
 
 M.project_lsp_ref = function()
-  require('telescope.builtin').lsp_references({ cwd = rootdir(), push_cursor_on_edit = true })
+  require('telescope.builtin').lsp_references({ cwd = rootdir(), entry_maker = T.gen_from_lsp_location(),
+    push_cursor_on_edit = true })
 end
 
 M.project_symbol_at_point = function()

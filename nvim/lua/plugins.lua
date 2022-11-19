@@ -1,4 +1,5 @@
 require('impatient')
+require 'impatient'.enable_profile()
 vim.cmd([[packadd packer.nvim]])
 
 return require("packer").startup(function()
@@ -33,7 +34,7 @@ return require("packer").startup(function()
     end,
     requires = "nvim-treesitter/nvim-treesitter",
   })
-	use ('windwp/nvim-ts-autotag')
+  use('windwp/nvim-ts-autotag')
   use({ "rhysd/clever-f.vim" })
   use("ton/vim-bufsurf")
   use("mfussenegger/nvim-dap")
@@ -98,6 +99,7 @@ return require("packer").startup(function()
   use({ "lilydjwg/fcitx.vim", branch = "fcitx5" })
   -- use({ "themercorp/themer.lua" })
   use("projekt0n/github-nvim-theme")
+  use 'folke/tokyonight.nvim'
   use({ "shaunsingh/oxocarbon.nvim", run = "./install.sh" })
 
   use("Mofiqul/vscode.nvim")
@@ -170,5 +172,11 @@ return require("packer").startup(function()
   use("Civitasv/cmake-tools.nvim")
   use 'lewis6991/impatient.nvim'
   use 'ethanholz/nvim-lastplace'
-  use ({ "nvim-neorg/neorg",branch = "main" })
+  use({ "nvim-neorg/neorg", branch = "main" })
+  use("aserowy/tmux.nvim")
+  use "jbyuki/venn.nvim"
+  use {'nvim-orgmode/orgmode', config = function()
+    require('orgmode').setup{}
+    end
+  }
 end)

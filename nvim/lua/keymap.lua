@@ -47,13 +47,18 @@ keymap("n", "<F8>", ":cn<CR>zz")
 keymap("n", "<F7>", ":cp<CR>zz")
 
 -- window navigate
-keymap("", "<A-j>", "<C-W>j")
-keymap("", "<A-k>", "<C-W>k")
-keymap("", "<A-h>", "<C-W>h")
-keymap("", "<A-l>", "<C-W>l")
+-- keymap("", "<A-j>", "<C-W>j")
+-- keymap("", "<A-k>", "<C-W>k")
+-- keymap("", "<A-h>", "<C-W>h")
+-- keymap("", "<A-l>", "<C-W>l")
+keymap("", "<A-j>", ":lua require('tmux').move_bottom()<cr>")
+keymap("", "<A-k>", ":lua require('tmux').move_top()<cr>")
+keymap("", "<A-h>", ":lua require('tmux').move_left()<cr>")
+keymap("", "<A-l>", ":lua require('tmux').move_right()<cr>")
 
 keymap("n", "<A-->", ":resize -1<CR>")
 keymap("n", "<A-=>", ":resize +1<CR>")
+
 
 keymap("n", "<A-<>", ":SidewaysLeft<CR>")
 keymap("n", "<A->>", ":SidewaysRight<CR>")
@@ -99,5 +104,3 @@ vim.api.nvim_create_user_command("LineDiagnostic", function()
     vim.api.nvim_win_set_width(winid, 60)
   end
 end, {})
-
-
