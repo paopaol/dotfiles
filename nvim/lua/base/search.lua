@@ -280,7 +280,7 @@ end
 
 M.project_lsp_ref = function()
   require('telescope.builtin').lsp_references({ cwd = rootdir(), entry_maker = T.gen_from_lsp_location(),
-    push_cursor_on_edit = true })
+  push_cursor_on_edit = true })
 end
 
 M.project_symbol_at_point = function()
