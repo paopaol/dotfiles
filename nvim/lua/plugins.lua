@@ -66,7 +66,7 @@ return require("packer").startup(function()
   use("kazhala/close-buffers.nvim")
   use("romgrk/nvim-treesitter-context")
   use({ "folke/todo-comments.nvim", branch = "main" })
-  -- use("907th/vim-auto-save")
+  use("907th/vim-auto-save")
 
 
   use({ "lilydjwg/fcitx.vim", branch = "fcitx5" })

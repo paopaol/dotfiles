@@ -12,8 +12,10 @@ local close_buffer_and_quickfix = function()
   pcall(vim.cmd, [[wincmd c]])
 end
 
-local toggle_diff = function ()
-  pcall(vim.cmd, [[execute <SNR>129_StageInline('toggle',line('.'),v:count)]])
+local function command(cmd)
+  return function()
+    vim.cmd(cmd)
+  end
 end
 
 _G.whichkeySpecial1 = function()
@@ -38,7 +40,7 @@ vim.cmd([[ autocmd FileType git lua whichkeySpecial2() ]])
 _G.whichkeyFugitive = function()
   local buf = vim.api.nvim_get_current_buf()
   wk.register({
-    ["<tab>"] = { toggle_diff, "toggle diff", buffer = buf },
+    ["<tab>"] = { command("normal ="), "toggle diff", buffer = buf },
   })
 end
 vim.cmd([[ autocmd FileType fugitive lua whichkeyFugitive() ]])

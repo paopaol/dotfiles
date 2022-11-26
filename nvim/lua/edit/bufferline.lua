@@ -9,7 +9,7 @@ require "bufferline".setup {
     end,
 
     show_tab_indicators = false, -- | false,
-    separator_style = "slant", -- | "padded_slant" | "thick" | "thin" |
+    separator_style = "thin", -- | "padded_slant" | "thick" | "thin" |
     enforce_regular_tabs = false, -- false | true,
     always_show_bufferline = true,
     offsets = {
