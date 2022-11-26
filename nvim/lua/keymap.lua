@@ -43,8 +43,6 @@ keymap("n", "<C-k>", "5k")
 keymap("i", "<C-c>", "<esc>")
 keymap("n", "Q", ":cclose<CR>")
 keymap("v", "Q", ":cclose<CR>")
--- keymap("n", "<F7>", ":cp<CR>zz")
--- keymap("n", "<F8>", ":cn<CR>zz")
 
 -- window navigate
 -- keymap("", "<A-j>", "<C-W>j")

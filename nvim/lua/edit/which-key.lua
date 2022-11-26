@@ -91,8 +91,8 @@ wk.register({
   -- ["<S-tab>"] = { command("SidewaysJumpLeft"), "left arg" },
   ["<f1>"] = { search.project_tree, "tree" },
   ["<f2><f2>"] = { utils.insert_semicolon_end_of_line, "insert semicolon" },
-  ["<f3>"] = { qf_prev, "symbols list" },
-  ["<f4>"] = { qf_next, "diagnostic list" },
+  ["<f3>"] = { qf_prev, "prev item" },
+  ["<f4>"] = { qf_next, "next item" },
   ["<A-,>"] = {
     function()
       local opts = {

@@ -69,6 +69,8 @@ function _G.set_terminal_keymaps()
   vim.keymap.set("n", "<A-j>", [[]], opts)
   vim.keymap.set("n", "<A-k>", [[]], opts)
   vim.keymap.set("n", "<A-l>", [[]], opts)
+  vim.keymap.set("t", "<C-j>", [[<Down>]], opts)
+  vim.keymap.set("t", "<C-k>", [[<Up>]], opts)
 end
 
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
