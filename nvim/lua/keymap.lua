@@ -43,8 +43,8 @@ keymap("n", "<C-k>", "5k")
 keymap("i", "<C-c>", "<esc>")
 keymap("n", "Q", ":cclose<CR>")
 keymap("v", "Q", ":cclose<CR>")
-keymap("n", "<F8>", ":cn<CR>zz")
-keymap("n", "<F7>", ":cp<CR>zz")
+-- keymap("n", "<F7>", ":cp<CR>zz")
+-- keymap("n", "<F8>", ":cn<CR>zz")
 
 -- window navigate
 -- keymap("", "<A-j>", "<C-W>j")
@@ -104,3 +104,10 @@ vim.api.nvim_create_user_command("LineDiagnostic", function()
     vim.api.nvim_win_set_width(winid, 60)
   end
 end, {})
+
+require("yanky").setup({ })
+
+vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
+vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
+vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
+vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")

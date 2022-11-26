@@ -13,28 +13,28 @@ local template = {
     Launch = {
       adapter = "vscode-cpptools",
       configuration = {
-        request = "launch",
-        program = "${workspaceRoot}/build/main",
-        args = {},
-        cwd = "${workspaceRoot}/build",
-        environment = {},
-        externalConsole = true,
-        MIMode = "gdb",
-        setupCommands = {
-          {
-            description = "Enable pretty-printing for gdb",
-            text = "-enable-pretty-printing",
-            ignoreFailures = true,
-          },
-        },
+	request = "launch",
+	program = "${workspaceRoot}/build/main",
+	args = {},
+	cwd = "${workspaceRoot}/build",
+	environment = {},
+	externalConsole = true,
+	MIMode = "gdb",
+	setupCommands = {
+	  {
+	    description = "Enable pretty-printing for gdb",
+	    text = "-enable-pretty-printing",
+	    ignoreFailures = true,
+	  },
+	},
       },
     },
     Attach = {
       adapter = "vscode-cpptools",
       configuration = {
-        request = "attach",
-        program = "<path to binary>",
-        MIMode = "<lldb or gdb>",
+	request = "attach",
+	program = "<path to binary>",
+	MIMode = "<lldb or gdb>",
       },
     },
   },
@@ -61,9 +61,31 @@ local gtest_set_cmd = function()
   local cmake = require("cmake-tools")
 
   local callback = function()
-    local cmake_config = require("cmake-tools.config"):new()
-    local result = cmake_config:get_launch_target()
-    vim.cmd(string.format("GTestCmd %s", result["data"]))
+    local cmake_config = require("cmake-tools.config"):get_launch_target()
+    if cmake_config.data then
+      vim.cmd(string.format("GTestCmd %s", cmake_config.data))
+    end
+  end
+
+  cmake.select_launch_target(callback)
+end
+
+local gtest_run_selected = function()
+  local cmake = require("cmake-tools")
+
+  local callback = function()
+    local cmake_config = require("cmake-tools.config"):get_launch_target()
+    if cmake_config.data then
+      vim.cmd(string.format("GTestCmd %s", cmake_config.data))
+
+      local tests = vim.call('gtest#GetAllTests')
+      vim.ui.select(tests, {prompt = "select test case"}, function (test)
+	if not test then
+	  return
+	end
+	vim.call('gtest#GTestRunOnly', test)
+      end)
+    end
   end
 
   cmake.select_launch_target(callback)
@@ -83,6 +105,7 @@ _G.whichkeyrCpp = function()
       ["p"] = { command("PasteCppMethod"), "paste cpp method", buffer = buf },
       ["g"] = { command("TSCppDefineClassFunc"), "define class func", buffer = buf },
       ["ts"] = { gtest_set_cmd, "gtest set cmd", buffer = buf },
+      ["t,"] = { gtest_run_selected, "gtest run", buffer = buf },
       ["tr"] = { command("GTestRunUnderCursor"), "run gtest under cursor", buffer = buf },
     },
   })
@@ -91,9 +114,9 @@ end
 -- autocmd FileType cpp,c setlocal commentstring=//\ %s
 vim.cmd([[
 augroup filetype_cpp
-  autocmd!
-  autocmd FileType cpp,c set tabstop=4  shiftwidth=4  softtabstop=4 expandtab  
-  autocmd FileType cpp,c lua whichkeyrCpp()
+autocmd!
+autocmd FileType cpp,c set tabstop=4  shiftwidth=4  softtabstop=4 expandtab  
+autocmd FileType cpp,c lua whichkeyrCpp()
 augroup END
 ]])
 

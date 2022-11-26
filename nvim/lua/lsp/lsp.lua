@@ -37,10 +37,6 @@ local border = {
 local lsphandlers = {
   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border, height = 15, width = 100 }),
   ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-  ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = true,
-    virtual_text = true,
-  }),
 }
 
 vim.diagnostic.config({
@@ -80,8 +76,11 @@ require("lspconfig").cmake.setup({
 require("lspconfig").clangd.setup({
   cmd = {
     "clangd",
-    "--clang-tidy",
     "-j=1",
+    "--background-index-priority=low",
+    "--pch-storage=memory",
+    "--log=error",
+    "--clang-tidy",
     "--header-insertion=never",
     "--compile-commands-dir=build",
     "--completion-style=detailed",

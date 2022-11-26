@@ -2,12 +2,12 @@ local wk = require("which-key")
 local jz = require("base.jz")
 
 local quit_window = function()
-  jz.close_current_buffer()
-  vim.cmd([[wincmd c]])
+  pcall(jz.close_current_buffer)
+  pcall(vim.cmd, [[wincmd c]])
 end
 
 local close_buffer = function()
-  jz.close_current_buffer()
+  pcall(jz.close_current_buffer)
 end
 
 _G.whichkeySpecial1 = function()

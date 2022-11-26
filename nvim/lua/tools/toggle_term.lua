@@ -40,7 +40,7 @@ require("toggleterm").setup({
   insert_mappings = true, -- whether or not the open mapping applies in insert mode
   terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
   persist_size = true,
-  direction = "vertical", --'vertical' | 'horizontal' | 'tab' | 'float',
+  direction = "float", --'vertical' | 'horizontal' | 'tab' | 'float',
   close_on_exit = true, -- close the terminal window when the process exits
   shell = vimshell, -- change the default shell
   -- This field is only relevant if direction is set to 'float'
@@ -61,10 +61,14 @@ vim.cmd([[autocmd TermEnter term://*toggleterm#* set winhighlight=]])
 function _G.set_terminal_keymaps()
   local opts = { buffer = 0 }
   vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
-  vim.keymap.set("t", "<A-h>", [[<Cmd>wincmd h<CR>]], opts)
-  vim.keymap.set("t", "<A-j>", [[<Cmd>wincmd j<CR>]], opts)
-  vim.keymap.set("t", "<A-k>", [[<Cmd>wincmd k<CR>]], opts)
-  vim.keymap.set("t", "<A-l>", [[<Cmd>wincmd l<CR>]], opts)
+  -- vim.keymap.set("t", "<A-h>", [[<Cmd>wincmd h<CR>]], opts)
+  -- vim.keymap.set("t", "<A-j>", [[<Cmd>wincmd j<CR>]], opts)
+  -- vim.keymap.set("t", "<A-k>", [[<Cmd>wincmd k<CR>]], opts)
+  -- vim.keymap.set("t", "<A-l>", [[<Cmd>wincmd l<CR>]], opts)
+  vim.keymap.set("n", "<A-h>", [[]], opts)
+  vim.keymap.set("n", "<A-j>", [[]], opts)
+  vim.keymap.set("n", "<A-k>", [[]], opts)
+  vim.keymap.set("n", "<A-l>", [[]], opts)
 end
 
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")

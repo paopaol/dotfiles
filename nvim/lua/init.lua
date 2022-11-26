@@ -1,6 +1,6 @@
 require('setup')
-require('theme')
---
+require('colors')
+
 require('imselect')
 require('lsp.init')
 require('lang.init')
@@ -10,4 +10,4 @@ require('tools.init')
 require('edit.init')
 require('menu.init')
 require('keymap')
-require('menu.wilder')
+require('theme')

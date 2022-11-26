@@ -71,13 +71,28 @@ local reg_noneleader_keymap = function(map, modes)
   end
 end
 
+local qf_next = function ()
+  local ok = pcall(vim.cmd, [[cn]])
+  if ok then
+    vim.cmd([[normal zz]])
+  end
+end
+
+local qf_prev = function ()
+  local ok = pcall(vim.cmd, [[cp]])
+  if ok then
+    vim.cmd([[normal zz]])
+  end
+end
+
+
 wk.register({
   -- ["<tab>"] = { jz.jumpright, "right arg" },
   -- ["<S-tab>"] = { command("SidewaysJumpLeft"), "left arg" },
   ["<f1>"] = { search.project_tree, "tree" },
   ["<f2><f2>"] = { utils.insert_semicolon_end_of_line, "insert semicolon" },
-  ["<f3>"] = { command("AerialToggle"), "symbols list" },
-  ["<f4>"] = { command("TroubleToggle"), "diagnostic list" },
+  ["<f3>"] = { qf_prev, "symbols list" },
+  ["<f4>"] = { qf_next, "diagnostic list" },
   ["<A-,>"] = {
     function()
       local opts = {
@@ -283,8 +298,6 @@ reg_keymap({
   name = "+all-major",
 
   d = { command("Dox"), "anotaion func" },
-  D = { command("Neogen class"), "anotaion class" },
-  f = { command("Neogen file"), "anotaion file" },
   c = { search.lsp_calltree, "calltree" },
   p = { search.project_live_symbols, "workspace_symbolf" },
   e = {
@@ -309,9 +322,10 @@ reg_keymap({
 }, { "i" }, "<C-x>i")
 
 reg_keymap({
-  name = "+all",
+  name = "+global",
 
-  ["<leader>"] = { command("Telescope resume"), "resume" },
+  ["<leader>"] = { command("w"), "save file" },
+  q = { command("wincmd c"), "delete-window" },
   ["1"] = {
     function()
       bufferline.go_to_buffer(1, true)
