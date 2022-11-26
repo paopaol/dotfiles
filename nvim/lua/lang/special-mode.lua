@@ -6,8 +6,14 @@ local quit_window = function()
   pcall(vim.cmd, [[wincmd c]])
 end
 
-local close_buffer = function()
+local close_buffer_and_quickfix = function()
+  pcall(vim.cmd, [[cclose]])
   pcall(jz.close_current_buffer)
+  pcall(vim.cmd, [[wincmd c]])
+end
+
+local toggle_diff = function ()
+  pcall(vim.cmd, [[execute <SNR>129_StageInline('toggle',line('.'),v:count)]])
 end
 
 _G.whichkeySpecial1 = function()
@@ -16,13 +22,24 @@ _G.whichkeySpecial1 = function()
     ["q"] = { quit_window, "quit", buffer = buf },
   })
 end
-vim.cmd([[ autocmd FileType man,fugitive,help lua whichkeySpecial1() ]])
+vim.cmd([[ autocmd FileType man,fugitive,help,git lua whichkeySpecial1() ]])
 
 _G.whichkeySpecial2 = function()
   local buf = vim.api.nvim_get_current_buf()
   wk.register({
-    ["q"] = { close_buffer, "quit", buffer = buf },
+    ["q"] = { close_buffer_and_quickfix, "quit", buffer = buf },
   })
 end
 
-vim.cmd([[ autocmd FileType fugitiveblame,git lua whichkeySpecial2() ]])
+vim.cmd([[ autocmd FileType git lua whichkeySpecial2() ]])
+
+
+
+_G.whichkeyFugitive = function()
+  local buf = vim.api.nvim_get_current_buf()
+  wk.register({
+    ["<tab>"] = { toggle_diff, "toggle diff", buffer = buf },
+  })
+end
+vim.cmd([[ autocmd FileType fugitive lua whichkeyFugitive() ]])
+

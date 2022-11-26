@@ -211,8 +211,8 @@ reg_keymap({
 
   P = { command("Git pull"), "git pull" },
   b = { command("Git blame"), "git blame" },
-  g = { command("Git"), "git status" },
-  l = { command("Gclog"), "git log" },
+  g = { command("tab Git"), "git status" },
+  l = { command("tab Gclog"), "git log" },
   p = { command("Git push"), "git push" },
 }, { "n" }, "<leader>g")
 
