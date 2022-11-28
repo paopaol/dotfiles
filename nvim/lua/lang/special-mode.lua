@@ -24,7 +24,7 @@ _G.whichkeySpecial1 = function()
     ["q"] = { quit_window, "quit", buffer = buf },
   })
 end
-vim.cmd([[ autocmd FileType man,fugitive,help,git lua whichkeySpecial1() ]])
+vim.cmd([[ autocmd FileType man,fugitive,help,git,checkhealth lua whichkeySpecial1() ]])
 
 _G.whichkeySpecial2 = function()
   local buf = vim.api.nvim_get_current_buf()

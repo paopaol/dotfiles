@@ -38,7 +38,7 @@ end
 
 local function command(cmd)
   return function()
-    vim.cmd(cmd)
+    pcall(vim.cmd, cmd)
   end
 end
 

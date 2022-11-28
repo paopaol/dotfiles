@@ -4,7 +4,7 @@ vim.cmd([[
 ]])
 
 -- vim.o.guifont = 'FiraCode Nerd Font Mono:h11'
-vim.o.guifont = "Fira Code:h10.5"
+-- vim.o.guifont = "Fira Code:h10.5"
 
 vim.o.pumheight = 10
 vim.o.numberwidth = 2
