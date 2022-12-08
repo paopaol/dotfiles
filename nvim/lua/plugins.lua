@@ -74,7 +74,6 @@ return require("packer").startup(function()
   use "EdenEast/nightfox.nvim"
   use 'folke/tokyonight.nvim'
   use 'Mofiqul/dracula.nvim'
-  use "EdenEast/nightfox.nvim"
 
   use("rainbowhxch/accelerated-jk.nvim")
   use("vim-scripts/DoxygenToolkit.vim")
@@ -137,5 +136,8 @@ return require("packer").startup(function()
     require('orgmode').setup{}
     end
   }
-  use 'gbprod/yanky.nvim'
+  -- use 'paopaol/nvim-clangd-hl'
+  use 'theHamsta/nvim-semantic-tokens'
+  use 'ddcien/lsp-semantic.nvim'
+  -- use 'gbprod/yanky.nvim'
 end)

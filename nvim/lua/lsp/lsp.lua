@@ -66,13 +66,18 @@ require("lspconfig").sumneko_lua.setup({
   },
 })
 
+
+require('semantic').setup({})
+
 require("lspconfig").cmake.setup({
   handlers = lsphandlers,
   root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
   on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
   end,
 })
+
 require("lspconfig").clangd.setup({
   cmd = {
     "clangd",
@@ -89,6 +94,7 @@ require("lspconfig").clangd.setup({
   root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
   on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    require('semantic').refresh()
   end,
 })
 require("lspconfig").marksman.setup({

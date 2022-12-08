@@ -34,7 +34,7 @@ local function trim(str)
 end
 
 cmp.setup({
-  completion = { keyword_length = 2 },
+  completion = { keyword_length = 1 },
   experimental = { view = { entries = "native" } },
   snippet = {
     -- REQUIRED - you must specify a snippet engine
@@ -163,16 +163,16 @@ cmp.setup({
     }
   })
 
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      {
-        name = 'cmdline',
-        option = {
-          ignore_cmds = { 'Man', '!' }
-        }
-      }
-    })
-  })
+  -- cmp.setup.cmdline(':', {
+  --   mapping = cmp.mapping.preset.cmdline(),
+  --   sources = cmp.config.sources({
+  --     { name = 'path' }
+  --   }, {
+  --     {
+  --       name = 'cmdline',
+  --       option = {
+  --         ignore_cmds = { 'Man', '!' }
+  --       }
+  --     }
+  --   })
+  -- })

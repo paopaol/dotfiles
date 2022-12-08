@@ -3,13 +3,13 @@ vim.cmd([[
   let maplocalleader = ","
 ]])
 
--- vim.o.guifont = 'FiraCode Nerd Font Mono:h11'
--- vim.o.guifont = "Fira Code:h10.5"
+vim.o.guifont = 'FiraCode Nerd Font Mono:h11'
+vim.o.guifont = "Fira Code:h10.5"
 
 vim.o.pumheight = 10
-vim.o.numberwidth = 2
+vim.o.numberwidth = 3
 -- 显示左侧图标指示列
-vim.signcolumn = "yes"
+vim.o.signcolumn = "no"
 vim.o.foldmethod = "manual"
 vim.o.cursorline = true
 -- jk移动时光标下上方保留3行
@@ -69,7 +69,7 @@ vim.g.clever_f_across_no_line = 1
 vim.cmd([[ autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif ]])
 
 if vim.fn.has("wsl") == 1 then
-  vim.cmd([[
+	vim.cmd([[
   augroup Yank
 
   autocmd!
@@ -78,4 +78,18 @@ if vim.fn.has("wsl") == 1 then
   ]])
 end
 require("messages").setup()
-require'nvim-lastplace'.setup{}
+require 'nvim-lastplace'.setup {}
+
+
+vim.g.clipboard = {
+	name = "win32yank-wsl",
+	copy = {
+		["+"] = '/mnt/d/root/opt/win32yank.exe -i --crlf',
+		["*"] = '/mnt/d/root/opt/win32yank.exe -i --crlf',
+	},
+	paste = {
+		["+"] = '/mnt/d/root/opt/win32yank.exe -o --lf',
+		["*"] = '/mnt/d/root/opt/win32yank.exe -o --lf',
+	},
+	cache_enabled = 0,
+}
