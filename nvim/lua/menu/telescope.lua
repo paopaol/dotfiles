@@ -72,14 +72,24 @@ require("telescope").setup({
 		},
 	},
 })
-local action_state = require("telescope.actions.state")
+
 local file_browser_change_dir = function(path)
+	local action_state = require "telescope.actions.state"
+
 	local prompt_bufnr = vim.api.nvim_get_current_buf()
 	local current_picker = action_state.get_current_picker(prompt_bufnr)
 	local finder = current_picker.finder
 	finder.path = path
 	finder.files = true
-	current_picker:refresh(false, { reset_prompt = true })
+	current_picker:refresh(finder, { reset_prompt = true })
+end
+
+local update_dir = function(prompt)
+	if prompt == "~/" then
+		file_browser_change_dir(vim.env.HOME)
+	elseif prompt == "/" then
+		file_browser_change_dir("/")
+	end
 end
 
 
@@ -106,13 +116,7 @@ require("telescope").setup({
 			require("telescope.themes").get_dropdown({}),
 		},
 		file_browser = {
-			on_input_filter_cb = function(prompt)
-				if prompt == "~/" then
-					file_browser_change_dir(vim.env.HOME .. "/")
-				elseif prompt == "/" then
-					file_browser_change_dir("/")
-				end
-			end,
+			on_input_filter_cb = update_dir,
 			theme = nil,
 			mappings = {
 				["i"] = {
