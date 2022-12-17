@@ -20,28 +20,28 @@ ts.setup({
       prompt_position = "bottom",
 
       horizontal = {
-        preview_width = 0.65,
+	preview_width = 0.65,
       },
       vertical = {
-        preview_width = 0.99,
-        width = 0.99,
-        height = 100,
-        preview_height = 0.6,
+	preview_width = 0.99,
+	width = 0.99,
+	height = 100,
+	preview_height = 0.6,
       },
       center = {
-        height = 0.30,
-        preview_cutoff = 40,
-        prompt_position = "top",
-        width = 0.99,
+	height = 0.30,
+	preview_cutoff = 40,
+	prompt_position = "top",
+	width = 0.99,
       },
       flex = {
-        preview_width = 0.65,
-        horizontal = {},
+	preview_width = 0.65,
+	horizontal = {},
       },
       bottom_pane = {
-        height = 0.3,
-        preview_cutoff = 130,
-        prompt_position = "top",
+	height = 0.3,
+	preview_cutoff = 130,
+	prompt_position = "top",
       },
     },
     borderchars = {
@@ -53,7 +53,7 @@ ts.setup({
   pickers = {
     live_grep = {
       mappings = {
-        i = { ["<c-f>"] = actions.to_fuzzy_refine },
+	i = { ["<c-f>"] = actions.to_fuzzy_refine },
       },
     },
   },
@@ -63,10 +63,10 @@ require("telescope").setup({
   defaults = {
     mappings = {
       i = {
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
-        ["<esc>"] = actions.close,
-        ["<C-h>"] = actions.which_key,
+	["<C-j>"] = actions.move_selection_next,
+	["<C-k>"] = actions.move_selection_previous,
+	["<esc>"] = actions.close,
+	["<C-h>"] = actions.which_key,
       },
       n = { ["<esc>"] = actions.close },
     },
@@ -82,30 +82,9 @@ local file_browser_change_dir = function(path)
   current_picker:refresh(false, { reset_prompt = true })
 end
 
-require("telescope").load_extension("file_browser")
-require("telescope").setup({
-  extensions = {
-    file_browser = {
-      on_input_filter_cb = function(prompt)
-        if prompt == "~/" then
-          file_browser_change_dir(vim.env.HOME .. "/")
-        elseif prompt == "/" then
-          file_browser_change_dir("/")
-        end
-      end,
-      theme = nil,
-      mappings = {
-        ["i"] = {
-          -- your custom insert mode mappings
-        },
-        ["n"] = {
-          -- your custom normal mode mappings
-        },
-      },
-    },
-  },
-})
 
+local lst = require('telescope').extensions.luasnip
+local luasnip = require('luasnip')
 require("telescope").setup({
   extensions = {
     fzf = {
@@ -114,28 +93,47 @@ require("telescope").setup({
       override_file_sorter = true, -- override the file sorter
       case_mode = "smart_case", -- or "ignore_case" or "respect_case"
     },
+    luasnip = {
+      search = function(entry)
+	return lst.filter_null(entry.context.trigger) .. " " ..
+	lst.filter_null(entry.context.name) .. " " ..
+	entry.ft .. " " ..
+	lst.filter_description(entry.context.name, entry.context.description) ..
+	lst.get_docstring(luasnip, entry.ft, entry.context)[1]
+      end
+    },
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown({}),
+    },
+    file_browser = {
+      on_input_filter_cb = function(prompt)
+	if prompt == "~/" then
+	  file_browser_change_dir(vim.env.HOME .. "/")
+	elseif prompt == "/" then
+	  file_browser_change_dir("/")
+	end
+      end,
+      theme = nil,
+      mappings = {
+	["i"] = {
+	  -- your custom insert mode mappings
+	},
+	["n"] = {
+	  -- your custom normal mode mappings
+	},
+      },
+    },
   },
 })
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
-require("telescope").load_extension("fzf")
 require("telescope").load_extension("vim_bookmarks")
-require("telescope").load_extension("luasnip")
 require("telescope").load_extension("heading")
-
-require("telescope").setup({
-  extensions = {
-    ["ui-select"] = {
-      require("telescope.themes").get_dropdown({}),
-    },
-  },
-})
-require("telescope").load_extension("ui-select")
 
 local bookmark_actions = require("telescope").extensions.vim_bookmarks.actions
 require("telescope").extensions.vim_bookmarks.all({
   attach_mappings = function(_, map)
-    map("i", "<A-x>", bookmark_actions.delete_selected_or_at_cursor)
+    map("i", "<M-d>", bookmark_actions.delete_selected_or_at_curso)
     return true
   end,
 })
