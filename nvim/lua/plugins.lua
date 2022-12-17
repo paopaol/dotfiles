@@ -1,5 +1,5 @@
-require('impatient')
-require 'impatient'.enable_profile()
+-- require('impatient')
+-- require 'impatient'.enable_profile()
 vim.cmd([[packadd packer.nvim]])
 
 return require("packer").startup(function()
@@ -54,7 +54,8 @@ return require("packer").startup(function()
 
   use("onsails/lspkind-nvim")
   use("paopaol/e-kaput.nvim")
-  use("voldikss/vim-translator")
+  -- use("voldikss/vim-translator")
+  use ('uga-rosa/translate.nvim')
   use("p00f/nvim-ts-rainbow")
   use({
     "goolord/alpha-nvim",
@@ -78,7 +79,10 @@ return require("packer").startup(function()
   use("rainbowhxch/accelerated-jk.nvim")
   use("vim-scripts/DoxygenToolkit.vim")
 
-  use("plasticboy/vim-markdown")
+  -- use("plasticboy/vim-markdown")
+  use({'jakewvincent/mkdnflow.nvim',
+     rocks = 'luautf8',
+   })
   use("terryma/vim-expand-region")
   use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
   use("easymotion/vim-easymotion")
@@ -130,14 +134,13 @@ return require("packer").startup(function()
   use 'lewis6991/impatient.nvim'
   use 'ethanholz/nvim-lastplace'
   use({ "nvim-neorg/neorg", branch = "main" })
-  use("aserowy/tmux.nvim")
   use "jbyuki/venn.nvim"
   use {'nvim-orgmode/orgmode', config = function()
     require('orgmode').setup{}
-    end
-  }
-  -- use 'paopaol/nvim-clangd-hl'
-  use 'theHamsta/nvim-semantic-tokens'
-  use 'ddcien/lsp-semantic.nvim'
-  -- use 'gbprod/yanky.nvim'
+  end
+}
+
+use 'theHamsta/nvim-semantic-tokens'
+use 'ddcien/lsp-semantic.nvim'
+-- use 'gbprod/yanky.nvim'
 end)

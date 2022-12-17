@@ -45,14 +45,10 @@ keymap("n", "Q", ":cclose<CR>")
 keymap("v", "Q", ":cclose<CR>")
 
 -- window navigate
--- keymap("", "<A-j>", "<C-W>j")
--- keymap("", "<A-k>", "<C-W>k")
--- keymap("", "<A-h>", "<C-W>h")
--- keymap("", "<A-l>", "<C-W>l")
-keymap("", "<A-j>", ":lua require('tmux').move_bottom()<cr>")
-keymap("", "<A-k>", ":lua require('tmux').move_top()<cr>")
-keymap("", "<A-h>", ":lua require('tmux').move_left()<cr>")
-keymap("", "<A-l>", ":lua require('tmux').move_right()<cr>")
+keymap("", "<A-j>", "<C-W>j")
+keymap("", "<A-k>", "<C-W>k")
+keymap("", "<A-h>", "<C-W>h")
+keymap("", "<A-l>", "<C-W>l")
 
 keymap("n", "<A-->", ":resize -1<CR>")
 keymap("n", "<A-=>", ":resize +1<CR>")

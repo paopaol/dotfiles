@@ -112,3 +112,4 @@ require("lspconfig").taplo.setup({
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   end,
 })
+

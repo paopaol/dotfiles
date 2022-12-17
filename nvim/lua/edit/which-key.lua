@@ -280,6 +280,7 @@ reg_keymap({
     "run",
   },
   s = { command("AsyncStop"), "async stop" },
+  e = { command("AsyncTaskEdit"), "async tas edit" },
 }, { "n" }, "<leader>r")
 
 reg_keymap({

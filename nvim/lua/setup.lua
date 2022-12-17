@@ -3,8 +3,7 @@ vim.cmd([[
   let maplocalleader = ","
 ]])
 
-vim.o.guifont = 'FiraCode Nerd Font Mono:h11'
-vim.o.guifont = "Fira Code:h10.5"
+vim.o.guifont = "Fira Code:h13"
 
 vim.o.pumheight = 10
 vim.o.numberwidth = 3
@@ -38,7 +37,7 @@ vim.o.swapfile = false
 vim.o.cmdheight = 1
 -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable |
 -- delays and poor user experience.
-vim.o.updatetime = 300
+vim.o.updatetime = 600
 -- vim.o.shortmess+= 'c'
 vim.o.background = "dark"
 vim.o.autoindent = true
