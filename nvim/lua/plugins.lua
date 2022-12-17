@@ -1,5 +1,5 @@
--- require('impatient')
--- require 'impatient'.enable_profile()
+require('impatient')
+require 'impatient'.enable_profile()
 vim.cmd([[packadd packer.nvim]])
 
 return require("packer").startup(function()
@@ -80,9 +80,9 @@ return require("packer").startup(function()
   use("vim-scripts/DoxygenToolkit.vim")
 
   -- use("plasticboy/vim-markdown")
-  use({'jakewvincent/mkdnflow.nvim',
-     rocks = 'luautf8',
-   })
+  -- use({'jakewvincent/mkdnflow.nvim',
+  --    rocks = 'luautf8',
+  --  })
   use("terryma/vim-expand-region")
   use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
   use("easymotion/vim-easymotion")
@@ -125,7 +125,6 @@ return require("packer").startup(function()
   use("hrsh7th/cmp-cmdline")
   use("paopaol/cmp-doxygen")
 
-  use("kyazdani42/nvim-tree.lua")
   use({ "fedepujol/move.nvim", branch = "main" })
   use("numToStr/Comment.nvim")
   use({ "folke/lua-dev.nvim", branch = "main" })
@@ -143,4 +142,17 @@ return require("packer").startup(function()
 use 'theHamsta/nvim-semantic-tokens'
 use 'ddcien/lsp-semantic.nvim'
 -- use 'gbprod/yanky.nvim'
+use {
+  "nvim-neo-tree/neo-tree.nvim",
+  branch = "v2.x",
+  requires = { 
+    "nvim-lua/plenary.nvim",
+    "MunifTanjim/nui.nvim",
+    "nvim-tree/nvim-web-devicons",
+    {
+      's1n7ax/nvim-window-picker',
+      tag = "v1.*",
+    }
+  },
+}
 end)

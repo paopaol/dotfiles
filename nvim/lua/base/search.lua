@@ -268,7 +268,9 @@ M.project_files = function()
   require('telescope.builtin').find_files({ cwd = rootdir(), push_cursor_on_edit = true })
 end
 
-M.project_tree = function() vim.cmd(string.format("silent NvimTreeToggle %s", rootdir())) end
+M.project_tree = function() vim.cmd(string.format("silent :Neotree action=focus  position=left toggle=true %s", rootdir())) end
+
+M.project_tree_focus = function() vim.cmd(string.format("silent :Neotree action=focus  position=left toggle=true reveal %s", rootdir())) end
 
 M.project_current_symbols = function()
   require('telescope.builtin').live_grep({ cwd = rootdir(), push_cursor_on_edit = true })

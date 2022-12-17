@@ -1,2 +1,2 @@
 vim.cmd([[set background=dark]])
-vim.cmd("colorscheme dayfox")
+vim.cmd("colorscheme  tokyonight")

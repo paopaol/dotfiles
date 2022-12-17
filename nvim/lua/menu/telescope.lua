@@ -93,48 +93,49 @@ require("telescope").setup({
       override_file_sorter = true, -- override the file sorter
       case_mode = "smart_case", -- or "ignore_case" or "respect_case"
     },
-    luasnip = {
-      search = function(entry)
-	return lst.filter_null(entry.context.trigger) .. " " ..
-	lst.filter_null(entry.context.name) .. " " ..
-	entry.ft .. " " ..
-	lst.filter_description(entry.context.name, entry.context.description) ..
-	lst.get_docstring(luasnip, entry.ft, entry.context)[1]
-      end
-    },
-    ["ui-select"] = {
-      require("telescope.themes").get_dropdown({}),
-    },
-    file_browser = {
-      on_input_filter_cb = function(prompt)
-	if prompt == "~/" then
-	  file_browser_change_dir(vim.env.HOME .. "/")
-	elseif prompt == "/" then
-	  file_browser_change_dir("/")
-	end
-      end,
-      theme = nil,
-      mappings = {
-	["i"] = {
-	  -- your custom insert mode mappings
+    -- luasnip = {
+      -- 	search = function(entry)
+	-- 		return lst.filter_null(entry.context.trigger) .. " " ..
+	-- 		lst.filter_null(entry.context.name) .. " " ..
+	-- 		entry.ft .. " " ..
+	-- 		lst.filter_description(entry.context.name, entry.context.description) ..
+	-- 		lst.get_docstring(luasnip, entry.ft, entry.context)[1]
+	-- 	end
+	-- },
+	["ui-select"] = {
+	  require("telescope.themes").get_dropdown({}),
 	},
-	["n"] = {
-	  -- your custom normal mode mappings
+	file_browser = {
+	  on_input_filter_cb = function(prompt)
+	    if prompt == "~/" then
+	      file_browser_change_dir(vim.env.HOME .. "/")
+	    elseif prompt == "/" then
+	      file_browser_change_dir("/")
+	    end
+	  end,
+	  theme = nil,
+	  mappings = {
+	    ["i"] = {
+	      -- your custom insert mode mappings
+	    },
+	    ["n"] = {
+	      -- your custom normal mode mappings
+	    },
+	  },
 	},
       },
-    },
-  },
-})
--- To get fzf loaded and working with telescope, you need to call
--- load_extension, somewhere after setup function:
-require("telescope").load_extension("vim_bookmarks")
-require("telescope").load_extension("heading")
+    })
+    -- To get fzf loaded and working with telescope, you need to call
+    -- load_extension, somewhere after setup function:
+    require("telescope").load_extension("fzf")
+    require("telescope").load_extension("vim_bookmarks")
+    require("telescope").load_extension("heading")
+    require("telescope").load_extension("ui-select")
 
-local bookmark_actions = require("telescope").extensions.vim_bookmarks.actions
-require("telescope").extensions.vim_bookmarks.all({
-  attach_mappings = function(_, map)
-    map("i", "<M-d>", bookmark_actions.delete_selected_or_at_curso)
-    return true
-  end,
-})
-
+    local bookmark_actions = require("telescope").extensions.vim_bookmarks.actions
+    require("telescope").extensions.vim_bookmarks.all({
+      attach_mappings = function(_, map)
+	map("i", "<M-d>", bookmark_actions.delete_selected_or_at_curso)
+	return true
+      end,
+    })

@@ -130,7 +130,7 @@ reg_keymap({
   o = { search.open_with_defualt, "externl open" },
   q = { utils.open_current_file_use_qtcreator, "open in qtcreator" },
   r = { search.oldfiles, "Open Recent File" },
-  t = { command("NvimTreeFindFileToggle"), "file tree" },
+  t = { search.project_tree_focus, "file tree" },
 }, { "n" }, "<leader>f")
 
 -- debug
