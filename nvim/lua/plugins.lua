@@ -134,25 +134,19 @@ return require("packer").startup(function()
   use 'ethanholz/nvim-lastplace'
   use({ "nvim-neorg/neorg", branch = "main" })
   use "jbyuki/venn.nvim"
-  use {'nvim-orgmode/orgmode', config = function()
-    require('orgmode').setup{}
-  end
-}
-
-use 'theHamsta/nvim-semantic-tokens'
-use 'ddcien/lsp-semantic.nvim'
--- use 'gbprod/yanky.nvim'
-use {
-  "nvim-neo-tree/neo-tree.nvim",
-  branch = "v2.x",
-  requires = { 
-    "nvim-lua/plenary.nvim",
-    "MunifTanjim/nui.nvim",
-    "nvim-tree/nvim-web-devicons",
-    {
-      's1n7ax/nvim-window-picker',
-      tag = "v1.*",
-    }
-  },
-}
+  use 'theHamsta/nvim-semantic-tokens'
+  use 'ddcien/lsp-semantic.nvim'
+  use {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    requires = { 
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-tree/nvim-web-devicons",
+      {
+	's1n7ax/nvim-window-picker',
+	tag = "v1.*",
+      }
+    },
+  }
 end)

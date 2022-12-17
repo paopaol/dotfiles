@@ -3,17 +3,18 @@ local utils = require('base.utils')
 
 local function command(cmd) return function() vim.cmd(cmd) end end
 
-vim.cmd(([[ autocmd FileType lua  lua whichkeyrLua() ]]))
 _G.whichkeyrLua = function()
-  vim.bo.shiftwidth = 2
+	vim.bo.shiftwidth = 2
+	vim.o.tabstop = 2
 
-  local buf = vim.api.nvim_get_current_buf()
+	local buf = vim.api.nvim_get_current_buf()
 
-  wk.register({
-    ["<localleader>"] = {
-      name = "major",
-      [","] = { utils.format_buffer, "formatting", buffer = buf },
-      ["r"] = { command("luafile %"), "run current file", buffer = buf }
-    }
-  })
+	wk.register({
+		["<localleader>"] = {
+			name = "major",
+			[","] = { utils.format_buffer, "formatting", buffer = buf },
+			["r"] = { command("luafile %"), "run current file", buffer = buf }
+		}
+	})
 end
+vim.cmd(([[ autocmd FileType lua  lua whichkeyrLua() ]]))
