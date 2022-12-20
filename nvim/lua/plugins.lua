@@ -1,5 +1,5 @@
 require('impatient')
-require 'impatient'.enable_profile()
+-- require 'impatient'.enable_profile()
 vim.cmd([[packadd packer.nvim]])
 
 return require("packer").startup(function()
@@ -54,8 +54,8 @@ return require("packer").startup(function()
 
   use("onsails/lspkind-nvim")
   use("paopaol/e-kaput.nvim")
-  -- use("voldikss/vim-translator")
-  use ('uga-rosa/translate.nvim')
+  use("voldikss/vim-translator")
+  -- use ('uga-rosa/translate.nvim')
   use("p00f/nvim-ts-rainbow")
   use({
     "goolord/alpha-nvim",
@@ -79,10 +79,10 @@ return require("packer").startup(function()
   use("rainbowhxch/accelerated-jk.nvim")
   use("vim-scripts/DoxygenToolkit.vim")
 
-  -- use("plasticboy/vim-markdown")
-  -- use({'jakewvincent/mkdnflow.nvim',
-  --    rocks = 'luautf8',
-  --  })
+  use("plasticboy/vim-markdown")
+  use({'jakewvincent/mkdnflow.nvim',
+     rocks = 'luautf8',
+   })
   use("terryma/vim-expand-region")
   use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
   use("easymotion/vim-easymotion")
@@ -135,7 +135,6 @@ return require("packer").startup(function()
   use({ "nvim-neorg/neorg", branch = "main" })
   use "jbyuki/venn.nvim"
   use 'theHamsta/nvim-semantic-tokens'
-  use 'ddcien/lsp-semantic.nvim'
   use {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",

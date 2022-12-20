@@ -374,6 +374,4 @@ M.vim_book_marks = function()
 	require("telescope").extensions.vim_bookmarks.all()
 end
 
-
-
 return M
