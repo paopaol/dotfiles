@@ -67,7 +67,7 @@ keymap("t", "<esc>", "<C-\\><C-n>")
 -- virual mode,which-key works bad
 keymap("v", ",!", ":!bash<cr>")
 keymap("v", ",tt", ":Translate<cr>")
-keymap("v", ",,", ":lua vim.lsp.buf.range_formatting()<cr>")
+keymap("v", ",,", ":lua vim.lsp.buf.format()<cr>")
 keymap("v", ",g", ":TSCppDefineClassFunc<cr>")
 
 ---move line down or up
@@ -98,6 +98,11 @@ vim.api.nvim_create_user_command("LineDiagnostic", function()
     vim.api.nvim_win_set_width(winid, 60)
   end
 end, {})
+
+local lsp_format_region = function(opts)
+  vim.lsp.buf.format { range = { start = { opts.line1, 0 }, ["end"] = { opts.line2, 0 } } }
+end
+vim.api.nvim_create_user_command("LspFormatRegion", lsp_format_region, { range = 2 })
 
 -- require("yanky").setup({ })
 
