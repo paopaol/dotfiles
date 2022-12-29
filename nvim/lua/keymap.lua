@@ -1,9 +1,18 @@
 local keymap = function(mode, key, action)
-  vim.api.nvim_set_keymap(mode, key, action, { noremap = true, silent = true })
+	vim.api.nvim_set_keymap(mode, key, action, { noremap = true, silent = true })
 end
+
 local unsilent_keymap = function(mode, key, action)
-  vim.api.nvim_set_keymap(mode, key, action, { noremap = true, silent = false })
+	vim.api.nvim_set_keymap(mode, key, action, { noremap = true, silent = false })
 end
+
+_G.lsp_format_region = function()
+	local r = vim.lsp.util.make_given_range_params()
+	local line1 = r.range.start.line + 1
+	local line2 = r.range['end'].line + 1
+	vim.lsp.buf.format { range = { start = { line1, 0 }, ["end"] = { line2, 0 } } }
+end
+vim.api.nvim_create_user_command("LspFormatRegion", lsp_format_region, { range = 2 })
 
 -- begin of line
 keymap("i", "<C-a>", "<Home>")
@@ -67,7 +76,7 @@ keymap("t", "<esc>", "<C-\\><C-n>")
 -- virual mode,which-key works bad
 keymap("v", ",!", ":!bash<cr>")
 keymap("v", ",tt", ":Translate<cr>")
-keymap("v", ",,", ":lua vim.lsp.buf.format()<cr>")
+keymap("v", ",,", "<esc><cmd>lua lsp_format_region()<CR>")
 keymap("v", ",g", ":TSCppDefineClassFunc<cr>")
 
 ---move line down or up
@@ -87,22 +96,18 @@ keymap("v", "gy", ":lua ___gdc('v')<cr>")
 keymap("v", "<leader>tv", ":lua require('edit.hex-view').view() <cr>")
 
 vim.api.nvim_create_user_command("LineDiagnostic", function()
-  local opts = {
-    focusable = true,
-    border = "rounded",
-    prefix = "",
-  }
-  local _, winid = vim.diagnostic.open_float(nil, opts)
-  if winid and vim.api.nvim_win_is_valid(winid) then
-    vim.api.nvim_win_set_height(winid, 5)
-    vim.api.nvim_win_set_width(winid, 60)
-  end
+	local opts = {
+		focusable = true,
+		border = "rounded",
+		prefix = "",
+	}
+	local _, winid = vim.diagnostic.open_float(nil, opts)
+	if winid and vim.api.nvim_win_is_valid(winid) then
+		vim.api.nvim_win_set_height(winid, 5)
+		vim.api.nvim_win_set_width(winid, 60)
+	end
 end, {})
 
-local lsp_format_region = function(opts)
-  vim.lsp.buf.format { range = { start = { opts.line1, 0 }, ["end"] = { opts.line2, 0 } } }
-end
-vim.api.nvim_create_user_command("LspFormatRegion", lsp_format_region, { range = 2 })
 
 -- require("yanky").setup({ })
 
