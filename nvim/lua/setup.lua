@@ -65,6 +65,14 @@ vim.g.rooter_patterns = { ".projectile", ".git/" }
 vim.g.autocwd_patternwd_pairs = { { "*", "%:p:h" } }
 vim.g.clever_f_across_no_line = 1
 
+
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = 'qfreplace',
+	callback = function()
+		vim.g.auto_save = 0
+	end,
+})
+
 vim.cmd([[ autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif ]])
 
 if vim.fn.has("wsl") == 1 then
