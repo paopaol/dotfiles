@@ -111,7 +111,7 @@ return require("packer").startup(function()
   use("AndrewRadev/sideways.vim")
   use("rust-lang/rust.vim")
   use("matveyt/vim-qmake")
-  use("leisiji/interestingwords.nvim")
+  use("paopaol/interestingwords.nvim")
 
   --cmp
   use({ "hrsh7th/cmp-nvim-lsp", branch = "main" })
