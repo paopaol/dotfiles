@@ -177,17 +177,17 @@ M.hex_view = function(hex_str)
   local formater = {
     [4] = function(kind, data)
       return string.format("|%s|%u|%d|%s|", kind, data["uint16"], data["int16"],
-      numberToBinStr(data["uint16"]))
+        numberToBinStr(data["uint16"]))
     end,
     [8] = function(kind, data)
       return string.format("|%s|%10.5f|%u|%d|%s|", kind, data["float"],
-      data["uint32"],
-      data["int32"], numberToBinStr(tonumber(data["uint32"])))
+        data["uint32"],
+        data["int32"], numberToBinStr(tonumber(data["uint32"])))
     end,
     [16] = function(kind, data)
       return string.format("|%s|%18.9f|%u|%d|%s|", kind, data["double"],
-      data["uint64"],
-      data["int64"], numberToBinStr(tonumber(data["uint64"])))
+        data["uint64"],
+        data["int64"], numberToBinStr(tonumber(data["uint64"])))
     end
   }
 
@@ -217,7 +217,7 @@ M.hex_view = function(hex_str)
 
   local lines = {}
   local nm = tonumber(hex_str, 16) or 0
-  table.insert(lines,  string.format("# %s(%s)", hex_str, numberToBinStr(nm)))
+  table.insert(lines, string.format("# %s(%s)", hex_str, numberToBinStr(nm)))
   for _, line in pairs(header[#hex_str]) do
     table.insert(lines, line)
   end
@@ -235,6 +235,8 @@ M.view = function()
   local line1, col1, line2, col2 = visual_selection_range()
   local text = vim.api.nvim_buf_get_text(0, line1 - 1, col1 - 1, line2 - 1, col2, {})
   local hex = string.gsub(text[1], "%s+", "")
+  hex = string.gsub(hex, "0x", "")
+  hex = string.gsub(hex, ",", "")
 
   local t = M.hex_view(hex) or {}
 
@@ -244,7 +246,7 @@ M.view = function()
   vim.api.nvim_buf_set_keymap(bufnr, "n", '<esc>', ":close<cr>", { noremap = true })
   vim.api.nvim_buf_set_lines(bufnr, 0, 1, true, t)
   vim.api.nvim_open_win(bufnr, true,
-  { width = 150, height = 10, relative = 'cursor', row = 5, col = 22, border = "double", })
+    { width = 150, height = 10, relative = 'cursor', row = 5, col = 22, border = "double", })
 
 
   if next(t) ~= nil then

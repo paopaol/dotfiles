@@ -80,9 +80,9 @@ return require("packer").startup(function()
   use("vim-scripts/DoxygenToolkit.vim")
 
   use("plasticboy/vim-markdown")
-  use({'jakewvincent/mkdnflow.nvim',
-     rocks = 'luautf8',
-   })
+  use({ 'jakewvincent/mkdnflow.nvim',
+    rocks = 'luautf8',
+  })
   use("terryma/vim-expand-region")
   use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
   use("easymotion/vim-easymotion")
@@ -96,10 +96,12 @@ return require("packer").startup(function()
   use("skywind3000/asyncrun.vim")
   use("tpope/vim-surround")
   use("tpope/vim-fugitive")
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use("kana/vim-textobj-user")
   use("sgur/vim-textobj-parameter")
   use("rhysd/vim-textobj-anyblock")
   use("thinca/vim-qfreplace")
+  use("paopaol/telescope-git-diffs.nvim")
   -- use("markonm/traces.vim")
   use("othree/html5.vim")
   use("mklabs/vim-json")
@@ -138,13 +140,13 @@ return require("packer").startup(function()
   use {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
-    requires = { 
+    requires = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       "nvim-tree/nvim-web-devicons",
       {
-	's1n7ax/nvim-window-picker',
-	tag = "v1.*",
+        's1n7ax/nvim-window-picker',
+        tag = "v1.*",
       }
     },
   }
