@@ -1,9 +1,15 @@
+local utils = require("base.utils")
+
+local function project_name()
+  return vim.fn.fnamemodify(utils.rootdir(), ':t')
+end
+
 require("lualine").setup({
   options = {
     icons_enabled = true,
-    theme = "dracula",
+    theme = "auto",
     section_separators = { left = "", right = "" },
-    component_separators = { left = "", right = "" },
+    component_separators = { left = "/", right = "/" },
     disabled_filetypes = {
       statusline = {},
       winbar = {},
@@ -20,7 +26,7 @@ require("lualine").setup({
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch", "diff", "diagnostics" },
-    lualine_c = { "filename" },
+    lualine_c = { project_name, "filename" },
     lualine_x = { "encoding", "fileformat", "filetype" },
     lualine_y = { "progress" },
     lualine_z = { "location" },
