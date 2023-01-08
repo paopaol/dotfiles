@@ -101,7 +101,13 @@ return require("packer").startup(function()
   use("sgur/vim-textobj-parameter")
   use("rhysd/vim-textobj-anyblock")
   use("thinca/vim-qfreplace")
-  use("paopaol/telescope-git-diffs.nvim")
+  use {
+    'paopaol/telescope-git-diffs.nvim',
+     requires = {
+       "nvim-lua/plenary.nvim",
+       "sindrets/diffview.nvim",
+     },
+  }
   -- use("markonm/traces.vim")
   use("othree/html5.vim")
   use("mklabs/vim-json")
