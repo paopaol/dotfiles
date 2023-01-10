@@ -67,36 +67,27 @@ vim.g.clever_f_across_no_line = 1
 
 
 vim.api.nvim_create_autocmd('FileType', {
-	pattern = 'qfreplace',
-	callback = function()
-		vim.g.auto_save = 0
-	end,
+  pattern = 'qfreplace',
+  callback = function()
+    vim.g.auto_save = 0
+  end,
 })
 
 vim.cmd([[ autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif ]])
 
-if vim.fn.has("wsl") == 1 then
-	vim.cmd([[
-  augroup Yank
-
-  autocmd!
-  autocmd TextYankPost * :call system('/mnt/c/windows/system32/clip.exe ',@")
-  augroup END
-  ]])
-end
 require("messages").setup()
 require 'nvim-lastplace'.setup {}
 
 
 vim.g.clipboard = {
-	name = "win32yank-wsl",
-	copy = {
-		["+"] = '/mnt/d/root/opt/win32yank.exe -i --crlf',
-		["*"] = '/mnt/d/root/opt/win32yank.exe -i --crlf',
-	},
-	paste = {
-		["+"] = '/mnt/d/root/opt/win32yank.exe -o --lf',
-		["*"] = '/mnt/d/root/opt/win32yank.exe -o --lf',
-	},
-	cache_enabled = 0,
+  name = "win32yank-wsl",
+  copy = {
+    ["+"] = '/mnt/d/root/opt/win32yank.exe -i --crlf',
+    ["*"] = '/mnt/d/root/opt/win32yank.exe -i --crlf',
+  },
+  paste = {
+    ["+"] = '/mnt/d/root/opt/win32yank.exe -o --lf',
+    ["*"] = '/mnt/d/root/opt/win32yank.exe -o --lf',
+  },
+  cache_enabled = 0,
 }

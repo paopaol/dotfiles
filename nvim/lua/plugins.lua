@@ -25,6 +25,7 @@ return require("packer").startup(function()
     "AckslD/messages.nvim",
     config = 'require("messages").setup()',
   })
+  use("gbprod/yanky.nvim")
 
   use('windwp/nvim-ts-autotag')
   use({ "rhysd/clever-f.vim" })
@@ -103,10 +104,10 @@ return require("packer").startup(function()
   use("thinca/vim-qfreplace")
   use {
     'paopaol/telescope-git-diffs.nvim',
-     requires = {
-       "nvim-lua/plenary.nvim",
-       "sindrets/diffview.nvim",
-     },
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+    },
   }
   -- use("markonm/traces.vim")
   use("othree/html5.vim")
