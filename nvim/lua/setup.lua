@@ -78,16 +78,17 @@ vim.cmd([[ autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif ]])
 require("messages").setup()
 require 'nvim-lastplace'.setup {}
 
-
-vim.g.clipboard = {
-  name = "win32yank-wsl",
-  copy = {
-    ["+"] = '/mnt/d/root/opt/win32yank.exe -i --crlf',
-    ["*"] = '/mnt/d/root/opt/win32yank.exe -i --crlf',
-  },
-  paste = {
-    ["+"] = '/mnt/d/root/opt/win32yank.exe -o --lf',
-    ["*"] = '/mnt/d/root/opt/win32yank.exe -o --lf',
-  },
-  cache_enabled = 0,
-}
+if vim.fn.has("wsl") == 1 then
+  vim.g.clipboard = {
+    name = "win32yank-wsl",
+    copy = {
+      ["+"] = '/mnt/d/root/opt/win32yank.exe -i --crlf',
+      ["*"] = '/mnt/d/root/opt/win32yank.exe -i --crlf',
+    },
+    paste = {
+      ["+"] = '/mnt/d/root/opt/win32yank.exe -o --lf',
+      ["*"] = '/mnt/d/root/opt/win32yank.exe -o --lf',
+    },
+    cache_enabled = 0,
+  }
+end
