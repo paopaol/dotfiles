@@ -19,6 +19,7 @@ return require("packer").startup(function()
   use({ "nvim-telescope/telescope-ui-select.nvim" })
   use("paopaol/cpp-mode")
   use("paopaol/vim-gtest")
+  use ("paopaol/telescope-ctags.nvim")
   use({ "Badhi/nvim-treesitter-cpp-tools" })
   use("chentoast/marks.nvim")
   use({
