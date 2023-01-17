@@ -118,6 +118,7 @@ require("telescope").setup({
     file_browser = {
       on_input_filter_cb = update_dir,
       theme = nil,
+      use_fd = false
     },
   },
 })
@@ -127,4 +128,4 @@ require("telescope").load_extension("heading")
 require("telescope").load_extension("ui-select")
 require("telescope").load_extension("vim_bookmarks")
 require("telescope").load_extension("git_diffs")
-require'telescope'.load_extension('ctags')
+require 'telescope'.load_extension('ctags')
