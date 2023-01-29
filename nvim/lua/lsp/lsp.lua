@@ -3,16 +3,16 @@ local util = require("lspconfig/util")
 -- propgress
 require("fidget").setup({})
 
-require("e-kaput").setup({
-  -- defaults
-  enabled = true, -- true | false,  Enable EKaput.
-  transparency = 0, -- 0 - 100 , transparecy percentage.
-  borders = true, -- true | false, Borders.
-  error_sign = "", -- Error sign.
-  warning_sign = "", -- Warning sign.
-  information_sign = "", -- Information sign.
-  hint_sign = "", -- Hint sign.
-})
+-- require("e-kaput").setup({
+--   -- defaults
+--   enabled = true, -- true | false,  Enable EKaput.
+--   transparency = 0, -- 0 - 100 , transparecy percentage.
+--   borders = true, -- true | false, Borders.
+--   error_sign = "", -- Error sign.
+--   warning_sign = "", -- Warning sign.
+--   information_sign = "", -- Information sign.
+--   hint_sign = "", -- Hint sign.
+-- })
 
 vim.cmd([[
 highlight link EKaputError LspDiagnosticsSignError
@@ -91,7 +91,7 @@ require("lspconfig").cmake.setup({
 require("lspconfig").clangd.setup({
   cmd = {
     "clangd",
-    "-j=1",
+    "-j=4",
     "--background-index-priority=low",
     "--pch-storage=memory",
     "--log=error",
@@ -113,7 +113,6 @@ require("lspconfig").clangd.setup({
         vim.lsp.buf.semantic_tokens_full()
       end,
     })
-    -- fire it first time on load as well
     vim.lsp.buf.semantic_tokens_full()
 
     -- require('semantic').refresh()

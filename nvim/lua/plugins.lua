@@ -19,7 +19,7 @@ return require("packer").startup(function()
   use({ "nvim-telescope/telescope-ui-select.nvim" })
   use("paopaol/cpp-mode")
   use("paopaol/vim-gtest")
-  use ("paopaol/telescope-ctags.nvim")
+  use("paopaol/telescope-ctags.nvim")
   use({ "Badhi/nvim-treesitter-cpp-tools" })
   use("chentoast/marks.nvim")
   use({
@@ -65,7 +65,6 @@ return require("packer").startup(function()
   })
 
   use({ "ahmedkhalf/project.nvim", branch = "main" })
-  use("TimUntersberger/neogit")
   use("kazhala/close-buffers.nvim")
   use("romgrk/nvim-treesitter-context")
   use({ "folke/todo-comments.nvim", branch = "main" })
@@ -142,7 +141,7 @@ return require("packer").startup(function()
   use("Civitasv/cmake-tools.nvim")
   use 'lewis6991/impatient.nvim'
   use 'ethanholz/nvim-lastplace'
-  use({ "nvim-neorg/neorg", branch = "main" })
+  -- use({ "nvim-neorg/neorg", branch = "main" })
   use "jbyuki/venn.nvim"
   use 'theHamsta/nvim-semantic-tokens'
   use {

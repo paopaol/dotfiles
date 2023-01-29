@@ -83,14 +83,6 @@ require("nvim-treesitter.parsers").list.xml = {
 	filetype = "xml",
 }
 
-require('neorg').setup {
-	load = {
-		["core.defaults"] = {}
-	}
-}
-
-
-
 
 vim.api.nvim_create_autocmd('FileType', {
 	pattern = 'cpp,c',
