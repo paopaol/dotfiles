@@ -27,7 +27,7 @@ return require("packer").startup(function()
     config = 'require("messages").setup()',
   })
   use("gbprod/yanky.nvim")
-
+  
   use('windwp/nvim-ts-autotag')
   use({ "rhysd/clever-f.vim" })
   use("ton/vim-bufsurf")
@@ -40,11 +40,11 @@ return require("packer").startup(function()
   use("nvim-lua/popup.nvim")
   use("nvim-lua/plenary.nvim")
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-
+  
   use("neovim/nvim-lspconfig")
   use({ "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" })
-
-
+  
+  
   use("windwp/nvim-autopairs")
   use("MattesGroeger/vim-bookmarks")
   use("vim-scripts/bufkill.vim")
@@ -53,7 +53,7 @@ return require("packer").startup(function()
   use("nvim-treesitter/nvim-treesitter-textobjects")
   use("mhartington/formatter.nvim")
   use("jose-elias-alvarez/null-ls.nvim")
-
+  
   use("onsails/lspkind-nvim")
   use("paopaol/e-kaput.nvim")
   use("voldikss/vim-translator")
@@ -63,23 +63,23 @@ return require("packer").startup(function()
     "goolord/alpha-nvim",
     requires = { "kyazdani42/nvim-web-devicons" },
   })
-
+  
   use({ "ahmedkhalf/project.nvim", branch = "main" })
   use("kazhala/close-buffers.nvim")
   use("romgrk/nvim-treesitter-context")
   use({ "folke/todo-comments.nvim", branch = "main" })
   use("907th/vim-auto-save")
-
-
+  
+  
   use({ "lilydjwg/fcitx.vim", branch = "fcitx5" })
   use("projekt0n/github-nvim-theme")
   use "EdenEast/nightfox.nvim"
   use 'folke/tokyonight.nvim'
   use 'Mofiqul/dracula.nvim'
-
+  
   use("rainbowhxch/accelerated-jk.nvim")
   use("vim-scripts/DoxygenToolkit.vim")
-
+  
   use("plasticboy/vim-markdown")
   use({ 'jakewvincent/mkdnflow.nvim',
     rocks = 'luautf8',
@@ -118,30 +118,27 @@ return require("packer").startup(function()
   use("puremourning/vimspector")
   use("godlygeek/tabular")
   use("AndrewRadev/sideways.vim")
-  use("rust-lang/rust.vim")
   use("matveyt/vim-qmake")
   use("paopaol/interestingwords.nvim")
-
+  
   --cmp
   use({ "hrsh7th/cmp-nvim-lsp", branch = "main" })
   use({ "hrsh7th/cmp-path", branch = "main" })
   use({ "hrsh7th/nvim-cmp", branch = "main" })
   use({ "hrsh7th/cmp-buffer", branch = "main" })
   use("dcampos/cmp-emmet-vim")
-
+  
   use("saadparwaiz1/cmp_luasnip")
   use("hrsh7th/cmp-nvim-lsp-signature-help")
   use("hrsh7th/cmp-cmdline")
   use("paopaol/cmp-doxygen")
-
+  
   use({ "fedepujol/move.nvim", branch = "main" })
   use("numToStr/Comment.nvim")
   use({ "folke/lua-dev.nvim", branch = "main" })
   use({ "j-hui/fidget.nvim", branch = "main" })
   use("Civitasv/cmake-tools.nvim")
   use 'lewis6991/impatient.nvim'
-  use 'ethanholz/nvim-lastplace'
-  -- use({ "nvim-neorg/neorg", branch = "main" })
   use "jbyuki/venn.nvim"
   use 'theHamsta/nvim-semantic-tokens'
   use {

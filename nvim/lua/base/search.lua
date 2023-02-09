@@ -310,14 +310,19 @@ M.file_browser = function()
   })
 end
 
+M.lsp_definition = function()
+  vim.cmd([[Telescope lsp_definitions]])
+end
+
+
 M.lsp_document_symbols = function()
-  vim.cmd([[Telescope ctags functions]])
-  -- require('telescope.builtin').lsp_document_symbols({
-  -- 	symbol_width = 70,
-  -- 	symbol_type_width = 15,
-  -- 	ignore_filename = true,
-  -- 	push_cursor_on_edit = true
-  -- })
+  -- vim.cmd([[Telescope ctags functions]])
+  require('telescope.builtin').lsp_document_symbols({
+    symbol_width = 70,
+    symbol_type_width = 15,
+    ignore_filename = true,
+    push_cursor_on_edit = true
+  })
 end
 
 M.oldfiles = function()

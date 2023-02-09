@@ -76,7 +76,6 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.cmd([[ autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif ]])
 
 require("messages").setup()
-require 'nvim-lastplace'.setup {}
 
 if vim.fn.has("wsl") == 1 then
   vim.g.clipboard = {
