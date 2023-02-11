@@ -316,7 +316,6 @@ end
 
 
 M.lsp_document_symbols = function()
-  -- vim.cmd([[Telescope ctags functions]])
   require('telescope.builtin').lsp_document_symbols({
     symbol_width = 70,
     symbol_type_width = 15,
