@@ -62,7 +62,7 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 
 require("neodev").setup({})
-require("lspconfig").sumneko_lua.setup({
+require("lspconfig").lua_ls.setup({
   settings = {
     Lua = {
       format = {
