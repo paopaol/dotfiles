@@ -37,6 +37,7 @@ require("lazy").setup({
   { "rhysd/clever-f.vim" },
   "ton/vim-bufsurf",
   "mfussenegger/nvim-dap",
+  "rcarriga/nvim-dap-ui",
   "akinsho/toggleterm.nvim",
   "chiel92/vim-autoformat",
   "nvim-lualine/lualine.nvim",
@@ -99,10 +100,16 @@ require("lazy").setup({
   "tpope/vim-surround",
   "tpope/vim-fugitive",
   { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
-  "kana/vim-textobj-user",
-  { "sgur/vim-textobj-parameter", lazy = true },
-  { "rhysd/vim-textobj-anyblock", lazy = true },
-  { "kana/vim-textobj-line", lazy = true },
+  { "rhysd/vim-textobj-anyblock",
+    dependencies = {
+      "kana/vim-textobj-user",
+    }
+  },
+  { "kana/vim-textobj-line",
+    dependencies = {
+      "kana/vim-textobj-user",
+    }
+  },
   "thinca/vim-qfreplace",
   {
     'paopaol/telescope-git-diffs.nvim',

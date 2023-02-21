@@ -30,7 +30,7 @@ require 'nvim-treesitter.configs'.setup {
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
         ["aa"] = "@parameter.outer",
-        ["ia"] = "@parameter.inner"
+        ["ia"] = "@parameter.inner",
       }
     },
     move = {

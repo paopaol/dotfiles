@@ -137,11 +137,11 @@ reg_keymap({
 reg_keymap({
   name = "+debug",
 
-  i = { command("VimspectorDebugInfo"), "print info" },
-  l = { command("VimspectorToggleLog"), "toggle log" },
-  o = { command("VimspectorShowOutput"), "show output" },
-  s = { command("VimspectorReset"), "stop/reset" },
-  w = { command("VimspectorWatch"), "watch" },
+  -- i = { command("VimspectorDebugInfo"), "print info" },
+  -- l = { command("VimspectorToggleLog"), "toggle log" },
+  -- o = { command("VimspectorShowOutput"), "show output" },
+  -- s = { command("VimspectorReset"), "stop/reset" },
+  -- w = { command("VimspectorWatch"), "watch" },
 }, { "n" }, "<leader>d")
 
 -- open

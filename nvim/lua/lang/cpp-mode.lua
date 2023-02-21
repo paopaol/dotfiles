@@ -95,7 +95,7 @@ _G.whichkeyrCpp = function()
   local buf = vim.api.nvim_get_current_buf()
 
   wk.register({
-    ["<f5>"] = { start_debug, "debug", buffer = buf },
+    -- ["<f5>"] = { start_debug, "debug", buffer = buf },
     ["<localleader>"] = {
       name = "major",
 
