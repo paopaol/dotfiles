@@ -3,12 +3,12 @@ vim.cmd([[
   let maplocalleader = ","
 ]])
 
-vim.o.guifont = "Fira Code:h13"
+vim.o.guifont = "Fira Code:h11"
 
 vim.o.pumheight = 10
 vim.o.numberwidth = 3
 -- 显示左侧图标指示列
-vim.o.signcolumn = "no"
+vim.o.signcolumn = "yes"
 vim.o.foldmethod = "manual"
 vim.o.cursorline = true
 -- jk移动时光标下上方保留3行
