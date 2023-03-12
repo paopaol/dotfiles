@@ -8,6 +8,7 @@ local telein = require("telescope.builtin")
 local svn = require("tools.svn")
 local hexview = require("edit.hex-view")
 
+
 local Terminal = require("toggleterm.terminal").Terminal
 function cppman()
   vim.ui.input({ prompt = "Enter c++ symbol: " }, function(input)
@@ -110,6 +111,8 @@ wk.register({
   },
   ["K"] = { vim.lsp.buf.hover, "lsp+hover" },
 })
+
+
 
 reg_noneleader_keymap({
   ["<A-\\>"] = { command("ToggleTermToggleAll"), "terminal" },

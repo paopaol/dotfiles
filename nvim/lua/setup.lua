@@ -5,6 +5,7 @@ vim.cmd([[
 
 vim.o.guifont = "Fira Code:h11"
 
+
 vim.o.pumheight = 10
 vim.o.numberwidth = 3
 -- 显示左侧图标指示列
@@ -12,8 +13,8 @@ vim.o.signcolumn = "yes"
 vim.o.foldmethod = "manual"
 vim.o.cursorline = true
 -- jk移动时光标下上方保留3行
-vim.o.scrolloff = 3
-vim.o.sidescrolloff = 3
+vim.o.scrolloff = 1
+vim.o.sidescrolloff = 1
 vim.o.colorcolumn = "80"
 vim.o.termguicolors = true
 vim.o.autowriteall = true
@@ -37,7 +38,7 @@ vim.o.swapfile = false
 vim.o.cmdheight = 1
 -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable |
 -- delays and poor user experience.
-vim.o.updatetime = 600
+vim.o.updatetime = 4000
 -- vim.o.shortmess+= 'c'
 vim.o.background = "dark"
 vim.o.autoindent = true
@@ -54,7 +55,7 @@ vim.cmd([[ au FocusGained * :checktime ]])
 vim.g.python3_host_prog = "/opt/rh/rh-python38/root/bin/python3"
 
 ---external plugins
-vim.g.auto_save = 1
+vim.g.auto_save = 0
 vim.g.auto_save_silent = 1
 vim.g.auto_save_events = { "InsertLeave", "TextChanged" }
 vim.g.interestingWordsDefaultMappings = 0

@@ -1,18 +1,8 @@
 local util = require("lspconfig/util")
+local base_utils = require('base.utils')
 
 -- propgress
 require("fidget").setup({})
-
--- require("e-kaput").setup({
---   -- defaults
---   enabled = true, -- true | false,  Enable EKaput.
---   transparency = 0, -- 0 - 100 , transparecy percentage.
---   borders = true, -- true | false, Borders.
---   error_sign = "", -- Error sign.
---   warning_sign = "", -- Warning sign.
---   information_sign = "", -- Information sign.
---   hint_sign = "", -- Hint sign.
--- })
 
 vim.cmd([[
 highlight link EKaputError LspDiagnosticsSignError
@@ -53,11 +43,6 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-------------------------------------------------------------
-require("nvim-semantic-tokens").setup {
-  preset = "default",
-  highlighters = { require 'nvim-semantic-tokens.table-highlighter' }
-}
 require("mason").setup()
 require("mason-lspconfig").setup()
 
@@ -77,8 +62,6 @@ require("lspconfig").lua_ls.setup({
 })
 
 
--- require('semantic').setup({})
-
 require("lspconfig").cmake.setup({
   handlers = lsphandlers,
   root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
@@ -91,33 +74,57 @@ require("lspconfig").cmake.setup({
 require("lspconfig").clangd.setup({
   cmd = {
     "clangd",
-    "-j=4",
-    "--background-index-priority=low",
+    "--query-driver=/opt/rh/devtoolset-7/root/bin/g++",
+    "--j=1",
+    "--background-index",
+    "--background-index-priority=background",
     "--pch-storage=memory",
     "--log=error",
     "--clang-tidy",
     "--header-insertion=never",
     "--compile-commands-dir=build",
     "--completion-style=detailed",
+    "--limit-results=20",
   },
   handlers = lsphandlers,
   root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
   on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-    local augroup = vim.api.nvim_create_augroup("SemanticTokens", {})
-    vim.api.nvim_create_autocmd("TextChanged", {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.semantic_tokens_full()
-      end,
-    })
-    vim.lsp.buf.semantic_tokens_full()
-
-    -- require('semantic').refresh()
   end,
 })
+
+-- require("lspconfig").ccls.setup {
+--   init_options = {
+--     compilationDatabaseDirectory = string.format('%s/build', base_utils.rootdir()),
+--     cache = {
+--       directory = "/tmp/ccls"
+--     },
+--     highlight = { lsRanges = true },
+--     index = {
+--       threads = 1;
+--     },
+--     diagnostics = {
+--       onSave = 1000
+--     },
+--     clang = {
+--       extraArgs = {
+--         "-isystem",
+--         "/opt/rh/devtoolset-8/root/usr/include/c++/8",
+--         "-isystem",
+--         "/opt/rh/devtoolset-8/root/usr/include/c++/8/x86_64-redhat-linux"
+--       },
+--       excludeArgs = { "-frounding-math" };
+--     };
+--   },
+--   handlers = lsphandlers,
+--   root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
+--   on_attach = function(_, bufnr)
+--     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+--   end,
+-- }
+
+
+
 require("lspconfig").marksman.setup({
   handlers = lsphandlers,
   root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),

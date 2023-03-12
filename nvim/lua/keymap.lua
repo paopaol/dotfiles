@@ -18,6 +18,10 @@ vim.api.nvim_create_user_command("LspFormatRegion", lsp_format_region, { range =
 keymap("i", "<C-a>", "<Home>")
 unsilent_keymap("c", "<C-a>", "<Home>")
 
+
+unsilent_keymap("i", "<C-x><C-s>", "<c-\\><c-o>:w<cr>")
+unsilent_keymap("n", "<C-x><C-s>", ":w<cr>")
+
 -- end of line
 keymap("n", "<C-e>", "<End>a")
 keymap("i", "<C-e>", "<End>")

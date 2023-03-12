@@ -13,28 +13,28 @@ local template = {
     Launch = {
       adapter = "vscode-cpptools",
       configuration = {
-	request = "launch",
-	program = "${workspaceRoot}/build/main",
-	args = {},
-	cwd = "${workspaceRoot}/build",
-	environment = {},
-	externalConsole = true,
-	MIMode = "gdb",
-	setupCommands = {
-	  {
-	    description = "Enable pretty-printing for gdb",
-	    text = "-enable-pretty-printing",
-	    ignoreFailures = true,
-	  },
-	},
+        request = "launch",
+        program = "${workspaceRoot}/build/main",
+        args = {},
+        cwd = "${workspaceRoot}/build",
+        environment = {},
+        externalConsole = true,
+        MIMode = "gdb",
+        setupCommands = {
+          {
+            description = "Enable pretty-printing for gdb",
+            text = "-enable-pretty-printing",
+            ignoreFailures = true,
+          },
+        },
       },
     },
     Attach = {
       adapter = "vscode-cpptools",
       configuration = {
-	request = "attach",
-	program = "<path to binary>",
-	MIMode = "<lldb or gdb>",
+        request = "attach",
+        program = "<path to binary>",
+        MIMode = "<lldb or gdb>",
       },
     },
   },
@@ -79,11 +79,11 @@ local gtest_run_selected = function()
       vim.cmd(string.format("GTestCmd %s", cmake_config.data))
 
       local tests = vim.call('gtest#GetAllTests')
-      vim.ui.select(tests, {prompt = "select test case"}, function (test)
-	if not test then
-	  return
-	end
-	vim.call('gtest#GTestRunOnly', test)
+      vim.ui.select(tests, { prompt = "select test case" }, function(test)
+        if not test then
+          return
+        end
+        vim.call('gtest#GTestRunOnly', test)
       end)
     end
   end
@@ -111,7 +111,6 @@ _G.whichkeyrCpp = function()
   })
 end
 
--- autocmd FileType cpp,c setlocal commentstring=//\ %s
 vim.cmd([[
 augroup filetype_cpp
 autocmd!
@@ -119,6 +118,7 @@ autocmd FileType cpp,c set tabstop=4  shiftwidth=4  softtabstop=4 expandtab
 autocmd FileType cpp,c lua whichkeyrCpp()
 augroup END
 ]])
+
 
 require("cmake-tools").setup({
   cmake_command = "cmake",

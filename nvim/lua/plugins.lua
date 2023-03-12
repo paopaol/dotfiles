@@ -122,7 +122,7 @@ require("lazy").setup({
   "mklabs/vim-json",
   { "cespare/vim-toml", ft = "toml" },
   "paopaol/nvim-cursorline",
-  "puremourning/vimspector",
+  -- "puremourning/vimspector",
   "godlygeek/tabular",
   "AndrewRadev/sideways.vim",
   "matveyt/vim-qmake",
