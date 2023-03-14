@@ -3,7 +3,7 @@ vim.cmd([[
   let maplocalleader = ","
 ]])
 
-vim.o.guifont = "Fira Code:h11"
+vim.o.guifont = "DejaVu Sans Mono:h13"
 
 
 vim.o.pumheight = 10

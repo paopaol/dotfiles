@@ -74,7 +74,6 @@ require("lspconfig").cmake.setup({
 require("lspconfig").clangd.setup({
   cmd = {
     "clangd",
-    "--query-driver=/opt/rh/devtoolset-7/root/bin/g++",
     "--j=1",
     "--background-index",
     "--background-index-priority=background",
@@ -157,3 +156,5 @@ require("lspconfig").pyright.setup({
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   end,
 })
+
+require'lspconfig'.bashls.setup{}
