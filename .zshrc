@@ -8,8 +8,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="candy-kingdom"
+# ZSH_THEME="candy-kingdom"
 # ZSH_THEME="random"
+ZSH_THEME="fino"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -76,8 +77,9 @@ plugins=(
   zsh-syntax-highlighting
   git
   bundler
-  macos
+  # macos
   rake
+  zoxide
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -114,6 +116,5 @@ hostip=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
 export https_proxy="http://${hostip}:4780"
 export http_proxy="http://${hostip}:4780"
 
-export PATH=$PATH:/opt/nvim-linux64/bin:/root/soft/cmake-3.20.1-linux-x86_64/bin:/root/.local/bin
-eval "$(/root/.local/bin/zoxide init zsh)"
+export PATH=$PATH:/opt/cmake-3.20.1-linux-x86_64/bin:~/.local/bin
 . /opt/rh/devtoolset-7/enable
