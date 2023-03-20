@@ -18,7 +18,6 @@ ts.setup({
       height = 0.3,
       preview_cutoff = 20,
       prompt_position = "bottom",
-
       horizontal = {
         preview_width = 0.65,
       },
@@ -98,10 +97,10 @@ local luasnip = require('luasnip')
 require("telescope").setup({
   extensions = {
     fzf = {
-      fuzzy = false, -- false will only do exact matching
+      fuzzy = false,                  -- false will only do exact matching
       override_generic_sorter = true, -- override the generic sorter
-      override_file_sorter = true, -- override the file sorter
-      case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+      override_file_sorter = true,    -- override the file sorter
+      case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
     },
     luasnip = {
       search = function(entry)
@@ -129,4 +128,5 @@ require("telescope").load_extension("heading")
 require("telescope").load_extension("ui-select")
 require("telescope").load_extension("vim_bookmarks")
 require("telescope").load_extension("git_diffs")
+require("telescope").load_extension("command")
 

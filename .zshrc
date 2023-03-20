@@ -116,5 +116,5 @@ hostip=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
 export https_proxy="http://${hostip}:4780"
 export http_proxy="http://${hostip}:4780"
 
-export PATH=$PATH:/opt/cmake-3.20.1-linux-x86_64/bin:~/.local/bin
+export PATH=$PATH:/opt/cmake-3.20.1-linux-x86_64/bin:~/.local/bin:/opt/QtIFW-4.1.1/bin:~/.local/lib/python3.6/site-packages/qt5_applications/Qt/bin
 . /opt/rh/devtoolset-7/enable

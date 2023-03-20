@@ -10,6 +10,7 @@ _G.whichkeyPython = function()
     ["<localleader>"] = {
       name = "major",
       [","] = { utils.format_buffer, "formatting", buffer = buf },
+      ["qd"] = { utils.command("silent ! designer"), "qt designer", buffer = buf },
     }
   })
 end

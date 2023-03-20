@@ -12,20 +12,20 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  { "folke/which-key.nvim", branch = "main" },
+  { "folke/which-key.nvim",         branch = "main" },
   { "rafamadriz/friendly-snippets", branch = "main" },
   "L3MON4D3/LuaSnip",
   "mbbill/fencview",
-  { "nvim-telescope/telescope.nvim", branch = "master" },
-  { "nvim-telescope/telescope-fzf-native.nvim", build = "make", branch = "main" },
-  { "crispgm/telescope-heading.nvim", branch = "main" },
-  { "tom-anders/telescope-vim-bookmarks.nvim", branch = "main" },
-  { "GustavoKatel/telescope-asynctasks.nvim", branch = "main" },
+  { "nvim-telescope/telescope.nvim",            branch = "master" },
+  { "nvim-telescope/telescope-fzf-native.nvim", build = "make",   branch = "main" },
+  { "crispgm/telescope-heading.nvim",           branch = "main" },
+  { "tom-anders/telescope-vim-bookmarks.nvim",  branch = "main" },
+  { "GustavoKatel/telescope-asynctasks.nvim",   branch = "main" },
   "benfowler/telescope-luasnip.nvim",
   "nvim-telescope/telescope-file-browser.nvim",
   { "nvim-telescope/telescope-ui-select.nvim" },
-  { "paopaol/cpp-mode", ft = { "c", "cpp" } },
-  { "paopaol/vim-gtest", ft = { "c", "cpp" } },
+  { "paopaol/cpp-mode",                       ft = { "c", "cpp" } },
+  { "paopaol/vim-gtest",                      ft = { "c", "cpp" } },
   { "Badhi/nvim-treesitter-cpp-tools" },
   "chentoast/marks.nvim",
   {
@@ -73,7 +73,7 @@ require("lazy").setup({
   "907th/vim-auto-save",
 
 
-  { "lilydjwg/fcitx.vim", branch = "fcitx5" },
+  { "lilydjwg/fcitx.vim",       branch = "fcitx5" },
   "projekt0n/github-nvim-theme",
   "EdenEast/nightfox.nvim",
   'folke/tokyonight.nvim',
@@ -83,11 +83,12 @@ require("lazy").setup({
   { "vim-scripts/DoxygenToolkit.vim", ft = { "c", "cpp" } },
 
   "plasticboy/vim-markdown",
-  { 'jakewvincent/mkdnflow.nvim',
+  {
+    'jakewvincent/mkdnflow.nvim',
     rocks = 'luautf8',
   },
   "terryma/vim-expand-region",
-  { "iamcco/markdown-preview.nvim", build = "cd app && yarn install" },
+  { "iamcco/markdown-preview.nvim",   build = "cd app && yarn install" },
   "easymotion/vim-easymotion",
   "haya14busa/incsearch.vim",
   "haya14busa/incsearch-easymotion.vim",
@@ -100,12 +101,14 @@ require("lazy").setup({
   "tpope/vim-surround",
   "tpope/vim-fugitive",
   { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
-  { "rhysd/vim-textobj-anyblock",
+  {
+    "rhysd/vim-textobj-anyblock",
     dependencies = {
       "kana/vim-textobj-user",
     }
   },
-  { "kana/vim-textobj-line",
+  {
+    "kana/vim-textobj-line",
     dependencies = {
       "kana/vim-textobj-user",
     }
@@ -118,9 +121,9 @@ require("lazy").setup({
       "sindrets/diffview.nvim",
     },
   },
-  { "othree/html5.vim", ft = "html" },
+  { "othree/html5.vim",       ft = "html" },
   "mklabs/vim-json",
-  { "cespare/vim-toml", ft = "toml" },
+  { "cespare/vim-toml",     ft = "toml" },
   "paopaol/nvim-cursorline",
   -- "puremourning/vimspector",
   "godlygeek/tabular",
@@ -130,20 +133,21 @@ require("lazy").setup({
 
   --cmp
   { "hrsh7th/cmp-nvim-lsp", branch = "main" },
-  { "hrsh7th/cmp-path", branch = "main" },
-  { "hrsh7th/nvim-cmp", branch = "main" },
-  { "hrsh7th/cmp-buffer", branch = "main" },
+  { "hrsh7th/cmp-path",     branch = "main" },
+  { "hrsh7th/nvim-cmp",     branch = "main" },
+  { "hrsh7th/cmp-buffer",   branch = "main" },
   "dcampos/cmp-emmet-vim",
 
   "saadparwaiz1/cmp_luasnip",
   "hrsh7th/cmp-nvim-lsp-signature-help",
   "hrsh7th/cmp-cmdline",
   "paopaol/cmp-doxygen",
+  "paopaol/telescope-command.nvim",
 
-  { "fedepujol/move.nvim", branch = "main" },
+  { "fedepujol/move.nvim",       branch = "main" },
   "numToStr/Comment.nvim",
-  { "folke/lua-dev.nvim", branch = "main", ft = "lua" },
-  { "j-hui/fidget.nvim", branch = "main" },
+  { "folke/lua-dev.nvim",        branch = "main", ft = "lua" },
+  { "j-hui/fidget.nvim",         branch = "main" },
   { "Civitasv/cmake-tools.nvim", ft = "cmake" },
   "jbyuki/venn.nvim",
   'theHamsta/nvim-semantic-tokens',

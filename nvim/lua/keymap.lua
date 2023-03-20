@@ -10,7 +10,7 @@ _G.lsp_format_region = function()
   local r = vim.lsp.util.make_given_range_params()
   local line1 = r.range.start.line + 1
   local line2 = r.range['end'].line + 1
-  vim.lsp.buf.format { range = { start = { line1, 0 }, ["end"] = { line2, 0 } } }
+  vim.lsp.buf.format { range = { start = { line1, 0 },["end"] = { line2, 0 } } }
 end
 vim.api.nvim_create_user_command("LspFormatRegion", lsp_format_region, { range = 2 })
 
@@ -41,6 +41,7 @@ keymap("i", "<C-f>", "<Right>")
 keymap("v", "<C-f>", "<Right>")
 unsilent_keymap("c", "<C-f>", "<Right>")
 keymap("i", "<A-f>", "<C-Right>")
+keymap("i", "<A-b>", "<C-Left>")
 
 ---next line
 unsilent_keymap("c", "<C-j>", "<Down>")
