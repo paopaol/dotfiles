@@ -110,7 +110,6 @@ wk.register({
     "show diagnostics",
   },
   ["K"] = { vim.lsp.buf.hover, "lsp+hover" },
-  ["<C-s>"] = { search.project_current_symbols, "symbol project at point" },
 })
 
 
