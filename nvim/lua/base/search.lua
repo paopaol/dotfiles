@@ -115,11 +115,9 @@ function T.gen_from_buffer(opts)
 
     return {
       valid = true,
-
       value = bufname,
       ordinal = entry.bufnr .. " : " .. bufname,
       display = make_display,
-
       bufnr = entry.bufnr,
       filename = bufname,
       -- account for potentially stale lnum as getbufinfo might not be updated or from resuming buffers picker
@@ -219,7 +217,6 @@ local function project_buffers(opts)
   local buffers = {}
   local default_selection_idx = 1
   for _, bufnr in ipairs(bufnrs) do
-
     local fullname = string.lower(vim.api.nvim_buf_get_name(bufnr))
     local root = string.lower(rootdir())
     if string.find(fullname, root) ~= 1 then
@@ -270,8 +267,9 @@ end
 
 M.project_tree = function() vim.cmd(string.format("silent :Neotree action=focus  position=left toggle=true %s", rootdir())) end
 
-M.project_tree_focus = function() vim.cmd(string.format("silent :Neotree action=focus  position=left toggle=true reveal %s"
-    , rootdir()))
+M.project_tree_focus = function()
+  vim.cmd(string.format("silent :Neotree action=focus  position=left toggle=true reveal %s"
+  , rootdir()))
 end
 
 M.project_current_symbols = function()
@@ -283,8 +281,12 @@ M.project_live_symbols = function()
 end
 
 M.project_lsp_ref = function()
-  require('telescope.builtin').lsp_references({ cwd = rootdir(), entry_maker = T.gen_from_lsp_location(),
-    push_cursor_on_edit = true })
+  require('telescope.builtin').lsp_references({
+    cwd = rootdir(),
+    fname_width = 60,
+    -- entry_maker = T.gen_from_lsp_location(),
+    push_cursor_on_edit = true
+  })
 end
 
 M.project_symbol_at_point = function()

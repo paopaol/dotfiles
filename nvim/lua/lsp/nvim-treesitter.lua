@@ -63,7 +63,7 @@ require 'nvim-treesitter.configs'.setup {
     },
     custom_impl_commands = {
       TSCppImplWrite = {
-        output_cb = require 'nvim-treesitter.nt-cpp-tools.output_handlers'.add_to_cpp
+        --output_cb = require 'nvim-treesitter.nt-cpp-tools.output_handlers'.add_to_cpp
         -- output_cb = function(output, _)
         --   print(output)
         --   vim.fn.setreg(0, output)
