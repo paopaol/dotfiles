@@ -3,7 +3,7 @@ vim.cmd([[
   let maplocalleader = ","
 ]])
 
-vim.o.guifont = "DejaVu Sans Mono:h13"
+vim.o.guifont = "DejaVu Sans Mono:h10"
 
 
 vim.o.pumheight = 10
@@ -51,6 +51,7 @@ vim.o.clipboard = "unnamedplus"
 vim.o.shortmess = "filnxtToOFcI"
 
 vim.cmd([[ au FocusGained * :checktime ]])
+vim.cmd([[ syntax off ]])
 
 vim.g.python3_host_prog = "/opt/rh/rh-python38/root/bin/python3"
 
@@ -64,7 +65,6 @@ vim.g.vim_textobj_parameter_mapping = "a"
 vim.g.BufKillCreateMappings = 0
 vim.g.rooter_patterns = { ".projectile", ".git/" }
 vim.g.autocwd_patternwd_pairs = { { "*", "%:p:h" } }
-vim.g.clever_f_across_no_line = 1
 
 
 vim.api.nvim_create_autocmd('FileType', {
@@ -92,3 +92,8 @@ if vim.fn.has("wsl") == 1 then
     cache_enabled = 0,
   }
 end
+
+require 'eyeliner'.setup {
+  highlight_on_key = true,
+  dim = true,
+}

@@ -31,10 +31,16 @@ require("lazy").setup({
   {
     "paopaol/messages.nvim",
   },
+  'jinh0/eyeliner.nvim',
   "gbprod/yanky.nvim",
-
+  {
+    "danymat/neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = true,
+    -- Uncomment next line if you want to follow only stable versions
+    -- version = "*"
+  },
   'windwp/nvim-ts-autotag',
-  { "rhysd/clever-f.vim" },
   "ton/vim-bufsurf",
   "mfussenegger/nvim-dap",
   "rcarriga/nvim-dap-ui",
@@ -47,7 +53,7 @@ require("lazy").setup({
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
   "neovim/nvim-lspconfig",
-  { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" },
+  { "williamboman/mason.nvim",         "williamboman/mason-lspconfig.nvim" },
 
 
   "windwp/nvim-autopairs",
@@ -66,15 +72,15 @@ require("lazy").setup({
   "goolord/alpha-nvim",
 
 
-  { "ahmedkhalf/project.nvim", branch = "main" },
+  { "ahmedkhalf/project.nvim",  branch = "main" },
   "kazhala/close-buffers.nvim",
   "romgrk/nvim-treesitter-context",
   { "folke/todo-comments.nvim", branch = "main" },
   "907th/vim-auto-save",
 
 
-  { "lilydjwg/fcitx.vim",       branch = "fcitx5" },
-  "projekt0n/github-nvim-theme",
+  { "lilydjwg/fcitx.vim",             branch = "fcitx5" },
+  -- "projekt0n/github-nvim-theme",
   "EdenEast/nightfox.nvim",
   'folke/tokyonight.nvim',
   'Mofiqul/dracula.nvim',
@@ -88,7 +94,7 @@ require("lazy").setup({
     rocks = 'luautf8',
   },
   "terryma/vim-expand-region",
-  { "iamcco/markdown-preview.nvim",   build = "cd app && yarn install" },
+  { "iamcco/markdown-preview.nvim", build = "cd app && yarn install" },
   "easymotion/vim-easymotion",
   "haya14busa/incsearch.vim",
   "haya14busa/incsearch-easymotion.vim",
@@ -100,7 +106,7 @@ require("lazy").setup({
   "skywind3000/asyncrun.vim",
   "tpope/vim-surround",
   "tpope/vim-fugitive",
-  { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
+  { 'sindrets/diffview.nvim',       dependencies = 'nvim-lua/plenary.nvim' },
   {
     "rhysd/vim-textobj-anyblock",
     dependencies = {
@@ -121,9 +127,9 @@ require("lazy").setup({
       "sindrets/diffview.nvim",
     },
   },
-  { "othree/html5.vim",       ft = "html" },
+  { "othree/html5.vim", ft = "html" },
   "mklabs/vim-json",
-  { "cespare/vim-toml",     ft = "toml" },
+  { "cespare/vim-toml", ft = "toml" },
   "paopaol/nvim-cursorline",
   -- "puremourning/vimspector",
   "godlygeek/tabular",

@@ -98,6 +98,6 @@ require("nvim-treesitter.parsers").list.xml = {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'cpp,c',
   callback = function()
-    vim.cmd([[TSDisable highlight]])
+    -- vim.cmd([[TSDisable highlight]])
   end,
 })

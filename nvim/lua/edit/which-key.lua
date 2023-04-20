@@ -26,9 +26,13 @@ function cppman()
     end
 
     local cmd = string.format("cppman %s", input)
-    local lazygit = Terminal:new({ cmd = cmd, direction = "float", float_opts = {
-      border = "double",
-    } })
+    local lazygit = Terminal:new({
+      cmd = cmd,
+      direction = "float",
+      float_opts = {
+        border = "double",
+      }
+    })
     lazygit:toggle()
   end)
 end
@@ -45,9 +49,9 @@ end
 
 wk.setup({
   window = {
-    border = "double", -- none, single, double, shadow
-    position = "bottom", -- bottom, top
-    margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
+    border = "double",        -- none, single, double, shadow
+    position = "bottom",      -- bottom, top
+    margin = { 0, 0, 0, 0 },  -- extra window margin [top, right, bottom, left]
     padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
   },
 })
@@ -121,9 +125,8 @@ reg_noneleader_keymap({
 -- files
 reg_keymap({
   name = "+file",
-
   f = { search.project_files, "project files" },
-  H = { command("silent !dolphin $HOME &"), "home" },
+  H = { command("silent !thunar $HOME &"), "home" },
   bD = { command("BookmarkClearAll"), "Clear All Bookmark" },
   ba = { command("BookmarkAnnotate"), "Add Bookmark" },
   bb = { search.vim_book_marks, "Bookmarks" },
@@ -139,7 +142,6 @@ reg_keymap({
 -- debug
 reg_keymap({
   name = "+debug",
-
   -- i = { command("VimspectorDebugInfo"), "print info" },
   -- l = { command("VimspectorToggleLog"), "toggle log" },
   -- o = { command("VimspectorShowOutput"), "show output" },
@@ -152,7 +154,6 @@ reg_keymap({
 -- open
 reg_keymap({
   name = "+open",
-
   ["2"] = { utils.open200, "200" },
   d = { search.exploer_dir_current, "externl open current dir" },
   p = { search.exploer_dir_project, "externl open project dir" },
@@ -161,7 +162,6 @@ reg_keymap({
 -- buffer
 reg_keymap({
   name = "+buffer",
-
   d = { jz.close_current_buffer, "nest buffer" },
   k = { jz.close_current_buffer, "buffer kill" },
   n = { command("BufSurfForward"), "nest buffer" },
@@ -175,7 +175,6 @@ reg_keymap({
 -- windows
 reg_keymap({
   name = "+windows",
-
   ["1"] = { command("only"), "close other window" },
   ["="] = { command("wincmd ="), "balance-window" },
   d = { command("wincmd c"), "delete-window" },
@@ -192,7 +191,6 @@ reg_keymap({
 -- serach/symbol
 reg_keymap({
   name = "+search/symbol",
-
   h = { command("Interestingwords --toggle"), "highlight words" },
   s = { search.search_current_buffer, "symbol current buffer" },
   S = { search.current_buffer_symbol_at_point, "symbol current buffer" },
@@ -206,14 +204,12 @@ reg_keymap({
 -- help
 reg_keymap({
   name = "+help",
-
   m = { cppman, "cppman" },
 }, { "n" }, "<leader>h")
 
 -- git
 reg_keymap({
   name = "+git",
-
   P = { command("Git pull"), "git pull" },
   b = { command("Git blame"), "git blame" },
   g = { command("tab Git"), "git status" },
@@ -224,7 +220,6 @@ reg_keymap({
 -- tools
 reg_keymap({
   name = "+tools/toggle",
-
   c = { command("Telescope colorscheme enable_preview=true"), "colorscheme" },
   f = { command("Telescope filetypes"), "filetypes" },
   l = { command("setlocal wrap!"), "line wrap" },
@@ -238,7 +233,6 @@ reg_keymap({
 -- project
 reg_keymap({
   name = "+project",
-
   b = { search.project_buffers, "Project buffers" },
   d = { jz.SubProjectFiles, "Find File" },
   e = { command("AsyncTaskEdit"), "async edit" },
@@ -251,7 +245,6 @@ reg_keymap({
 -- code
 reg_keymap({
   name = "+code",
-
   r = { vim.lsp.buf.rename, "rename" },
   c = { search.lsp_calltree, "calltree" },
   p = { search.project_live_symbols, "workspace_symbolf" },
@@ -271,13 +264,11 @@ reg_keymap({
 
 reg_keymap({
   name = "+insert",
-
   s = { command("Telescope luasnip disable_ft=true"), "snippet" },
 }, { "n" }, "<leader>i")
 
 reg_keymap({
   name = "+runner",
-
   r = {
     function()
       require("telescope").extensions.asynctasks.all()
@@ -290,7 +281,6 @@ reg_keymap({
 
 reg_keymap({
   name = "+svn",
-
   d = { svn.svn_diff_current_buf, "svn diff current" },
   l = { svn.svn_log_current_buf, "svn log current" },
   L = { svn.svn_log_project, "svn log project" },
@@ -302,7 +292,6 @@ reg_keymap({
 
 reg_keymap({
   name = "+all-major",
-
   d = { command("Dox"), "anotaion func" },
   c = { search.lsp_calltree, "calltree" },
   p = { search.project_live_symbols, "workspace_symbolf" },
@@ -317,19 +306,16 @@ reg_keymap({
 
 reg_keymap({
   name = "+all-major",
-
   ["<f2>"] = { utils.insert_semicolon_end_of_line, "insert semicolon" },
 }, { "n", "i" }, "<f2>")
 
 reg_keymap({
   name = "+insert",
-
   s = { command("Telescope luasnip disable_ft=true"), "snippet" },
 }, { "i" }, "<C-x>i")
 
 reg_keymap({
   name = "+global",
-
   ["<leader>"] = { command("w"), "save file" },
   q = { command("wincmd c"), "delete-window" },
   ["1"] = {
@@ -390,7 +376,6 @@ reg_keymap({
 
 reg_keymap({
   name = "+goto",
-
   d = { function()
     vim.cmd([[Telescope lsp_definitions]])
   end, "lsp+definition" },
@@ -417,7 +402,6 @@ reg_keymap({
 
 reg_keymap({
   name = "+indent",
-
   [","] = { require('edit.tabularize').tabularize_comma, "indent, " },
   [" "] = { require('edit.tabularize').tabularize_space, "indent space" },
 }, { "v" }, "<leader>=")
