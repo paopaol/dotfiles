@@ -45,3 +45,10 @@ _G.whichkeyFugitive = function()
 end
 vim.cmd([[ autocmd FileType fugitive lua whichkeyFugitive() ]])
 
+_G.whichkeySpecialDiffView = function()
+  local buf = vim.api.nvim_get_current_buf()
+  wk.register({
+    ["q"] = { command("DiffviewClose"), "quit", buffer = buf },
+  })
+end
+vim.cmd([[ autocmd FileType DiffviewFiles lua whichkeySpecialDiffView() ]])

@@ -72,6 +72,7 @@ require("telescope").setup({
   },
 })
 
+local fb_utils = require "telescope._extensions.file_browser.utils"
 local file_browser_change_dir = function(path)
   local action_state = require "telescope.actions.state"
 
@@ -80,7 +81,10 @@ local file_browser_change_dir = function(path)
   local finder = current_picker.finder
   finder.path = path
   finder.files = true
-  current_picker:refresh(finder, { reset_prompt = true })
+  current_picker:refresh(finder, {
+    reset_prompt = true,
+    new_prefix = fb_utils.relative_path_prefix(finder)
+  })
 end
 
 local update_dir = function(prompt)
@@ -94,6 +98,8 @@ end
 
 local lst = require('telescope').extensions.luasnip
 local luasnip = require('luasnip')
+
+local fb_actions = require "telescope._extensions.file_browser.actions"
 require("telescope").setup({
   extensions = {
     fzf = {
@@ -117,7 +123,14 @@ require("telescope").setup({
     file_browser = {
       on_input_filter_cb = update_dir,
       theme = nil,
-      use_fd = false
+      use_fd = false,
+      prompt_path = true,
+      mappings = {
+        ["i"] = {
+          ["<C-w>"] = fb_actions.backspace,
+          ["<bs>"] = fb_actions.backspace,
+        },
+      },
     },
   },
 })
@@ -129,4 +142,3 @@ require("telescope").load_extension("ui-select")
 require("telescope").load_extension("vim_bookmarks")
 require("telescope").load_extension("git_diffs")
 require("telescope").load_extension("command")
-

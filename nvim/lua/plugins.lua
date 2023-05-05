@@ -81,6 +81,7 @@ require("lazy").setup({
 
   { "lilydjwg/fcitx.vim",             branch = "fcitx5" },
   -- "projekt0n/github-nvim-theme",
+  "ofirgall/ofirkai.nvim",
   "EdenEast/nightfox.nvim",
   'folke/tokyonight.nvim',
   'Mofiqul/dracula.nvim',

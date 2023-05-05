@@ -1,2 +1,3 @@
-vim.cmd([[set background=light]])
-vim.cmd("colorscheme  dayfox")
+require('ofirkai').setup({})
+-- vim.cmd([[set background=light]])
+vim.cmd("colorscheme dayfox")

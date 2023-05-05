@@ -2,14 +2,14 @@ require 'nvim-treesitter.configs'.setup {
   playground = {
     enable = true,
     disable = {},
-    updatetime = 100, -- Debounced time for highlighting nodes in the playground from source code
+    updatetime = 100,        -- Debounced time for highlighting nodes in the playground from source code
     persist_queries = false, -- Whether the query persists across vim sessions
   },
   indent = { enable = false },
   autotag = { enable = true },
   -- ensure_installed = {'bash', 'css', 'html', 'rust', 'toml', 'yaml', 'cpp', 'c'},
   highlight = {
-    enable = true, 
+    enable = true,
     additional_vim_regex_highlighting = false,
     disable = function(_, buf)
       local max_filesize = 100 * 1024 -- 100 KB
@@ -46,33 +46,38 @@ require 'nvim-treesitter.configs'.setup {
     move = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = { ["]]"] = "@function.outer", ["]c"] = "@class.outer" },
-      goto_next_end = { ["]M"] = "@function.outer", ["]["] = "@class.outer" },
+      goto_next_start = { ["]]"] = "@function.outer",["]c"] = "@class.outer" },
+      goto_next_end = { ["]M"] = "@function.outer",["]["] = "@class.outer" },
       goto_previous_start = {
         ["[["] = "@function.outer",
         ["[c"] = "@class.outer"
       },
-      goto_previous_end = { ["[M"] = "@function.outer", ["[]"] = "@class.outer" }
-    }
-  },
-  nt_cpp_tools = {
-    enable = false,
-    preview = {
-      quit = 'q', -- optional keymapping for quit preview
-      accept = '<tab>' -- optional keymapping for accept preview
-    },
-    custom_impl_commands = {
-      TSCppImplWrite = {
-        --output_cb = require 'nvim-treesitter.nt-cpp-tools.output_handlers'.add_to_cpp
-        -- output_cb = function(output, _)
-        --   print(output)
-        --   vim.fn.setreg(0, output)
-        -- end
-      }
-      -- <custom_command> = { output_cb = <function (output_str, context)> }
+      goto_previous_end = { ["[M"] = "@function.outer",["[]"] = "@class.outer" }
     }
   }
 }
+require 'nt-cpp-tools'.setup({
+  preview = {
+    quit = 'q',                               -- optional keymapping for quit preview
+    accept = '<tab>'                          -- optional keymapping for accept preview
+  },
+  header_extension = 'h',                     -- optional
+  source_extension = 'cxx',                   -- optional
+  custom_define_class_function_commands = {
+                                              -- optional
+    TSCppImplWrite = {
+      output_handle = require 'nt-cpp-tools.output_handlers'.get_add_to_cpp()
+    }
+    --[[
+        <your impl function custom command name> = {
+            output_handle = function (str, context)
+                -- string contains the class implementation
+                -- do whatever you want to do with it
+            end
+        }
+        ]]
+  }
+})
 
 require("treesitter-context").setup({ enable = true, throttle = true })
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
