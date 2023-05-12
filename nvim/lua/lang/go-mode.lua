@@ -2,8 +2,6 @@ local wk = require("which-key")
 local utils = require("base.utils")
 
 vim.cmd([[
-autocmd FileType cmake,go  lua whichkeyrCmake()
-autocmd FileType cmake,go  set tabstop=2
 ]])
 _G.whichkeyrCmake = function()
   local buf = vim.api.nvim_get_current_buf()
@@ -15,3 +13,11 @@ _G.whichkeyrCmake = function()
     },
   })
 end
+
+vim.cmd([[
+augroup go_grp
+  autocmd!
+  autocmd FileType cmake,go  lua whichkeyrCmake()
+  autocmd FileType cmake,go  set tabstop=2
+augroup END
+]])

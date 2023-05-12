@@ -7,5 +7,11 @@ function _G.im_select()
 end
 
 vim.cmd([[
+]])
+
+vim.cmd([[
+augroup im_grp
+  autocmd!
   autocmd InsertLeave * lua im_select()
+augroup END
 ]])

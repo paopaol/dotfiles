@@ -73,4 +73,10 @@ _G.dapFloatinhKeymaps = function()
     ["q"] = { quit_window, "quit", buffer = buf },
   })
 end
-vim.cmd([[ autocmd FileType dap-float lua dapFloatinhKeymaps() ]])
+
+vim.cmd([[
+augroup dap_grp
+  autocmd!
+  autocmd FileType dap-float lua dapFloatinhKeymaps() 
+augroup END
+]])

@@ -18,4 +18,11 @@ _G.whichkeyrLua = function()
 		}
 	})
 end
-vim.cmd(([[ autocmd FileType lua  lua whichkeyrLua() ]]))
+vim.cmd(([[]]))
+
+vim.cmd([[
+augroup lua_grp
+  autocmd!
+  autocmd FileType lua  lua whichkeyrLua() 
+augroup END
+]])

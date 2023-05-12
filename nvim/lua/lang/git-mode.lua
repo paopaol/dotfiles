@@ -15,4 +15,11 @@ _G.whichkeyFugitive_local = function()
     ["gs"] = { command("normal o"), "open with split", buffer = buf },
   })
 end
-vim.cmd([[ autocmd FileType fugitive,git lua whichkeyFugitive_local() ]])
+vim.cmd([[]])
+
+vim.cmd([[
+augroup git_grp
+  autocmd!
+  autocmd FileType fugitive,git lua whichkeyFugitive_local() 
+augroup END
+]])

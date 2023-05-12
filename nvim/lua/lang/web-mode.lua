@@ -19,7 +19,6 @@ _G.whichkeyrXml = function()
     ["<tab>"] = { command("normal! za"), "expand", buffer = buf },
   })
 end
-vim.cmd([[ autocmd FileType xml,html  lua whichkeyrXml() ]])
 
 _G.whichkeyrPrettier = function()
   local buf = vim.api.nvim_get_current_buf()
@@ -32,9 +31,14 @@ _G.whichkeyrPrettier = function()
   })
 end
 
-vim.cmd([[ autocmd FileType json,css,html,javascript,yaml,vue,typescript,toml lua whichkeyrPrettier() ]])
+
 vim.cmd([[
+augroup web_grp
+  autocmd!
+  autocmd FileType xml,html  lua whichkeyrXml() 
+  autocmd FileType json,css,html,javascript,yaml,vue,typescript,toml lua whichkeyrPrettier() 
 	autocmd FileType xml set tabstop=2
+augroup END
 ]])
 
 require'nvim-treesitter.configs'.setup {

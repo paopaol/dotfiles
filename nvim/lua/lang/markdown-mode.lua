@@ -26,7 +26,12 @@ _G.whichkeyMarkdown = function()
 	})
 end
 
-vim.cmd([[ autocmd FileType markdown lua whichkeyMarkdown() ]])
+vim.cmd([[
+augroup markdown_grp
+  autocmd!
+  autocmd FileType markdown lua whichkeyMarkdown() 
+augroup END
+]])
 
 require('mkdnflow').setup({
 	modules = {

@@ -14,7 +14,13 @@ _G.whichkeyPython = function()
     }
   })
 end
-vim.cmd(([[ autocmd FileType python  lua whichkeyPython() ]]))
+
+vim.cmd([[
+augroup py_grp
+  autocmd!
+  autocmd FileType python  lua whichkeyPython() 
+augroup END
+]])
 
 
 local function files_of_current(match)

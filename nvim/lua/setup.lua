@@ -1,8 +1,3 @@
-vim.cmd([[
-  let mapleader = "\<space>"
-  let maplocalleader = ","
-]])
-
 vim.o.guifont = "DejaVu Sans Mono:h10"
 
 
@@ -11,7 +6,7 @@ vim.o.numberwidth = 3
 -- 显示左侧图标指示列
 vim.o.signcolumn = "yes"
 vim.o.foldmethod = "manual"
-vim.o.cursorline = true
+-- vim.o.cursorline = true
 -- jk移动时光标下上方保留3行
 vim.o.scrolloff = 1
 vim.o.sidescrolloff = 1
@@ -50,8 +45,6 @@ vim.o.rnu = true
 vim.o.clipboard = "unnamedplus"
 vim.o.shortmess = "filnxtToOFcI"
 
-vim.cmd([[ au FocusGained * :checktime ]])
-vim.cmd([[ syntax off ]])
 
 vim.g.python3_host_prog = "/opt/rh/rh-python38/root/bin/python3"
 
@@ -74,7 +67,26 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-vim.cmd([[ autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif ]])
+
+_G.toggleCursor = function()
+  vim.cmd [[
+	  set cursorline!
+	  set cursorcolumn!
+  ]]
+end
+
+vim.cmd([[
+augroup setup_grp
+  autocmd!
+  let mapleader = "\<space>"
+  let maplocalleader = ","
+  au FocusGained * :checktime
+  syntax on
+  autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif
+  autocmd InsertLeave * lua toggleCursor()
+  autocmd InsertEnter * lua toggleCursor()
+augroup END
+]])
 
 require("messages").setup()
 
@@ -82,12 +94,12 @@ if vim.fn.has("wsl") == 1 then
   vim.g.clipboard = {
     name = "win32yank-wsl",
     copy = {
-      ["+"] = '/mnt/d/root/opt/win32yank.exe -i --crlf',
-      ["*"] = '/mnt/d/root/opt/win32yank.exe -i --crlf',
+      ["+"] = 'win32yank -i --crlf',
+      ["*"] = 'win32yank -i --crlf',
     },
     paste = {
-      ["+"] = '/mnt/d/root/opt/win32yank.exe -o --lf',
-      ["*"] = '/mnt/d/root/opt/win32yank.exe -o --lf',
+      ["+"] = 'win32yank -o --lf',
+      ["*"] = 'win32yank -o --lf',
     },
     cache_enabled = 0,
   }
