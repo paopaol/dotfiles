@@ -26,20 +26,11 @@ require("lazy").setup({
   { "nvim-telescope/telescope-ui-select.nvim" },
   { "paopaol/cpp-mode",                       ft = { "c", "cpp" } },
   { "paopaol/vim-gtest",                      ft = { "c", "cpp" } },
-  { "Badhi/nvim-treesitter-cpp-tools" },
+  { "Badhi/nvim-treesitter-cpp-tools",        ft = { "c", "cpp" } },
   "chentoast/marks.nvim",
-  {
-    "paopaol/messages.nvim",
-  },
+  "paopaol/messages.nvim",
   'jinh0/eyeliner.nvim',
   "gbprod/yanky.nvim",
-  {
-    "danymat/neogen",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    config = true,
-    -- Uncomment next line if you want to follow only stable versions
-    -- version = "*"
-  },
   'windwp/nvim-ts-autotag',
   "ton/vim-bufsurf",
   "mfussenegger/nvim-dap",
@@ -52,6 +43,8 @@ require("lazy").setup({
   "nvim-lua/plenary.nvim",
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
+
+
   "neovim/nvim-lspconfig",
   { "williamboman/mason.nvim",         "williamboman/mason-lspconfig.nvim" },
 
@@ -59,13 +52,12 @@ require("lazy").setup({
   "windwp/nvim-autopairs",
   "MattesGroeger/vim-bookmarks",
   "vim-scripts/bufkill.vim",
-  "voldikss/vim-floaterm",
   "karb94/neoscroll.nvim",
   "nvim-treesitter/nvim-treesitter-textobjects",
-  "mhartington/formatter.nvim",
+  -- "mhartington/formatter.nvim",
   "jose-elias-alvarez/null-ls.nvim",
 
-  "onsails/lspkind-nvim",
+  -- "onsails/lspkind-nvim",
   "paopaol/e-kaput.nvim",
   "voldikss/vim-translator",
   "p00f/nvim-ts-rainbow",
@@ -76,38 +68,31 @@ require("lazy").setup({
   "kazhala/close-buffers.nvim",
   "romgrk/nvim-treesitter-context",
   { "folke/todo-comments.nvim", branch = "main" },
-  "907th/vim-auto-save",
 
 
-  { "lilydjwg/fcitx.vim",             branch = "fcitx5" },
-  -- "projekt0n/github-nvim-theme",
+  -- { "lilydjwg/fcitx.vim",       branch = "fcitx5" },
   "ofirgall/ofirkai.nvim",
   "EdenEast/nightfox.nvim",
   'folke/tokyonight.nvim',
   'Mofiqul/dracula.nvim',
 
   "rainbowhxch/accelerated-jk.nvim",
-  { "vim-scripts/DoxygenToolkit.vim", ft = { "c", "cpp" } },
 
-  "plasticboy/vim-markdown",
+  { "plasticboy/vim-markdown",      ft = "markdown" },
   {
     'jakewvincent/mkdnflow.nvim',
+    ft = "markdown",
     rocks = 'luautf8',
   },
-  "terryma/vim-expand-region",
-  { "iamcco/markdown-preview.nvim", build = "cd app && yarn install" },
-  "easymotion/vim-easymotion",
-  "haya14busa/incsearch.vim",
-  "haya14busa/incsearch-easymotion.vim",
-  "haya14busa/incsearch-fuzzy.vim",
+  { "iamcco/markdown-preview.nvim", build = "cd app && yarn install", ft = "markdown" },
   "mg979/vim-visual-multi",
   "pseewald/vim-anyfold",
-  "mattn/emmet-vim",
+  { "mattn/emmet-vim",        ft = "html5" },
   "skywind3000/asynctasks.vim",
   "skywind3000/asyncrun.vim",
   "tpope/vim-surround",
   "tpope/vim-fugitive",
-  { 'sindrets/diffview.nvim',       dependencies = 'nvim-lua/plenary.nvim' },
+  { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
   {
     "rhysd/vim-textobj-anyblock",
     dependencies = {
@@ -132,10 +117,9 @@ require("lazy").setup({
   "mklabs/vim-json",
   { "cespare/vim-toml", ft = "toml" },
   "paopaol/nvim-cursorline",
-  -- "puremourning/vimspector",
   "godlygeek/tabular",
   "AndrewRadev/sideways.vim",
-  "matveyt/vim-qmake",
+  { "matveyt/vim-qmake",    ft = "pro" },
   "paopaol/interestingwords.nvim",
 
   --cmp

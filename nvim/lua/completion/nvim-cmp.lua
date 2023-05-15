@@ -1,10 +1,9 @@
 local cmp = require("cmp")
-local lspkind = require("lspkind")
 
 local kind_icons = {
   Text = "",
   Method = "",
-  Function = " ",
+  Function = "",
   Constructor = "",
   Field = "",
   Variable = "",

@@ -42,7 +42,7 @@ vim.o.smartindent = true
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.backspace = "indent,eol,start"
 vim.o.rnu = true
-vim.o.clipboard = "unnamedplus"
+-- vim.o.clipboard = "unnamed,unnamedplus"
 vim.o.shortmess = "filnxtToOFcI"
 
 
@@ -104,6 +104,7 @@ if vim.fn.has("wsl") == 1 then
     cache_enabled = 0,
   }
 end
+vim.o.clipboard = "unnamed"
 
 require 'eyeliner'.setup {
   highlight_on_key = true,
