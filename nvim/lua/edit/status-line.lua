@@ -1,7 +1,8 @@
 local utils = require("base.utils")
 
 local function project_name()
-  return vim.fn.fnamemodify(utils.rootdir(), ':t')
+  -- return vim.fn.fnamemodify(utils.rootdir(), ':t')
+  return ""
 end
 
 require("lualine").setup({
