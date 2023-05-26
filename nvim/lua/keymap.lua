@@ -114,7 +114,6 @@ vim.api.nvim_create_user_command("LineDiagnostic", function()
 end, {})
 
 
-require("yanky").setup({})
 
 vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
 vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")

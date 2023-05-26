@@ -1,4 +1,4 @@
-vim.o.guifont = "DejaVu Sans Mono:h10"
+vim.o.guifont = "DejaVu Sans Mono:h11"
 
 
 vim.o.pumheight = 10
@@ -110,3 +110,9 @@ require 'eyeliner'.setup {
   highlight_on_key = true,
   dim = true,
 }
+
+require("yanky").setup({
+  highlight = {
+    timer = 60,
+  },
+})

@@ -148,6 +148,15 @@ require("lspconfig").tsserver.setup({
   end,
 })
 
+require("lspconfig").gopls.setup({
+  handlers = lsphandlers,
+  root_dir = util.root_pattern("compile_commands.json",  ".git", ".projectile"),
+  on_attach = function(_, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  end,
+})
+
+
 -- require("lspconfig").pyright.setup({
 --   handlers = lsphandlers,
 --   root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
