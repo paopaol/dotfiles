@@ -1,5 +1,4 @@
-vim.o.guifont = "DejaVu Sans Mono:h11"
-
+vim.o.guifont = "DejaVu Sans Mono:h15"
 
 vim.o.pumheight = 10
 vim.o.numberwidth = 3
@@ -42,7 +41,7 @@ vim.o.smartindent = true
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.backspace = "indent,eol,start"
 vim.o.rnu = true
--- vim.o.clipboard = "unnamed,unnamedplus"
+vim.o.clipboard = "unnamedplus"
 vim.o.shortmess = "filnxtToOFcI"
 
 
@@ -89,22 +88,33 @@ augroup END
 ]])
 
 require("messages").setup()
+require('fix_clipboard').setup()
 
-if vim.fn.has("wsl") == 1 then
-  vim.g.clipboard = {
-    name = "win32yank-wsl",
-    copy = {
-      ["+"] = 'win32yank -i --crlf',
-      ["*"] = 'win32yank -i --crlf',
-    },
-    paste = {
-      ["+"] = 'win32yank -o --lf',
-      ["*"] = 'win32yank -o --lf',
-    },
-    cache_enabled = 0,
-  }
-end
-vim.o.clipboard = "unnamed"
+-- vim.cmd [[
+-- let s:clip = '/mnt/c/Windows/System32/clip.exe'
+-- if executable(s:clip)
+--     augroup WSLYank
+--         autocmd!
+--         autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+--
+--     augroup END
+-- endif
+-- ]]
+--
+-- if vim.fn.has("wsl") == 1 then
+--   vim.g.clipboard = {
+--     name = "win32yank-wsl",
+--     copy = {
+--       ["+"] = 'win32yank -i --crlf',
+--       ["*"] = 'win32yank -i --crlf',
+--     },
+--     paste = {
+--       ["+"] = 'win32yank -o --lf',
+--       ["*"] = 'win32yank -o --lf',
+--     },
+--     cache_enabled = 0,
+--   }
+-- end
 
 require 'eyeliner'.setup {
   highlight_on_key = true,

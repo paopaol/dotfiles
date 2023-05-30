@@ -24,6 +24,7 @@ require("lazy").setup({
   "benfowler/telescope-luasnip.nvim",
   "nvim-telescope/telescope-file-browser.nvim",
   { "nvim-telescope/telescope-ui-select.nvim" },
+  "p00f/clangd_extensions.nvim",
   { "paopaol/cpp-mode",                       ft = { "c", "cpp" } },
   { "paopaol/vim-gtest",                      ft = { "c", "cpp" } },
   { "Badhi/nvim-treesitter-cpp-tools",        ft = { "c", "cpp" } },

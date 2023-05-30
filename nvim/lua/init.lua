@@ -1,3 +1,4 @@
+require('fix_clipboard')
 require('setup')
 require('colors')
 --
@@ -11,3 +12,4 @@ require('edit.init')
 require('menu.init')
 require('keymap')
 require('theme')
+

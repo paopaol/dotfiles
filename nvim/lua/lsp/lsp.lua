@@ -70,26 +70,94 @@ require("lspconfig").cmake.setup({
   end,
 })
 
-require("lspconfig").clangd.setup({
-  cmd = {
-    "clangd",
-    "--j=1",
-    "--background-index",
-    "--background-index-priority=background",
-    "--pch-storage=memory",
-    "--log=error",
-    "--clang-tidy",
-    "--header-insertion=never",
-    "--compile-commands-dir=build",
-    "--completion-style=detailed",
-    "--limit-results=20",
+require("clangd_extensions").setup {
+  server = {
+    cmd = {
+      "clangd",
+      "--j=1",
+      "--background-index",
+      "--background-index-priority=background",
+      "--pch-storage=memory",
+      "--log=error",
+      "--clang-tidy",
+      "--header-insertion=never",
+      "--compile-commands-dir=build",
+      "--completion-style=detailed",
+      "--limit-results=20",
+    },
+    handlers = lsphandlers,
+    root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
+    on_attach = function(_, bufnr)
+      vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    end,
   },
-  handlers = lsphandlers,
-  root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
-  on_attach = function(_, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  end,
-})
+  extensions = {
+    autoSetHints = true,
+    inlay_hints = {
+      inline = vim.fn.has("nvim-0.10") == 1,
+      only_current_line = false,
+      only_current_line_autocmd = "CursorHold",
+      show_parameter_hints = true,
+      parameter_hints_prefix = "<- ",
+      other_hints_prefix = "=> ",
+      max_len_align = false,
+      max_len_align_padding = 1,
+      right_align = false,
+      right_align_padding = 7,
+      highlight = "Comment",
+      priority = 100,
+    },
+    ast = {
+      role_icons = {
+        type = "🄣",
+        declaration = "🄓",
+        expression = "🄔",
+        statement = ";",
+        specifier = "🄢",
+        ["template argument"] = "🆃",
+      },
+      kind_icons = {
+        Compound = "🄲",
+        Recovery = "🅁",
+        TranslationUnit = "🅄",
+        PackExpansion = "🄿",
+        TemplateTypeParm = "🅃",
+        TemplateTemplateParm = "🅃",
+        TemplateParamObject = "🅃",
+      },
+      highlights = {
+        detail = "Comment",
+      },
+    },
+    memory_usage = {
+      border = "none",
+    },
+    symbol_info = {
+      border = "none",
+    },
+  },
+}
+
+-- require("lspconfig").clangd.setup({
+--   cmd = {
+--     "clangd",
+--     "--j=1",
+--     "--background-index",
+--     "--background-index-priority=background",
+--     "--pch-storage=memory",
+--     "--log=error",
+--     "--clang-tidy",
+--     "--header-insertion=never",
+--     "--compile-commands-dir=build",
+--     "--completion-style=detailed",
+--     "--limit-results=20",
+--   },
+--   handlers = lsphandlers,
+--   root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
+--   on_attach = function(_, bufnr)
+--     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+--   end,
+-- })
 
 -- require("lspconfig").ccls.setup {
 --   init_options = {
@@ -150,7 +218,7 @@ require("lspconfig").tsserver.setup({
 
 require("lspconfig").gopls.setup({
   handlers = lsphandlers,
-  root_dir = util.root_pattern("compile_commands.json",  ".git", ".projectile"),
+  root_dir = util.root_pattern("compile_commands.json", ".git", ".projectile"),
   on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   end,
