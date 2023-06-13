@@ -1,6 +1,15 @@
 local wk = require("which-key")
 local utils = require("base.utils")
 
+require("cmake-tools").setup {
+  cmake_command = "cmake",
+  cmake_regenerate_on_save = nil,
+  cmake_build_directory = "build",
+  cmake_build_type = "Debug",
+  cmake_generate_options = { "-D", "CMAKE_EXPORT_COMPILE_COMMANDS=1" },
+}
+
+
 local function command(cmd)
   return function()
     vim.cmd(cmd)
@@ -114,20 +123,7 @@ end
 vim.cmd([[
 augroup filetype_cpp
 autocmd!
-autocmd FileType cpp,c set tabstop=4  shiftwidth=4  softtabstop=4 expandtab  
+autocmd FileType cpp,c set tabstop=4  shiftwidth=4  softtabstop=4 expandtab
 autocmd FileType cpp,c lua whichkeyrCpp()
 augroup END
 ]])
-
-
-require("cmake-tools").setup({
-  cmake_command = "cmake",
-  cmake_build_directory = "build",
-  cmake_build_type = "Debug",
-  cmake_generate_options = { "-D", "CMAKE_EXPORT_COMPILE_COMMANDS=1" },
-  cmake_build_options = {},
-  cmake_console_size = 10, -- cmake output window height
-  cmake_show_console = "always", -- "always", "only_on_error"
-  --cmake_dap_configuration = { name = "cpp", type = "vscode-cpptools", request = "launch" }, -- dap configuration, optional
-  --cmake_dap_open_command = require("dap").repl.open, -- optional
-})

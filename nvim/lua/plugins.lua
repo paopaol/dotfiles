@@ -44,10 +44,10 @@ require("lazy").setup({
   "nvim-lua/plenary.nvim",
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
-
+  { "Pocco81/auto-save.nvim" },
 
   "neovim/nvim-lspconfig",
-  { "williamboman/mason.nvim",         "williamboman/mason-lspconfig.nvim" },
+  { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" },
 
 
   "windwp/nvim-autopairs",
@@ -65,7 +65,7 @@ require("lazy").setup({
   "goolord/alpha-nvim",
 
 
-  { "ahmedkhalf/project.nvim",  branch = "main" },
+  { "ahmedkhalf/project.nvim", branch = "main" },
   "kazhala/close-buffers.nvim",
   "romgrk/nvim-treesitter-context",
   { "folke/todo-comments.nvim", branch = "main" },
@@ -79,7 +79,7 @@ require("lazy").setup({
 
   "rainbowhxch/accelerated-jk.nvim",
 
-  { "plasticboy/vim-markdown",      ft = "markdown" },
+  { "plasticboy/vim-markdown",  ft = "markdown" },
   {
     'jakewvincent/mkdnflow.nvim',
     ft = "markdown",
@@ -88,7 +88,7 @@ require("lazy").setup({
   { "iamcco/markdown-preview.nvim", build = "cd app && yarn install", ft = "markdown" },
   "mg979/vim-visual-multi",
   "pseewald/vim-anyfold",
-  { "mattn/emmet-vim",        ft = "html5" },
+  { "mattn/emmet-vim",              ft = "html5" },
   "skywind3000/asynctasks.vim",
   "skywind3000/asyncrun.vim",
   "tpope/vim-surround",
@@ -114,13 +114,13 @@ require("lazy").setup({
       "sindrets/diffview.nvim",
     },
   },
-  { "othree/html5.vim", ft = "html" },
+  { "othree/html5.vim",       ft = "html" },
   "mklabs/vim-json",
-  { "cespare/vim-toml", ft = "toml" },
+  { "cespare/vim-toml",  ft = "toml" },
   "paopaol/nvim-cursorline",
   "godlygeek/tabular",
   "AndrewRadev/sideways.vim",
-  { "matveyt/vim-qmake",    ft = "pro" },
+  { "matveyt/vim-qmake", ft = "pro" },
   "paopaol/interestingwords.nvim",
 
   --cmp
@@ -139,7 +139,7 @@ require("lazy").setup({
   { "fedepujol/move.nvim",       branch = "main" },
   "numToStr/Comment.nvim",
   { "folke/lua-dev.nvim",        branch = "main", ft = "lua" },
-  { "j-hui/fidget.nvim",         branch = "main" },
+  { "j-hui/fidget.nvim",         tag = 'legacy' },
   { "Civitasv/cmake-tools.nvim", ft = "cmake" },
   "jbyuki/venn.nvim",
   'theHamsta/nvim-semantic-tokens',

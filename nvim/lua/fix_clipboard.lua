@@ -81,7 +81,8 @@ end
 
 function M.setup()
   if vim.g.neovide == true then
-    vim.keymap.set({ "n", "i" }, "<C-S-v>", function()
+    vim.o.mouse = ""
+    vim.keymap.set({ "n", "v", "i" }, "<C-S-v>", function()
       vim.cmd([[normal! "-p]])
     end)
   end

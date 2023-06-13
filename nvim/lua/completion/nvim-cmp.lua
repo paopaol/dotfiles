@@ -41,7 +41,6 @@ cmp.setup({
       require("luasnip").lsp_expand(args.body)
     end,
   },
-
   matching = {
     disallow_prefix_unmatching = false,
     disallow_partial_matching = true,
@@ -95,7 +94,6 @@ cmp.setup({
       cmp.close()
       vim.cmd("normal! 0")
     end, { "s" }),
-
     ["<backspace>"] = cmp.mapping(function()
       local key = vim.api.nvim_replace_termcodes("<C-o>", true, false, true)
       vim.api.nvim_feedkeys(key, "s", true)
@@ -111,16 +109,16 @@ cmp.setup({
     ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
     ["<up>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-    ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+    ["<C-y>"] = cmp.config.disable,                    -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
     ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   },
   sources = cmp.config.sources({
-    { name = "nvim_lsp", max_item_count = 20, dup = 0 },
-    { name = "buffer", max_item_count = 20, dup = 0 },
-    { name = "luasnip", max_item_count = 20, dup = 0 },
+    { name = "nvim_lsp",                max_item_count = 20, dup = 0 },
+    { name = "buffer",                  max_item_count = 20, dup = 0 },
+    { name = "luasnip",                 max_item_count = 20, dup = 0 },
     { name = "nvim_lsp_signature_help", max_item_count = 20, dup = 0 },
-    { name = "path", max_item_count = 20, dup = 0 },
-    { name = "doxygen", dup = 0 },
+    { name = "path",                    max_item_count = 20, dup = 0 },
+    { name = "doxygen",                 dup = 0 },
     -- { name = 'emmet_vim',dup = 0 },
   }),
 })
@@ -162,16 +160,16 @@ cmp.setup.cmdline('/', {
   }
 })
 
--- cmp.setup.cmdline(':', {
---   mapping = cmp.mapping.preset.cmdline(),
---   sources = cmp.config.sources({
---     { name = 'path' }
---   }, {
---     {
---       name = 'cmdline',
---       option = {
---         ignore_cmds = { 'Man', '!' }
---       }
---     }
---   })
--- })
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    {
+      name = 'cmdline',
+      option = {
+        ignore_cmds = { 'Man', '!' }
+      }
+    }
+  })
+})

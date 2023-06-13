@@ -48,9 +48,9 @@ vim.o.shortmess = "filnxtToOFcI"
 vim.g.python3_host_prog = "/opt/rh/rh-python38/root/bin/python3"
 
 ---external plugins
-vim.g.auto_save = 0
-vim.g.auto_save_silent = 1
-vim.g.auto_save_events = { "InsertLeave", "TextChanged" }
+require("auto-save").setup {
+  debounce_delay = 1000,
+}
 vim.g.interestingWordsDefaultMappings = 0
 vim.g.vim_markdown_folding_disabled = 1
 vim.g.vim_textobj_parameter_mapping = "a"
@@ -99,6 +99,7 @@ require('fix_clipboard').setup()
 --
 --     augroup END
 -- endif
+--
 -- ]]
 --
 -- if vim.fn.has("wsl") == 1 then

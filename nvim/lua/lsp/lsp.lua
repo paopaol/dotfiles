@@ -75,8 +75,8 @@ require("clangd_extensions").setup {
     cmd = {
       "clangd",
       "--j=1",
-      "--background-index",
-      "--background-index-priority=background",
+      -- "--background-index",
+      -- "--background-index-priority=background",
       "--pch-storage=memory",
       "--log=error",
       "--clang-tidy",
