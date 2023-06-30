@@ -97,7 +97,7 @@ require("clangd_extensions").setup {
       inline = vim.fn.has("nvim-0.10") == 1,
       only_current_line = false,
       only_current_line_autocmd = "CursorHold",
-      show_parameter_hints = true,
+      show_parameter_hints = false,
       parameter_hints_prefix = "<- ",
       other_hints_prefix = "=> ",
       max_len_align = false,
@@ -225,21 +225,21 @@ require("lspconfig").gopls.setup({
 })
 
 
--- require("lspconfig").pyright.setup({
---   handlers = lsphandlers,
---   root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
---   on_attach = function(_, bufnr)
---     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
---   end,
---   settings = {
---     python = {
---       analysis = {
---         autoSearchPaths = true,
---         diagnosticMode = 'workspace',
---         useLibraryCodeForTypes = true,
---       }
---     }
---   },
--- })
+require("lspconfig").pyright.setup({
+  handlers = lsphandlers,
+  root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
+  on_attach = function(_, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  end,
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        diagnosticMode = 'workspace',
+        useLibraryCodeForTypes = true,
+      }
+    }
+  },
+})
 
 require 'lspconfig'.bashls.setup {}

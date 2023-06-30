@@ -1,5 +1,6 @@
 require "bufferline".setup {
   options = {
+    buffer_close_icon = 'X',
     -- mode = "tabs", -- can also be set to "tabs" to see tabpages
     view = 'multiwindow', -- {'multiwindow'} | {'default'},
     themable = false,

@@ -166,7 +166,7 @@ reg_keymap({
   k = { jz.close_current_buffer, "buffer kill" },
   n = { command("BufSurfForward"), "nest buffer" },
   p = { command("BufSurfBack"), "prev buffer" },
-  K = { command("BDelete other"), "buffer kill" },
+  K = { jz.delete_other_buffers, "buffer kill" },
   h = { command("Alpha"), "home" },
   b = { search.buffers, "buffer list" },
   B = { search.project_buffers, "project buffers" },
