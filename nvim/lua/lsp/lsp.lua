@@ -92,9 +92,10 @@ require("clangd_extensions").setup {
     end,
   },
   extensions = {
-    autoSetHints = true,
+    autoSetHints = false,
     inlay_hints = {
-      inline = vim.fn.has("nvim-0.10") == 1,
+      -- inline = vim.fn.has("nvim-0.10") == 1,
+      inline = false,
       only_current_line = false,
       only_current_line_autocmd = "CursorHold",
       show_parameter_hints = false,
