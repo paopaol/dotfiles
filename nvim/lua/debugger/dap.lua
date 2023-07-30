@@ -35,7 +35,7 @@ dapui.setup(
 )
 
 
-dap.adapters.cpp = {
+dap.adapters.cppdbg = {
   id = 'cppdbg',
   type = 'executable',
   command = string.format('%s/mason/bin/OpenDebugAD7', vim.fn.stdpath('data')),
@@ -55,6 +55,7 @@ vim.keymap.set({ 'n', 'v' }, '<f12>', function()
   local widgets = require('dap.ui.widgets')
   widgets.hover()
 end)
+
 
 dap.listeners.after.event_initialized["dapui_config"] = dapui.open
 dap.listeners.before.event_terminated["dapui_config"] = dapui.close
@@ -77,6 +78,6 @@ end
 vim.cmd([[
 augroup dap_grp
   autocmd!
-  autocmd FileType dap-float lua dapFloatinhKeymaps() 
+  autocmd FileType dap-float lua dapFloatinhKeymaps()
 augroup END
 ]])

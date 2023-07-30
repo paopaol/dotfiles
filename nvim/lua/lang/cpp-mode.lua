@@ -16,19 +16,21 @@ local function command(cmd)
   end
 end
 
--- debug template
 local template = {
+  version = "0.3.0",
   configurations = {
-    Launch = {
-      adapter = "vscode-cpptools",
-      configuration = {
-        request = "launch",
-        program = "${workspaceRoot}/build/main",
-        args = {},
-        cwd = "${workspaceRoot}/build",
-        environment = {},
-        externalConsole = true,
+    {
+      type = "cppdbg",
+      request = "launch",
+      name = "Launch CPP",
+      program = "${workspaceFolder}/build/main",
+      args = {},
+      cwd = "${workspaceFolder}/build",
+      environment = {},
+      externalConsole = true,
+      linux = {
         MIMode = "gdb",
+        miDebuggerPath = "/usr/bin/gdb",
         setupCommands = {
           {
             description = "Enable pretty-printing for gdb",
@@ -36,25 +38,18 @@ local template = {
             ignoreFailures = true,
           },
         },
-      },
-    },
-    Attach = {
-      adapter = "vscode-cpptools",
-      configuration = {
-        request = "attach",
-        program = "<path to binary>",
-        MIMode = "<lldb or gdb>",
-      },
+      }
     },
   },
 }
 
 -- start debug or edit lanuch json
 local start_debug = function()
-  local root = string.format("%s/.vimspector.json", utils.rootdir())
+  local root = string.format("%s/.vscode/launch.json", utils.rootdir())
 
   if vim.fn.filereadable(root) == 1 then
-    vim.call("vimspector#Continue")
+    require('dap.ext.vscode').load_launchjs(nil, { cppdbg = { 'c', 'cpp' } })
+    vim.cmd("DapContinue")
     return
   end
 
@@ -104,7 +99,7 @@ _G.whichkeyrCpp = function()
   local buf = vim.api.nvim_get_current_buf()
 
   wk.register({
-    -- ["<f5>"] = { start_debug, "debug", buffer = buf },
+    ["<f5>"] = { start_debug, "debug", buffer = buf },
     ["<localleader>"] = {
       name = "major",
 
