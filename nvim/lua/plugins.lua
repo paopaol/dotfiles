@@ -114,6 +114,7 @@ require("lazy").setup({
       "sindrets/diffview.nvim",
     },
   },
+  {'akinsho/git-conflict.nvim', version = "*", config = true},
   { "othree/html5.vim",       ft = "html" },
   "mklabs/vim-json",
   { "cespare/vim-toml",  ft = "toml" },
