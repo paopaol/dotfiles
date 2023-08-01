@@ -1,16 +1,16 @@
-# python
-# import sys, os.path
-# sys.path.insert(0, os.path.expanduser('~/.gdb'))
-# sys.path.insert(1, '/home/jz/qtcreator-5.0.0/share/qtcreator/debugger')
-# from gdbbridge import * 
-# end
+set print pretty on
+set print union on
+set print array-indexes on
+set print array on
 
 python
-import sys, os.path
-sys.path.insert(0, os.path.expanduser('/home/jz/workspace/code/gdb'))
-import qt5printers
-qt5printers.register_printers(gdb.current_objfile())
+import sys, os
 
-sys.path.insert(1, '/home/jz/qtcreator-5.0.0/share/qtcreator/debugger')
-from gdbbridge import * 
+# print(f".gdbinit Python: current working directory is {os.getcwd()}")
+# print(f".gdbinit Python: adding custom pretty-printers directory to the GDB path: {os.getcwd() + '/.gdb/qt5prettyprinters'}")
+
+sys.path.insert(0, os.environ['HOME'] + "/.gdb/qt5prettyprinters")
+
+from qt import register_qt_printers
+register_qt_printers (None)
 end
