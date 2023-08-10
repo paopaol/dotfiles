@@ -1,13 +1,13 @@
 local wk = require("which-key")
 local utils = require("base.utils")
 
-require("cmake-tools").setup {
-  cmake_command = "cmake",
-  cmake_regenerate_on_save = nil,
-  cmake_build_directory = "build",
-  cmake_build_type = "Debug",
-  cmake_generate_options = { "-D", "CMAKE_EXPORT_COMPILE_COMMANDS=1" },
-}
+-- require("cmake-tools").setup {
+--   cmake_command = "cmake",
+--   cmake_regenerate_on_save = nil,
+--   cmake_build_directory = "build",
+--   cmake_build_type = "Debug",
+--   cmake_generate_options = { "-D", "CMAKE_EXPORT_COMPILE_COMMANDS=1" },
+-- }
 
 
 local function command(cmd)
