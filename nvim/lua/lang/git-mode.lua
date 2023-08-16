@@ -1,5 +1,6 @@
 local wk = require("which-key")
 local jz = require("base.jz")
+local neogit = require("neogit")
 
 local function command(cmd)
   return function()
@@ -20,6 +21,16 @@ vim.cmd([[]])
 vim.cmd([[
 augroup git_grp
   autocmd!
-  autocmd FileType fugitive,git lua whichkeyFugitive_local() 
+  autocmd FileType fugitive,git lua whichkeyFugitive_local()
 augroup END
 ]])
+
+neogit.setup {
+  signs = {
+    -- { CLOSED, OPENED }
+    section = { " ", " " },
+    item = { " ", " " },
+
+    hunk = { "", "" },
+  },
+}

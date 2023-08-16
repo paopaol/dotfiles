@@ -1,5 +1,6 @@
 require("lang.markdown-mode")
 require("lang.cpp-mode")
+require("lang.proto-mode")
 require("lang.web-mode")
 require("lang.go-mode")
 require("lang.lua-mode")

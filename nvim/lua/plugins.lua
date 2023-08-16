@@ -93,7 +93,7 @@ require("lazy").setup({
   "skywind3000/asyncrun.vim",
   "tpope/vim-surround",
   "tpope/vim-fugitive",
-  { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
+  { 'sindrets/diffview.nvim',    dependencies = 'nvim-lua/plenary.nvim' },
   {
     "rhysd/vim-textobj-anyblock",
     dependencies = {
@@ -114,8 +114,16 @@ require("lazy").setup({
       "sindrets/diffview.nvim",
     },
   },
-  {'akinsho/git-conflict.nvim', version = "*", config = true},
-  { "othree/html5.vim",       ft = "html" },
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",         -- required
+      "nvim-telescope/telescope.nvim", -- optional
+      "sindrets/diffview.nvim",        -- optional
+    },
+  },
+  { 'akinsho/git-conflict.nvim', version = "*",                         config = true },
+  { "othree/html5.vim",          ft = "html" },
   "mklabs/vim-json",
   { "cespare/vim-toml",  ft = "toml" },
   "paopaol/nvim-cursorline",

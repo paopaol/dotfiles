@@ -84,6 +84,7 @@ augroup setup_grp
   autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif
   autocmd InsertLeave * lua toggleCursor()
   autocmd InsertEnter * lua toggleCursor()
+  autocmd FileType *  hi LspInlayHint guifg=#837a72 guibg=None
 augroup END
 ]])
 

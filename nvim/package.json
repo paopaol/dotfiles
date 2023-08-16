@@ -25,6 +25,10 @@
         "path": "./snippets/cpp.json"
       },
       {
+        "language": "proto",
+        "path": "./snippets/proto.json"
+      },
+      {
         "language": [
           "csharp",
           "cs"

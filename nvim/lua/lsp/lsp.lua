@@ -24,18 +24,34 @@ local border = {
   { "|",   "FloatBorder" },
 }
 
+local function disable_diagnostic_proto(_, bufnr)
+  if vim.api.nvim_get_option_value("filetype", { buf = bufnr }) == "proto" then
+    return false
+  end
+  return true
+end
+
 local lsphandlers = {
   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border, height = 15, width = 100 }),
   ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+  ["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+      underline = disable_diagnostic_proto,
+      virtual_text = false,
+      update_in_insert = false,
+      severity_sort = false,
+      signs = disable_diagnostic_proto,
+    }
+  )
 }
 
-vim.diagnostic.config({
-  virtual_text = false,
-  signs = true,
-  underline = true,
-  update_in_insert = false,
-  severity_sort = false,
-})
+-- vim.diagnostic.config({
+--   virtual_text = false,
+--   signs = true,
+--   underline = true,
+--   update_in_insert = false,
+--   severity_sort = false,
+-- })
 
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
@@ -70,58 +86,60 @@ require("lspconfig").cmake.setup({
   end,
 })
 
-require("clangd_extensions").setup({
-  inlay_hints = {
-    inline = vim.fn.has("nvim-0.10") == 1,
-    only_current_line = false,
-    only_current_line_autocmd = "CursorHold",
-    show_parameter_hints = false,
-    parameter_hints_prefix = "<- ",
-    other_hints_prefix = "=> ",
-    max_len_align = false,
-    max_len_align_padding = 1,
-    right_align = false,
-    right_align_padding = 7,
-    highlight = "Comment",
-    priority = 100,
-  },
-  ast = {
-    role_icons = {
-      type = "🄣",
-      declaration = "🄓",
-      expression = "🄔",
-      statement = ";",
-      specifier = "🄢",
-      ["template argument"] = "🆃",
-    },
-    kind_icons = {
-      Compound = "🄲",
-      Recovery = "🅁",
-      TranslationUnit = "🅄",
-      PackExpansion = "🄿",
-      TemplateTypeParm = "🅃",
-      TemplateTemplateParm = "🅃",
-      TemplateParamObject = "🅃",
-    },
-    highlights = {
-      detail = "Comment",
-    },
-  },
-  memory_usage = {
-    border = "none",
-  },
-  symbol_info = {
-    border = "none",
-  },
-})
+-- require("clangd_extensions").setup({
+--   inlay_hints = {
+--     -- inline = vim.fn.has("nvim-0.10") == 1,
+--     inline = false,
+--     only_current_line = false,
+--     only_current_line_autocmd = "CursorHold",
+--     show_parameter_hints = false,
+--     parameter_hints_prefix = "<- ",
+--     other_hints_prefix = "=> ",
+--     max_len_align = false,
+--     max_len_align_padding = 1,
+--     right_align = false,
+--     right_align_padding = 7,
+--     highlight = "Comment",
+--     priority = 100,
+--   },
+--   ast = {
+--     role_icons = {
+--       type = "🄣",
+--       declaration = "🄓",
+--       expression = "🄔",
+--       statement = ";",
+--       specifier = "🄢",
+--       ["template argument"] = "🆃",
+--     },
+--     kind_icons = {
+--       Compound = "🄲",
+--       Recovery = "🅁",
+--       TranslationUnit = "🅄",
+--       PackExpansion = "🄿",
+--       TemplateTypeParm = "🅃",
+--       TemplateTemplateParm = "🅃",
+--       TemplateParamObject = "🅃",
+--     },
+--     highlights = {
+--       detail = "Comment",
+--     },
+--   },
+--   memory_usage = {
+--     border = "none",
+--   },
+--   symbol_info = {
+--     border = "none",
+--   },
+-- })
 
 
 require("lspconfig").clangd.setup({
   cmd = {
     "clangd",
-    "--j=1",
+    "-j",
+    "1",
     "--background-index",
-    "--background-index-priority=background",
+    "--background-index-priority=low",
     "--pch-storage=memory",
     "--log=error",
     "--clang-tidy",
@@ -134,9 +152,10 @@ require("lspconfig").clangd.setup({
   root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
   on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-    require("clangd_extensions.inlay_hints").setup_autocmd()
-    require("clangd_extensions.inlay_hints").set_inlay_hints()
-    -- vim.lsp.inlay_hint(bufnr, true)
+    -- require("clangd_extensions.inlay_hints").setup_autocmd()
+    -- require("clangd_extensions.inlay_hints").set_inlay_hints()
+    vim.lsp.inlay_hint(bufnr, true)
+    -- vim.cmd([[ hi LspInlayHint guifg=#837a72 guibg=None ]])
   end,
 })
 

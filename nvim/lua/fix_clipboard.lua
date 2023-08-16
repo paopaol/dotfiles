@@ -82,7 +82,7 @@ end
 function M.setup()
   if vim.g.neovide == true then
     vim.o.mouse = ""
-    vim.keymap.set({ "n", "v", "i" }, "<C-S-v>", function()
+    vim.keymap.set({ "n", "v", "i" }, "<S-A-v>", function()
       vim.cmd([[normal! "-p]])
     end)
   end
@@ -111,6 +111,7 @@ function M.setup()
 
     false
   )
+
   vim.api.nvim_create_autocmd({ "FocusGained", "VimEnter" }, {
     group = augroup,
     callback = sync_from,
