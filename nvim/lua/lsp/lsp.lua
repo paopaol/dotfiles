@@ -33,6 +33,7 @@ end
 
 local lsphandlers = {
   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border, height = 15, width = 100 }),
+  ["workspace/semanticTokens/refresh"] = nil,
   ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
   ["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -44,14 +45,6 @@ local lsphandlers = {
     }
   )
 }
-
--- vim.diagnostic.config({
---   virtual_text = false,
---   signs = true,
---   underline = true,
---   update_in_insert = false,
---   severity_sort = false,
--- })
 
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
@@ -78,6 +71,7 @@ require("lspconfig").lua_ls.setup({
 })
 
 
+
 require("lspconfig").cmake.setup({
   handlers = lsphandlers,
   root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
@@ -86,52 +80,8 @@ require("lspconfig").cmake.setup({
   end,
 })
 
--- require("clangd_extensions").setup({
---   inlay_hints = {
---     -- inline = vim.fn.has("nvim-0.10") == 1,
---     inline = false,
---     only_current_line = false,
---     only_current_line_autocmd = "CursorHold",
---     show_parameter_hints = false,
---     parameter_hints_prefix = "<- ",
---     other_hints_prefix = "=> ",
---     max_len_align = false,
---     max_len_align_padding = 1,
---     right_align = false,
---     right_align_padding = 7,
---     highlight = "Comment",
---     priority = 100,
---   },
---   ast = {
---     role_icons = {
---       type = "🄣",
---       declaration = "🄓",
---       expression = "🄔",
---       statement = ";",
---       specifier = "🄢",
---       ["template argument"] = "🆃",
---     },
---     kind_icons = {
---       Compound = "🄲",
---       Recovery = "🅁",
---       TranslationUnit = "🅄",
---       PackExpansion = "🄿",
---       TemplateTypeParm = "🅃",
---       TemplateTemplateParm = "🅃",
---       TemplateParamObject = "🅃",
---     },
---     highlights = {
---       detail = "Comment",
---     },
---   },
---   memory_usage = {
---     border = "none",
---   },
---   symbol_info = {
---     border = "none",
---   },
--- })
-
+local augroup_in = vim.api.nvim_create_augroup("toggle_attach_in", {})
+local augroup_out = vim.api.nvim_create_augroup("toggle_attach_out", {})
 
 require("lspconfig").clangd.setup({
   cmd = {
@@ -139,7 +89,7 @@ require("lspconfig").clangd.setup({
     "-j",
     "1",
     "--background-index",
-    "--background-index-priority=low",
+    "--background-index-priority=background",
     "--pch-storage=memory",
     "--log=error",
     "--clang-tidy",
@@ -150,15 +100,13 @@ require("lspconfig").clangd.setup({
   },
   handlers = lsphandlers,
   root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
-  on_attach = function(_, bufnr)
+  on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-    -- require("clangd_extensions.inlay_hints").setup_autocmd()
-    -- require("clangd_extensions.inlay_hints").set_inlay_hints()
-    vim.lsp.inlay_hint(bufnr, true)
-    -- vim.cmd([[ hi LspInlayHint guifg=#837a72 guibg=None ]])
+    client.server_capabilities.semanticTokensProvider = false
+    client.config.capabilities.workspace.semanticTokens.refreshSupport = false
   end,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
 })
-
 
 
 
@@ -166,7 +114,7 @@ require("lspconfig").clangd.setup({
 require("lspconfig").marksman.setup({
   handlers = lsphandlers,
   root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
-  on_attach = function(_, bufnr)
+  on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   end,
 })

@@ -36,6 +36,7 @@ require("lazy").setup({
   "ton/vim-bufsurf",
   "mfussenegger/nvim-dap",
   "rcarriga/nvim-dap-ui",
+  "theHamsta/nvim-dap-virtual-text",
   "akinsho/toggleterm.nvim",
   "chiel92/vim-autoformat",
   "nvim-lualine/lualine.nvim",
@@ -44,7 +45,7 @@ require("lazy").setup({
   "nvim-lua/plenary.nvim",
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
-  { "Pocco81/auto-save.nvim" },
+  -- { "Pocco81/auto-save.nvim" },
 
   "neovim/nvim-lspconfig",
   { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" },
@@ -151,7 +152,7 @@ require("lazy").setup({
   { "j-hui/fidget.nvim",         tag = 'legacy' },
   { "Civitasv/cmake-tools.nvim", ft = "cmake" },
   "jbyuki/venn.nvim",
-  'theHamsta/nvim-semantic-tokens',
+  -- 'theHamsta/nvim-semantic-tokens',
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",

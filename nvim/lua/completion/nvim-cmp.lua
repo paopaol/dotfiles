@@ -1,4 +1,5 @@
 local cmp = require("cmp")
+local compare = require("cmp.config.compare")
 
 local kind_icons = {
   Text = "",
@@ -31,12 +32,10 @@ local kind_icons = {
 local function trim(str)
   return (string.gsub(str, "^%s*(.-)%s*$", "%1"))
 end
-
 cmp.setup({
   completion = { keyword_length = 1 },
   experimental = { view = { entries = "native" } },
   snippet = {
-    -- REQUIRED - you must specify a snippet engine
     expand = function(args)
       require("luasnip").lsp_expand(args.body)
     end,
@@ -59,7 +58,6 @@ cmp.setup({
       -- Kind icons
       vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 
-      -- vim_item.dup = ({ buffer = 0 })[entry.source.name] or 0
       -- Source
       vim_item.menu = ({
         buffer = "[Buffer]",
@@ -121,13 +119,6 @@ cmp.setup({
     { name = "doxygen",                 dup = 0 },
     -- { name = 'emmet_vim',dup = 0 },
   }),
-})
-
-local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
-
-local compare = require("cmp.config.compare")
-cmp.setup({
   sorting = {
     priority_weight = 2,
     comparators = {
@@ -142,16 +133,10 @@ cmp.setup({
     },
   },
 })
-local compare = require("cmp.config.compare")
-cmp.setup({
-  sorting = {
-    priority_weight = 2,
-    comparators = nil,
-  },
-  -- completion = {
-  --   autocomplete = true
-  -- }
-})
+
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+
 
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),

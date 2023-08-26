@@ -1,6 +1,7 @@
 local dap, dapui = require("dap"), require("dapui")
 local wk = require("which-key")
 local jz = require("base.jz")
+require("nvim-dap-virtual-text").setup({})
 
 dapui.setup(
   {
@@ -19,6 +20,14 @@ dapui.setup(
         terminate = "■"
       }
     },
+    mappings = {
+      edit = "e",
+      expand = { "<CR>", "<2-LeftMouse>" },
+      open = "o",
+      remove = "d",
+      repl = "r",
+      toggle = "t",
+    },
     icons = {
       collapsed = "c",
       current_frame = "c",
@@ -35,7 +44,6 @@ dapui.setup(
       elements = { {
         id = "scopes",
         size = 0.25
-
       }, {
         id = "breakpoints",
         size = 0.25
@@ -43,26 +51,21 @@ dapui.setup(
         id = "stacks",
         size = 0.25
       }, {
-
         id = "watches",
-
         size = 0.25
       } },
-      position = "left",
+      position = "right",
       size = 40
-
     }, {
       elements = { {
         id = "repl",
         size = 0.5
-
       }, {
         id = "console",
         size = 0.5
       } },
       position = "bottom",
-
-      size = 10
+      size = 0.3
     } },
   }
 )
