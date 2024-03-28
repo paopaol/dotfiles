@@ -36,6 +36,7 @@ require("lazy").setup({
   "ton/vim-bufsurf",
   "mfussenegger/nvim-dap",
   "rcarriga/nvim-dap-ui",
+  { "nvim-neotest/nvim-nio" },
   "theHamsta/nvim-dap-virtual-text",
   "akinsho/toggleterm.nvim",
   "chiel92/vim-autoformat",
@@ -77,6 +78,7 @@ require("lazy").setup({
   "EdenEast/nightfox.nvim",
   'folke/tokyonight.nvim',
   'Mofiqul/dracula.nvim',
+  'yorik1984/newpaper.nvim',
 
   "rainbowhxch/accelerated-jk.nvim",
 
@@ -164,6 +166,7 @@ require("lazy").setup({
         's1n7ax/nvim-window-picker',
       }
     },
-  }
+  },
+  "yorickpeterse/nvim-pqf"
 })
 -- end)

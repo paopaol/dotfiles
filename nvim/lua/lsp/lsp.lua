@@ -17,11 +17,11 @@ local border = {
   { "╭", "FloatBorder" },
   { "─", "FloatBorder" },
   { "╮", "FloatBorder" },
-  { "|",   "FloatBorder" },
+  { "|", "FloatBorder" },
   { "╯", "FloatBorder" },
   { "─", "FloatBorder" },
   { "╰", "FloatBorder" },
-  { "|",   "FloatBorder" },
+  { "|", "FloatBorder" },
 }
 
 local function disable_diagnostic_proto(_, bufnr)
@@ -104,6 +104,11 @@ require("lspconfig").clangd.setup({
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
     client.server_capabilities.semanticTokensProvider = false
     client.config.capabilities.workspace.semanticTokens.refreshSupport = false
+    client.config.capabilities.textDocument.codeAction.codeActionLiteralSupport.codeActionKind.valueSet = { "", "Empty",
+      "QuickFix", "Refactor", "RefactorExtract", "RefactorInline", "RefactorRewrite", "Source", "SourceOrganizeImports",
+      "quickfix", "refactor", "refactor.extract", "refactor.inline", "refactor.rewrite", "source",
+      "source.organizeImports" }
+    client.config.capabilities.textDocument.codeAction.dynamicRegistration = false
   end,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
 })
@@ -113,7 +118,7 @@ require("lspconfig").clangd.setup({
 
 require("lspconfig").marksman.setup({
   handlers = lsphandlers,
-  root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
+  root_dir = util.root_pattern(".git", ".projectile"),
   on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   end,
@@ -121,7 +126,7 @@ require("lspconfig").marksman.setup({
 
 require("lspconfig").taplo.setup({
   handlers = lsphandlers,
-  root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
+  root_dir = util.root_pattern(".git", ".projectile"),
   on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   end,
@@ -130,7 +135,7 @@ require("lspconfig").taplo.setup({
 
 require("lspconfig").tsserver.setup({
   handlers = lsphandlers,
-  root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
+  root_dir = util.root_pattern(".git", ".projectile"),
   on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   end,
@@ -138,7 +143,7 @@ require("lspconfig").tsserver.setup({
 
 require("lspconfig").gopls.setup({
   handlers = lsphandlers,
-  root_dir = util.root_pattern("compile_commands.json", ".git", ".projectile"),
+  root_dir = util.root_pattern(".git", ".projectile"),
   on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   end,
@@ -147,7 +152,7 @@ require("lspconfig").gopls.setup({
 
 require("lspconfig").pyright.setup({
   handlers = lsphandlers,
-  root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
+  root_dir = util.root_pattern(".projectile"),
   on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   end,

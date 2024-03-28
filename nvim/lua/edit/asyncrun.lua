@@ -11,7 +11,7 @@ vim.g.asyncrun_open = 15
 vim.g.asyncrun_save = 2
 
 local my_runner = function(opts)
-  vim.cmd(string.format("TermExec cmd='%s' dir='%s'", opts.cmd, opts.dir))
+  vim.cmd(string.format("TermExec cmd='%s' dir='%s'", opts.cmd, opts.macros.VIM_ROOT))
 end
 
 vim.g.asyncrun_runner = {

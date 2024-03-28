@@ -10,7 +10,7 @@ _G.lsp_format_region = function()
   local r = vim.lsp.util.make_given_range_params()
   local line1 = r.range.start.line + 1
   local line2 = r.range['end'].line + 1
-  vim.lsp.buf.format { range = { start = { line1, 0 },["end"] = { line2, 0 } } }
+  vim.lsp.buf.format { range = { start = { line1, 0 }, ["end"] = { line2, 0 } } }
 end
 vim.api.nvim_create_user_command("LspFormatRegion", lsp_format_region, { range = 2 })
 
@@ -82,6 +82,7 @@ keymap("t", "<esc>", "<C-\\><C-n>")
 keymap("v", ",!", ":!bash<cr>")
 keymap("v", ",tt", ":Translate<cr>")
 keymap("v", ",,", "<esc><cmd>lua lsp_format_region()<CR>")
+keymap("v", "gf", ":lua require('base.search').extract() <cr>")
 keymap("v", ",g", ":TSCppDefineClassFunc<cr>")
 
 ---move line down or up
@@ -97,6 +98,7 @@ keymap("n", "<A-x>", ":")
 keymap("v", "<A-x>", ":")
 
 keymap("v", "gy", ":lua ___gdc('v')<cr>")
+
 
 keymap("v", "<leader>tv", ":lua require('edit.hex-view').view() <cr>")
 

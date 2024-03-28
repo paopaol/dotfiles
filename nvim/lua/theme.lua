@@ -1,3 +1,6 @@
 require('ofirkai').setup({})
--- vim.cmd([[set background=light]])
-vim.cmd("colorscheme ofirkai")
+require("newpaper").setup({
+  style = "light"
+})
+vim.cmd([[set background=light]])
+vim.cmd("colorscheme ofirkai-darkblue")

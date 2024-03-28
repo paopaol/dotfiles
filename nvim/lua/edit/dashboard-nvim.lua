@@ -26,7 +26,7 @@ startify.nvim_web_devicons.highlight = true
 -- startify.nvim_web_devicons.highlight = 'Keyword'
 --
 startify.section.bottom_buttons.val = {
-	startify.button("q", "  Quit NVIM", ":qa<CR>", nil),
+	startify.button("q", "Quit NVIM", ":qa<CR>", nil),
 }
 startify.section.footer = {
 	{ type = "text", val = "footer" },

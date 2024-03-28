@@ -41,7 +41,8 @@ vim.o.smartindent = true
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.backspace = "indent,eol,start"
 vim.o.rnu = true
-vim.o.clipboard = "unnamedplus"
+-- vim.o.clipboard = "unnamedplus"
+vim.o.clipboard = "unnamed"
 vim.o.shortmess = "filnxtToOFcI"
 
 
@@ -127,4 +128,22 @@ require("yanky").setup({
   highlight = {
     timer = 60,
   },
+})
+
+require('pqf').setup({
+  signs = {
+    error = 'E',
+    warning = 'W',
+    info = 'I',
+    hint = 'H'
+  },
+
+  -- By default, only the first line of a multi line message will be shown. --
+  -- When this is true, multiple lines will be shown for an entry, separated by a
+  -- space
+  show_multiple_lines = true,
+
+  -- How long filenames in the quickfix are allowed to be. 0 means no limit.
+  -- Filenames above this limit will be truncated from the beginning with [...]
+  max_filename_length = 0,
 })

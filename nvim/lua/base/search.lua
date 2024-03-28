@@ -381,4 +381,11 @@ M.vim_book_marks = function()
   require('telescope').extensions.vim_bookmarks.all {}
 end
 
+M.extract = function()
+  local r = vim.lsp.util.make_given_range_params()
+  local line1 = r.range.start.line + 1
+  local line2 = r.range['end'].line + 1
+  vim.lsp.buf.code_action { range = { start = { line1, 0 }, ["end"] = { line2, 0 } } }
+end
+
 return M
