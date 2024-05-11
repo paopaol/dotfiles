@@ -89,8 +89,8 @@ require("lspconfig").clangd.setup({
     "-j",
     "1",
     "--background-index",
-    "--background-index-priority=background",
-    "--pch-storage=memory",
+    "--background-index-priority=low",
+    "--pch-storage=disk",
     "--log=error",
     "--clang-tidy",
     "--header-insertion=never",
@@ -168,3 +168,12 @@ require("lspconfig").pyright.setup({
 })
 
 require 'lspconfig'.bashls.setup {}
+
+
+require 'lspconfig'.jdtls.setup {
+  handlers = lsphandlers,
+  root_dir = util.root_pattern(".git", ".projectile"),
+  on_attach = function(client, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  end,
+}

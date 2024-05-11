@@ -5,7 +5,8 @@ vim.o.numberwidth = 3
 -- 显示左侧图标指示列
 vim.o.signcolumn = "yes"
 vim.o.foldmethod = "manual"
--- vim.o.cursorline = true
+vim.o.cursorline = true
+vim.o.cursorcolumn = true
 -- jk移动时光标下上方保留3行
 vim.o.scrolloff = 1
 vim.o.sidescrolloff = 1
@@ -41,8 +42,8 @@ vim.o.smartindent = true
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.backspace = "indent,eol,start"
 vim.o.rnu = true
--- vim.o.clipboard = "unnamedplus"
-vim.o.clipboard = "unnamed"
+vim.o.clipboard = "unnamedplus"
+-- vim.o.clipboard = "unnamed"
 vim.o.shortmess = "filnxtToOFcI"
 
 
@@ -70,8 +71,8 @@ vim.api.nvim_create_autocmd('FileType', {
 
 _G.toggleCursor = function()
   vim.cmd [[
-	  set cursorline!
-	  set cursorcolumn!
+	  " set cursorline!
+	  " set cursorcolumn!
   ]]
 end
 
@@ -80,55 +81,27 @@ augroup setup_grp
   autocmd!
   let mapleader = "\<space>"
   let maplocalleader = ","
-  au FocusGained * :checktime
+  " au FocusGained * :checktime
   syntax on
   autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif
-  autocmd InsertLeave * lua toggleCursor()
-  autocmd InsertEnter * lua toggleCursor()
-  autocmd FileType *  hi LspInlayHint guifg=#837a72 guibg=None
+  " autocmd InsertLeave * lua toggleCursor()
+  " autocmd InsertEnter * lua toggleCursor()
+  " autocmd FileType *  hi LspInlayHint guifg=#837a72 guibg=None
 augroup END
 ]])
 
 require("messages").setup()
-require('fix_clipboard').setup()
-
--- vim.cmd [[
--- let s:clip = '/mnt/c/Windows/System32/clip.exe'
--- if executable(s:clip)
---     augroup WSLYank
---         autocmd!
---         autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
---
---     augroup END
--- endif
---
--- ]]
---
--- if vim.fn.has("wsl") == 1 then
---   vim.g.clipboard = {
---     name = "win32yank-wsl",
---     copy = {
---       ["+"] = 'win32yank -i --crlf',
---       ["*"] = 'win32yank -i --crlf',
---     },
---     paste = {
---       ["+"] = 'win32yank -o --lf',
---       ["*"] = 'win32yank -o --lf',
---     },
---     cache_enabled = 0,
---   }
--- end
+-- require('fix_clipboard').setup()
 
 require 'eyeliner'.setup {
   highlight_on_key = true,
   dim = true,
 }
 
-require("yanky").setup({
-  highlight = {
-    timer = 60,
-  },
-})
+if not vim.g.neovide then
+  vim.cmd([[set mouse=]])
+end
+
 
 require('pqf').setup({
   signs = {
@@ -147,3 +120,8 @@ require('pqf').setup({
   -- Filenames above this limit will be truncated from the beginning with [...]
   max_filename_length = 0,
 })
+
+vim.cmd([[
+syntax off
+TSDisable highlight
+]])

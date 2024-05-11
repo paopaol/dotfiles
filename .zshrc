@@ -76,9 +76,9 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   git
-  bundler
-  # macos
-  rake
+  # bundler
+  # # macos
+  # rake
   zoxide
 )
 

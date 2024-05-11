@@ -12,6 +12,6 @@ vim.cmd([[
 vim.cmd([[
 augroup im_grp
   autocmd!
-  autocmd InsertLeave * lua im_select()
+  " autocmd InsertLeave * lua im_select()
 augroup END
 ]])

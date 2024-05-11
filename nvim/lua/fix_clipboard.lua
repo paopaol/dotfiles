@@ -98,11 +98,11 @@ function M.setup()
     let g:clipboard = {
           \   'name': 'deferClip',
           \   'copy': {
-          \      '=': {lines, regtype -> s:copy(lines, regtype)},
+          \      '+': {lines, regtype -> s:copy(lines, regtype)},
           \      '*': {lines, regtype -> s:copy(lines, regtype)},
           \    },
           \   'paste': {
-          \      '=': {-> s:get_active()},
+          \      '+': {-> s:get_active()},
           \      '*': {-> s:get_active()},
           \   },
           \ }

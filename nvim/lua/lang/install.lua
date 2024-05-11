@@ -1,0 +1,23 @@
+return {
+  { "paopaol/cpp-mode",  ft = { "c", "cpp" } },
+  { "paopaol/vim-gtest", ft = { "c", "cpp" } },
+  "p00f/clangd_extensions.nvim",
+  { "Badhi/nvim-treesitter-cpp-tools", ft = { "c", "cpp" } },
+  { "plasticboy/vim-markdown",         ft = "markdown" },
+  {
+    'jakewvincent/mkdnflow.nvim',
+    ft = "markdown",
+    rocks = 'luautf8',
+  },
+  { "iamcco/markdown-preview.nvim", build = "cd app && yarn install", ft = "markdown" },
+  { "mattn/emmet-vim",              ft = "html5" },
+  "mklabs/vim-json",
+  { "cespare/vim-toml",             ft = "toml" },
+  { "othree/html5.vim",             ft = "html" },
+  { "matveyt/vim-qmake",            ft = "pro" },
+  { "folke/lua-dev.nvim",           branch = "main", ft = "lua" },
+  { "Civitasv/cmake-tools.nvim",    ft = "cmake" },
+  { "rafamadriz/friendly-snippets", branch = "main" },
+  { "L3MON4D3/LuaSnip",             lazy = false },
+  "chiel92/vim-autoformat",
+}

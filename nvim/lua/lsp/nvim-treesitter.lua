@@ -46,25 +46,25 @@ require 'nvim-treesitter.configs'.setup {
     move = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = { ["]]"] = "@function.outer",["]c"] = "@class.outer" },
-      goto_next_end = { ["]M"] = "@function.outer",["]["] = "@class.outer" },
+      goto_next_start = { ["]]"] = "@function.outer", ["]c"] = "@class.outer" },
+      goto_next_end = { ["]M"] = "@function.outer", ["]["] = "@class.outer" },
       goto_previous_start = {
         ["[["] = "@function.outer",
         ["[c"] = "@class.outer"
       },
-      goto_previous_end = { ["[M"] = "@function.outer",["[]"] = "@class.outer" }
+      goto_previous_end = { ["[M"] = "@function.outer", ["[]"] = "@class.outer" }
     }
   }
 }
 require 'nt-cpp-tools'.setup({
   preview = {
-    quit = 'q',                               -- optional keymapping for quit preview
-    accept = '<tab>'                          -- optional keymapping for accept preview
+    quit = 'q',             -- optional keymapping for quit preview
+    accept = '<tab>'        -- optional keymapping for accept preview
   },
-  header_extension = 'h',                     -- optional
-  source_extension = 'cxx',                   -- optional
+  header_extension = 'h',   -- optional
+  source_extension = 'cxx', -- optional
   custom_define_class_function_commands = {
-                                              -- optional
+    -- optional
     TSCppImplWrite = {
       output_handle = require 'nt-cpp-tools.output_handlers'.get_add_to_cpp()
     }
@@ -103,6 +103,6 @@ require("nvim-treesitter.parsers").list.xml = {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'cpp,c',
   callback = function()
-    -- vim.cmd([[TSDisable highlight]])
+    vim.cmd([[TSDisable highlight]])
   end,
 })
