@@ -24,13 +24,3 @@ augroup git_grp
   autocmd FileType fugitive,git lua whichkeyFugitive_local()
 augroup END
 ]])
-
-neogit.setup {
-  signs = {
-    -- { CLOSED, OPENED }
-    section = { " ", " " },
-    item = { " ", " " },
-
-    hunk = { "", "" },
-  },
-}

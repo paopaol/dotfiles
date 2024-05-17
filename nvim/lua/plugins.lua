@@ -20,7 +20,6 @@ require("lazy").setup({
   "nvim-lua/popup.nvim",
   "nvim-lua/plenary.nvim",
   { "nvim-treesitter/nvim-treesitter",             build = ":TSUpdate" },
-  { "romgrk/nvim-treesitter-context",              lazy = false },
   { "nvim-treesitter/nvim-treesitter-textobjects", lazy = false },
 
   -- { "Pocco81/auto-save.nvim" },
@@ -57,7 +56,6 @@ require("lazy").setup({
 
 
   { "j-hui/fidget.nvim",         tag = 'legacy' },
-  "jbyuki/venn.nvim",
   -- 'theHamsta/nvim-semantic-tokens',
   "yorickpeterse/nvim-pqf",
 })

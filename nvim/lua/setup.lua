@@ -49,10 +49,6 @@ vim.o.shortmess = "filnxtToOFcI"
 
 vim.g.python3_host_prog = "/opt/rh/rh-python38/root/bin/python3"
 
----external plugins
---require("auto-save").setup {
---  debounce_delay = 1000,
---}
 vim.g.interestingWordsDefaultMappings = 0
 vim.g.vim_markdown_folding_disabled = 1
 vim.g.vim_textobj_parameter_mapping = "a"
@@ -69,12 +65,6 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 
-_G.toggleCursor = function()
-  vim.cmd [[
-	  " set cursorline!
-	  " set cursorcolumn!
-  ]]
-end
 
 vim.cmd([[
 augroup setup_grp
@@ -84,9 +74,6 @@ augroup setup_grp
   " au FocusGained * :checktime
   syntax on
   autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif
-  " autocmd InsertLeave * lua toggleCursor()
-  " autocmd InsertEnter * lua toggleCursor()
-  " autocmd FileType *  hi LspInlayHint guifg=#837a72 guibg=None
 augroup END
 ]])
 
@@ -123,5 +110,4 @@ require('pqf').setup({
 
 vim.cmd([[
 syntax off
-TSDisable highlight
 ]])

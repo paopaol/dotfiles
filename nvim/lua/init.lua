@@ -4,12 +4,11 @@ require('colors')
 --
 require('imselect')
 require('lsp.init')
+require('edit.init')
 require('lang.init')
 require('completion.init')
 require('debugger.init')
 require('tools.init')
-require('edit.init')
 require('menu.init')
 require('keymap')
 require('theme')
-

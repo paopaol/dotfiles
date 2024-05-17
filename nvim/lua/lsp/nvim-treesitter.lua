@@ -79,7 +79,7 @@ require 'nt-cpp-tools'.setup({
   }
 })
 
-require("treesitter-context").setup({ enable = true, throttle = true })
+
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 parser_configs.norg = {
   install_info = {
@@ -98,11 +98,3 @@ require("nvim-treesitter.parsers").list.xml = {
   },
   filetype = "xml",
 }
-
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'cpp,c',
-  callback = function()
-    vim.cmd([[TSDisable highlight]])
-  end,
-})
