@@ -131,7 +131,13 @@ return {
       end
     end
   },
-  "voldikss/vim-translator",
+  {
+    "voldikss/vim-translator",
+    config = function()
+      vim.g.translator_default_engines = { 'google' }
+      vim.g.translator_window_type = 'popup'
+    end
+  },
   {
     "MattesGroeger/vim-bookmarks",
     config = function()

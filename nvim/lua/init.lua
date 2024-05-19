@@ -4,7 +4,6 @@ require('colors')
 --
 require('imselect')
 require('lsp.init')
-require('edit.init')
 require('lang.init')
 require('completion.init')
 require('debugger.init')
