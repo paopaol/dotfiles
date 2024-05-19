@@ -5,6 +5,7 @@ return {
       "nvim-lua/plenary.nvim",         -- required
       "nvim-telescope/telescope.nvim", -- optional
       "sindrets/diffview.nvim",        -- optional
+      'skywind3000/asyncrun.vim'
     },
     lazy = true,
     cmd = 'Neogit',

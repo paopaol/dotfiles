@@ -1,8 +1,6 @@
 local wk = require("which-key")
 local utils = require("base.utils")
 
-vim.cmd([[
-]])
 _G.whichkeyGoCmake = function()
   local buf = vim.api.nvim_get_current_buf()
 

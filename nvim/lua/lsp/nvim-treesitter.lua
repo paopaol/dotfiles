@@ -1,13 +1,7 @@
 require 'nvim-treesitter.configs'.setup {
-  playground = {
-    enable = true,
-    disable = {},
-    updatetime = 100,        -- Debounced time for highlighting nodes in the playground from source code
-    persist_queries = false, -- Whether the query persists across vim sessions
-  },
+  playground = { enable = true, disable = {}, updatetime = 100, persist_queries = false, },
   indent = { enable = false },
   autotag = { enable = true },
-  -- ensure_installed = {'bash', 'css', 'html', 'rust', 'toml', 'yaml', 'cpp', 'c'},
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
@@ -19,15 +13,7 @@ require 'nvim-treesitter.configs'.setup {
       end
     end,
   },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      -- init_selection = "gnn",
-      node_incremental = "vv"
-      -- scope_incremental = "grc",
-      -- node_decremental = "grm"
-    }
-  },
+  incremental_selection = { enable = true, keymaps = { node_incremental = "vv" } },
   textobjects = {
     enable = true,
     select = {
@@ -64,18 +50,9 @@ require 'nt-cpp-tools'.setup({
   header_extension = 'h',   -- optional
   source_extension = 'cxx', -- optional
   custom_define_class_function_commands = {
-    -- optional
     TSCppImplWrite = {
       output_handle = require 'nt-cpp-tools.output_handlers'.get_add_to_cpp()
     }
-    --[[
-        <your impl function custom command name> = {
-            output_handle = function (str, context)
-                -- string contains the class implementation
-                -- do whatever you want to do with it
-            end
-        }
-        ]]
   }
 })
 
