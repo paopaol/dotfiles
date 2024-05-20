@@ -120,5 +120,6 @@ augroup filetype_cpp
 autocmd!
 autocmd FileType cpp,c set tabstop=4  shiftwidth=4  softtabstop=4 expandtab
 autocmd FileType cpp,c lua whichkeyrCpp()
+autocmd FileType cpp,c TSDisable highlight
 augroup END
 ]])
