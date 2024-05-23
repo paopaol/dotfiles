@@ -22,4 +22,7 @@ return {
     },
     lazy = true
   },
+  {
+    "nanotee/zoxide.vim"
+  }
 }
