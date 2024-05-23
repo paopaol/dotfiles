@@ -6,8 +6,11 @@ return {
   },
   {
     "skywind3000/asyncrun.vim",
+    dependencies = {
+      "skywind3000/asynctasks.vim"
+    },
     lazy = true,
-    cmd = { 'AsyncRun', 'AsyncTask', 'AsyncStop', 'AsyncTaskEdit' },
+    cmd = { 'AsyncRun',  'AsyncStop', 'AsyncTaskEdit' },
     config = function()
       vim.cmd([[
       if has('win32')

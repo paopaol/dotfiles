@@ -11,10 +11,6 @@ vim.cmd([[
  highlight link EKaputHint LspDiagnosticsSignHint
  highlight link EKaputBorder LspDiagnosticsSignInformation
  highlight link EKaputBackground NormalFloat
- highlight link LspKindString String
- highlight link LspKindNumber Number
- highlight link LspKindKeywork Keyword
- highlight link LspKindKey Keyword
  ]])
 
 local border = {

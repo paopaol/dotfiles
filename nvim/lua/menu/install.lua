@@ -5,7 +5,14 @@ return {
   "nvim-telescope/telescope-file-browser.nvim",
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make",   branch = "main" },
   { "tom-anders/telescope-vim-bookmarks.nvim",  branch = "main" },
-  { "GustavoKatel/telescope-asynctasks.nvim",   branch = "main" },
+  {
+    "GustavoKatel/telescope-asynctasks.nvim",
+    branch = "main",
+    dependencies = {
+      "skywind3000/asynctasks.vim",
+      "skywind3000/asyncrun.vim",
+    },
+  },
   { "nvim-telescope/telescope-ui-select.nvim" },
   {
     'paopaol/telescope-git-diffs.nvim',

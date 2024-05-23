@@ -1,5 +1,4 @@
 require 'nvim-treesitter.configs'.setup {
-  playground = { enable = false, disable = {}, updatetime = 500, persist_queries = false, },
   indent = { enable = false },
   autotag = { enable = true },
   highlight = {

@@ -10,5 +10,5 @@ require("onedarkpro").setup({
     cursorline = false
   }
 })
-vim.cmd([[set background=dark]])
-vim.cmd("colorscheme monokai-nightasty")
+-- vim.cmd([[set background=dark]])
+vim.cmd("colorscheme dracula")

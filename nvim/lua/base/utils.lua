@@ -20,7 +20,7 @@ function M.uncolor_all_words()
 end
 
 function M.rootdir()
-  return vim.call("asyncrun#get_root", "%")
+  return vim.fs.root(0, { '.projectile' })
 end
 
 function M.current_dir()
