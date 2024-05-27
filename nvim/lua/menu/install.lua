@@ -7,6 +7,7 @@ return {
   { "tom-anders/telescope-vim-bookmarks.nvim",  branch = "main" },
   {
     "GustavoKatel/telescope-asynctasks.nvim",
+    event = "VeryLazy",
     branch = "main",
     dependencies = {
       "skywind3000/asynctasks.vim",

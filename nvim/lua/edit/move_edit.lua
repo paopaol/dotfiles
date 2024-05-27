@@ -97,6 +97,7 @@ return {
   },
   {
     "numToStr/Comment.nvim",
+    event = "VeryLazy",
     config = function()
       require("Comment").setup({})
 
@@ -147,6 +148,7 @@ return {
   "godlygeek/tabular",
   {
     "chentoast/marks.nvim",
+    event = "VeryLazy",
     config = function()
       require 'marks'.setup {
         default_mappings = true,

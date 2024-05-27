@@ -2,6 +2,7 @@ return {
   {
     "folke/which-key.nvim",
     branch = "main",
+    event = "VeryLazy",
     config = function()
       local wk = require("which-key")
 
@@ -54,9 +55,9 @@ return {
 
       wk.setup({
         window = {
-          border = "double",  -- none, single, double, shadow
-          position = "bottom", -- bottom, top
-          margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
+          border = "double",        -- none, single, double, shadow
+          position = "bottom",      -- bottom, top
+          margin = { 0, 0, 0, 0 },  -- extra window margin [top, right, bottom, left]
           padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
         },
       })

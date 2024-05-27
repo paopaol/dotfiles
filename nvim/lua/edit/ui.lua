@@ -2,6 +2,7 @@ return {
   {
     "akinsho/nvim-bufferline.lua",
     commit = "f6f00d9ac1a51483ac78418f9e63126119a70709",
+    lazy = true,
     config = function()
       require "bufferline".setup {
         options = {
@@ -32,6 +33,7 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
     config = function()
       local utils = require("base.utils")
 
@@ -84,6 +86,15 @@ return {
   },
   { "p00f/nvim-ts-rainbow",   lazy = true },
   "paopaol/messages.nvim",
- { 'windwp/nvim-ts-autotag', lazy = true },
-  'jinh0/eyeliner.nvim',
+  { 'windwp/nvim-ts-autotag', lazy = true },
+  {
+    'jinh0/eyeliner.nvim',
+    event = "VeryLazy",
+    config = function()
+      require 'eyeliner'.setup {
+        highlight_on_key = true,
+        dim = true,
+      }
+    end
+  }
 }

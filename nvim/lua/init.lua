@@ -1,3 +1,5 @@
+require('plugins')
+
 require('fix_clipboard')
 require('setup')
 require('colors')

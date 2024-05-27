@@ -18,12 +18,15 @@ require("lazy").setup({
   "nvim-lualine/lualine.nvim",
   "nvim-lua/popup.nvim",
   "nvim-lua/plenary.nvim",
-  { "nvim-treesitter/nvim-treesitter",             build = ":TSUpdate" },
-  { "nvim-treesitter/nvim-treesitter-textobjects", lazy = false },
+  { "nvim-treesitter/nvim-treesitter",             build = ":TSUpdate", event = "VeryLazy" },
+  { "nvim-treesitter/nvim-treesitter-textobjects", event = "VeryLazy" },
 
   -- { "Pocco81/auto-save.nvim" },
 
-  "neovim/nvim-lspconfig",
+  {
+    "neovim/nvim-lspconfig",
+    event = "VeryLazy",
+  },
   { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" },
 
 
@@ -47,7 +50,29 @@ require("lazy").setup({
 
 
   { "j-hui/fidget.nvim",         tag = 'legacy' },
-  "yorickpeterse/nvim-pqf",
+  {
+    "yorickpeterse/nvim-pqf",
+    event = "VeryLazy",
+    config = function()
+      require('pqf').setup({
+        signs = {
+          error = 'E',
+          warning = 'W',
+          info = 'I',
+          hint = 'H'
+        },
+
+        -- By default, only the first line of a multi line message will be shown. --
+        -- When this is true, multiple lines will be shown for an entry, separated by a
+        -- space
+        show_multiple_lines = true,
+
+        -- How long filenames in the quickfix are allowed to be. 0 means no limit.
+        -- Filenames above this limit will be truncated from the beginning with [...]
+        max_filename_length = 0,
+      })
+    end
+  }
 })
 -- end)
 -- end)
