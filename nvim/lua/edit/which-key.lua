@@ -119,7 +119,6 @@ return {
           end,
           "show diagnostics",
         },
-        ["K"] = { vim.lsp.buf.hover, "lsp+hover" },
       })
 
 
@@ -137,7 +136,6 @@ return {
         ba = { command("BookmarkAnnotate"), "Add Bookmark" },
         bb = { search.vim_book_marks, "Bookmarks" },
         bd = { command("BookmarkClear"), "Clear Bookmark" },
-        d = { search.file_browser, "file browser" },
         n = { command("enew"), "New File" },
         o = { search.open_with_defualt, "externl open" },
         q = { utils.open_current_file_use_qtcreator, "open in qtcreator" },
@@ -268,10 +266,6 @@ return {
         },
       }, { "n" }, "<leader>c")
 
-      reg_keymap({
-        name = "+insert",
-        s = { command("Telescope luasnip disable_ft=true"), "snippet" },
-      }, { "n" }, "<leader>i")
 
       reg_keymap({
         name = "+runner",
@@ -316,10 +310,6 @@ return {
         ["<f2>"] = { utils.insert_semicolon_end_of_line, "insert semicolon" },
       }, { "n", "i" }, "<f2>")
 
-      reg_keymap({
-        name = "+insert",
-        s = { command("Telescope luasnip disable_ft=true"), "snippet" },
-      }, { "i" }, "<C-x>i")
 
       reg_keymap({
         name = "+global",

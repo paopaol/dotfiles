@@ -1,9 +1,3 @@
-local util = require("lspconfig/util")
-local base_utils = require('base.utils')
-
--- propgress
-require("fidget").setup({})
-
 vim.cmd([[
  highlight link EKaputError LspDiagnosticsSignError
  highlight link EKaputWarning LspDiagnosticsSignWarning
@@ -52,6 +46,15 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
+local function root()
+  local util = require("lspconfig/util")
+  return util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile")
+end
+
+local function on_attach(_, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+end
+
 require("mason").setup()
 require("mason-lspconfig").setup()
 
@@ -67,21 +70,9 @@ require("lspconfig").lua_ls.setup({
         }
       },
     },
-  },
+  }
 })
 
-
-
-require("lspconfig").cmake.setup({
-  handlers = lsphandlers,
-  root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
-  on_attach = function(_, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  end,
-})
-
-local augroup_in = vim.api.nvim_create_augroup("toggle_attach_in", {})
-local augroup_out = vim.api.nvim_create_augroup("toggle_attach_out", {})
 
 require("lspconfig").clangd.setup({
   cmd = {
@@ -99,56 +90,16 @@ require("lspconfig").clangd.setup({
     "--limit-results=20",
   },
   handlers = lsphandlers,
-  root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile"),
-  on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  end,
+  root_dir = root(),
+  on_attach = on_attach,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
-})
-
-
-
-
-require("lspconfig").marksman.setup({
-  handlers = lsphandlers,
-  root_dir = util.root_pattern(".git", ".projectile"),
-  on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  end,
-})
-
-require("lspconfig").taplo.setup({
-  handlers = lsphandlers,
-  root_dir = util.root_pattern(".git", ".projectile"),
-  on_attach = function(_, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  end,
-})
-
-
-require("lspconfig").tsserver.setup({
-  handlers = lsphandlers,
-  root_dir = util.root_pattern(".git", ".projectile"),
-  on_attach = function(_, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  end,
-})
-
-require("lspconfig").gopls.setup({
-  handlers = lsphandlers,
-  root_dir = util.root_pattern(".git", ".projectile"),
-  on_attach = function(_, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  end,
 })
 
 
 require("lspconfig").pyright.setup({
   handlers = lsphandlers,
-  root_dir = util.root_pattern(".projectile"),
-  on_attach = function(_, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  end,
+  root_dir = root(),
+  on_attach = on_attach,
   settings = {
     python = {
       analysis = {
@@ -157,16 +108,14 @@ require("lspconfig").pyright.setup({
         useLibraryCodeForTypes = true,
       }
     }
-  },
+  }
 })
 
-require 'lspconfig'.bashls.setup {}
 
-
-require 'lspconfig'.jdtls.setup {
-  handlers = lsphandlers,
-  root_dir = util.root_pattern(".git", ".projectile"),
-  on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  end,
-}
+require("lspconfig").cmake.setup({ handlers = lsphandlers, root_dir = root(), on_attach = on_attach })
+require("lspconfig").marksman.setup({ handlers = lsphandlers, root_dir = root(), on_attach = on_attach })
+require("lspconfig").taplo.setup({ handlers = lsphandlers, root_dir = root(), on_attach = on_attach })
+require("lspconfig").tsserver.setup({ handlers = lsphandlers, root_dir = root(), on_attach = on_attach })
+require("lspconfig").gopls.setup({ handlers = lsphandlers, root_dir = root(), on_attach = on_attach })
+require 'lspconfig'.bashls.setup { handlers = lsphandlers, root_dir = root(), on_attach = on_attach }
+require 'lspconfig'.jdtls.setup { handlers = lsphandlers, root_dir = root(), on_attach = on_attach }

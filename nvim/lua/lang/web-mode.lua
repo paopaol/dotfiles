@@ -35,19 +35,10 @@ end
 vim.cmd([[
 augroup web_grp
   autocmd!
-  autocmd FileType xml,html  lua whichkeyrXml() 
-  autocmd FileType json,css,html,javascript,yaml,vue,typescript,toml lua whichkeyrPrettier() 
+  autocmd FileType xml,html  lua whichkeyrXml()
+  autocmd FileType json,css,html,javascript,yaml,vue,typescript,toml lua whichkeyrPrettier()
 	autocmd FileType xml set tabstop=2
 augroup END
 ]])
 
-require'nvim-treesitter.configs'.setup {
-  autotag = {
-    enable = true,
-    filetypes = { "html" , "xml" },
-  }
-}
--- OR
-require('nvim-ts-autotag').setup({
-  filetypes = { "html" , "xml" },
-})
+require('nvim-ts-autotag').setup({ filetypes = { "html", "xml" } })

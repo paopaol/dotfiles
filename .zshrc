@@ -112,7 +112,7 @@ source $ZSH/oh-my-zsh.sh
 #
 
 
-hostip=$(ip addr | grep "eth0" -m2 | awk '{print $2}' | cut -d'/' -f1 | grep -v eth0)
+hostip=$(ip addr | grep "eth1" -m2 | awk '{print $2}' | cut -d'/' -f1 | grep -v eth1)
 export https_proxy="http://${hostip}:4780"
 export http_proxy="http://${hostip}:4780"
 
