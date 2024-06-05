@@ -1,8 +1,9 @@
 require 'nvim-treesitter.configs'.setup {
+  ensure_installed = { "c", "cpp", "json", "html", "lua", "vim", "vimdoc", "query" },
   indent = { enable = false },
   autotag = { enable = true },
   highlight = {
-    enable = true,
+    enable = false,
     additional_vim_regex_highlighting = false,
     disable = function(_, buf)
       local max_filesize = 15 * 1024 -- 100 KB
