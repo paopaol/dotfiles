@@ -171,7 +171,6 @@ return {
         n = { command("BufSurfForward"), "nest buffer" },
         p = { command("BufSurfBack"), "prev buffer" },
         K = { jz.delete_other_buffers, "buffer kill" },
-        h = { command("Alpha"), "home" },
         b = { search.buffers, "buffer list" },
         B = { search.project_buffers, "project buffers" },
       }, { "n" }, "<leader>b")

@@ -1,7 +1,6 @@
 return {
   {
     "akinsho/nvim-bufferline.lua",
-    commit = "f6f00d9ac1a51483ac78418f9e63126119a70709",
     lazy = true,
     config = function()
       require "bufferline".setup {

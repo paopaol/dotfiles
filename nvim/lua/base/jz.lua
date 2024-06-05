@@ -88,7 +88,6 @@ function M.close_current_buffer()
   local list = filter_buffers({}, vim.api.nvim_list_bufs())
   if #list == 1 then
     if vim.api.nvim_buf_get_name(list[1]) == "" then
-      vim.cmd([[Alpha]])
       vim.cmd([[BDelete other]])
     end
   end
@@ -124,7 +123,6 @@ end
 function M.delete_other_buffers()
   vim.cmd([[BDelete other]])
   vim.cmd([[redraw]])
-  
 end
 
 return M
