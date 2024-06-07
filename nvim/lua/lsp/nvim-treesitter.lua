@@ -3,7 +3,7 @@ require 'nvim-treesitter.configs'.setup {
   indent = { enable = false },
   autotag = { enable = true },
   highlight = {
-    enable = false,
+    enable = true,
     additional_vim_regex_highlighting = false,
     disable = function(_, buf)
       local max_filesize = 15 * 1024 -- 100 KB
