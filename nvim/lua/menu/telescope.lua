@@ -75,3 +75,22 @@ require("telescope").load_extension("fzf")
 require("telescope").load_extension("ui-select")
 require("telescope").load_extension("vim_bookmarks")
 require("telescope").load_extension("git_diffs")
+
+local fb_actions = require "telescope".extensions.file_browser.actions
+
+require("telescope").setup {
+  extensions = {
+    file_browser = {
+      theme = nil,
+      hijack_netrw = true,
+      prompt_path = true,
+      mappings = {
+        ["i"] = {
+          ["<C-w>"] = fb_actions.goto_parent_dir
+        },
+      },
+    },
+  },
+}
+
+require("telescope").load_extension "file_browser"
