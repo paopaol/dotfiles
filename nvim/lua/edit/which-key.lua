@@ -57,7 +57,6 @@ return {
         win = { no_overlap = false, padding = { 1, 2 }, title = true, title_pos = "center", zindex = 1000, bo = {}, wo = {}, },
         show_keys = true,
         show_help = true,
-        debug = true
       })
 
 
