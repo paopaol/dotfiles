@@ -287,14 +287,15 @@ return {
       })
 
       wk.add({
-        { "g",          group = "goto" },
-        { "gd",         function() vim.cmd([[Telescope lsp_definitions]]) end, desc = "lsp+definition" },
-        { "gi",         vim.lsp.buf.declaration,                               desc = "lsp+definition" },
-        { "gv",         lsp_definitions_vsplit,                                desc = "lsp+definition/vsplit", },
-        { "gs",         lsp_definitions_split,                                 desc = "lsp+definition/split", },
-        { "gr",         search.project_lsp_ref,                                desc = "lsp+references" },
-        { "gf",         vim.lsp.buf.code_action,                               desc = "quickfix" },
-        { "<leader>gy", ___gdc,                                                desc = "comment and yank" },
+        { "g",  group = "goto" },
+        { "gd", function() vim.cmd([[Telescope lsp_definitions]]) end, desc = "lsp+definition" },
+        { "gi", vim.lsp.buf.declaration,                               desc = "lsp+definition" },
+        { "gv", lsp_definitions_vsplit,                                desc = "lsp+definition/vsplit", },
+        { "gs", lsp_definitions_split,                                 desc = "lsp+definition/split", },
+        { "gr", search.project_lsp_ref,                                desc = "lsp+references" },
+        { "gf", vim.lsp.buf.code_action,                               desc = "quickfix" },
+        { "gy", ___gdc,                                                desc = "comment and yank" },
+        { "gx", nil,                                                   desc = "open" },
       })
     end
   },
