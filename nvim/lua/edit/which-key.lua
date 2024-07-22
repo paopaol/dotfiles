@@ -1,11 +1,88 @@
+local function cppman()
+  vim.ui.input({ prompt = "Enter c++ symbol: " }, function(input)
+    if not input then
+      return
+    end
+
+    local trim = function(input)
+      return (string.gsub(input, "^%s*(.-)%s*$", "%1"))
+    end
+    input = trim(input)
+
+    if input == "" then
+      return
+    end
+
+    local cmd = string.format("cppman %s", input)
+    local lazygit = Terminal:new({
+      cmd = cmd,
+      direction = "float",
+      float_opts = {
+        border = "double",
+      }
+    })
+    lazygit:toggle()
+  end)
+end
+
+local function rootdir()
+  return vim.call("asyncrun#get_root", "%")
+end
+
+local function command(cmd)
+  return function()
+    pcall(vim.cmd, cmd)
+  end
+end
+
+local qf_next = function()
+  local ok = pcall(vim.cmd, [[cn]])
+  if ok then
+    vim.cmd([[normal zz]])
+  end
+end
+
+local qf_prev = function()
+  local ok = pcall(vim.cmd, [[cp]])
+  if ok then
+    vim.cmd([[normal zz]])
+  end
+end
+
+local show_diagnostic = function()
+  local opts = {
+    focusable = true,
+    border = "rounded",
+    prefix = "",
+  }
+  local _, winid = vim.diagnostic.open_float(nil, opts)
+  if winid and vim.api.nvim_win_is_valid(winid) then
+    vim.api.nvim_win_set_height(winid, 15)
+    vim.api.nvim_win_set_width(winid, 100)
+  end
+end
+
+local task_run = function()
+  pcall(vim.cmd, string.format("cd %s/build", rootdir()))
+  require("telescope").extensions.asynctasks.all()
+end
+
+local lsp_definitions_vsplit = function()
+  vim.cmd([[wincmd v]])
+  vim.cmd([[Telescope lsp_definitions]])
+end
+
+local lsp_definitions_split = function()
+  vim.cmd([[wincmd s]])
+  vim.cmd([[Telescope lsp_definitions]])
+end
+
 return {
   {
     "folke/which-key.nvim",
     branch = "main",
     event = "VeryLazy",
     config = function()
-      local wk = require("which-key")
-
       local utils = require("base.utils")
       local search = require("base.search")
       local bufferline = require("bufferline")
@@ -13,46 +90,8 @@ return {
       local telein = require("telescope.builtin")
       local svn = require("tools.svn")
       local hexview = require("edit.hex-view")
-
-
       local Terminal = require("toggleterm.terminal").Terminal
-      local function cppman()
-        vim.ui.input({ prompt = "Enter c++ symbol: " }, function(input)
-          if not input then
-            return
-          end
-
-          local trim = function(input)
-            return (string.gsub(input, "^%s*(.-)%s*$", "%1"))
-          end
-          input = trim(input)
-
-          if input == "" then
-            return
-          end
-
-          local cmd = string.format("cppman %s", input)
-          local lazygit = Terminal:new({
-            cmd = cmd,
-            direction = "float",
-            float_opts = {
-              border = "double",
-            }
-          })
-          lazygit:toggle()
-        end)
-      end
-
-      local function rootdir()
-        return vim.call("asyncrun#get_root", "%")
-      end
-
-      local function command(cmd)
-        return function()
-          pcall(vim.cmd, cmd)
-        end
-      end
-
+      local wk = require("which-key")
       wk.setup({
         win = { no_overlap = false, padding = { 1, 2 }, title = true, title_pos = "center", zindex = 1000, bo = {}, wo = {}, },
         show_keys = true,
@@ -60,32 +99,6 @@ return {
       })
 
 
-      local qf_next = function()
-        local ok = pcall(vim.cmd, [[cn]])
-        if ok then
-          vim.cmd([[normal zz]])
-        end
-      end
-
-      local qf_prev = function()
-        local ok = pcall(vim.cmd, [[cp]])
-        if ok then
-          vim.cmd([[normal zz]])
-        end
-      end
-
-      local show_diagnostic = function()
-        local opts = {
-          focusable = true,
-          border = "rounded",
-          prefix = "",
-        }
-        local _, winid = vim.diagnostic.open_float(nil, opts)
-        if winid and vim.api.nvim_win_is_valid(winid) then
-          vim.api.nvim_win_set_height(winid, 15)
-          vim.api.nvim_win_set_width(winid, 100)
-        end
-      end
       wk.add({
         -- ["<tab>"] = { jz.jumpright, "right arg" },
         -- ["<S-tab>"] = { command("SidewaysJumpLeft"), "left arg" },
@@ -232,14 +245,7 @@ return {
 
       wk.add({
         { "<leader>r",  group = "async stop" },
-        {
-          "<leader>rr",
-          function()
-            pcall(vim.cmd, string.format("cd %s/build", rootdir()))
-            require("telescope").extensions.asynctasks.all()
-          end,
-          desc = "run",
-        },
+        { "<leader>rr", task_run,                 desc = "run", },
         { "<leader>rs", command("AsyncStop"),     desc = "async stop" },
         { "<leader>re", command("AsyncTaskEdit"), desc = "async tas edit" },
       })
@@ -281,28 +287,14 @@ return {
       })
 
       wk.add({
-        { "<leader>g",  group = "goto" },
-        { "<leader>gd", function() vim.cmd([[Telescope lsp_definitions]]) end, desc = "lsp+definition" },
-        { "<leader>gi", vim.lsp.buf.declaration,                               desc = "lsp+definition" },
-        {
-          "<leader>gv",
-          function()
-            vim.cmd([[wincmd v]])
-            vim.cmd([[Telescope lsp_definitions]])
-          end,
-          desc = "lsp+definition/vsplit",
-        },
-        {
-          "<leader>gs",
-          function()
-            vim.cmd([[wincmd s]])
-            vim.cmd([[Telescope lsp_definitions]])
-          end,
-          desc = "lsp+definition/split",
-        },
-        { "<leader>gr", search.project_lsp_ref,  desc = "lsp+references" },
-        { "<leader>gf", vim.lsp.buf.code_action, desc = "quickfix" },
-        { "<leader>gy", ___gdc,                  desc = "comment and yank" },
+        { "g",          group = "goto" },
+        { "gd",         function() vim.cmd([[Telescope lsp_definitions]]) end, desc = "lsp+definition" },
+        { "gi",         vim.lsp.buf.declaration,                               desc = "lsp+definition" },
+        { "gv",         lsp_definitions_vsplit,                                desc = "lsp+definition/vsplit", },
+        { "gs",         lsp_definitions_split,                                 desc = "lsp+definition/split", },
+        { "gr",         search.project_lsp_ref,                                desc = "lsp+references" },
+        { "gf",         vim.lsp.buf.code_action,                               desc = "quickfix" },
+        { "<leader>gy", ___gdc,                                                desc = "comment and yank" },
       })
     end
   },
