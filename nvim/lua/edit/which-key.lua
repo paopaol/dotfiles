@@ -16,7 +16,7 @@ return {
 
 
       local Terminal = require("toggleterm.terminal").Terminal
-      function cppman()
+      local function cppman()
         vim.ui.input({ prompt = "Enter c++ symbol: " }, function(input)
           if not input then
             return
@@ -54,33 +54,12 @@ return {
       end
 
       wk.setup({
-        window = {
-          border = "double",        -- none, single, double, shadow
-          position = "bottom",      -- bottom, top
-          margin = { 0, 0, 0, 0 },  -- extra window margin [top, right, bottom, left]
-          padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
-        },
+        win = { no_overlap = false, padding = { 1, 2 }, title = true, title_pos = "center", zindex = 1000, bo = {}, wo = {}, },
+        show_keys = true,
+        show_help = true,
+        debug = true
       })
 
-      local reg_keymap = function(map, modes, leader)
-        for _, mode in ipairs(modes) do
-          for key, value in pairs(map) do
-            wk.register({
-              [leader] = { [key] = value },
-            }, { mode = mode })
-          end
-        end
-      end
-
-      local reg_noneleader_keymap = function(map, modes)
-        for _, mode in ipairs(modes) do
-          for key, value in pairs(map) do
-            wk.register({
-              [key] = value,
-            }, { mode = mode })
-          end
-        end
-      end
 
       local qf_next = function()
         local ok = pcall(vim.cmd, [[cn]])
@@ -96,312 +75,236 @@ return {
         end
       end
 
-
-      wk.register({
+      local show_diagnostic = function()
+        local opts = {
+          focusable = true,
+          border = "rounded",
+          prefix = "",
+        }
+        local _, winid = vim.diagnostic.open_float(nil, opts)
+        if winid and vim.api.nvim_win_is_valid(winid) then
+          vim.api.nvim_win_set_height(winid, 15)
+          vim.api.nvim_win_set_width(winid, 100)
+        end
+      end
+      wk.add({
         -- ["<tab>"] = { jz.jumpright, "right arg" },
         -- ["<S-tab>"] = { command("SidewaysJumpLeft"), "left arg" },
-        ["<f1>"] = { search.project_tree, "tree" },
-        ["<f2><f2>"] = { utils.insert_semicolon_end_of_line, "insert semicolon" },
-        ["<f3>"] = { qf_prev, "prev item" },
-        ["<f4>"] = { qf_next, "next item" },
-        ["<A-,>"] = {
-          function()
-            local opts = {
-              focusable = true,
-              border = "rounded",
-              prefix = "",
-            }
-            local _, winid = vim.diagnostic.open_float(nil, opts)
-            if winid and vim.api.nvim_win_is_valid(winid) then
-              vim.api.nvim_win_set_height(winid, 15)
-              vim.api.nvim_win_set_width(winid, 100)
-            end
-          end,
-          "show diagnostics",
-        },
+        { "<f1>",     search.project_tree,                desc = "tree",             mode = "n" },
+        { "<f2><f2>", utils.insert_semicolon_end_of_line, desc = "insert semicolon", mode = { "n", "i" } },
+        { "<f3>",     qf_prev,                            desc = "prev item",        mode = "n" },
+        { "<f4>",     qf_next,                            desc = "next item",        mode = "n" },
+        { "<A-,>",    show_diagnostic,                    desc = "show diagnostic",  mode = "n" },
+        { "<A-\\>",   command("ToggleTermToggleAll"),     desc = "terminal",         mode = { "n", "i", "t" } }
       })
 
 
 
-      reg_noneleader_keymap({
-        ["<A-\\>"] = { command("ToggleTermToggleAll"), "terminal" },
-      }, { "n", "v", "i", "t" })
 
       -- files
-      reg_keymap({
-        name = "+file",
-        f = { search.project_files, "project files" },
-        H = { command("silent !thunar $HOME &"), "home" },
-        bD = { command("BookmarkClearAll"), "Clear All Bookmark" },
-        ba = { command("BookmarkAnnotate"), "Add Bookmark" },
-        bb = { search.vim_book_marks, "Bookmarks" },
-        bd = { command("BookmarkClear"), "Clear Bookmark" },
-        n = { command("enew"), "New File" },
-        o = { search.open_with_defualt, "externl open" },
-        q = { utils.open_current_file_use_qtcreator, "open in qtcreator" },
-        r = { search.oldfiles, "Open Recent File" },
-        t = { search.project_tree_focus, "file tree" },
-        d = { command(":Telescope file_browser path=%:p:h select_buffer=true<CR>"), "file tree" },
-      }, { "n" }, "<leader>f")
+      wk.add({
+        { "<leader>f",   group = "file" },
+        { "<leader>ff",  search.project_files,                                                 desc = "project files",      mode = "n" },
+        { "<leader>fH",  command("silent !thunar $HOME &"),                                    desc = "home",               mode = "n" },
+        { "<leader>fbD", command("BookmarkClearAll"),                                          desc = "Clear All Bookmark", mode = "n" },
+        { "<leader>fba", command("BookmarkAnnotate"),                                          desc = "Add Bookmark",       mode = "n" },
+        { "<leader>fbb", search.vim_book_marks,                                                desc = "Bookmarks",          mode = "n" },
+        { "<leader>fbd", command("BookmarkClear"),                                             desc = "Clear Bookmark",     mode = "n" },
+        { "<leader>fn",  command("enew"),                                                      desc = "New File",           mode = "n" },
+        { "<leader>fo",  search.open_with_defualt,                                             desc = "externl open",       mode = "n" },
+        { "<leader>fq",  utils.open_current_file_use_qtcreator,                                desc = "open in qtcreator",  mode = "n" },
+        { "<leader>fr",  search.oldfiles,                                                      desc = "Open Recent File",   mode = "n" },
+        { "<leader>ft",  search.project_tree_focus,                                            desc = "file tree",          mode = "n" },
+        { "<leader>fd",  command(":Telescope file_browser path=%:p:h select_buffer=true<CR>"), desc = "file tree",          mode = "n" },
+      })
 
       -- debug
-      reg_keymap({
-        name = "+debug",
-        -- i = { command("VimspectorDebugInfo"), "print info" },
-        -- l = { command("VimspectorToggleLog"), "toggle log" },
-        -- o = { command("VimspectorShowOutput"), "show output" },
-        -- s = { command("VimspectorReset"), "stop/reset" },
-        -- w = { command("VimspectorWatch"), "watch" },
-      }, { "n" }, "<leader>d")
+      wk.add({
+        { "<leader>d",  group = "debug" },
+        { "<leader>di", command("VimspectorDebugInfo"),  desc = "print info",  mode = "n" },
+        { "<leader>dl", command("VimspectorToggleLog"),  desc = "toggle log",  mode = "n" },
+        { "<leader>do", command("VimspectorShowOutput"), desc = "show output", mode = "n" },
+        { "<leader>ds", command("VimspectorReset"),      desc = "stop/reset",  mode = "n" },
+        { "<leader>dw", command("VimspectorWatch"),      desc = "watch",       mode = "n" },
+      })
 
 
 
       -- open
-      reg_keymap({
-        name = "+open",
-        ["2"] = { utils.open200, "200" },
-        d = { search.exploer_dir_current, "externl open current dir" },
-        p = { search.exploer_dir_project, "externl open project dir" },
-      }, { "n" }, "<leader>o")
+      wk.add({
+        { "<leader>o",  group = "open" },
+        { "<leader>o2", utils.open200,              desc = "200",                      mode = "n" },
+        { "<leader>od", search.exploer_dir_current, desc = "externl open current dir", mode = "n" },
+        { "<leader>op", search.exploer_dir_project, desc = "externl open project dir", mode = "n" },
+      })
 
       -- buffer
-      reg_keymap({
-        name = "+buffer",
-        d = { jz.close_current_buffer, "nest buffer" },
-        k = { jz.close_current_buffer, "buffer kill" },
-        n = { command("BufSurfForward"), "nest buffer" },
-        p = { command("BufSurfBack"), "prev buffer" },
-        K = { jz.delete_other_buffers, "buffer kill" },
-        b = { search.buffers, "buffer list" },
-        B = { search.project_buffers, "project buffers" },
-      }, { "n" }, "<leader>b")
+      wk.add({
+        { "<leader>b",  group = "buffer" },
+        { "<leader>bd", jz.close_current_buffer,   desc = "nest buffer",     mode = "n" },
+        { "<leader>bk", jz.close_current_buffer,   desc = "buffer kill",     mode = "n" },
+        { "<leader>bn", command("BufSurfForward"), desc = "nest buffer",     mode = "n" },
+        { "<leader>bp", command("BufSurfBack"),    desc = "prev buffer",     mode = "n" },
+        { "<leader>bK", jz.delete_other_buffers,   desc = "buffer kill",     mode = "n" },
+        { "<leader>bb", search.buffers,            desc = "buffer list",     mode = "n" },
+        { "<leader>bB", search.project_buffers,    desc = "project buffers", mode = "n" },
+      })
 
       -- windows
-      reg_keymap({
-        name = "+windows",
-        ["1"] = { command("only"), "close other window" },
-        ["="] = { command("wincmd ="), "balance-window" },
-        d = { command("wincmd c"), "delete-window" },
-        m = { command("wincmd |"), "max-window" },
-        n = { command("tabnext"), "next tab" },
-        p = { command("tabprevious"), "previous tab" },
-        q = { command("qa"), "quit" },
-        s = { command("wincmd s"), "split-window-below" },
-        t = { command("tabnew"), "new tab" },
-        v = { command("wincmd v"), "split-window-right" },
-        w = { command("tabnew"), "new tab" },
-      }, { "n" }, "<leader>w")
+      wk.add({
+        { "<leader>w",  group = "close other window", mode = "n" },
+        { "<leader>w1", command("only"),              desc = "close other window", mode = "n" },
+        { "<leader>w=", command("wincmd ="),          desc = "balance-window",     mode = "n" },
+        { "<leader>wd", command("wincmd c"),          desc = "delete-window",      mode = "n" },
+        { "<leader>wm", command("wincmd |"),          desc = "max-window",         mode = "n" },
+        { "<leader>wn", command("tabnext"),           desc = "next tab",           mode = "n" },
+        { "<leader>wp", command("tabprevious"),       desc = "previous tab",       mode = "n" },
+        { "<leader>wq", command("qa"),                desc = "quit",               mode = "n" },
+        { "<leader>ws", command("wincmd s"),          desc = "split-window-below", mode = "n" },
+        { "<leader>wt", command("tabnew"),            desc = "new tab",            mode = "n" },
+        { "<leader>wv", command("wincmd v"),          desc = "split-window-right", mode = "n" },
+        { "<leader>ww", command("tabnew"),            desc = "new tab",            mode = "n" },
+      })
 
       -- serach/symbol
-      reg_keymap({
-        name = "+search/symbol",
-        h = { command("Interestingwords --toggle"), "highlight words" },
-        s = { search.search_current_buffer, "symbol current buffer" },
-        S = { search.current_buffer_symbol_at_point, "symbol current buffer" },
-        i = { search.lsp_document_symbols, "symbol" },
-        p = { search.project_current_symbols, "symbol project at point" },
-        P = { search.project_symbol_at_point, "symbol project at point" },
-        d = { search.directory_live_symbol, "symbol current directory" },
-        c = { utils.uncolor_all_words, "unhighlight words" },
-      }, { "n" }, "<leader>s")
+      wk.add({
+        { "<leader>s",  group = "search/symbol" },
+        { "<leader>sh", command("Interestingwords --toggle"),  desc = "highlight words",          mode = "n" },
+        { "<leader>ss", search.search_current_buffer,          desc = "symbol current buffer",    mode = "n" },
+        { "<leader>sS", search.current_buffer_symbol_at_point, desc = "symbol current buffer",    mode = "n" },
+        { "<leader>si", search.lsp_document_symbols,           desc = "symbol",                   mode = "n" },
+        { "<leader>sp", search.project_current_symbols,        desc = "symbol project at point",  mode = "n" },
+        { "<leader>sP", search.project_symbol_at_point,        desc = "symbol project at point",  mode = "n" },
+        { "<leader>sd", search.directory_live_symbol,          desc = "symbol current directory", mode = "n" },
+        { "<leader>sc", utils.uncolor_all_words,               desc = "unhighlight words",        mode = "n" },
+      })
 
       -- help
-      reg_keymap({
-        name = "+help",
-        m = { cppman, "cppman" },
-      }, { "n" }, "<leader>h")
+      wk.add({
+        { "<leader>h",  group = "help" },
+        { "<leader>hm", cppman,        desc = "cppman", mode = "n" },
+      })
 
       -- git
-      reg_keymap({
-        name = "+git",
-        P = { command("Git pull"), "git pull" },
-        b = { command("Git blame"), "git blame" },
-        g = { command("tab Git"), "git status" },
-        l = { command("tab Gclog"), "git log" },
-        p = { command("Git push"), "git push" },
-      }, { "n" }, "<leader>g")
+      wk.add({
+        { "<leader>g",  group = "git" },
+        { "<leader>gP", command("Git pull"),  desc = "git pull",   mode = "n" },
+        { "<leader>gb", command("Git blame"), desc = "git blame",  mode = "n" },
+        { "<leader>gg", command("tab Git"),   desc = "git status", mode = "n" },
+        { "<leader>gl", command("tab Gclog"), desc = "git log",    mode = "n" },
+        { "<leader>gp", command("Git push"),  desc = "git push",   mode = "n" },
+      })
 
       -- tools
-      reg_keymap({
-        name = "+tools/toggle",
-        c = { command("Telescope colorscheme enable_preview=true"), "colorscheme" },
-        f = { command("Telescope filetypes"), "filetypes" },
-        l = { command("setlocal wrap!"), "line wrap" },
-        r = { command("so $VIMHOME/init.vim"), "refresh vimrc" },
-        m = { search.man, "man page" },
-        u = { command("PackerSync"), "update plugins" },
-        d = { Toggle_venn, "draw ascii diagrams" },
-      }, { "n" }, "<leader>t")
+      wk.add({
+        { "<leader>t",  group = "tools/toggle" },
+        { "<leader>tc", command("Telescope colorscheme enable_preview=true"), desc = "colorscheme",         mode = "n" },
+        { "<leader>tf", command("Telescope filetypes"),                       desc = "filetypes",           mode = "n" },
+        { "<leader>tl", command("setlocal wrap!"),                            desc = "line wrap",           mode = "n" },
+        { "<leader>tr", command("so $VIMHOME/init.vim"),                      desc = "refresh vimrc",       mode = "n" },
+        { "<leader>tm", search.man,                                           desc = "man page",            mode = "n" },
+        { "<leader>tu", command("PackerSync"),                                desc = "update plugins",      mode = "n" },
+        { "<leader>td", Toggle_venn,                                          desc = "draw ascii diagrams", mode = "n" },
+      })
 
 
       -- project
-      reg_keymap({
-        name = "+project",
-        b = { search.project_buffers, "Project buffers" },
-        d = { jz.SubProjectFiles, "Find File" },
-        e = { command("AsyncTaskEdit"), "async edit" },
-        f = { search.project_files, "project files" },
-        p = { command("Telescope projects"), "projects" },
-        r = { search.project_oldfiles, "project recent files" },
-        s = { command("Telescope lsp_dynamic_workspace_symbols"), "workspace symbol" },
-      }, { "n" }, "<leader>p")
+      wk.add({
+        { "<leader>p",  group = "Project" },
+        { "<leader>pb", search.project_buffers,                             desc = "Project buffers" },
+        { "<leader>pd", jz.SubProjectFiles,                                 desc = "Find File" },
+        { "<leader>pe", command("AsyncTaskEdit"),                           desc = "async edit" },
+        { "<leader>pf", search.project_files,                               desc = "project files" },
+        { "<leader>pp", command("Telescope projects"),                      desc = "projects" },
+        { "<leader>pr", search.project_oldfiles,                            desc = "project recent files" },
+        { "<leader>ps", command("Telescope lsp_dynamic_workspace_symbols"), desc = "workspace symbol" },
+      })
 
       -- code
-      reg_keymap({
-        name = "+code",
-        r = { vim.lsp.buf.rename, "rename" },
-        c = { search.lsp_calltree, "calltree" },
-        p = { search.project_live_symbols, "workspace_symbolf" },
-        e = {
-          function()
-            telein.diagnostics({ cwd = rootdir(), bufnr = 0 })
-          end,
-          "workspace diagnostics",
-        },
-        E = {
-          function()
-            telein.diagnostics({ cwd = rootdir() })
-          end,
-          "workspace diagnostics",
-        },
-      }, { "n" }, "<leader>c")
+      wk.add({
+        { "<leader>c",  group = "rename" },
+        { "<leader>cr", vim.lsp.buf.rename,                                                desc = "rename" },
+        { "<leader>cc", search.lsp_calltree,                                               desc = "calltree" },
+        { "<leader>cp", search.project_live_symbols,                                       desc = "workspace_symbolf" },
+        { "<leader>ce", function() telein.diagnostics({ cwd = rootdir(), bufnr = 0 }) end, desc = "workspace diagnostics", },
+        { "<leader>cE", function() telein.diagnostics({ cwd = rootdir() }) end,            desc = "workspace diagnostics", },
+      })
 
 
-      reg_keymap({
-        name = "+runner",
-        r = {
+      wk.add({
+        { "<leader>r",  group = "async stop" },
+        {
+          "<leader>rr",
           function()
             pcall(vim.cmd, string.format("cd %s/build", rootdir()))
             require("telescope").extensions.asynctasks.all()
           end,
-          "run",
+          desc = "run",
         },
-        s = { command("AsyncStop"), "async stop" },
-        e = { command("AsyncTaskEdit"), "async tas edit" },
-      }, { "n" }, "<leader>r")
+        { "<leader>rs", command("AsyncStop"),     desc = "async stop" },
+        { "<leader>re", command("AsyncTaskEdit"), desc = "async tas edit" },
+      })
 
-      reg_keymap({
-        name = "+svn",
-        d = { svn.svn_diff_current_buf, "svn diff current" },
-        l = { svn.svn_log_current_buf, "svn log current" },
-        L = { svn.svn_log_project, "svn log project" },
-        b = { svn.svn_blame, "svn blame current" },
-        u = { svn.svn_update, "svn update" },
-        c = { svn.svn_commit, "svn commit" },
-        a = { svn.svn_add_current_file, "svn add current file" },
-      }, { "n" }, "<leader>v")
+      wk.add({
+        { "<leader>d",  group = "svn" },
+        { "<leader>dd", svn.svn_diff_current_buf, desc = "svn diff current" },
+        { "<leader>dl", svn.svn_log_current_buf,  desc = "svn log current" },
+        { "<leader>dL", svn.svn_log_project,      desc = "svn log project" },
+        { "<leader>db", svn.svn_blame,            desc = "svn blame current" },
+        { "<leader>du", svn.svn_update,           desc = "svn update" },
+        { "<leader>dc", svn.svn_commit,           desc = "svn commit" },
+        { "<leader>da", svn.svn_add_current_file, desc = "svn add current file" },
+      })
 
-      reg_keymap({
-        name = "+all-major",
-        d = { command("Dox"), "anotaion func" },
-        c = { search.lsp_calltree, "calltree" },
-        p = { search.project_live_symbols, "workspace_symbolf" },
-        e = {
-          function()
-            telein.diagnostics({ cwd = rootdir(), bufnr = 0 })
-          end,
-          "document diagnostics",
-        },
-        ["tt"] = { command("Translate"), "translate" },
-      }, { "n" }, ",")
-
-      reg_keymap({
-        name = "+all-major",
-        ["<f2>"] = { utils.insert_semicolon_end_of_line, "insert semicolon" },
-      }, { "n", "i" }, "<f2>")
+      wk.add({
+        { "<leader>,",   group = "all-major" },
+        { "<leader>,d",  command("Dox"),                                                    desc = "anotaion func" },
+        { "<leader>,c",  search.lsp_calltree,                                               desc = "calltree" },
+        { "<leader>,p",  search.project_live_symbols,                                       desc = "workspace_symbolf" },
+        { "<leader>,e",  function() telein.diagnostics({ cwd = rootdir(), bufnr = 0 }) end, desc = "document diagnostics", },
+        { "<leader>,tt", command("Translate"),                                              desc = "translate" },
+      })
 
 
-      reg_keymap({
-        name = "+global",
-        ["<leader>"] = { command("w"), "save file" },
-        q = { command("wincmd c"), "delete-window" },
-        ["1"] = {
-          function()
-            bufferline.go_to_buffer(1, true)
-          end,
-          "buffer 1",
-        },
-        ["2"] = {
-          function()
-            bufferline.go_to_buffer(2, true)
-          end,
-          "buffer 2",
-        },
-        ["3"] = {
-          function()
-            bufferline.go_to_buffer(3, true)
-          end,
-          "buffer 3",
-        },
-        ["4"] = {
-          function()
-            bufferline.go_to_buffer(4, true)
-          end,
-          "buffer 4",
-        },
-        ["5"] = {
-          function()
-            bufferline.go_to_buffer(5, true)
-          end,
-          "buffer 5",
-        },
-        ["6"] = {
-          function()
-            bufferline.go_to_buffer(6, true)
-          end,
-          "buffer 6",
-        },
-        ["7"] = {
-          function()
-            bufferline.go_to_buffer(7, true)
-          end,
-          "buffer 7",
-        },
-        ["8"] = {
-          function()
-            bufferline.go_to_buffer(8, true)
-          end,
-          "buffer 8",
-        },
-        ["9"] = {
-          function()
-            bufferline.go_to_buffer(9, true)
-          end,
-          "buffer 9",
-        },
-      }, { "n" }, "<leader>")
+      wk.add({
+        { "<leader>",         group = "gloabl" },
+        { "<leader><leader>", command("w"),                             desc = "save file" },
+        { "<leader>q",        command("wincmd c"),                      desc = "delete-window" },
+        { "<leader>1",        function() bufferline.go_to(1, true) end, desc = "buffer 1", },
+        { "<leader>2",        function() bufferline.go_to(2, true) end, desc = "buffer 2", },
+        { "<leader>3",        function() bufferline.go_to(3, true) end, desc = "buffer 3", },
+        { "<leader>4",        function() bufferline.go_to(4, true) end, desc = "buffer 4", },
+        { "<leader>5",        function() bufferline.go_to(5, true) end, desc = "buffer 5", },
+        { "<leader>6",        function() bufferline.go_to(6, true) end, desc = "buffer 6", },
+        { "<leader>7",        function() bufferline.go_to(7, true) end, desc = "buffer 7", },
+        { "<leader>8",        function() bufferline.go_to(8, true) end, desc = "buffer 8", },
+        { "<leader>9",        function() bufferline.go_to(9, true) end, desc = "buffer 9", },
+      })
 
-      reg_keymap({
-        name = "+goto",
-        d = { function()
-          vim.cmd([[Telescope lsp_definitions]])
-        end, "lsp+definition" },
-        i = { vim.lsp.buf.declaration, "lsp+definition" },
-        v = {
+      wk.add({
+        { "<leader>g",  group = "goto" },
+        { "<leader>gd", function() vim.cmd([[Telescope lsp_definitions]]) end, desc = "lsp+definition" },
+        { "<leader>gi", vim.lsp.buf.declaration,                               desc = "lsp+definition" },
+        {
+          "<leader>gv",
           function()
             vim.cmd([[wincmd v]])
             vim.cmd([[Telescope lsp_definitions]])
           end,
-          "lsp+definition/vsplit",
+          desc = "lsp+definition/vsplit",
         },
-        s = {
+        {
+          "<leader>gs",
           function()
             vim.cmd([[wincmd s]])
             vim.cmd([[Telescope lsp_definitions]])
           end,
-          "lsp+definition/split",
+          desc = "lsp+definition/split",
         },
-        r = { search.project_lsp_ref, "lsp+references" },
-        f = { vim.lsp.buf.code_action, "quickfix" },
-        y = { ___gdc, "comment and yank" },
-      }, { "n" }, "g")
-
-
-      reg_keymap({
-        name = "+indent",
-        [","] = { require('edit.tabularize').tabularize_comma, "indent, " },
-        [" "] = { require('edit.tabularize').tabularize_space, "indent space" },
-      }, { "v" }, "<leader>=")
+        { "<leader>gr", search.project_lsp_ref,  desc = "lsp+references" },
+        { "<leader>gf", vim.lsp.buf.code_action, desc = "quickfix" },
+        { "<leader>gy", ___gdc,                  desc = "comment and yank" },
+      })
     end
   },
 }

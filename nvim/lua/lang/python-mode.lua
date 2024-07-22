@@ -4,21 +4,16 @@ local utils = require('base.utils')
 local function command(cmd) return function() vim.cmd(cmd) end end
 
 _G.whichkeyPython = function()
-  local buf = vim.api.nvim_get_current_buf()
-
-  wk.register({
-    ["<localleader>"] = {
-      name = "major",
-      [","] = { utils.format_buffer, "formatting", buffer = buf },
-      ["qd"] = { utils.command("silent ! designer"), "qt designer", buffer = buf },
-    }
+  wk.add({
+    { "<localleader>,",  utils.format_buffer,                desc = "formatting" },
+    { "<localleader>qd", utils.command("silent ! designer"), desc = "qt designer" },
   })
 end
 
 vim.cmd([[
 augroup py_grp
   autocmd!
-  autocmd FileType python  lua whichkeyPython() 
+  autocmd FileType python  lua whichkeyPython()
 augroup END
 ]])
 

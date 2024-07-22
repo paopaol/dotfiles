@@ -8,26 +8,17 @@ local function command(cmd)
 end
 
 _G.whichkeyrXml = function()
-  local buf = vim.api.nvim_get_current_buf()
   vim.cmd("set shiftwidth=1")
 
-  wk.register({
-    ["<localleader>"] = {
-      name = "major",
-      [","] = { command("Autoformat"), "formatting", buffer = buf },
-    },
-    ["<tab>"] = { command("normal! za"), "expand", buffer = buf },
+  wk.add({
+    { "<localleader>,", command("Autoformat"), desc = "formatting" },
+    { "<tab>",          command("normal! za"), desc = "expand",    buffer = vim.api.nvim_get_current_buf() },
   })
 end
 
 _G.whichkeyrPrettier = function()
-  local buf = vim.api.nvim_get_current_buf()
-
-  wk.register({
-    ["<localleader>"] = {
-      name = "major",
-      [","] = { utils.format_buffer, "formatting", buffer = buf },
-    },
+  wk.add({
+    { "<localleader>,", utils.format_buffer, desc = "formatting" },
   })
 end
 

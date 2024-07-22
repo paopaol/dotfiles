@@ -19,16 +19,14 @@ local function command(cmd)
 end
 
 _G.whichkeySpecial1 = function()
-  local buf = vim.api.nvim_get_current_buf()
-  wk.register({
-    ["q"] = { quit_window, "quit", buffer = buf },
+  wk.add({
+    { "q", quit_window, desc = "quit", buffer = vim.api.nvim_get_current_buf() },
   })
 end
 
 _G.whichkeySpecial2 = function()
-  local buf = vim.api.nvim_get_current_buf()
-  wk.register({
-    ["q"] = { close_buffer_and_quickfix, "quit", buffer = buf },
+  wk.add({
+    { "q", close_buffer_and_quickfix, desc = "quit", buffer = vim.api.nvim_get_current_buf() },
   })
 end
 
@@ -36,25 +34,23 @@ end
 
 
 _G.whichkeyFugitive = function()
-  local buf = vim.api.nvim_get_current_buf()
-  wk.register({
-    ["<tab>"] = { command("normal ="), "toggle diff", buffer = buf },
+  wk.add({
+    { "<tab>", command("normal ="), desc = "toggle diff", buffer = vim.api.nvim_get_current_buf() },
   })
 end
 
 _G.whichkeySpecialDiffView = function()
-  local buf = vim.api.nvim_get_current_buf()
-  wk.register({
-    ["q"] = { command("DiffviewClose"), "quit", buffer = buf },
+  wk.add({
+    { "q", command("DiffviewClose"), desc = "quit", buffer = vim.api.nvim_get_current_buf() },
   })
 end
 
 vim.cmd([[
 augroup special_grp
   autocmd!
-  autocmd FileType man,fugitive,help,git,checkhealth lua whichkeySpecial1() 
-  autocmd FileType git lua whichkeySpecial2() 
-  autocmd FileType fugitive lua whichkeyFugitive() 
-  autocmd FileType DiffviewFiles lua whichkeySpecialDiffView() 
+  autocmd FileType man,fugitive,help,git,checkhealth lua whichkeySpecial1()
+  autocmd FileType git lua whichkeySpecial2()
+  autocmd FileType fugitive lua whichkeyFugitive()
+  autocmd FileType DiffviewFiles lua whichkeySpecialDiffView()
 augroup END
 ]])

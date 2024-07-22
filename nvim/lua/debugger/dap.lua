@@ -104,10 +104,8 @@ local quit_window = function()
 end
 
 _G.dapFloatinhKeymaps = function()
-  local buf = vim.api.nvim_get_current_buf()
-
-  wk.register({
-    ["q"] = { quit_window, "quit", buffer = buf },
+  wk.add({
+    { "q", quit_window, desc = "quit", buffer = vim.api.nvim_get_current_buf() },
   })
 end
 

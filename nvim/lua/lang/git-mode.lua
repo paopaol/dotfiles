@@ -1,6 +1,4 @@
 local wk = require("which-key")
-local jz = require("base.jz")
-local neogit = require("neogit")
 
 local function command(cmd)
   return function()
@@ -9,14 +7,12 @@ local function command(cmd)
 end
 
 _G.whichkeyFugitive_local = function()
-  local buf = vim.api.nvim_get_current_buf()
-  wk.register({
-    ["<C-t>"] = { command("normal O"), "open with tab", buffer = buf },
-    ["gv"] = { command("normal gO"), "open with vertical", buffer = buf },
-    ["gs"] = { command("normal o"), "open with split", buffer = buf },
+  wk.add({
+    { "<localleader><C-t>", command("normal O"),  desc = "open with tab", },
+    { "<localleader>gv",    command("normal gO"), desc = "open with vertical", },
+    { "<localleader>gs",    command("normal o"),  desc = "open with split", },
   })
 end
-vim.cmd([[]])
 
 vim.cmd([[
 augroup git_grp

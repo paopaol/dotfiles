@@ -2,13 +2,8 @@ local wk = require("which-key")
 local utils = require("base.utils")
 
 _G.whichkeyGoCmake = function()
-  local buf = vim.api.nvim_get_current_buf()
-
-  wk.register({
-    ["<localleader>"] = {
-      name = "major",
-      [","] = { utils.format_buffer, "formatting", buffer = buf },
-    },
+  wk.add({
+    { "<localleader>,", utils.format_buffer, desc = "formatting" },
   })
 end
 

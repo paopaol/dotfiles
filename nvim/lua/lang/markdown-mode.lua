@@ -7,22 +7,10 @@ local format = function()
 end
 
 _G.whichkeyMarkdown = function()
-  local buf = vim.api.nvim_get_current_buf()
-
-  wk.register({
-    ["<localleader>"] = {
-      name = "major",
-
-      [","] = { format, "formatting", buffer = buf },
-      ["p"] = { utils.command("MarkdownPreview"), "preview", buffer = buf },
-    },
-  })
-  wk.register({
-    ["<leader>"] = {
-      name = "major",
-
-      ["si"] = { function() vim.cmd("Telescope heading") end, "heading", buffer = buf },
-    },
+  wk.add({
+    { "<localleader>,", format,                                      desc = "formatting" },
+    { "<localleader>p", utils.command("MarkdownPreview"),            desc = "preview" },
+    { "<leader>si",     function() vim.cmd("Telescope heading") end, desc = "heading",   buffer = vim.api.nvim_get_current_buf() },
   })
 end
 

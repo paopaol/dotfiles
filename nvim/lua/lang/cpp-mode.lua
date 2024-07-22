@@ -96,22 +96,16 @@ local gtest_run_selected = function()
 end
 
 _G.whichkeyrCpp = function()
-  local buf = vim.api.nvim_get_current_buf()
-
-  wk.register({
-    ["<f5>"] = { start_debug, "debug", buffer = buf },
-    ["<localleader>"] = {
-      name = "major",
-
-      [","] = { utils.format_buffer, "formatting", buffer = buf },
-      ["o"] = { command("ClangdSwitchSourceHeader"), "switch cc/h", buffer = buf },
-      ["y"] = { command("CopyCppMethod"), "copy cpp method", buffer = buf },
-      ["p"] = { command("PasteCppMethod"), "paste cpp method", buffer = buf },
-      ["g"] = { command("TSCppDefineClassFunc"), "define class func", buffer = buf },
-      ["ts"] = { gtest_set_cmd, "gtest set cmd", buffer = buf },
-      ["t,"] = { gtest_run_selected, "gtest run", buffer = buf },
-      ["tr"] = { command("GTestRunUnderCursor"), "run gtest under cursor", buffer = buf },
-    },
+  wk.add({
+    { "<f5>",            start_debug,                         desc = "debug",                 buffer = vim.api.nvim_get_current_buf() },
+    { "<localleader>,",  utils.format_buffer,                 desc = "formatting", },
+    { "<localleader>o",  command("ClangdSwitchSourceHeader"), desc = "switch cc/h", },
+    { "<localleader>y",  command("CopyCppMethod"),            desc = "copy cpp method", },
+    { "<localleader>p",  command("PasteCppMethod"),           desc = "paste cpp method", },
+    { "<localleader>g",  command("TSCppDefineClassFunc"),     desc = "define class func", },
+    { "<localleader>ts", gtest_set_cmd,                       desc = "gtest set cmd", },
+    { "<localleader>t,", gtest_run_selected,                  desc = "gtest run", },
+    { "<localleader>tr", command("GTestRunUnderCursor"),      desc = "run gtest under cursor" },
   })
 end
 

@@ -8,4 +8,4 @@ require("onedarkpro").setup({
   }
 })
 -- vim.cmd([[set background=dark]])
-vim.cmd("colorscheme dracula")
+vim.cmd("colorscheme carbonfox")
