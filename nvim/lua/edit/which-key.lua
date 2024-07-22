@@ -294,7 +294,7 @@ return {
         { "gs", lsp_definitions_split,                                 desc = "lsp+definition/split", },
         { "gr", search.project_lsp_ref,                                desc = "lsp+references" },
         { "gf", vim.lsp.buf.code_action,                               desc = "quickfix" },
-        { "gy", ___gdc,                                                desc = "comment and yank",      mode = { "n", "v" } },
+        { "gy", ":lua ___gdc('v')<cr>",                                desc = "comment and yank",      mode = { "n", "v" }, silent = false },
         { "gx", nil,                                                   desc = "open" },
       })
 
