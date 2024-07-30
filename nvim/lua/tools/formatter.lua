@@ -3,6 +3,7 @@ require("null-ls").setup({
   sources = {
     formatting.shfmt,
     formatting.yapf,
+    formatting.cmake_format,
     formatting.prettier.with({
       filetypes = {
         "javascript",

@@ -94,6 +94,10 @@ return {
       local wk = require("which-key")
       wk.setup({
         win = { no_overlap = false, padding = { 1, 2 }, title = true, title_pos = "center", zindex = 1000, bo = {}, wo = {}, },
+        plugins = {
+          marks = false, -- shows a list of your marks on ' and `
+          registers = false,
+        },
         show_keys = true,
         show_help = true,
       })
@@ -299,42 +303,43 @@ return {
       })
 
       wk.add({
-        { "<C-a>",           "<Home>",                                     desc = "begin of line", mode = { "i", "c" },           silent = false },
-        { "<C-e>",           "<End>",                                      desc = "end of line",   mode = { "n", "i", "v", "c" }, silent = false },
-        { "<C-j>",           "<Down>",                                     desc = "next line",     mode = { "n", "i", "c" },      silent = false },
-        { "<C-k>",           "<Up>",                                       desc = "next line",     mode = { "n", "i", "c" },      silent = false },
-        { "<C-f>",           "<Right>",                                    desc = "forward char",  mode = { "n", "i", "c" },      silent = false },
-        { "<C-b>",           "<Left>",                                     desc = "backward char", mode = { "n", "i", "c" },      silent = false },
+        { "<C-a>",           "<Home>",                                     desc = "begin of line", mode = { "i", "c" },      silent = false },
+        { "<C-e>",           "<End>",                                      desc = "end of line",   mode = { "i", "v", "c" }, silent = false },
+        { "<C-e>",           "A",                                          desc = "end of line",   mode = { "n" },           silent = false },
+        { "<C-j>",           "<Down>",                                     desc = "next line",     mode = { "n", "i", "c" }, silent = false },
+        { "<C-k>",           "<Up>",                                       desc = "next line",     mode = { "n", "i", "c" }, silent = false },
+        { "<C-f>",           "<Right>",                                    desc = "forward char",  mode = { "n", "i", "c" }, silent = false },
+        { "<C-b>",           "<Left>",                                     desc = "backward char", mode = { "n", "i", "c" }, silent = false },
 
-        { "<A-f>",           "<C-Right>",                                  desc = "forward word",  mode = { "n", "i", "c" },      silent = false },
+        { "<A-f>",           "<C-Right>",                                  desc = "forward word",  mode = { "n", "i", "c" }, silent = false },
 
-        { "<A-j>",           "<C-W>j",                                     desc = "down win",      mode = { "n" },                silent = false },
-        { "<A-k>",           "<C-W>k",                                     desc = "up win",        mode = { "n" },                silent = false },
-        { "<A-h>",           "<C-W>h",                                     desc = "right win",     mode = { "n" },                silent = false },
-        { "<A-l>",           "<C-W>l",                                     desc = "left win",      mode = { "n" },                silent = false },
-        { "<C-c>",           "<esc>",                                      desc = "normal mode",   mode = { "i" },                silent = true },
+        { "<A-j>",           "<C-W>j",                                     desc = "down win",      mode = { "n" },           silent = false },
+        { "<A-k>",           "<C-W>k",                                     desc = "up win",        mode = { "n" },           silent = false },
+        { "<A-h>",           "<C-W>h",                                     desc = "right win",     mode = { "n" },           silent = false },
+        { "<A-l>",           "<C-W>l",                                     desc = "left win",      mode = { "n" },           silent = false },
+        { "<C-c>",           "<esc>",                                      desc = "normal mode",   mode = { "i" },           silent = true },
 
-        { "Q",               ":cclose<CR>",                                desc = "quit",          mode = { "n", "v" },           silent = true },
+        { "Q",               ":cclose<CR>",                                desc = "quit",          mode = { "n", "v" },      silent = true },
 
-        { "<A-->",           ":resize -1<CR>",                             desc = "font -",        mode = { "n" },                silent = true },
-        { "<A-=>",           ":resize +1<CR>",                             desc = "font +",        mode = { "n" },                silent = true },
+        { "<A-->",           ":resize -1<CR>",                             desc = "font -",        mode = { "n" },           silent = true },
+        { "<A-=>",           ":resize +1<CR>",                             desc = "font +",        mode = { "n" },           silent = true },
 
-        { "<A-<>",           ":SidewaysLeft<CR>",                          desc = "SidewaysLeft",  mode = { "n" },                silent = true },
-        { "<A->>",           ":SidewaysRight<CR>",                         desc = "SidewaysRight", mode = { "n" },                silent = true },
+        { "<A-<>",           ":SidewaysLeft<CR>",                          desc = "SidewaysLeft",  mode = { "n" },           silent = true },
+        { "<A->>",           ":SidewaysRight<CR>",                         desc = "SidewaysRight", mode = { "n" },           silent = true },
 
-        { "<localleader>tt", ":Translate<cr>",                             desc = "Translate",     mode = { "v" },                silent = true },
-        { ",!",              ":!bash<cr>",                                 desc = "",              mode = "v",                    silent = true },
-        { ",,",              "<esc><cmd>lua lsp_format_region()<CR>",      desc = "",              mode = "v",                    silent = true },
-        { "gf",              ":lua require('base.search').extract() <cr>", desc = "",              mode = "v",                    silent = true },
-        { ",g",              ":TSCppDefineClassFunc<cr>",                  desc = "",              mode = "v",                    silent = true },
+        { "<localleader>tt", ":Translate<cr>",                             desc = "Translate",     mode = { "v" },           silent = true },
+        { ",!",              ":!bash<cr>",                                 desc = "",              mode = "v",               silent = true },
+        { ",,",              "<esc><cmd>lua lsp_format_region()<CR>",      desc = "",              mode = "v",               silent = true },
+        { "gf",              ":lua require('base.search').extract() <cr>", desc = "",              mode = "v",               silent = true },
+        { ",g",              ":TSCppDefineClassFunc<cr>",                  desc = "",              mode = "v",               silent = true },
 
-        { "<A-Down>",        ":MoveLine(1)<CR>",                           desc = "",              mode = "n",                    silent = true },
-        { "<A-Up>",          ":MoveLine(-1)<CR>",                          desc = "",              mode = "n",                    silent = true },
-        { "<A-Down>",        ":MoveBlock(1)<CR>",                          desc = "",              mode = "v",                    silent = true },
-        { "<A-Up>",          ":MoveBlock(-1)<CR>",                         desc = "",              mode = "v",                    silent = true },
+        { "<A-Down>",        ":MoveLine(1)<CR>",                           desc = "",              mode = "n",               silent = true },
+        { "<A-Up>",          ":MoveLine(-1)<CR>",                          desc = "",              mode = "n",               silent = true },
+        { "<A-Down>",        ":MoveBlock(1)<CR>",                          desc = "",              mode = "v",               silent = true },
+        { "<A-Up>",          ":MoveBlock(-1)<CR>",                         desc = "",              mode = "v",               silent = true },
 
-        { "<A-x>",           ":",                                          desc = "",              mode = { "n", "v" },           silent = false },
-        { "<leader>tv",      require('edit.hex-view').view,                desc = "hexview",       mode = { "v" },                silent = false },
+        { "<A-x>",           ":",                                          desc = "",              mode = { "n", "v" },      silent = false },
+        { "<leader>tv",      require('edit.hex-view').view,                desc = "hexview",       mode = { "v" },           silent = false },
       })
     end
   },

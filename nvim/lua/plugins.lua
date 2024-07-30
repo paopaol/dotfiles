@@ -11,6 +11,7 @@ require("lazy").setup({
   require('menu.install'),
   require('lang.install'),
   require('edit.install'),
+  require('debugger.install'),
 
   "ton/vim-bufsurf",
   { "nvim-neotest/nvim-nio" },

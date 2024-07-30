@@ -1,6 +1,5 @@
 local dap, dapui = require("dap"), require("dapui")
 local wk = require("which-key")
-local jz = require("base.jz")
 require("nvim-dap-virtual-text").setup({})
 
 dapui.setup(
