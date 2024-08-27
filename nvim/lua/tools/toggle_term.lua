@@ -73,7 +73,7 @@ end
 vim.cmd([[
 augroup toggleterm_grp
   autocmd!
-  autocmd TermEnter term://*toggleterm#* set winhighlight=
+  " autocmd TermEnter term://*toggleterm#* set winhighlight=
   autocmd TermOpen term://* lua set_terminal_keymaps()
 augroup END
 ]])

@@ -11,4 +11,5 @@ return {
   { "EdenEast/nightfox.nvim",              lazy = false },
   --ofirkai
   { "ofirgall/ofirkai.nvim",               lazy = false },
+  { "nyoom-engineering/oxocarbon.nvim",               lazy = false },
 }

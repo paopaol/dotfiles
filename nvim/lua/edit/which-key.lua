@@ -249,9 +249,9 @@ return {
 
       wk.add({
         { "<leader>r",  group = "async stop" },
-        { "<leader>rr", task_run,                 desc = "run", },
-        { "<leader>rs", command("AsyncStop"),     desc = "async stop" },
-        { "<leader>re", command("AsyncTaskEdit"), desc = "async tas edit" },
+        { "<leader>rr", task_run,                desc = "run", },
+        { "<leader>rs", command("AsyncStop"),    desc = "async stop" },
+        { "<leader>re", command("AsyncTask -e"), desc = "async tas edit" },
       })
 
       wk.add({

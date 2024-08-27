@@ -7,5 +7,5 @@ require("onedarkpro").setup({
     cursorline = false
   }
 })
--- vim.cmd([[set background=dark]])
-vim.cmd("colorscheme carbonfox")
+vim.cmd([[set background=dark]])
+vim.cmd("colorscheme dayfox")

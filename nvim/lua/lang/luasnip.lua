@@ -36,7 +36,6 @@ _G.s_tab_complete = function()
   else
     return t "<S-Tab>"
   end
-  return ""
 end
 
 vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", { expr = true })
