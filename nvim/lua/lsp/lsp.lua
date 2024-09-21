@@ -48,7 +48,7 @@ end
 
 local function root()
   local util = require("lspconfig/util")
-  return util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile")
+  return util.root_pattern("compile_commands.json", "compile_flags.txt", ".git", ".projectile", "Cargo.toml")
 end
 
 local function on_attach(_, bufnr)
@@ -110,6 +110,19 @@ require("lspconfig").pyright.setup({
     }
   }
 })
+
+require 'lspconfig'.rust_analyzer.setup {
+  handlers = lsphandlers,
+  root_dir = root(),
+  on_attach = on_attach,
+  settings = {
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = true,
+      }
+    }
+  }
+}
 
 
 -- require("lspconfig").cmake.setup({ handlers = lsphandlers, root_dir = root(), on_attach = on_attach })
