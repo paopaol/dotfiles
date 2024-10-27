@@ -8,4 +8,4 @@ require("onedarkpro").setup({
   }
 })
 vim.cmd([[set background=dark]])
-vim.cmd("colorscheme monokai-nightasty")
+vim.cmd("colorscheme bluloco-light")

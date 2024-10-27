@@ -11,5 +11,6 @@ return {
   { "EdenEast/nightfox.nvim",              lazy = false },
   --ofirkai
   { "ofirgall/ofirkai.nvim",               lazy = false },
-  { "nyoom-engineering/oxocarbon.nvim",               lazy = false },
+  { "nyoom-engineering/oxocarbon.nvim",    lazy = false },
+  { "uloco/bluloco.nvim",                  lazy = false,    dependencies = { 'rktjmp/lush.nvim' } },
 }
