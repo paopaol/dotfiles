@@ -13,4 +13,6 @@ return {
   { "ofirgall/ofirkai.nvim",               lazy = false },
   { "nyoom-engineering/oxocarbon.nvim",    lazy = false },
   { "uloco/bluloco.nvim",                  lazy = false,    dependencies = { 'rktjmp/lush.nvim' } },
+  { "askfiy/visual_studio_code", lazy = false, config = function() require("visual_studio_code").setup({ mode = "dark" }) end,
+  },
 }

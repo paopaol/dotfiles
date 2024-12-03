@@ -116,7 +116,7 @@ source $ZSH/oh-my-zsh.sh
 # export https_proxy="http://${hostip}:4780"
 # export http_proxy="http://${hostip}:4780"
 
-export PATH=$PATH:/opt/cmake-3.29.5-linux-x86_64/bin:/usr/local/go/bin:~/.local/bin:/opt/QtIFW-4.1.1/bin:~/.local/lib/python3.6/site-packages/qt5_applications/Qt/bin
+export PATH=$PATH:/opt/cmake-3.20.1-linux-x86_64/bin:/usr/local/go/bin:~/.local/bin:/opt/QtIFW-4.1.1/bin:~/.local/lib/python3.6/site-packages/qt5_applications/Qt/bin
 . /opt/rh/devtoolset-7/enable
 
 export PERL_LOCAL_LIB_ROOT="$PERL_LOCAL_LIB_ROOT:/home/jz/perl5";

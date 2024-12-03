@@ -129,13 +129,13 @@ return {
       }
     end
   },
-  {
-    "lilydjwg/fcitx.vim",
-    branch = "fcitx5",
-    config = function()
-      vim.g.fcitx5_remote = 'fcitx-remote'
-    end
-  },
+  -- {
+  --   "lilydjwg/fcitx.vim",
+  --   branch = "fcitx5",
+  --   config = function()
+  --     vim.g.fcitx5_remote = 'fcitx-remote'
+  --   end
+  -- },
   {
     'ojroques/nvim-osc52',
     branch = "main",
