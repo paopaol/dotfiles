@@ -114,7 +114,7 @@ augroup filetype_cpp
 autocmd!
 autocmd FileType cpp,c set tabstop=4  shiftwidth=4  softtabstop=4 expandtab
 autocmd FileType cpp,c lua whichkeyrCpp()
-autocmd FileType cpp,c TSDisable highlight
+autocmd FileType cpp,c TSEnable highlight
 autocmd FileType cmake TSEnable highlight
 autocmd FileType cpp,c highlight @lsp.type.number  ctermfg=blue ctermbg=yellow guifg=#0000FF guibg=#FFFF00
 autocmd FileType cpp,c highlight @lsp.type.keyword ctermfg=blue ctermbg=yellow guifg=#0000FF guibg=#FFFF00

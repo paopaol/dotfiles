@@ -56,6 +56,10 @@ vim.g.BufKillCreateMappings = 0
 vim.g.rooter_patterns = { ".projectile", ".git/" }
 vim.g.autocwd_patternwd_pairs = { { "*", "%:p:h" } }
 
+vim.cmd([[
+set jumpoptions+=stack
+]])
+
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'qfreplace',
