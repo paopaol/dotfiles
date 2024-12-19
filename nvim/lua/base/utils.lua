@@ -44,7 +44,7 @@ function M.command(cmd)
 end
 
 function M.format_buffer()
-  vim.lsp.buf.format({ async = true })
+  require("conform").format({ async = true, lsp_fallback = true })
 end
 
 function M.open200()

@@ -12,6 +12,7 @@ require("lazy").setup({
   require('lang.install'),
   require('edit.install'),
   require('debugger.install'),
+  require('tools.install'),
 
   "ton/vim-bufsurf",
   { "nvim-neotest/nvim-nio" },
@@ -22,7 +23,6 @@ require("lazy").setup({
   { "nvim-treesitter/nvim-treesitter",             build = ":TSUpdate", event = "VeryLazy" },
   { "nvim-treesitter/nvim-treesitter-textobjects", event = "VeryLazy" },
 
-  -- { "Pocco81/auto-save.nvim" },
 
   {
     "neovim/nvim-lspconfig",
@@ -32,7 +32,6 @@ require("lazy").setup({
 
 
   "vim-scripts/bufkill.vim",
-  -- "mhartington/formatter.nvim",
   "jose-elias-alvarez/null-ls.nvim",
   "onsails/lspkind-nvim",
   "paopaol/e-kaput.nvim",
