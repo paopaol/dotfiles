@@ -125,13 +125,10 @@ require 'lspconfig'.rust_analyzer.setup {
 }
 
 
--- require("lspconfig").cmake.setup({ handlers = lsphandlers, root_dir = root(), on_attach = on_attach })
 require("lspconfig").marksman.setup({ handlers = lsphandlers, root_dir = root(), on_attach = on_attach })
 require("lspconfig").taplo.setup({ handlers = lsphandlers, root_dir = root(), on_attach = on_attach })
-require("lspconfig").tsserver.setup({ handlers = lsphandlers, root_dir = root(), on_attach = on_attach })
 require("lspconfig").gopls.setup({ handlers = lsphandlers, root_dir = root(), on_attach = on_attach })
 require 'lspconfig'.bashls.setup { handlers = lsphandlers, root_dir = root(), on_attach = on_attach }
-require 'lspconfig'.jdtls.setup { handlers = lsphandlers, root_dir = root(), on_attach = on_attach }
 
 
 local configs = require("lspconfig.configs")
