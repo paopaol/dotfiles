@@ -1,4 +1,4 @@
-vim.o.guifont = "DejaVu Sans Mono:h15"
+vim.o.guifont = "DejaVu Sans Mono:h11"
 
 vim.o.pumheight = 10
 vim.o.numberwidth = 3

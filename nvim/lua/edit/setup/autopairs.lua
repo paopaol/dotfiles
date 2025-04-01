@@ -1,14 +1,9 @@
 return {
   {
     "windwp/nvim-autopairs",
+    event = "VeryLazy",
     config = function()
-      local remap = vim.api.nvim_set_keymap
       local npairs = require('nvim-autopairs')
-      require('nvim-autopairs').setup({
-        -- enable_check_bracket_line = false,
-        ignored_next_char = "[%w%.%(%)]" -- will ignore alphanumeric and `.` symbol
-
-      })
 
       npairs.setup({
         fast_wrap = {
@@ -19,7 +14,9 @@ return {
           keys = 'qwertyuiopzxcvbnmasdfghjkl',
           check_comma = true,
           hightlight = 'Search'
-        }
+        },
+        ignored_next_char = "[%w%.%(%)]" -- will ignore alphanumeric and `.` symbol
+
       })
 
       _G.MUtils = {}
@@ -40,7 +37,7 @@ return {
           return npairs.autopairs_cr()
         end
       end
-      remap('i', '<CR>', 'v:lua.MUtils.completion_confirm()',
+      vim.api.nvim_set_keymap('i', '<CR>', 'v:lua.MUtils.completion_confirm()',
         { expr = true, noremap = true })
     end
   }

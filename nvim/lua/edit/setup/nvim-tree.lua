@@ -1,6 +1,7 @@
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
+    event = "VeryLazy",
     branch = "v2.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -8,7 +9,6 @@ return {
       "nvim-tree/nvim-web-devicons",
       's1n7ax/nvim-window-picker',
     },
-    lazy = true,
     cmd = "Neotree",
     opts = {
       enable_diagnostics = false,

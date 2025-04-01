@@ -89,7 +89,7 @@ return {
       local jz = require("base.jz")
       local telein = require("telescope.builtin")
       local svn = require("tools.svn")
-      local hexview = require("edit.hex-view")
+      local hexview = require("edit.setup.hex-view")
       local Terminal = require("toggleterm.terminal").Terminal
       local wk = require("which-key")
       wk.setup({
@@ -339,7 +339,7 @@ return {
         { "<A-Up>",          ":MoveBlock(-1)<CR>",                         desc = "",              mode = "v",               silent = true },
 
         { "<A-x>",           ":",                                          desc = "",              mode = { "n", "v" },      silent = false },
-        { "<leader>tv",      require('edit.hex-view').view,                desc = "hexview",       mode = { "v" },           silent = false },
+        { "<leader>tv",      require('edit.setup.hex-view').view,          desc = "hexview",       mode = { "v" },           silent = false },
       })
     end
   },

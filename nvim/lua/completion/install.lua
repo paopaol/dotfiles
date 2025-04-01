@@ -1,11 +1,30 @@
 return {
-  { "hrsh7th/cmp-nvim-lsp",                branch = "main",                        lazy = true },
-  { "hrsh7th/cmp-path",                    branch = "main",                        lazy = false },
-  { "hrsh7th/nvim-cmp",                    branch = "main", },
-  { "hrsh7th/cmp-buffer",                  branch = "main",                        lazy = false },
-  -- { "dcampos/cmp-emmet-vim",               lazy = true },
-  { "saadparwaiz1/cmp_luasnip",            lazy = false },
-  { "hrsh7th/cmp-nvim-lsp-signature-help", lazy = true },
-  { "hrsh7th/cmp-cmdline", },
-  { "paopaol/cmp-doxygen",                 dependencies = { "hrsh7th/nvim-cmp", }, event = "VeryLazy" },
+  { "hrsh7th/cmp-nvim-lsp",                event = "VeryLazy" },
+
+  { "hrsh7th/cmp-path",                    event = "VeryLazy" },
+
+  { "paopaol/cmp-doxygen",                 event = "VeryLazy" },
+
+  { "hrsh7th/cmp-buffer",                  event = "VeryLazy" },
+
+  { "saadparwaiz1/cmp_luasnip",            event = "VeryLazy" },
+
+  { "hrsh7th/cmp-nvim-lsp-signature-help", event = "VeryLazy" },
+
+  { "hrsh7th/cmp-cmdline",                 event = "VeryLazy" },
+
+  {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-path",
+      "paopaol/cmp-doxygen",
+      "hrsh7th/cmp-buffer",
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
+      "hrsh7th/cmp-cmdline",
+    },
+    config = require("completion.setup.cmp").config
+  },
 }

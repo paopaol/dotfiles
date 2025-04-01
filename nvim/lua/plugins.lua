@@ -14,40 +14,53 @@ require("lazy").setup({
   require('debugger.install'),
   require('tools.install'),
 
-  "ton/vim-bufsurf",
+  { "ton/vim-bufsurf" },
+
   { "nvim-neotest/nvim-nio" },
-  "akinsho/toggleterm.nvim",
-  "nvim-lualine/lualine.nvim",
-  "nvim-lua/popup.nvim",
-  "nvim-lua/plenary.nvim",
-  { "nvim-treesitter/nvim-treesitter",             build = ":TSUpdate", event = "VeryLazy" },
+
+  { "akinsho/toggleterm.nvim" },
+
+  { "nvim-lualine/lualine.nvim" },
+
+  { "nvim-lua/popup.nvim" },
+
+  { "nvim-lua/plenary.nvim" },
+
+  { "nvim-treesitter/nvim-treesitter",             build = ":TSUpdate",                    event = "VeryLazy" },
+
   { "nvim-treesitter/nvim-treesitter-textobjects", event = "VeryLazy" },
 
+  { "neovim/nvim-lspconfig",                       event = "VeryLazy" },
 
-  {
-    "neovim/nvim-lspconfig",
-    event = "VeryLazy",
-  },
-  { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" },
+  { "williamboman/mason.nvim" },
+
+  { "williamboman/mason-lspconfig.nvim" },
+
+  { "vim-scripts/bufkill.vim" },
+
+  { "jose-elias-alvarez/null-ls.nvim" },
+
+  { "onsails/lspkind-nvim" },
+
+  { "paopaol/e-kaput.nvim" },
 
 
-  "vim-scripts/bufkill.vim",
-  "jose-elias-alvarez/null-ls.nvim",
-  "onsails/lspkind-nvim",
-  "paopaol/e-kaput.nvim",
+  { "ahmedkhalf/project.nvim",                     branch = "main",                        lazy = true },
 
-
-  { "ahmedkhalf/project.nvim", branch = "main",                    lazy = true },
-  "kazhala/close-buffers.nvim",
+  { "kazhala/close-buffers.nvim" },
 
 
   -- { "lilydjwg/fcitx.vim",       branch = "fcitx5" },
 
-  "tpope/vim-fugitive",
-  { 'sindrets/diffview.nvim',    dependencies = 'nvim-lua/plenary.nvim', lazy = true },
-  "thinca/vim-qfreplace",
-  { 'akinsho/git-conflict.nvim', version = "*",                          config = true },
-  { "j-hui/fidget.nvim",         tag = 'legacy',                         config = true },
+  { "tpope/vim-fugitive" },
+
+  { 'sindrets/diffview.nvim',                      dependencies = 'nvim-lua/plenary.nvim', lazy = true },
+
+  { "thinca/vim-qfreplace" },
+
+  { 'akinsho/git-conflict.nvim',                   version = "*",                          config = true },
+
+  { "j-hui/fidget.nvim",                           tag = 'legacy',                         config = true },
 })
 -- end)
 -- end)

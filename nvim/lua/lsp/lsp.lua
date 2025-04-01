@@ -27,7 +27,6 @@ end
 
 local lsphandlers = {
   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border, height = 15, width = 100 }),
-  -- ["workspace/semanticTokens/refresh"] = nil,
   ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
   ["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -131,7 +130,6 @@ require("lspconfig").gopls.setup({ handlers = lsphandlers, root_dir = root(), on
 require 'lspconfig'.bashls.setup { handlers = lsphandlers, root_dir = root(), on_attach = on_attach }
 
 
-local configs = require("lspconfig.configs")
 local nvim_lsp = require("lspconfig")
 require 'lspconfig'.neocmake.setup {
   cmd = { "neocmakelsp", "--stdio" },

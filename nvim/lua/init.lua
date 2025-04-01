@@ -2,13 +2,10 @@ require('plugins')
 
 require('fix_clipboard')
 require('setup')
-require('colors')
 --
 require('imselect')
 require('lsp.init')
 require('lang.init')
-require('completion.init')
-require('debugger.init')
 require('tools.init')
 require('menu.init')
 require('keymap')

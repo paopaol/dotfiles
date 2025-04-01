@@ -1,9 +1,13 @@
 return {
-  "AndrewRadev/sideways.vim",
-  { "fedepujol/move.nvim",    branch = "main" },
-  { "mg979/vim-visual-multi", lazy = false },
+  { "AndrewRadev/sideways.vim", event = "VeryLazy" },
+
+  { "fedepujol/move.nvim",      event = "VeryLazy" },
+
+  { "mg979/vim-visual-multi",   event = "VeryLazy" },
+
   {
     "pseewald/vim-anyfold",
+    event = "VeryLazy",
     config = function()
       local utils = require('base.utils')
 
@@ -13,9 +17,10 @@ return {
       utils.keymap('v', 'zr', 'zR')
     end
   },
+
   {
     "folke/todo-comments.nvim",
-    branch = "main",
+    event = "VeryLazy",
     config = function()
       require("todo-comments").setup {
         signs = true,
@@ -49,8 +54,10 @@ return {
       }
     end
   },
+
   {
     "jbyuki/venn.nvim",
+    event = "VeryLazy",
     config = function()
       function _G.Toggle_venn()
         local venn_enabled = vim.inspect(vim.b.venn_enabled)
@@ -70,6 +77,7 @@ return {
       end
     end
   },
+
   {
     "numToStr/Comment.nvim",
     event = "VeryLazy",
@@ -98,20 +106,26 @@ return {
       end
     end
   },
+
   {
     "voldikss/vim-translator",
+    event = "VeryLazy",
     config = function()
       vim.g.translator_default_engines = { 'google' }
       vim.g.translator_window_type = 'popup'
     end
   },
+
   {
     "MattesGroeger/vim-bookmarks",
+    event = "VeryLazy",
     config = function()
       vim.g.bookmark_no_default_key_mappings = 1
     end
   },
-  "godlygeek/tabular",
+
+  { "godlygeek/tabular", event = "VeryLazy" },
+
   {
     "chentoast/marks.nvim",
     event = "VeryLazy",
@@ -129,16 +143,10 @@ return {
       }
     end
   },
-  -- {
-  --   "lilydjwg/fcitx.vim",
-  --   branch = "fcitx5",
-  --   config = function()
-  --     vim.g.fcitx5_remote = 'fcitx-remote'
-  --   end
-  -- },
+
   {
     'ojroques/nvim-osc52',
-    branch = "main",
+    event = "VeryLazy",
     config = function()
       if vim.g.neovide == 1 then
         require('osc52').setup { max_length = 0, silent = false, trim = false, tmux_passthrough = true }

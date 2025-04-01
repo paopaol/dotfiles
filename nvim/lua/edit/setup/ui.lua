@@ -1,7 +1,7 @@
 return {
   {
     "akinsho/nvim-bufferline.lua",
-    lazy = true,
+    event = "VeryLazy",
     config = function()
       require "bufferline".setup {
         options = {
@@ -30,6 +30,7 @@ return {
       }
     end
   },
+
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
@@ -83,9 +84,13 @@ return {
       })
     end
   },
-  { "p00f/nvim-ts-rainbow",   lazy = true },
-  "paopaol/messages.nvim",
-  { 'windwp/nvim-ts-autotag', lazy = true },
+
+  { "p00f/nvim-ts-rainbow",   event = "VeryLazy" },
+
+  { "paopaol/messages.nvim",  event = "VeryLazy" },
+
+  { 'windwp/nvim-ts-autotag', event = "VeryLazy" },
+
   {
     'jinh0/eyeliner.nvim',
     event = "VeryLazy",
