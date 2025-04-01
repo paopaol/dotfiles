@@ -55,4 +55,18 @@ function M.open200()
   end
 end
 
+M.make_keymap = function(ft, name, keymap, config)
+  vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup(name, { clear = true }),
+    pattern = ft,
+    callback = function()
+      require("which-key").add(keymap)
+    end,
+  })
+
+  if config then
+    config()
+  end
+end
+
 return M

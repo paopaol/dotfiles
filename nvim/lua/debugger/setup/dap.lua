@@ -4,16 +4,6 @@ local quit_window = function()
   pcall(vim.cmd, [[wincmd c]])
 end
 
-local make_keymap = function(ft, name, keymap)
-  vim.api.nvim_create_autocmd("FileType", {
-    group = vim.api.nvim_create_augroup(name, { clear = true }),
-    pattern = ft,
-    callback = function()
-      local wk = require("which-key")
-      wk.add(keymap)
-    end,
-  })
-end
 
 local opts = function()
   return {
@@ -102,7 +92,7 @@ M.config = function()
   dap.listeners.before.event_exited["dapui_config"] = dapui.close
   dap.listeners.before.disconnect["dapui_config"] = dapui.close
 
-  make_keymap("dap-float", "dap-group", {
+  require("base.utils").make_keymap("dap-float", "dap-group", {
     { "q", quit_window, desc = "quit", buffer = vim.api.nvim_get_current_buf() },
   })
 end
