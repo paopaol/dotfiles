@@ -14,53 +14,47 @@ require("lazy").setup({
   require('debugger.install'),
   require('tools.install'),
 
-  { "ton/vim-bufsurf" },
+  { "ton/vim-bufsurf",                             event = "VeryLazy" },
 
-  { "nvim-neotest/nvim-nio" },
+  { "nvim-neotest/nvim-nio",                       event = "VeryLazy" },
 
-  { "akinsho/toggleterm.nvim" },
+  { "akinsho/toggleterm.nvim",                     event = "VeryLazy" },
 
-  { "nvim-lualine/lualine.nvim" },
+  { "nvim-lualine/lualine.nvim",                   event = "VeryLazy" },
 
-  { "nvim-lua/popup.nvim" },
+  { "nvim-lua/popup.nvim",                         event = "VeryLazy" },
 
-  { "nvim-lua/plenary.nvim" },
+  { "nvim-lua/plenary.nvim",                       event = "VeryLazy" },
 
-  { "nvim-treesitter/nvim-treesitter",             build = ":TSUpdate",                    event = "VeryLazy" },
+  { "nvim-treesitter/nvim-treesitter",             event = "VeryLazy", build = ":TSUpdate" },
 
   { "nvim-treesitter/nvim-treesitter-textobjects", event = "VeryLazy" },
 
   { "neovim/nvim-lspconfig",                       event = "VeryLazy" },
 
-  { "williamboman/mason.nvim" },
+  { "williamboman/mason.nvim",                     event = "VeryLazy" },
 
-  { "williamboman/mason-lspconfig.nvim" },
+  { "williamboman/mason-lspconfig.nvim",           event = "VeryLazy" },
 
-  { "vim-scripts/bufkill.vim" },
+  { "vim-scripts/bufkill.vim",                     event = "VeryLazy" },
 
-  { "jose-elias-alvarez/null-ls.nvim" },
+  { "jose-elias-alvarez/null-ls.nvim",             event = "VeryLazy" },
 
-  { "onsails/lspkind-nvim" },
+  { "onsails/lspkind-nvim",                        event = "VeryLazy" },
 
-  { "paopaol/e-kaput.nvim" },
+  { "paopaol/e-kaput.nvim",                        event = "VeryLazy" },
 
+  { "ahmedkhalf/project.nvim",                     event = "VeryLazy", },
 
-  { "ahmedkhalf/project.nvim",                     branch = "main",                        lazy = true },
+  { "kazhala/close-buffers.nvim",                  event = "VeryLazy" },
 
-  { "kazhala/close-buffers.nvim" },
+  { "tpope/vim-fugitive",                          event = "VeryLazy" },
 
+  { 'sindrets/diffview.nvim',                      event = "VeryLazy", dependencies = 'nvim-lua/plenary.nvim' },
 
-  -- { "lilydjwg/fcitx.vim",       branch = "fcitx5" },
+  { "thinca/vim-qfreplace",                        event = "VeryLazy" },
 
-  { "tpope/vim-fugitive" },
+  { 'akinsho/git-conflict.nvim',                   event = "VeryLazy", version = "*",                         config = true },
 
-  { 'sindrets/diffview.nvim',                      dependencies = 'nvim-lua/plenary.nvim', lazy = true },
-
-  { "thinca/vim-qfreplace" },
-
-  { 'akinsho/git-conflict.nvim',                   version = "*",                          config = true },
-
-  { "j-hui/fidget.nvim",                           tag = 'legacy',                         config = true },
+  { "j-hui/fidget.nvim",                           event = "VeryLazy", tag = 'legacy',                        config = true },
 })
--- end)
--- end)

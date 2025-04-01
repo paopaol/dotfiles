@@ -1,5 +1,19 @@
 return {
-  { 'olimorris/onedarkpro.nvim',           event = "VeryLazy", priority = 1000 },
+  {
+    'olimorris/onedarkpro.nvim',
+    event = "VeryLazy",
+    priority = 1000,
+    config = function()
+      require("onedarkpro").setup({
+        colors = {
+          cursorline = "#9B0000" -- This is optional. The default cursorline color is based on the background
+        },
+        options = {
+          cursorline = false
+        }
+      })
+    end
+  },
 
   { 'Mofiqul/dracula.nvim',                event = "VeryLazy", config = function() require("dracula").setup() end },
 
@@ -7,7 +21,7 @@ return {
 
   { "folke/tokyonight.nvim",               event = "VeryLazy", opts = { style = "moon" }, },
 
-  { "ofirgall/ofirkai.nvim",               event = "VeryLazy", },
+  { "ofirgall/ofirkai.nvim",               event = "VeryLazy", config = true },
 
   { "nyoom-engineering/oxocarbon.nvim",    event = "VeryLazy", },
 
