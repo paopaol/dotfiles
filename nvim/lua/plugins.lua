@@ -52,9 +52,20 @@ require("lazy").setup({
 
   { 'sindrets/diffview.nvim',                      event = "VeryLazy", dependencies = 'nvim-lua/plenary.nvim' },
 
-  { "thinca/vim-qfreplace",                        event = "VeryLazy" },
+  {
+    "thinca/vim-qfreplace",
+    event = "VeryLazy",
+    config = function()
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'qfreplace',
+        callback = function()
+          vim.g.auto_save = 0
+        end,
+      })
+    end
+  },
 
-  { 'akinsho/git-conflict.nvim',                   event = "VeryLazy", version = "*",                         config = true },
+  { 'akinsho/git-conflict.nvim', event = "VeryLazy", version = "*",  config = true },
 
-  { "j-hui/fidget.nvim",                           event = "VeryLazy", tag = 'legacy',                        config = true },
+  { "j-hui/fidget.nvim",         event = "VeryLazy", tag = 'legacy', config = true },
 })

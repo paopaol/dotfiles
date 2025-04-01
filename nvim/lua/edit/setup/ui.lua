@@ -87,7 +87,7 @@ return {
 
   { "p00f/nvim-ts-rainbow",   event = "VeryLazy" },
 
-  { "paopaol/messages.nvim",  event = "VeryLazy" },
+  { "paopaol/messages.nvim",  event = "VeryLazy", config = true },
 
   { 'windwp/nvim-ts-autotag', event = "VeryLazy" },
 

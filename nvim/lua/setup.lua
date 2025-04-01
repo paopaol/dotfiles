@@ -43,7 +43,6 @@ vim.o.completeopt = "menu,menuone,noselect"
 vim.o.backspace = "indent,eol,start"
 vim.o.rnu = true
 vim.o.clipboard = "unnamedplus"
--- vim.o.clipboard = "unnamed"
 vim.o.shortmess = "filnxtToOFcI"
 
 
@@ -60,38 +59,17 @@ vim.cmd([[
 set jumpoptions+=stack
 ]])
 
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'qfreplace',
-  callback = function()
-    vim.g.auto_save = 0
-  end,
-})
-
-
-
-
 vim.cmd([[
 augroup setup_grp
   autocmd!
   let mapleader = "\<space>"
   let maplocalleader = ","
-  " au FocusGained * :checktime
-  syntax on
+  syntax off
   autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif
 augroup END
 ]])
-
-require("messages").setup()
--- require('fix_clipboard').setup()
 
 
 if not vim.g.neovide then
   vim.cmd([[set mouse=]])
 end
-
-
-
-vim.cmd([[
-syntax off
-]])
