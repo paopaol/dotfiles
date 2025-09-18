@@ -111,16 +111,4 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 
-
-# hostip=$(ip addr | grep "eth0" -m2 | awk '{print $2}' | cut -d'/' -f1 | grep -v eth1)
-# export https_proxy="http://${hostip}:4780"
-# export http_proxy="http://${hostip}:4780"
-
-export PATH=$PATH:/opt/cmake-3.20.1-linux-x86_64/bin:/usr/local/go/bin:~/.local/bin:/opt/QtIFW-4.1.1/bin:~/.local/lib/python3.6/site-packages/qt5_applications/Qt/bin
 . /opt/rh/devtoolset-7/enable
-
-export PERL_LOCAL_LIB_ROOT="$PERL_LOCAL_LIB_ROOT:/home/jz/perl5";
-export PERL_MB_OPT="--install_base /home/jz/perl5";
-export PERL_MM_OPT="INSTALL_BASE=/home/jz/perl5";
-export PERL5LIB="/home/jz/perl5/lib/perl5:$PERL5LIB";
-export PATH="/home/jz/perl5/bin:$PATH";

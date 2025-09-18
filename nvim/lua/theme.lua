@@ -1,2 +1,2 @@
 -- vim.cmd([[set background=light]])
-vim.cmd("colorscheme duskfox")
+vim.cmd("colorscheme dracula")
