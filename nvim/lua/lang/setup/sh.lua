@@ -8,8 +8,9 @@ _G.whichkeySh = function()
 end
 
 vim.cmd([[
-augroup py_grp
+augroup sh_grp
   autocmd!
-  autocmd FileType bash,sh  lua whichkeySh()
+  autocmd FileType bash,sh lua whichkeySh()
+  autocmd FileType bash,sh TSEnable highlight
 augroup END
 ]])

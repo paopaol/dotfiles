@@ -43,6 +43,8 @@ vim.o.completeopt = "menu,menuone,noselect"
 vim.o.backspace = "indent,eol,start"
 vim.o.rnu = true
 vim.o.clipboard = "unnamedplus"
+-- vim.g.clipboard = 'tmux'
+-- vim.g.clipboard = "osc52"
 vim.o.shortmess = "filnxtToOFcI"
 
 
@@ -73,3 +75,15 @@ augroup END
 if not vim.g.neovide then
   vim.cmd([[set mouse=]])
 end
+
+vim.g.clipboard = {
+     name = 'OSC 52',
+     copy = {
+       ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+       ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+     },
+     paste = {
+       ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+       ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+     },
+}

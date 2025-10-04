@@ -7,4 +7,5 @@ return {
   require('edit.setup.selection'),
   require('edit.setup.ui'),
   require('edit.setup.move_edit'),
+  -- require('edit.setup.nvim-osc52'),
 }

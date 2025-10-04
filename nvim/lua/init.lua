@@ -4,7 +4,7 @@ require('fix_clipboard')
 require('setup')
 --
 require('imselect')
-require('lsp.init')
+require('code.init')
 require('lang.init')
 require('tools.init')
 require('keymap')

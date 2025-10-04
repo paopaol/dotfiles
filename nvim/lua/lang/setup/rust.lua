@@ -8,7 +8,7 @@ _G.whichkeyRust = function()
 end
 
 vim.cmd([[
-augroup py_grp
+augroup rust_grp
   autocmd!
   autocmd FileType rust  lua whichkeyRust()
 augroup END

@@ -25,3 +25,5 @@ bind p previous-window
 bind n next-window    
 
 set-option -ga terminal-overrides ",*256col*:RGB"
+set -g allow-passthrough on
+set -g set-clipboard on
