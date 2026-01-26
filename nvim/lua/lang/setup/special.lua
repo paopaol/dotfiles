@@ -30,9 +30,6 @@ _G.whichkeySpecial2 = function()
   })
 end
 
-
-
-
 _G.whichkeyFugitive = function()
   wk.add({
     { "<tab>", command("normal ="), desc = "toggle diff", buffer = vim.api.nvim_get_current_buf() },
@@ -48,7 +45,7 @@ end
 vim.cmd([[
 augroup special_grp
   autocmd!
-  autocmd FileType man,fugitive,help,git,checkhealth lua whichkeySpecial1()
+  autocmd FileType man,fugitive,fugitiveblame,help,git,checkhealth lua whichkeySpecial1()
   autocmd FileType git lua whichkeySpecial2()
   autocmd FileType fugitive lua whichkeyFugitive()
   autocmd FileType DiffviewFiles lua whichkeySpecialDiffView()

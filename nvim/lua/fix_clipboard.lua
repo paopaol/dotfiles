@@ -9,7 +9,6 @@ local entries = {
 }
 local active_entry = {}
 
-
 local function add_entry(entry)
   entries[entries.last] = entry
   entries.last = entries.last + 1
@@ -54,7 +53,6 @@ do
     vim.fn.chanclose(chan, "stdin")
   end
 
-
   sync_to = function()
     if cur_sync_job then
       return
@@ -67,7 +65,6 @@ do
     end
   end
 end
-
 
 function M.copy(lines, regtype)
   add_entry({ lines = lines, regtype = regtype })

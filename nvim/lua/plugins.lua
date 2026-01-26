@@ -32,7 +32,20 @@ require("lazy").setup({
 
   { "nvim-lua/plenary.nvim", event = "VeryLazy" },
 
-  { "nvim-treesitter/nvim-treesitter", event = "VeryLazy", build = ":TSUpdate" },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = "VeryLazy",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "c", "cpp", "lua", "vim", "vimdoc", "go", "bash", "json" },
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+      })
+    end,
+  },
 
   {
     "HiPhish/rainbow-delimiters.nvim",
@@ -53,6 +66,10 @@ require("lazy").setup({
             keymaps = {
               ["af"] = "@function.outer",
               ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+              ["aa"] = "@parameter.outer",
+              ["ia"] = "@parameter.inner",
             },
           },
         },

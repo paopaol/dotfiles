@@ -111,4 +111,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 
-. /opt/rh/devtoolset-7/enable
+# . /opt/rh/devtoolset-7/enable
+alias gf='gf' 
+
+
+alias gf=gf

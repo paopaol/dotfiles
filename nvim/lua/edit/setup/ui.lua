@@ -35,18 +35,15 @@ return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     config = function()
-      local utils = require("base.utils")
-
       local function project_name()
-        -- return vim.fn.fnamemodify(utils.rootdir(), ':t')
         return ""
       end
 
       require("lualine").setup({
         options = {
           icons_enabled = true,
-          theme = "auto",
-          section_separators = { left = "", right = "" },
+          -- theme = "auto",
+          -- section_separators = { left = "", right = "" },
           component_separators = { left = "/", right = "/" },
           disabled_filetypes = {
             statusline = {},

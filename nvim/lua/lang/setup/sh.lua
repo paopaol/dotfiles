@@ -11,6 +11,5 @@ vim.cmd([[
 augroup sh_grp
   autocmd!
   autocmd FileType bash,sh lua whichkeySh()
-  autocmd FileType bash,sh TSEnable highlight
 augroup END
 ]])
