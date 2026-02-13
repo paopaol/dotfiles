@@ -1,2 +1,2 @@
--- vim.cmd([[set background=light]])
-vim.cmd("colorscheme monokai-nightasty")
+vim.cmd([[set background=dark]])
+vim.cmd("colorscheme dark_flat")

@@ -9,16 +9,16 @@ end
 _G.lsp_format_region = function()
   local r = vim.lsp.util.make_given_range_params()
   local line1 = r.range.start.line + 1
-  local line2 = r.range['end'].line + 1
-  vim.lsp.buf.format { range = { start = { line1, 0 }, ["end"] = { line2, 0 } } }
+  local line2 = r.range["end"].line + 1
+  vim.lsp.buf.format({ range = { start = { line1, 0 }, ["end"] = { line2, 0 } } })
 end
 vim.api.nvim_create_user_command("LspFormatRegion", lsp_format_region, { range = 2 })
-
-
 
 unsilent_keymap("i", "<C-x><C-s>", "<c-\\><c-o>:w<cr>")
 unsilent_keymap("n", "<C-x><C-s>", ":w<cr>")
 
+--- for blink.cmp snippets
+vim.keymap.set("s", "<bs>", "<C-g>c", { desc = "delete selection in insert mode" })
 
 -- remap << >>
 keymap("x", ">", ">gv")

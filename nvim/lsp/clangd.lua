@@ -1,11 +1,11 @@
-vim.lsp.config('clangd' ,{
+vim.lsp.config("clangd", {
   cmd = {
     "clangd",
     "-j",
     "1",
-    "--background-index",
+    "--background-index=false",
     "--background-index-priority=low",
-    "--pch-storage=disk",
+    "--pch-storage=memory",
     "--log=error",
     "--clang-tidy",
     "--header-insertion=never",
@@ -13,8 +13,8 @@ vim.lsp.config('clangd' ,{
     "--completion-style=detailed",
     "--limit-results=20",
   },
-  root_markers = {"compile_commands.json", "compile_flags.txt", ".git", ".projectile"},
+  root_markers = { "compile_commands.json", "compile_flags.txt", ".git", ".projectile" },
   on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  end
+  end,
 })

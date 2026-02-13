@@ -1,30 +1,38 @@
 return {
-  { "hrsh7th/cmp-nvim-lsp",                event = "VeryLazy" },
-
-  { "hrsh7th/cmp-path",                    event = "VeryLazy" },
-
-  { "paopaol/cmp-doxygen",                 event = "VeryLazy" },
-
-  { "hrsh7th/cmp-buffer",                  event = "VeryLazy" },
-
-  { "saadparwaiz1/cmp_luasnip",            event = "VeryLazy" },
-
-  { "hrsh7th/cmp-nvim-lsp-signature-help", event = "VeryLazy" },
-
-  { "hrsh7th/cmp-cmdline",                 event = "VeryLazy" },
-
   {
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-path",
-      "paopaol/cmp-doxygen",
-      "hrsh7th/cmp-buffer",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-      "hrsh7th/cmp-cmdline",
+    "saghen/blink.cmp",
+    version = "1.*",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    opts = {
+      keymap = require("completion.setup.blink-cmp").keymap,
+      appearance = { nerd_font_variant = "mono" },
+      completion = {
+        documentation = { auto_show = true },
+        list = {
+          max_items = 15,
+        },
+      },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+        providers = {
+          path = {
+            name = "Path",
+            module = "blink.cmp.sources.path",
+            score_offset = 3,
+            opts = {
+              get_cwd = function(context)
+                return vim.fn.expand("#" .. context.bufnr .. ":p:h")
+              end,
+              show_hidden_files_by_default = true,
+            },
+          },
+        },
+      },
+      fuzzy = { implementation = "prefer_rust_with_warning" },
+      cmdline = {
+        completion = { menu = { auto_show = true } },
+      },
     },
-    config = require("completion.setup.cmp").config
+    opts_extend = { "sources.default" },
   },
 }

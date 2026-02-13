@@ -77,11 +77,29 @@ require("lazy").setup({
     end,
   },
 
-  { "neovim/nvim-lspconfig", event = "VeryLazy" },
+  {
+    "neovim/nvim-lspconfig",
+    -- event = "VeryLazy",
+    dependencies = { "saghen/blink.cmp" },
+  },
 
   { "williamboman/mason.nvim", event = "VeryLazy" },
 
-  { "williamboman/mason-lspconfig.nvim", event = "VeryLazy" },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    event = "VeryLazy",
+    config = function()
+      local lspconfig = require("lspconfig")
+
+      require("mason-lspconfig").setup({
+        function(server_name)
+          lspconfig[server_name].setup({
+            capabilities = require("blink.cmp").get_lsp_capabilities(),
+          })
+        end,
+      })
+    end,
+  },
 
   { "vim-scripts/bufkill.vim", event = "VeryLazy" },
 
