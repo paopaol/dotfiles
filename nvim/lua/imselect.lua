@@ -1,4 +1,4 @@
-function _G.im_select()
+local function im_select()
   if vim.fn.has("win32") == 1 then
     vim.fn.system("im-select 1033")
   elseif vim.fn.has("wsl") == 1 then
@@ -6,12 +6,11 @@ function _G.im_select()
   end
 end
 
-vim.cmd([[
-]])
-
-vim.cmd([[
-augroup im_grp
-  autocmd!
-  " autocmd InsertLeave * lua im_select()
-augroup END
-]])
+vim.api.nvim_create_autocmd("InsertLeave", {
+  group = vim.api.nvim_create_augroup("im_grp", { clear = true }),
+  callback = function()
+    if vim.bo.filetype == "lua" then
+      im_select()
+    end
+  end,
+})

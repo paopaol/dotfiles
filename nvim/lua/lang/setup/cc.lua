@@ -1,4 +1,3 @@
-local wk = require("which-key")
 local utils = require("base.utils")
 
 local function command(cmd)
@@ -62,11 +61,13 @@ require("base.utils").make_keymap({ "cpp", "c", "cmake" }, "cc-group", {
   { "<localleader>g", command("TSCppDefineClassFunc"), desc = "define class func" },
 })
 
-vim.cmd([[
-augroup filetype_cpp
-autocmd!
-autocmd FileType cpp,c set tabstop=4  shiftwidth=4  softtabstop=4 expandtab
-autocmd FileType cpp,c highlight @lsp.type.number  ctermfg=blue ctermbg=yellow guifg=#0000FF guibg=#FFFF00
-autocmd FileType cpp,c highlight @lsp.type.keyword ctermfg=blue ctermbg=yellow guifg=#0000FF guibg=#FFFF00
-augroup END
-]])
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("filetype_cpp", { clear = true }),
+  pattern = { "cpp", "c" },
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.softtabstop = 4
+    vim.opt_local.expandtab = true
+  end,
+})

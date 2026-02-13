@@ -1,6 +1,5 @@
 local M = {}
 
-
 M.config = function()
   local actions = require("telescope.actions")
 
@@ -73,7 +72,7 @@ M.config = function()
         prompt_path = true,
         mappings = {
           ["i"] = {
-            ["<C-w>"] = require("telescope").extensions.file_browser.actions.goto_parent_dir
+            ["<C-w>"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
           },
         },
       },
@@ -84,8 +83,7 @@ M.config = function()
   require("telescope").load_extension("ui-select")
   require("telescope").load_extension("vim_bookmarks")
   require("telescope").load_extension("git_diffs")
-  require("telescope").load_extension "file_browser"
+  require("telescope").load_extension("file_browser")
 end
-
 
 return M
