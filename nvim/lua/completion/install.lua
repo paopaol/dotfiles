@@ -30,7 +30,11 @@ return {
       },
       fuzzy = { implementation = "prefer_rust_with_warning" },
       cmdline = {
-        keymap = { preset = "inherit" },
+        keymap = {
+          ["<Tab>"] = { "accept" },
+          ["<CR>"] = { "accept_and_enter", "fallback" },
+        },
+
         completion = { menu = { auto_show = true } },
       },
     },
