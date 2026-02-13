@@ -3,8 +3,6 @@ return {
 
   { "Badhi/nvim-treesitter-cpp-tools", ft = { "c", "cpp" } },
 
-  { "p00f/clangd_extensions.nvim", ft = { "c", "cpp" } },
-
   { "plasticboy/vim-markdown", ft = "markdown" },
 
   { "jakewvincent/mkdnflow.nvim", ft = "markdown", rocks = "luautf8" },
