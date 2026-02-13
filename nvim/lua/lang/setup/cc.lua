@@ -1,14 +1,6 @@
 local wk = require("which-key")
 local utils = require("base.utils")
 
--- require("cmake-tools").setup {
---   cmake_command = "cmake",
---   cmake_regenerate_on_save = nil,
---   cmake_build_directory = "build",
---   cmake_build_type = "Debug",
---   cmake_generate_options = { "-D", "CMAKE_EXPORT_COMPILE_COMMANDS=1" },
--- }
-
 local function command(cmd)
   return function()
     vim.cmd(cmd)
@@ -67,9 +59,6 @@ require("base.utils").make_keymap({ "cpp", "c", "cmake" }, "cc-group", {
     buffer = vim.api.nvim_get_current_buf(),
   },
   { "<localleader>,", utils.format_buffer, desc = "formatting" },
-  { "<localleader>o", command("ClangdSwitchSourceHeader"), desc = "switch cc/h" },
-  { "<localleader>y", command("CopyCppMethod"), desc = "copy cpp method" },
-  { "<localleader>p", command("PasteCppMethod"), desc = "paste cpp method" },
   { "<localleader>g", command("TSCppDefineClassFunc"), desc = "define class func" },
 })
 

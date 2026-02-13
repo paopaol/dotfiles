@@ -21,11 +21,7 @@ return {
 
   { "folke/lua-dev.nvim", ft = "lua", branch = "main" },
 
-  { "Civitasv/cmake-tools.nvim", ft = "cmake" },
-
   { "rafamadriz/friendly-snippets", branch = "main" },
-
-  -- { "L3MON4D3/LuaSnip",                event = "VeryLazy" },
 
   { "chiel92/vim-autoformat", event = "VeryLazy" },
 }
