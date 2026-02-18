@@ -58,6 +58,7 @@ require("base.utils").make_keymap({ "cpp", "c", "cmake" }, "cc-group", {
     buffer = vim.api.nvim_get_current_buf(),
   },
   { "<localleader>,", utils.format_buffer, desc = "formatting" },
+  { "<localleader>o", command("ClangdSwitchSourceHeader"), desc = "switch cc/h" },
   { "<localleader>g", command("TSCppDefineClassFunc"), desc = "define class func" },
 })
 
