@@ -29,14 +29,7 @@ return {
         },
       },
       fuzzy = { implementation = "prefer_rust_with_warning" },
-      cmdline = {
-        keymap = {
-          ["<Tab>"] = { "accept" },
-          ["<CR>"] = { "accept_and_enter", "fallback" },
-        },
-
-        completion = { menu = { auto_show = true } },
-      },
+      cmdline = require("completion.setup.blink-cmp").cmdline,
     },
     opts_extend = { "sources.default" },
   },

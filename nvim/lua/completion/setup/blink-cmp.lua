@@ -3,9 +3,9 @@ local M = {
     preset = "default",
 
     ["<C-k>"] = { "select_prev", "fallback" },
-    ["<Up>"] = { "select_prev", "fallback" },
-
     ["<C-j>"] = { "select_next", "fallback" },
+
+    ["<Up>"] = { "select_prev", "fallback" },
     ["<Down>"] = { "select_next", "fallback" },
 
     ["<CR>"] = {
@@ -35,7 +35,17 @@ local M = {
     },
   },
   cmdline = {
-    keymap = { preset = "inherit" },
+    keymap = {
+
+      ["<C-k>"] = { "select_prev" },
+      ["<C-j>"] = { "select_next" },
+
+      ["<Up>"] = { "select_prev", "fallback" },
+      ["<Down>"] = { "select_next", "fallback" },
+
+      ["<Tab>"] = { "accept" },
+      ["<CR>"] = { "accept_and_enter", "fallback" },
+    },
     completion = { menu = { auto_show = true } },
   },
 }
