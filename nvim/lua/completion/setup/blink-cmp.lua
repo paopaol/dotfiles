@@ -8,6 +8,9 @@ local M = {
     ["<Up>"] = { "select_prev", "fallback" },
     ["<Down>"] = { "select_next", "fallback" },
 
+    ["<C-n>"] = { "fallback" },
+    ["<C-p>"] = { "fallback" },
+
     ["<CR>"] = {
       function(cmp)
         if cmp.is_visible() then

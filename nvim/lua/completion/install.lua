@@ -14,19 +14,6 @@ return {
       },
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
-        providers = {
-          path = {
-            name = "Path",
-            module = "blink.cmp.sources.path",
-            score_offset = 3,
-            opts = {
-              get_cwd = function(context)
-                return vim.fn.expand("#" .. context.bufnr .. ":p:h")
-              end,
-              show_hidden_files_by_default = true,
-            },
-          },
-        },
       },
       fuzzy = { implementation = "prefer_rust_with_warning" },
       cmdline = require("completion.setup.blink-cmp").cmdline,
