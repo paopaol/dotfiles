@@ -14,7 +14,7 @@ local M = {
     ["<CR>"] = {
       function(cmp)
         if cmp.is_visible() then
-          return cmp.accept()
+          return cmp.select_and_accept()
         end
       end,
       "fallback",
@@ -46,7 +46,8 @@ local M = {
       ["<Up>"] = { "select_prev", "fallback" },
       ["<Down>"] = { "select_next", "fallback" },
 
-      ["<Tab>"] = { "accept" },
+      ["<Tab>"] = { "select_next" },
+      ["<S-Tab>"] = { "select_prev" },
       ["<CR>"] = { "accept_and_enter", "fallback" },
     },
     completion = { menu = { auto_show = true } },

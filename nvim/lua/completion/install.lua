@@ -10,6 +10,10 @@ return {
         documentation = { auto_show = true },
         list = {
           max_items = 15,
+          selection = {
+            preselect = true,
+            auto_insert = false,
+          },
         },
       },
       sources = {
