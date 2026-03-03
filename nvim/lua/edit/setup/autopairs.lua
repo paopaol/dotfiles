@@ -14,6 +14,7 @@ return {
           keys = "qwertyuiopzxcvbnmasdfghjkl",
           check_comma = true,
           hightlight = "Search",
+          map_cr = false,
         },
         ignored_next_char = "[%w%.%(%)]",
       })
