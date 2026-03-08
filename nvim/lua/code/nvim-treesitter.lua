@@ -4,12 +4,11 @@ require("nvim-ts-autotag").setup({
   autotag = { enable = true },
   highlight = {
     enable = true,
-    disable = { "c", "cpp" },
     additional_vim_regex_highlighting = false,
-    disable = function(_, buf)
-      local max_filesize = 15 * 1024 -- 100 KB
-      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-      if ok and stats and stats.size > max_filesize then
+    disable = function(lang, buf)
+      local max_lines = 2000
+      local ok, lines = pcall(vim.api.nvim_buf_line_count, buf)
+      if ok and lines and lines > max_lines then
         return true
       end
     end,
