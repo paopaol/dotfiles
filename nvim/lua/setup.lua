@@ -41,10 +41,9 @@ vim.o.autochdir      = true
 vim.o.smartindent    = true
 vim.o.completeopt    = "menu,menuone,noselect"
 vim.o.backspace      = "indent,eol,start"
-vim.o.rnu            = true
-vim.o.clipboard      = "unnamedplus"
 -- vim.g.clipboard = 'tmux'
 -- vim.g.clipboard = "osc52"
+vim.o.clipboard      = "unnamedplus"
 vim.o.shortmess      = "filnxtToOFcI"
 
 

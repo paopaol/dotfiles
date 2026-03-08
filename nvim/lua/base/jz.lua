@@ -119,7 +119,6 @@ function M.jumpright()
   vim.fn.setpos(".", current)
 end
 
-
 function M.delete_other_buffers()
   vim.cmd([[BDelete other]])
   vim.cmd([[redraw]])
