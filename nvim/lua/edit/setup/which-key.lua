@@ -88,7 +88,6 @@ return {
 			local bufferline = require("bufferline")
 			local jz = require("base.jz")
 			local telein = require("telescope.builtin")
-			local svn = require("tools.svn")
 			local Terminal = require("toggleterm.terminal").Terminal
 			local wk = require("which-key")
 			wk.setup({
@@ -251,17 +250,6 @@ return {
 				{ "<leader>rr", task_run,                desc = "run", },
 				{ "<leader>rs", command("AsyncStop"),    desc = "async stop" },
 				{ "<leader>re", command("AsyncTask -e"), desc = "async tas edit" },
-			})
-
-			wk.add({
-				{ "<leader>d",  group = "svn" },
-				{ "<leader>dd", svn.svn_diff_current_buf, desc = "svn diff current" },
-				{ "<leader>dl", svn.svn_log_current_buf,  desc = "svn log current" },
-				{ "<leader>dL", svn.svn_log_project,      desc = "svn log project" },
-				{ "<leader>db", svn.svn_blame,            desc = "svn blame current" },
-				{ "<leader>du", svn.svn_update,           desc = "svn update" },
-				{ "<leader>dc", svn.svn_commit,           desc = "svn commit" },
-				{ "<leader>da", svn.svn_add_current_file, desc = "svn add current file" },
 			})
 
 			wk.add({
