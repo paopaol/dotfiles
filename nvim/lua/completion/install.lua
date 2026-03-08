@@ -15,6 +15,9 @@ return {
             auto_insert = false,
           },
         },
+        menu = {
+          auto_show = true,
+        },
       },
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },

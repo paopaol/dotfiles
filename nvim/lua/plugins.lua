@@ -44,23 +44,6 @@ require("lazy").setup({
 					disable = { "c", "cpp" },
 					additional_vim_regex_highlighting = false,
 				},
-			})
-		end,
-	},
-
-	{
-		"HiPhish/rainbow-delimiters.nvim",
-		after = "nvim-treesitter",
-		requires = "nvim-treesitter/nvim-treesitter",
-	},
-
-	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		after = "nvim-treesitter",
-		requires = "nvim-treesitter/nvim-treesitter",
-
-		config = function()
-			require("nvim-treesitter.configs").setup({
 				textobjects = {
 					select = {
 						enable = true,
@@ -76,6 +59,18 @@ require("lazy").setup({
 				},
 			})
 		end,
+	},
+
+	{
+		"HiPhish/rainbow-delimiters.nvim",
+		after = "nvim-treesitter",
+		requires = "nvim-treesitter/nvim-treesitter",
+	},
+
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		after = "nvim-treesitter",
+		requires = "nvim-treesitter/nvim-treesitter",
 	},
 
 	{
