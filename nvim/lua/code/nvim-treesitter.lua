@@ -1,4 +1,4 @@
-require("nvim-ts-autotag").setup({
+require("nvim-treesitter.configs").setup({
   ensure_installed = { "c", "cpp", "json", "html", "lua", "vim", "vimdoc", "query", "bash" },
   indent = { enable = false },
   autotag = { enable = true },
