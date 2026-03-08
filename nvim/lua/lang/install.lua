@@ -21,7 +21,5 @@ return {
 
   { "rafamadriz/friendly-snippets", branch = "main" },
 
-  { "chiel92/vim-autoformat", event = "VeryLazy" },
-
   { "p00f/clangd_extensions.nvim", ft = { "c", "cpp" } },
 }
