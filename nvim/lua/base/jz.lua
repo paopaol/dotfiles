@@ -1,3 +1,4 @@
+local utils = require("base.utils")
 local M = {}
 
 M.SubProjectFiles = function()
@@ -27,7 +28,7 @@ local filter_buffers = function(opts, unfiltered)
     if opts.no_term_buffers and utils.is_term_buffer(b) then
       excluded[b] = true
     end
-    if opts.cwd_only and not path.is_relative(vim.api.nvim_buf_get_name(b), vim.loop.cwd()) then
+    if opts.cwd_only and not vim.fn.isrelative(vim.api.nvim_buf_get_name(b), vim.loop.cwd()) then
       excluded[b] = true
     end
     return not excluded[b]

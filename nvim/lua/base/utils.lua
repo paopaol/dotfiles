@@ -5,6 +5,12 @@ function M.is_buffer_empty()
 	return vim.fn.empty(vim.fn.expand("%:t")) == 1
 end
 
+function M.is_term_buffer(bufnr)
+	-- Check if the buffer is a terminal buffer
+	local buftype = vim.api.nvim_get_option_value('buftype', { buf = bufnr })
+	return buftype == 'terminal'
+end
+
 function M.has_width_gt(cols)
 	-- Check if the windows width is greater than a given number of columns
 	return vim.fn.winwidth(0) / 2 > cols
