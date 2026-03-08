@@ -1,5 +1,4 @@
 require('code.lsp')
--- require('lsp.accelerated')
 require('code.lspkind')
 require('code.nvim-treesitter')
 require('code.project')

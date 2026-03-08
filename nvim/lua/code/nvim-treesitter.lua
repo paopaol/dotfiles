@@ -1,9 +1,10 @@
-require('nvim-ts-autotag').setup {
-  ensure_installed = { "c", "cpp", "json", "html", "lua", "vim", "vimdoc", "query" },
+require("nvim-ts-autotag").setup({
+  ensure_installed = { "c", "cpp", "json", "html", "lua", "vim", "vimdoc", "query", "bash" },
   indent = { enable = false },
   autotag = { enable = true },
   highlight = {
     enable = true,
+    disable = { "c", "cpp" },
     additional_vim_regex_highlighting = false,
     disable = function(_, buf)
       local max_filesize = 15 * 1024 -- 100 KB
@@ -27,7 +28,7 @@ require('nvim-ts-autotag').setup {
         ["ic"] = "@class.inner",
         ["aa"] = "@parameter.outer",
         ["ia"] = "@parameter.inner",
-      }
+      },
     },
     move = {
       enable = true,
@@ -36,26 +37,25 @@ require('nvim-ts-autotag').setup {
       goto_next_end = { ["]M"] = "@function.outer", ["]["] = "@class.outer" },
       goto_previous_start = {
         ["[["] = "@function.outer",
-        ["[c"] = "@class.outer"
+        ["[c"] = "@class.outer",
       },
-      goto_previous_end = { ["[M"] = "@function.outer", ["[]"] = "@class.outer" }
-    }
-  }
-}
-require 'nt-cpp-tools'.setup({
-  preview = {
-    quit = 'q',             -- optional keymapping for quit preview
-    accept = '<tab>'        -- optional keymapping for accept preview
+      goto_previous_end = { ["[M"] = "@function.outer", ["[]"] = "@class.outer" },
+    },
   },
-  header_extension = 'h',   -- optional
-  source_extension = 'cxx', -- optional
+})
+require("nt-cpp-tools").setup({
+  preview = {
+    quit = "q", -- optional keymapping for quit preview
+    accept = "<tab>", -- optional keymapping for accept preview
+  },
+  header_extension = "h", -- optional
+  source_extension = "cxx", -- optional
   custom_define_class_function_commands = {
     TSCppImplWrite = {
-      output_handle = require 'nt-cpp-tools.output_handlers'.get_add_to_cpp()
-    }
-  }
+      output_handle = require("nt-cpp-tools.output_handlers").get_add_to_cpp(),
+    },
+  },
 })
-
 
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 parser_configs.norg = {
