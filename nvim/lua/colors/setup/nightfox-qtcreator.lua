@@ -84,10 +84,10 @@ colors.specs = {
 			todo        = colors.palettes.classic.orange, -- TODO
 		},
 		git = {
-			add      = "#DFFFDF", -- 添加行
+			add      = "#2D7D46", -- 添加行
 			change   = "#ff8000", -- 修改行
-			delete   = "#FEE4E4", -- 删除行
-			conflict = "#FEE4E4", -- 冲突
+			delete   = "#C53030", -- 删除行
+			conflict = "#9B2C2C", -- 冲突
 		},
 		diff = {
 			add       = "#DFFFDF", -- 添加
@@ -237,7 +237,7 @@ colors.groups = {
 		LspDiagnosticsDefaultInformation                                 = { fg = colors.specs.all.diagnostic.info },
 		LspDiagnosticsDefaultHint                                        = { fg = colors.specs.all.diagnostic.hint },
 
-    ["Type"]                              = { link = "@type" },
+		["Type"]                                                         = { link = "@type" },
 		["Structure"]                                                    = { link = "@type" },
 		["@lsp"]                                                         = { fg = colors.palettes.classic.dark_blue },
 		["@module"]                                                      = { link = "@type" }, -- 兜底 treesitter 映射
@@ -250,17 +250,17 @@ colors.groups = {
 		["@lsp.mod.readonly.cpp"]                                        = { link = "@constant" }, -- 常量
 		["@lsp.mod.reference.cpp"]                                       = { link = "@variable" }, -- 引用
 		["@lsp.mod.defaultLibrary.cpp"]                                  = { link = "@function.builtin" }, -- 标准库函数
-    ["@lsp.mod.fileScope.cpp"]            = { fg = colors.specs.all.syntax.type },
+		["@lsp.mod.fileScope.cpp"]                                       = { fg = colors.specs.all.syntax.type },
 		["@lsp.type.property.cpp"]                                       = { link = "@property" },
 		["@lsp.type.variable.cpp"]                                       = { link = "@variable" },
 		["@lsp.type.enumMember.cpp"]                                     = { link = "@constant" },
 		["@lsp.type.macro.cpp"]                                          = { link = "@function.macro" },
-		["@lsp.type.namespace.cpp"]                                      = { link = "@type" },       -- 对应 dark_magenta
+		["@lsp.type.namespace.cpp"]                                      = { link = "@type" }, -- 对应 dark_magenta
 		["@lsp.type.class.cpp"]                                          = { link = "@type" },
 		["@lsp.type.struct.cpp"]                                         = { link = "@type" },
 		["@lsp.type.method.cpp"]                                         = { link = "@function" }, -- 黑色 (fg1)
-    ["@lsp.type.enum.cpp"]                = { link = "@type" },
-		["@lsp.type.type.cpp"]                = { link = "@type" },
+		["@lsp.type.enum.cpp"]                                           = { link = "@type" },
+		["@lsp.type.type.cpp"]                                           = { link = "@type" },
 		["@lsp.typemod.function.classScope.cpp"]                         = { link = "@function" },
 		["@lsp.typemod.property.classScope.cpp"]                         = { fg = colors.specs.all.syntax.field }, -- 对应 Qt Creator 的字段/成员颜色
 		["@lsp.typemod.method.classScope.cpp"]                           = { link = "@function" },
@@ -272,21 +272,21 @@ colors.groups = {
 		["@lsp.typemod.namespace.declaration.cpp"]                       = { link = "@type" },
 		["@lsp.typemod.namespace.globalScope.cpp"]                       = { link = "@type" },
 		["@lsp.typemod.namespace"]                                       = { link = "@type" },
-    ["@lsp.typemod.type.fileScope.cpp"]   = { link = "@type" },
-    ["@lsp.typemod.property.usedAsMutablePointer.cpp"] = { link = "@property" },
-    ["@lsp.typemod.property.classScope.usedAsMutablePointer.cpp"] = { link = "@property" },
-    ["@lsp.typemod.property.readonly.cpp"]     = { link = "@property" },
-    ["@lsp.typemod.type.declaration.cpp"] = { link = "@type" },
-    ["@lsp.typemod.type.globalScope.cpp"] = { link = "@type" },
+		["@lsp.typemod.type.fileScope.cpp"]                              = { link = "@type" },
+		["@lsp.typemod.property.usedAsMutablePointer.cpp"]               = { link = "@property" },
+		["@lsp.typemod.property.classScope.usedAsMutablePointer.cpp"]    = { link = "@property" },
+		["@lsp.typemod.property.readonly.cpp"]                           = { link = "@property" },
+		["@lsp.typemod.type.declaration.cpp"]                            = { link = "@type" },
+		["@lsp.typemod.type.globalScope.cpp"]                            = { link = "@type" },
 		["@lsp.typemod.class.globalScope.cpp"]                           = { link = "@type" },
 		["@lsp.typemod.struct.globalScope.cpp"]                          = { link = "@type" },
 		["@lsp.typemod.class.declaration.cpp"]                           = { link = "@type" },
 		["@lsp.typemod.struct.declaration.cpp"]                          = { link = "@type" },
 		["@lsp.typemod.method.defaultLibrary.cpp"]                       = { link = "@function.builtin" },
 		["@lsp.typemod.method.static.cpp"]                               = { fg = colors.palettes.classic.dark_magenta, style = "italic" },
-    ["@lsp.typemod.enum.declaration.cpp"] = { link = "@type" },
-    ["@lsp.typemod.enum.globalScope.cpp"]  = { link = "@type" },
-    ["@lsp.typemod.enumMember.globalScope.cpp"] = { fg = colors.palettes.classic.dark_blue },
+		["@lsp.typemod.enum.declaration.cpp"]                            = { link = "@type" },
+		["@lsp.typemod.enum.globalScope.cpp"]                            = { link = "@type" },
+		["@lsp.typemod.enumMember.globalScope.cpp"]                      = { fg = colors.palettes.classic.dark_blue },
 
 		-- Treesitter 映射 (核心：将 TS 组链接到你定义好的规格上)
 		["@variable"]                                                    = { fg = colors.specs.all.syntax.variable },
