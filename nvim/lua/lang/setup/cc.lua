@@ -51,12 +51,7 @@ local start_debug = function()
 end
 
 require("base.utils").make_keymap({ "cpp", "c", "cmake" }, "cc-group", {
-  {
-    "<f5>",
-    start_debug,
-    desc = "debug",
-    buffer = vim.api.nvim_get_current_buf(),
-  },
+  { "<localleader>d", start_debug, desc = "start debug (launch.json)" },
   { "<localleader>,", utils.format_buffer, desc = "formatting" },
   { "<localleader>o", command("ClangdSwitchSourceHeader"), desc = "switch cc/h" },
   { "<localleader>g", command("TSCppDefineClassFunc"), desc = "define class func" },
