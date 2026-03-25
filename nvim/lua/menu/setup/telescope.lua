@@ -64,6 +64,24 @@ M.config = function()
           i = { ["<c-f>"] = actions.to_fuzzy_refine },
         },
       },
+      find_files = {
+        find_command = {
+          "fd",
+          "--type",
+          "f", -- 只找文件
+          "--strip-cwd-prefix", -- 移除路径前缀（美化显示）
+          "--exclude",
+          ".git", -- 排除 .git 目录
+          "--exclude",
+          "*.o", -- 排除编译后的对象文件
+          "--exclude",
+          "*.so*", -- 排除编译后的对象文件
+          "--exclude",
+          "*.o.d", -- 排除编译后的对象文件
+          "--ignore-file",
+          ".gitignore", -- 强制遵循 .gitignore（默认通常已开启）
+        },
+      },
     },
     extensions = {
       file_browser = {
@@ -75,6 +93,12 @@ M.config = function()
             ["<C-w>"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
           },
         },
+      },
+      fzf = {
+        fuzzy = false, -- 开启模糊匹配
+        override_generic_sorter = true, -- 覆盖通用排序器
+        override_file_sorter = true, -- 覆盖文件排序器
+        case_mode = "smart_case", -- 区分大小写策略
       },
     },
   })
