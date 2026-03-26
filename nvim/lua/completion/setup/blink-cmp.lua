@@ -67,7 +67,7 @@ local M = {
       ["<Up>"] = { "select_prev", "fallback" },
       ["<Down>"] = { "select_next", "fallback" },
 
-      ["<Tab>"] = { "select_next" },
+      ["<Tab>"] = { "show_and_insert", "select_next", "fallback" },
       ["<S-Tab>"] = { "select_prev" },
       ["<CR>"] = { "accept_and_enter", "fallback" },
     },
