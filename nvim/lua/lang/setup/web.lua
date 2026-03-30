@@ -1,4 +1,3 @@
-local wk = require("which-key")
 local utils = require("base.utils")
 
 local function command(cmd)
@@ -7,29 +6,16 @@ local function command(cmd)
   end
 end
 
-_G.whichkeyrXml = function()
-  vim.cmd("set shiftwidth=1")
+require("base.utils").make_keymap({ "xml", "html" }, "xml-group", {
+  { "<tab>", command("normal! za"), desc = "expand" },
+})
 
-  wk.add({
-    { "<localleader>,", command("Autoformat"), desc = "formatting" },
-    { "<tab>",          command("normal! za"), desc = "expand",    buffer = vim.api.nvim_get_current_buf() },
-  })
-end
-
-_G.whichkeyrPrettier = function()
-  wk.add({
+require("base.utils").make_keymap(
+  { "xml", "html", "json", "css", "javascript", "yaml", "vue", "typescript", "toml" },
+  "web-group",
+  {
     { "<localleader>,", utils.format_buffer, desc = "formatting" },
-  })
-end
+  }
+)
 
-
-vim.cmd([[
-augroup web_grp
-  autocmd!
-  autocmd FileType xml,html  lua whichkeyrXml()
-  autocmd FileType json,css,html,javascript,yaml,vue,typescript,toml lua whichkeyrPrettier()
-	autocmd FileType xml set tabstop=2
-augroup END
-]])
-
-require('nvim-ts-autotag').setup({ filetypes = { "html", "xml" } })
+require("nvim-ts-autotag").setup({ filetypes = { "html", "xml" } })
