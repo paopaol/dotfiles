@@ -65,16 +65,16 @@ return {
         .new({}, {
           prompt_title = "Select Executable",
           finder = finders.new_table({
-       	    results = executables,
+            results = executables,
           }),
           sorter = conf.file_sorter({}),
           attach_mappings = function(prompt_bufnr, map)
-       	    actions.select_default:replace(function()
-        		    local selection = action_state.get_selected_entry()
-        		    actions.close(prompt_bufnr)
-        		    callback(selection[1])
-       	    end)
-       	    return true
+            actions.select_default:replace(function()
+              local selection = action_state.get_selected_entry()
+              actions.close(prompt_bufnr)
+              callback(selection[1])
+            end)
+            return true
           end,
         })
         :find()
@@ -171,10 +171,8 @@ return {
       },
     })
 
-    -- 虚拟文本显示变量值
     require("nvim-dap-virtual-text").setup()
 
-    -- 调试开始时自动打开 dap-view
     dap.listeners.after.event_initialized["dap-view"] = function()
       dap_view.open()
     end
@@ -184,24 +182,10 @@ return {
     dap.listeners.before.event_exited["dap-view"] = function()
       dap_view.close()
     end
-
-    -- 快捷键
     vim.keymap.set("n", "<F5>", dap.continue)
     vim.keymap.set("n", "<F9>", dap.toggle_breakpoint)
     vim.keymap.set("n", "<F10>", dap.step_over)
     vim.keymap.set("n", "<F11>", dap.step_into)
     vim.keymap.set("n", "<F12>", dap.step_out)
-
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = "dap-view-term",
-      callback = function()
-        vim.keymap.set("n", "<A-j>", "<C-W>j", { buffer = true, desc = "down win" })
-        vim.keymap.set("n", "<A-k>", "<C-W>k", { buffer = true, desc = "up win" })
-        vim.keymap.set("n", "<A-h>", "<C-W>h", { buffer = true, desc = "right win" })
-        vim.keymap.set("n", "<A-l>", "<C-W>l", { buffer = true, desc = "left win" })
-        vim.keymap.set("n", "q", "<cmd>DapTerminate<cr>", { buffer = true, desc = "left win" })
-      end,
-    })
   end,
 }
-

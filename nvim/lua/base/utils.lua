@@ -61,22 +61,4 @@ function M.open200()
   end
 end
 
-M.make_keymap = function(ft, name, keymap, config)
-  vim.api.nvim_create_autocmd("FileType", {
-    group = vim.api.nvim_create_augroup(name, { clear = true }),
-    pattern = ft,
-    callback = function(args)
-      local buffer_keymap = vim.deepcopy(keymap)
-      for _, entry in ipairs(buffer_keymap) do
-        entry.buffer = args.buf
-      end
-
-      require("which-key").add(keymap)
-      if config then
-        config()
-      end
-    end,
-  })
-end
-
 return M

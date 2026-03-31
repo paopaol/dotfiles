@@ -65,7 +65,6 @@ augroup setup_grp
   let mapleader = "\<space>"
   let maplocalleader = ","
   syntax off
-  autocmd FileType bat if &modifiable|setlocal fileformat=dos|endif
 augroup END
 ]])
 

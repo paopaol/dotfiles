@@ -1,0 +1,5 @@
+vim.keymap.set("n", "<A-j>", "<C-W>j", { buffer = true, desc = "down win" })
+vim.keymap.set("n", "<A-k>", "<C-W>k", { buffer = true, desc = "up win" })
+vim.keymap.set("n", "<A-h>", "<C-W>h", { buffer = true, desc = "right win" })
+vim.keymap.set("n", "<A-l>", "<C-W>l", { buffer = true, desc = "left win" })
+vim.keymap.set("n", "q", "<cmd>DapTerminate<cr>", { buffer = true, desc = "left win" })
