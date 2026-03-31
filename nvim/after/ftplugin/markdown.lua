@@ -1,4 +1,3 @@
-local wk = require("which-key")
 local utils = require("base.utils")
 
 local format = function()
@@ -6,27 +5,11 @@ local format = function()
   utils.format_buffer()
 end
 
-_G.whichkeyMarkdown = function()
-  wk.add({
-    { "<localleader>,", format, desc = "formatting" },
-    { "<localleader>p", utils.command("MarkdownPreview"), desc = "preview" },
-    {
-      "<leader>si",
-      function()
-        vim.cmd("Telescope heading")
-      end,
-      desc = "heading",
-      buffer = vim.api.nvim_get_current_buf(),
-    },
-  })
-end
-
-vim.cmd([[
-augroup markdown_grp
-  autocmd!
-  autocmd FileType markdown lua whichkeyMarkdown()
-augroup END
-]])
+require("which-key").add({
+  { "<localleader>,", format, desc = "formatting", buffer = true },
+  { "<localleader>p", utils.command("MarkdownPreview"), desc = "preview", buffer = true },
+  { "<leader>si", utils.command("Telescope heading"), desc = "heading", buffer = true },
+})
 
 require("mkdnflow").setup({
   modules = {
