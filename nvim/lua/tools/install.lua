@@ -9,6 +9,7 @@ return {
           proto = { "clang-format" },
           python = { "ruff_format", "ruff_organize_imports" },
           xml = { "xmlformat" },
+          json = { "prettier" },
         },
         formatters = {
           xmlformat = {

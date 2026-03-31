@@ -66,7 +66,8 @@ M.make_keymap = function(ft, name, keymap, config)
     group = vim.api.nvim_create_augroup(name, { clear = true }),
     pattern = ft,
     callback = function(args)
-      for _, entry in ipairs(keymap) do
+      local buffer_keymap = vim.deepcopy(keymap)
+      for _, entry in ipairs(buffer_keymap) do
         entry.buffer = args.buf
       end
 
