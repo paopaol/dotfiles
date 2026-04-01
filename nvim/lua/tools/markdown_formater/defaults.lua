@@ -9,25 +9,6 @@ lang_conf["markdown.pandoc"] = { "```", "```" }
 
 M.lang_conf = lang_conf
 
-local json_format_region = function(opts)
-  local cmd = string.format("silent  %d,%d !prettier --stdin-filepath=1.json", opts.line1, opts.line2)
-  vim.cmd(cmd)
-end
-vim.api.nvim_create_user_command("JsonFormatRegion", json_format_region, { range = 2 })
-
-local xml_format_region = function(opts)
-  local cmd =
-  string.format("silent  %d,%d !prettier --stdin-filepath=1.html --print-width=1000", opts.line1, opts.line2)
-  vim.cmd(cmd)
-end
-vim.api.nvim_create_user_command("XmlFormatRegion", xml_format_region, { range = 2 })
-
-local clang_format_region = function(opts)
-  local cmd = string.format("silent %d,%d ! clang-format", opts.line1, opts.line2)
-  vim.cmd(cmd)
-end
-vim.api.nvim_create_user_command("ClangFormatRegion", clang_format_region, { range = 2 })
-
 M.format_options = {
   c = {
     format = clang_format_region,

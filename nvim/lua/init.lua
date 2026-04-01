@@ -1,9 +1,8 @@
 require('plugins')
+require('options')
+require('autocmd')
+require('usercmd')
 
-require('fix_clipboard')
-require('setup')
---
-require('imselect')
 require('code.init')
 require('tools.init')
 require('keymap')

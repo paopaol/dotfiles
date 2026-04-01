@@ -52,6 +52,5 @@ M.format_region = function()
   vim.fn.setpos(".", currnet_pos)
 end
 
-vim.api.nvim_create_user_command("MarkdownFormatCodeBlock", M.format_region, {})
 
 return M

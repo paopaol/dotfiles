@@ -1,5 +1,6 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 vim.o.guifont = "DejaVu Sans Mono:h10"
-
 vim.o.pumheight = 10
 vim.o.numberwidth = 3
 -- 显示左侧图标指示列
@@ -45,33 +46,18 @@ vim.o.backspace = "indent,eol,start"
 -- vim.g.clipboard = "osc52"
 vim.o.clipboard = "unnamedplus"
 vim.o.shortmess = "filnxtToOFcI"
-
 vim.g.python3_host_prog = "/home/jz/.env/python3/bin/python3"
-
 vim.g.interestingWordsDefaultMappings = 0
 vim.g.vim_markdown_folding_disabled = 1
 vim.g.vim_textobj_parameter_mapping = "a"
 vim.g.BufKillCreateMappings = 0
 vim.g.rooter_patterns = { ".projectile", ".git/" }
 vim.g.autocwd_patternwd_pairs = { { "*", "%:p:h" } }
-
-vim.cmd([[
-set jumpoptions+=stack
-]])
-
-vim.cmd([[
-augroup setup_grp
-  autocmd!
-  let mapleader = "\<space>"
-  let maplocalleader = ","
-  syntax off
-augroup END
-]])
-
+vim.opt.jumpoptions:append("stack")
+vim.cmd("syntax off")
 if not vim.g.neovide then
-  vim.cmd([[set mouse=]])
+  vim.opt.mouse = "" -- 禁用鼠标
 end
-
 vim.g.clipboard = {
   name = "OSC 52",
   copy = {
@@ -83,14 +69,6 @@ vim.g.clipboard = {
     ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
   },
 }
-
-vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "复制后高亮显示内容",
-  group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
-  callback = function()
-    vim.highlight.on_yank({
-      higroup = "IncSearch",
-      timeout = 200,
-    })
-  end,
-})
+if vim.fn.has("win32") == 1 then
+  vim.opt.shell = "powershell"
+end

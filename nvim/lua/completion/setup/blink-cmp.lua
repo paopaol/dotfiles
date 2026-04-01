@@ -1,17 +1,3 @@
-vim.api.nvim_create_autocmd("User", {
-  pattern = "visual_multi_exit",
-  callback = function()
-    local cmp = require("blink.cmp")
-    vim.keymap.set("i", "<CR>", function()
-      if cmp.is_visible() then
-        cmp.select_and_accept()
-        return ""
-      else
-        return vim.api.nvim_replace_termcodes("<CR>", true, false, true)
-      end
-    end, { expr = true, silent = true })
-  end,
-})
 vim.keymap.set({ "i", "s" }, "<Esc>", function()
   if vim.snippet.active() then
     vim.snippet.stop()

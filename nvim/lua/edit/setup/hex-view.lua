@@ -254,7 +254,5 @@ M.view = function()
   end
 end
 
-
-vim.api.nvim_create_user_command("HexView", M.view, { range = 2 })
-
 return M
+
