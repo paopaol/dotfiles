@@ -211,11 +211,12 @@ wk.add({
 -- git
 wk.add({
   { "<leader>g",  group = "git" },
-  { "<leader>gP", command("Git pull"),  desc = "git pull",   mode = "n" },
-  { "<leader>gb", command("Git blame"), desc = "git blame",  mode = "n" },
-  { "<leader>gg", command("Neogit"),    desc = "git status", mode = "n" },
-  { "<leader>gl", command("tab Gclog"), desc = "git log",    mode = "n" },
-  { "<leader>gp", command("Git push"),  desc = "git push",   mode = "n" },
+  { "<leader>gP" , command("Git pull")                         , desc = "git pull"   , mode = "n" } ,
+  { "<leader>gb" , command("Git blame")                        , desc = "git blame"  , mode = "n" } ,
+  { "<leader>gd" , command("Telescope git_diffs diff_commits") , desc = "git diff" , mode = "n" } ,
+  { "<leader>gg" , command("Neogit")                           , desc = "git status" , mode = "n" } ,
+  { "<leader>gl" , command("tab Gclog")                        , desc = "git log"    , mode = "n" } ,
+  { "<leader>gp" , command("Git push")                         , desc = "git push"   , mode = "n" } ,
 })
 
 -- tools
