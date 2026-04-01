@@ -58,3 +58,17 @@ require("clangd_extensions").setup({
     border = "none",
   },
 })
+
+require("nt-cpp-tools").setup({
+  preview = {
+    quit = "q", -- optional keymapping for quit preview
+    accept = "<tab>", -- optional keymapping for accept preview
+  },
+  header_extension = "h", -- optional
+  source_extension = "cxx", -- optional
+  custom_define_class_function_commands = {
+    TSCppImplWrite = {
+      output_handle = require("nt-cpp-tools.output_handlers").get_add_to_cpp(),
+    },
+  },
+})

@@ -2,7 +2,6 @@ require('plugins')
 require('options')
 require('autocmd')
 require('usercmd')
-
 require('code.init')
 require('tools.init')
 require('keymap')

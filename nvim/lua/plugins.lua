@@ -56,17 +56,21 @@ require("lazy").setup({
     dependencies = { "saghen/blink.cmp" },
   },
 
-  { "williamboman/mason.nvim", event = "VeryLazy" },
+  {
+    "williamboman/mason.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("mason").setup()
+    end,
+  },
 
   {
     "williamboman/mason-lspconfig.nvim",
     event = "VeryLazy",
     config = function()
-      local lspconfig = require("lspconfig")
-
       require("mason-lspconfig").setup({
         function(server_name)
-          lspconfig[server_name].setup({
+          require("lspconfig")[server_name].setup({
             capabilities = require("blink.cmp").get_lsp_capabilities(),
           })
         end,

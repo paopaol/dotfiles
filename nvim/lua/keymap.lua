@@ -22,6 +22,13 @@ keymap("t", "<esc>", "<C-\\><C-n>")
 keymap("n", "n", ":Interestingwords --navigate<cr>")
 keymap("n", "N", ":Interestingwords --navigate b<cr>")
 
+vim.keymap.set({ "i", "s" }, "<Esc>", function()
+  if vim.snippet.active() then
+    vim.snippet.stop()
+  end
+  return "<Esc>"
+end, { expr = true })
+
 local wk = require("which-key")
 local utils = require("base.utils")
 local search = require("base.search")
