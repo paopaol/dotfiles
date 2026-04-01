@@ -16,15 +16,6 @@ return {
     'paopaol/telescope-git-diffs.nvim',
     event = "VeryLazy",
     dependencies = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim", },
-    config = function()
-      require('telescope').setup {
-        extensions = {
-          git_diffs = {
-            enable_preview_diff = false
-          }
-        }
-      }
-    end
   },
 
   { "nanotee/zoxide.vim",                      event = "VeryLazy", },

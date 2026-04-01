@@ -14,7 +14,6 @@ return {
         formatters = {
           xmlformat = {
             prepend_args = { "--selfclose", "--preserve-attribute" },
-            -- args = { "--selfclose", "--preserve-attribute", "$FILENAME" },
           },
         },
       })

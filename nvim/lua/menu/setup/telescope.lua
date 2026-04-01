@@ -100,6 +100,9 @@ M.config = function()
         override_file_sorter = true, -- 覆盖文件排序器
         case_mode = "smart_case", -- 区分大小写策略
       },
+      git_diffs = {
+        enable_preview_diff = false,
+      },
     },
   })
 

@@ -1,11 +1,8 @@
 local ffi = require("ffi")
-local bit = require("bit")
-
-
 
 local function visual_selection_range()
-  local _, csrow, cscol, _ = unpack(vim.fn.getpos "'<")
-  local _, cerow, cecol, _ = unpack(vim.fn.getpos "'>")
+  local _, csrow, cscol, _ = unpack(vim.fn.getpos("'<"))
+  local _, cerow, cecol, _ = unpack(vim.fn.getpos("'>"))
 
   local start_row, start_col, end_row, end_col
 
@@ -35,8 +32,7 @@ end
 --   ffffcfc7           abcd       -12345
 --   cfc7ffff           cdab       -12345
 
-
-local union_type = ffi.typeof [[
+local union_type = ffi.typeof([[
 union {
   uint64_t u64;
   int64_t i64;
@@ -50,10 +46,9 @@ union {
   float f;
   double d;
 }
-]]
+]])
 
 local M = {}
-
 
 local byteorder = {
   ab_to_ab = function(hex_str)
@@ -79,13 +74,11 @@ local byteorder = {
   end,
   hgfedcba_to_abcdefgh = function(hex_str)
     return hex_str:gsub("(..)(..)(..)(..)(..)(..)(..)(..)", "%8%7%6%5%4%3%2%1")
-  end
+  end,
 }
 
-
-
 local function hex_tonumber2_abcd(hex_str)
-  local union = union_type {}
+  local union = union_type({})
   union.u64 = tonumber(hex_str, 16)
 
   local result = {}
@@ -98,7 +91,7 @@ local function hex_tonumber2_abcd(hex_str)
 end
 
 local function hex_tonumber4_abcd(hex_str)
-  local union = union_type {}
+  local union = union_type({})
 
   union.u64 = tonumber(hex_str, 16) or 0
 
@@ -113,7 +106,7 @@ local function hex_tonumber4_abcd(hex_str)
 end
 
 local function hex_tonumber8_abcd(hex_str)
-  local union = union_type {}
+  local union = union_type({})
   union.u64 = tonumber(hex_str, 16)
 
   local result = {}
@@ -153,7 +146,7 @@ local function hex_tonumber(hex_str, kind)
   hex_str = byteorder_to_abcd(hex_str, kind)
   return {
     type = kind,
-    view = convert[#hex_str](hex_str)
+    view = convert[#hex_str](hex_str),
   }
 end
 
@@ -171,30 +164,38 @@ M.hex_view = function(hex_str)
   local header = {
     [4] = { "||uint16|int16|bit|", "|--|--|--|--|" },
     [8] = { "||float|uint32|int32|bit|", "|-|-|-|-|-|" },
-    [16] = { "||double|uint64|int64|bit|", "|-|-|-|-|-|" }
+    [16] = { "||double|uint64|int64|bit|", "|-|-|-|-|-|" },
   }
 
   local formater = {
     [4] = function(kind, data)
-      return string.format("|%s|%u|%d|%s|", kind, data["uint16"], data["int16"],
-        numberToBinStr(data["uint16"]))
+      return string.format("|%s|%u|%d|%s|", kind, data["uint16"], data["int16"], numberToBinStr(data["uint16"]))
     end,
     [8] = function(kind, data)
-      return string.format("|%s|%10.5f|%u|%d|%s|", kind, data["float"],
+      return string.format(
+        "|%s|%10.5f|%u|%d|%s|",
+        kind,
+        data["float"],
         data["uint32"],
-        data["int32"], numberToBinStr(tonumber(data["uint32"])))
+        data["int32"],
+        numberToBinStr(tonumber(data["uint32"]))
+      )
     end,
     [16] = function(kind, data)
-      return string.format("|%s|%18.9f|%u|%d|%s|", kind, data["double"],
+      return string.format(
+        "|%s|%18.9f|%u|%d|%s|",
+        kind,
+        data["double"],
         data["uint64"],
-        data["int64"], numberToBinStr(tonumber(data["uint64"])))
-    end
+        data["int64"],
+        numberToBinStr(tonumber(data["uint64"]))
+      )
+    end,
   }
 
   if #hex_str ~= 4 and #hex_str ~= 8 and #hex_str ~= 16 then
     return nil
   end
-
 
   local result = {
     [4] = {
@@ -211,8 +212,8 @@ M.hex_view = function(hex_str)
       abcdefgh = hex_tonumber(hex_str, "abcdefgh"),
       badcfehg = hex_tonumber(hex_str, "badcfehg"),
       hgfedcba = hex_tonumber(hex_str, "hgfedcba"),
-      ghefcdab = hex_tonumber(hex_str, "ghefcdab")
-    }
+      ghefcdab = hex_tonumber(hex_str, "ghefcdab"),
+    },
   }
 
   local lines = {}
@@ -229,8 +230,6 @@ M.hex_view = function(hex_str)
   return lines
 end
 
-
-
 M.view = function()
   local line1, col1, line2, col2 = visual_selection_range()
   local text = vim.api.nvim_buf_get_text(0, line1 - 1, col1 - 1, line2 - 1, col2, {})
@@ -242,12 +241,14 @@ M.view = function()
 
   local bufnr = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_option(bufnr, "filetype", "markdown")
-  vim.api.nvim_buf_set_keymap(bufnr, "n", 'q', ":close<cr>", { noremap = true })
-  vim.api.nvim_buf_set_keymap(bufnr, "n", '<esc>', ":close<cr>", { noremap = true })
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "q", ":close<cr>", { noremap = true })
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<esc>", ":close<cr>", { noremap = true })
   vim.api.nvim_buf_set_lines(bufnr, 0, 1, true, t)
-  vim.api.nvim_open_win(bufnr, true,
-    { width = 150, height = 10, relative = 'cursor', row = 5, col = 22, border = "double", })
-
+  vim.api.nvim_open_win(
+    bufnr,
+    true,
+    { width = 150, height = 10, relative = "cursor", row = 5, col = 22, border = "double" }
+  )
 
   if next(t) ~= nil then
     vim.cmd([[TableFormat]])
@@ -255,4 +256,3 @@ M.view = function()
 end
 
 return M
-

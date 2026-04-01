@@ -3,9 +3,7 @@ return {
     "windwp/nvim-autopairs",
     event = "VeryLazy",
     config = function()
-      local npairs = require("nvim-autopairs")
-
-      npairs.setup({
+      require("nvim-autopairs").setup({
         fast_wrap = {
           map = "<M-e>",
           chars = { "{", "[", "(", '"', "'" },
