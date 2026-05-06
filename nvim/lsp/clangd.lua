@@ -1,4 +1,4 @@
-vim.lsp.config("clangd", {
+return {
   cmd = {
     "clangd",
     "-j",
@@ -23,4 +23,4 @@ vim.lsp.config("clangd", {
       vim.notify("文件超过 5000 行，已禁用 LSP 语义高亮以提升性能", vim.log.levels.WARN)
     end
   end,
-})
+}

@@ -1,4 +1,4 @@
-vim.lsp.config("neocmake", {
+return {
   cmd = { "neocmakelsp", "stdio" },
   filetypes = { "cmake" },
   single_file_support = true, -- suggested
@@ -12,4 +12,4 @@ vim.lsp.config("neocmake", {
   on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   end,
-})
+}

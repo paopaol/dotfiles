@@ -1,13 +1,13 @@
-vim.lsp.config('rust_analyzer', {
+return {
   settings = {
-    ['rust-analyzer'] = {
+    ["rust-analyzer"] = {
       diagnostics = {
         enable = true,
-      }
-    }
+      },
+    },
   },
-  root_markers = {"compile_commands.json", "compile_flags.txt", ".git", ".projectile"},
+  root_markers = { "compile_commands.json", "compile_flags.txt", ".git", ".projectile" },
   on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  end
-})
+  end,
+}
