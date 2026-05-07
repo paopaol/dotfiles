@@ -20,22 +20,22 @@ require("lazy").setup({
   require("debugger.install"),
   require("tools.install"),
 
-  { "ton/vim-bufsurf", event = "VeryLazy" },
+  { "ton/vim-bufsurf",           event = "VeryLazy" },
 
-  { "nvim-neotest/nvim-nio", event = "VeryLazy" },
+  { "nvim-neotest/nvim-nio",     event = "VeryLazy" },
 
-  { "akinsho/toggleterm.nvim", event = "VeryLazy" },
+  { "akinsho/toggleterm.nvim",   event = "VeryLazy" },
 
   { "nvim-lualine/lualine.nvim", event = "VeryLazy" },
 
-  { "nvim-lua/popup.nvim", event = "VeryLazy" },
+  { "nvim-lua/popup.nvim",       event = "VeryLazy" },
 
-  { "nvim-lua/plenary.nvim", event = "VeryLazy" },
+  { "nvim-lua/plenary.nvim",     event = "VeryLazy" },
 
   {
     "nvim-treesitter/nvim-treesitter",
-    event = "VeryLazy",
-    build = ":TSUpdate",
+    lazy = false,
+    build = ':TSUpdate'
   },
 
   {
@@ -46,8 +46,12 @@ require("lazy").setup({
 
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
     after = "nvim-treesitter",
     requires = "nvim-treesitter/nvim-treesitter",
+    init = function()
+      vim.g.no_plugin_maps = true
+    end,
   },
 
   {
@@ -78,25 +82,25 @@ require("lazy").setup({
     end,
   },
 
-  { "vim-scripts/bufkill.vim", event = "VeryLazy" },
+  { "vim-scripts/bufkill.vim",         event = "VeryLazy" },
 
   { "jose-elias-alvarez/null-ls.nvim", event = "VeryLazy" },
 
-  { "onsails/lspkind-nvim", event = "VeryLazy" },
+  { "onsails/lspkind-nvim",            event = "VeryLazy" },
 
-  { "paopaol/e-kaput.nvim", event = "VeryLazy" },
+  { "paopaol/e-kaput.nvim",            event = "VeryLazy" },
 
-  { "ahmedkhalf/project.nvim", event = "VeryLazy" },
+  { "ahmedkhalf/project.nvim",         event = "VeryLazy" },
 
-  { "kazhala/close-buffers.nvim", event = "VeryLazy" },
+  { "kazhala/close-buffers.nvim",      event = "VeryLazy" },
 
-  { "tpope/vim-fugitive", event = "VeryLazy" },
+  { "tpope/vim-fugitive",              event = "VeryLazy" },
 
-  { "sindrets/diffview.nvim", event = "VeryLazy", dependencies = "nvim-lua/plenary.nvim" },
+  { "sindrets/diffview.nvim",          event = "VeryLazy", dependencies = "nvim-lua/plenary.nvim" },
 
-  { "thinca/vim-qfreplace", event = "VeryLazy" },
+  { "thinca/vim-qfreplace",            event = "VeryLazy" },
 
-  { "akinsho/git-conflict.nvim", event = "VeryLazy", version = "*", config = true },
+  { "akinsho/git-conflict.nvim",       event = "VeryLazy", version = "*",                         config = true },
 
-  { "j-hui/fidget.nvim", event = "VeryLazy", tag = "legacy", config = true },
+  { "j-hui/fidget.nvim",               event = "VeryLazy", tag = "legacy",                        config = true },
 })

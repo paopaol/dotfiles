@@ -2,6 +2,8 @@ vim.bo.shiftwidth = 2
 vim.o.tabstop = 2
 vim.bo.expandtab = true
 
+vim.treesitter.start()
+
 local utils = require("base.utils")
 
 require("which-key").add({

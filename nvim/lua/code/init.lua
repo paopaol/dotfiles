@@ -1,8 +1,8 @@
 require("telescope").load_extension("projects")
 
-require('lspkind').init({
-  mode = 'symbol_text',
-  preset = 'codicons',
+require("lspkind").init({
+  mode = "symbol_text",
+  preset = "codicons",
   symbol_map = {
     Text = "",
     Method = "",
@@ -28,8 +28,8 @@ require('lspkind').init({
     Struct = "פּ",
     Event = "",
     Operator = "",
-    TypeParameter = ""
-  }
+    TypeParameter = "",
+  },
 })
 
 require("project_nvim").setup({
@@ -43,48 +43,21 @@ require("project_nvim").setup({
   datapath = vim.fn.stdpath("data"),
 })
 
-
-
-require("nvim-treesitter.configs").setup({
-  ensure_installed = { "c", "cpp", "json", "html", "lua", "vim", "vimdoc", "query", "bash" },
-  indent = { enable = false },
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-    disable = function(lang, buf)
-      local max_lines = 2000
-      local ok, lines = pcall(vim.api.nvim_buf_line_count, buf)
-      if ok and lines and lines > max_lines then
-        return true
-      end
-    end,
-  },
-  incremental_selection = { enable = false, keymaps = { node_incremental = "vv" } },
-  textobjects = {
-    enable = true,
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-        ["aa"] = "@parameter.outer",
-        ["ia"] = "@parameter.inner",
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = { ["]]"] = "@function.outer", ["]c"] = "@class.outer" },
-      goto_next_end = { ["]M"] = "@function.outer", ["]["] = "@class.outer" },
-      goto_previous_start = {
-        ["[["] = "@function.outer",
-        ["[c"] = "@class.outer",
-      },
-      goto_previous_end = { ["[M"] = "@function.outer", ["[]"] = "@class.outer" },
-    },
-  },
-})
+vim.keymap.set({ "x", "o" }, "af", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@function.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "if", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@function.inner", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ac", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@class.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ic", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@class.inner", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "aa", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@parameter.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ia", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@parameter.inner", "textobjects")
+end)

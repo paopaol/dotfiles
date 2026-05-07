@@ -71,7 +71,17 @@ return {
           ["<S-Tab>"] = { "select_prev" },
           ["<CR>"] = { "accept_and_enter", "fallback" },
         },
-        completion = { menu = { auto_show = true } },
+        completion = { menu = { auto_show = false } },
+        sources = function()
+          local type = vim.fn.getcmdtype()
+          if type == ":" then
+            return { "cmdline" }
+          end
+          if type == "/" or type == "?" then
+            return { "buffer" }
+          end
+          return {}
+        end,
       },
     },
     opts_extend = { "sources.default" },
