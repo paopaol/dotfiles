@@ -1,3 +1,5 @@
+vim.treesitter.start()
+
 local jz = require("base.jz")
 
 local quit_window = function()
