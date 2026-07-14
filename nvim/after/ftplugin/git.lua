@@ -1,5 +1,3 @@
-vim.treesitter.start()
-
 local utils = require("base.utils")
 local jz = require("base.jz")
 

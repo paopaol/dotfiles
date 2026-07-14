@@ -116,6 +116,19 @@ local function cppman()
   end)
 end
 
+function _G.lsp_format_region()
+  local start_pos = vim.api.nvim_buf_get_mark(0, "<")
+  local end_pos = vim.api.nvim_buf_get_mark(0, ">")
+
+  vim.lsp.buf.format({
+    range = {
+      ["start"] = { start_pos[1], start_pos[2] },
+      ["end"] = { end_pos[1], end_pos[2] },
+    },
+    async = true, 
+  })
+end
+
 
 wk.add({
   { "<f1>",     search.project_tree,                desc = "tree",             mode = "n" },
@@ -211,12 +224,12 @@ wk.add({
 -- git
 wk.add({
   { "<leader>g",  group = "git" },
-  { "<leader>gP" , command("Git pull")                         , desc = "git pull"   , mode = "n" } ,
-  { "<leader>gb" , command("Git blame")                        , desc = "git blame"  , mode = "n" } ,
-  { "<leader>gd" , command("Telescope git_diffs diff_commits") , desc = "git diff" , mode = "n" } ,
-  { "<leader>gg" , command("Neogit")                           , desc = "git status" , mode = "n" } ,
-  { "<leader>gl" , command("tab Gclog")                        , desc = "git log"    , mode = "n" } ,
-  { "<leader>gp" , command("Git push")                         , desc = "git push"   , mode = "n" } ,
+  { "<leader>gP", command("Git pull"),                         desc = "git pull",   mode = "n" },
+  { "<leader>gb", command("Git blame"),                        desc = "git blame",  mode = "n" },
+  { "<leader>gd", command("Telescope git_diffs diff_commits"), desc = "git diff",   mode = "n" },
+  { "<leader>gg", command("Neogit"),                           desc = "git status", mode = "n" },
+  { "<leader>gl", command("tab Gclog"),                        desc = "git log",    mode = "n" },
+  { "<leader>gp", command("Git push"),                         desc = "git push",   mode = "n" },
 })
 
 -- tools
@@ -244,14 +257,26 @@ wk.add({
   { "<leader>ps", command("Telescope lsp_dynamic_workspace_symbols"), desc = "workspace symbol" },
 })
 
+-- ai
+wk.add({
+  { "<leader><space>", command("Sidekick cli toggle"),               desc = "AI" },
+})
+wk.add({
+  { "<leader>a", group = "ai" },
+  { "<leader>as", command("Sidekick cli send"),                       desc = "发送" },
+  { "<leader>af", command('Sidekick cli send msg="{file}"'),          desc = "文件" },
+  { "<leader>at", command('Sidekick cli send msg="{this}"'),          desc = "this" },
+  { "<leader>at", command('Sidekick cli send msg="{selection}"'),     desc = "selection", mode = "nv" },
+})
+
+
 -- code
 wk.add({
-  { "<leader>c",  group = "rename" },
-  { "<leader>cr", vim.lsp.buf.rename,                                                desc = "rename" },
-  { "<leader>cc", search.lsp_calltree,                                               desc = "calltree" },
-  { "<leader>cp", search.project_live_symbols,                                       desc = "workspace_symbolf" },
+  { "<leader>c", group = "code" },
+  { "<leader>cr", vim.lsp.buf.rename, desc = "rename" },
+  { "<leader>cp", search.project_live_symbols, desc = "workspace_symbolf" },
   { "<leader>ce", function() telein.diagnostics({ cwd = rootdir(), bufnr = 0 }) end, desc = "workspace diagnostics", },
-  { "<leader>cE", function() telein.diagnostics({ cwd = rootdir() }) end,            desc = "workspace diagnostics", },
+  { "<leader>cE", function() telein.diagnostics({ cwd = rootdir() }) end, desc = "workspace diagnostics", },
 })
 
 
@@ -273,7 +298,6 @@ wk.add({
 
 wk.add({
   { "<leader>",         group = "gloabl" },
-  { "<leader><leader>", command("w"),                             desc = "save file" },
   { "<leader>q",        command("wincmd c"),                      desc = "delete-window" },
   { "<leader>1",        function() bufferline.go_to(1, true) end, desc = "buffer 1", },
   { "<leader>2",        function() bufferline.go_to(2, true) end, desc = "buffer 2", },
@@ -325,7 +349,7 @@ wk.add({
 
   { "<localleader>tt", ":Translate<cr>",                             desc = "Translate",     mode = { "v" },           silent = true },
   { ",!",              ":!bash<cr>",                                 desc = "",              mode = "v",               silent = true },
-  { ",,",              "<esc><cmd>lua lsp_format_region()<CR>",      desc = "",              mode = "v",               silent = true },
+  { ",,",              "vim.lsp.buf.format",                         desc = "",              mode = "v",               silent = true },
   { "gf",              ":lua require('base.search').extract() <cr>", desc = "",              mode = "v",               silent = true },
   { ",g",              ":TSCppDefineClassFunc<cr>",                  desc = "",              mode = "v",               silent = true },
 

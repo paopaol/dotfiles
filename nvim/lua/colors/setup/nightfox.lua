@@ -1,7 +1,7 @@
 local M = {}
 
 M.config = function()
-  local colors = require("colors.setup.nightfox-qtcreator")
+  local colors = require("colors.setup.nightfox-my")
   require("nightfox").setup({
     palettes = {
       all = colors.palettes.all,
