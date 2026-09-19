@@ -50,7 +50,7 @@ function M.command(cmd)
 end
 
 function M.format_buffer()
-  require("conform").format({ async = true, lsp_fallback = true })
+  require("conform").format({ async = true, lsp_format = "fallback" })
 end
 
 function M.open200()

@@ -349,7 +349,7 @@ wk.add({
 
   { "<localleader>tt", ":Translate<cr>",                             desc = "Translate",     mode = { "v" },           silent = true },
   { ",!",              ":!bash<cr>",                                 desc = "",              mode = "v",               silent = true },
-  { ",,",              "vim.lsp.buf.format",                         desc = "",              mode = "v",               silent = true },
+  { ",,",              utils.format_buffer,                          desc = "formatting",    mode = "v",               silent = true },
   { "gf",              ":lua require('base.search').extract() <cr>", desc = "",              mode = "v",               silent = true },
   { ",g",              ":TSCppDefineClassFunc<cr>",                  desc = "",              mode = "v",               silent = true },
 

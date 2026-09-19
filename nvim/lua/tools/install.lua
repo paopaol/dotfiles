@@ -5,6 +5,8 @@ return {
     config = function()
       require("conform").setup({
         formatters_by_ft = {
+          c = { "clang-format" },
+          cpp = { "clang-format" },
           cmake = { "cmake_format" },
           proto = { "clang-format" },
           python = { "ruff_format", "ruff_organize_imports" },

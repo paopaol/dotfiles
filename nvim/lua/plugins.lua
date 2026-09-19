@@ -84,8 +84,6 @@ require("lazy").setup({
 
   { "vim-scripts/bufkill.vim",         event = "VeryLazy" },
 
-  { "jose-elias-alvarez/null-ls.nvim", event = "VeryLazy" },
-
   { "onsails/lspkind-nvim",            event = "VeryLazy" },
 
   { "paopaol/e-kaput.nvim",            event = "VeryLazy" },
