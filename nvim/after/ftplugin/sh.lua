@@ -1,3 +1,5 @@
+vim.treesitter.start()
+
 vim.bo.shiftwidth = 2
 vim.o.tabstop = 2
 vim.bo.expandtab = true
