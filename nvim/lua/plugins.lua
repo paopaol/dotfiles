@@ -82,23 +82,25 @@ require("lazy").setup({
     end,
   },
 
-  { "vim-scripts/bufkill.vim",         event = "VeryLazy" },
+  { "vim-scripts/bufkill.vim",    event = "VeryLazy" },
 
-  { "onsails/lspkind-nvim",            event = "VeryLazy" },
+  { "onsails/lspkind-nvim",       event = "VeryLazy" },
 
-  { "paopaol/e-kaput.nvim",            event = "VeryLazy" },
+  { "paopaol/e-kaput.nvim",       event = "VeryLazy" },
 
-  { "ahmedkhalf/project.nvim",         event = "VeryLazy" },
+  { "ahmedkhalf/project.nvim",    event = "VeryLazy" },
 
-  { "kazhala/close-buffers.nvim",      event = "VeryLazy" },
+  { "kazhala/close-buffers.nvim", event = "VeryLazy" },
 
-  { "tpope/vim-fugitive",              event = "VeryLazy" },
+  { "tpope/vim-fugitive",         event = "VeryLazy" },
 
-  { "sindrets/diffview.nvim",          event = "VeryLazy", dependencies = "nvim-lua/plenary.nvim" },
+  { "sindrets/diffview.nvim",     event = "VeryLazy", dependencies = "nvim-lua/plenary.nvim" },
 
-  { "thinca/vim-qfreplace",            event = "VeryLazy" },
+  { "AndrewRadev/linediff.vim",   event = "VeryLazy" },
 
-  { "akinsho/git-conflict.nvim",       event = "VeryLazy", version = "*",                         config = true },
+  { "thinca/vim-qfreplace",       event = "VeryLazy" },
 
-  { "j-hui/fidget.nvim",               event = "VeryLazy", tag = "legacy",                        config = true },
+  { "akinsho/git-conflict.nvim",  event = "VeryLazy", version = "*",                         config = true },
+
+  { "j-hui/fidget.nvim",          event = "VeryLazy", tag = "legacy",                        config = true },
 })

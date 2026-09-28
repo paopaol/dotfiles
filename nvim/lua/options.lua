@@ -4,6 +4,8 @@ vim.o.guifont = "DejaVu Sans Mono:h10"
 vim.o.pumheight = 10
 vim.o.numberwidth = 3
 -- 显示左侧图标指示列
+vim.g.bookmark_sign = 'B'
+vim.g.bookmark_annotation_sign = 'A'
 vim.o.signcolumn = "yes"
 vim.o.foldmethod = "manual"
 vim.o.cursorline = true

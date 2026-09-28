@@ -45,6 +45,28 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
+-- 超大文件（>5000 行）关闭语法高亮，避免打开和滚动时卡顿（阈值与 lsp/clangd.lua 一致）
+local big_file = function(bufnr)
+  return vim.api.nvim_buf_line_count(bufnr) > 5000
+end
+
+-- 彩虹括号：插件自带的按 buffer 开关
+vim.g.rainbow_delimiters = {
+  condition = function(bufnr)
+    return not big_file(bufnr)
+  end,
+}
+
+-- treesitter 高亮由 after/ftplugin/*.lua 启动，且 ftplugin 先于本 autocmd 执行，故此处直接关掉
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("big-file-highlight-group", { clear = true }),
+  callback = function(args)
+    if big_file(args.buf) then
+      vim.treesitter.stop(args.buf)
+    end
+  end,
+})
+
 vim.api.nvim_create_autocmd("User", {
   pattern = "visual_multi_exit",
   callback = function()
