@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
--- 超大文件（>5000 行）关闭语法高亮，避免打开和滚动时卡顿（阈值与 lsp/clangd.lua 一致）
+-- 超大文件（>5000 行）关闭语法高亮，避免打开和滚动时卡顿
 local big_file = function(bufnr)
   return vim.api.nvim_buf_line_count(bufnr) > 5000
 end

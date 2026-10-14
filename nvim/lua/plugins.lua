@@ -72,13 +72,15 @@ require("lazy").setup({
     "williamboman/mason-lspconfig.nvim",
     event = "VeryLazy",
     config = function()
-      require("mason-lspconfig").setup({
-        function(server_name)
-          require("lspconfig")[server_name].setup({
-            capabilities = require("blink.cmp").get_lsp_capabilities(),
-          })
-        end,
+      vim.lsp.config("*", {
+        capabilities = require("blink.cmp").get_lsp_capabilities(),
       })
+
+      require("mason-lspconfig").setup({
+        -- automatic_enable = { exclude = { "clangd" } },
+      })
+
+      -- vim.lsp.enable("clice")
     end,
   },
 

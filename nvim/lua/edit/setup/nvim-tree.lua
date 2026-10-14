@@ -17,7 +17,7 @@ return {
       window = {
         width = 50,
         mappings = {
-          ["<tab>"] = { "toggle_node", nowait = false, },
+          ["<Tab>"] = { "toggle_node", nowait = false, },
           ["<cr>"] = "open_with_window_picker",
           ["S"] = "split_with_window_picker",
           ["s"] = "vsplit_with_window_picker",
