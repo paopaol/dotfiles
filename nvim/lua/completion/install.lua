@@ -57,6 +57,10 @@ return {
       },
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
+        -- CMakeLists 里已列过源文件名，buffer 源会和 path 源给出重复候选；变量补全由 neocmake 负责
+        per_filetype = {
+          cmake = { "lsp", "path", "snippets" },
+        },
       },
       fuzzy = { implementation = "prefer_rust_with_warning" },
       cmdline = {

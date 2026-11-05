@@ -50,6 +50,23 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- nvim-bufferline.lua 没有监听 BufDelete：批量删除 buffer 后 tabline 保持旧内容，
+-- 直到下一次输入才刷新（:redraw 刷不动它，必须 :redrawtabline）。合并成一次延迟刷新。
+local tabline_refresh_pending = false
+vim.api.nvim_create_autocmd({ "BufDelete", "BufWipeout" }, {
+  group = vim.api.nvim_create_augroup("bufferline-refresh-group", { clear = true }),
+  callback = function()
+    if tabline_refresh_pending then
+      return
+    end
+    tabline_refresh_pending = true
+    vim.schedule(function()
+      tabline_refresh_pending = false
+      vim.cmd("redrawtabline")
+    end)
+  end,
+})
+
 vim.api.nvim_create_autocmd("User", {
   pattern = "visual_multi_exit",
   callback = function()
