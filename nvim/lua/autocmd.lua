@@ -16,17 +16,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd("InsertLeave", {
-  group = vim.api.nvim_create_augroup("im-select-group", { clear = true }),
-  callback = function()
-    if vim.fn.has("win32") == 1 then
-      vim.fn.system("im-select 1033")
-    elseif vim.fn.has("wsl") == 1 then
-      vim.fn.system("/mnt/c/Windows/System32/im-select.exe 1033")
-    end
-  end,
-})
-
 vim.api.nvim_create_autocmd("TermOpen", {
   group = vim.api.nvim_create_augroup("toggleterm-group", { clear = true }),
   pattern = "term://*", -- 匹配所有终端
@@ -45,17 +34,11 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
--- 超大文件（>5000 行）关闭语法高亮，避免打开和滚动时卡顿
+-- 超大文件（>10000 行）关闭语法高亮，避免打开和滚动时卡顿
 local big_file = function(bufnr)
-  return vim.api.nvim_buf_line_count(bufnr) > 5000
+  return vim.api.nvim_buf_line_count(bufnr) > 10000
 end
 
--- 彩虹括号：插件自带的按 buffer 开关
-vim.g.rainbow_delimiters = {
-  condition = function(bufnr)
-    return not big_file(bufnr)
-  end,
-}
 
 -- treesitter 高亮由 after/ftplugin/*.lua 启动，且 ftplugin 先于本 autocmd 执行，故此处直接关掉
 vim.api.nvim_create_autocmd("FileType", {

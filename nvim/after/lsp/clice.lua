@@ -200,7 +200,7 @@ end
 
 ---@type vim.lsp.Config
 return {
-  cmd = { "/tmp/clice/bin/clice", "serve" },
+  cmd = { "clice", "serve" },
   filetypes = { "c", "cpp", "cuda" },
 
   root_markers = { "clice.toml", "compile_commands.json", ".git" },
@@ -220,6 +220,12 @@ return {
     },
   },
   on_attach = function(client, bufnr)
+    vim.lsp.semantic_tokens.enable(false, { bufnr = bufnr })
+    if vim.api.nvim_buf_line_count(bufnr) > 5000 then
+      vim.diagnostic.enable(false, { bufnr = bufnr })
+      vim.notify("文件超过 5000 行，已禁用 LSP 语义高亮以提升性能", vim.log.levels.WARN)
+    end
+
     vim.api.nvim_buf_create_user_command(bufnr, "LspCliceShowContext", function()
       show_context(client, bufnr)
     end, { desc = "Show the compilation context in use" })
@@ -243,7 +249,7 @@ return {
       end,
       desc = "Apply the refactoring of a code action kind",
     })
-    vim.api.nvim_buf_create_user_command(bufnr, "LspCliceSwitchSourceHeader", function()
+    vim.api.nvim_buf_create_user_command(bufnr, "ClangdSwitchSourceHeader", function()
       switch_source_header(client, bufnr)
     end, { desc = "Switch between source and header" })
   end,

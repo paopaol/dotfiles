@@ -42,6 +42,15 @@ require("lazy").setup({
     "HiPhish/rainbow-delimiters.nvim",
     after = "nvim-treesitter",
     requires = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      -- 超大文件（如 25 万行的 protobuf 生成代码）它是唯一在 FileType 时同步全树解析的插件，
+      -- 打开要 80 秒以上；阈值与 autocmd.lua 的 big-file 一致
+      vim.g.rainbow_delimiters = {
+        condition = function(bufnr)
+          return vim.api.nvim_buf_line_count(bufnr) <= 10000
+        end,
+      }
+    end,
   },
 
   {
@@ -77,10 +86,10 @@ require("lazy").setup({
       })
 
       require("mason-lspconfig").setup({
-        -- automatic_enable = { exclude = { "clangd" } },
+        automatic_enable = { exclude = { "clangd" } },
       })
 
-      -- vim.lsp.enable("clice")
+       vim.lsp.enable("clice")
     end,
   },
 
