@@ -200,23 +200,32 @@ end
 
 ---@type vim.lsp.Config
 return {
-  cmd = { "clice", "serve" },
+  -- 把 clice 主进程绑定到 0、1 号核心，worker 子进程继承亲和性，CPU 占用上限 2 核
+  cmd = { "taskset", "-c", "0,1", "clice", "serve" },
   filetypes = { "c", "cpp", "cuda" },
 
   root_markers = { "clice.toml", "compile_commands.json", ".git" },
 
   init_options = {
     code_completion = {
-      -- 函数补全带参数占位符，如 doThing(${1:int a}, ${2:int b})，默认关
-      enable_function_arguments_snippet = true,
-      -- if / for 等语句补全带占位符，默认关
-      enable_keyword_snippet = true,
-      -- 类 / 别名 / 变量模板补全带模板参数占位符，默认关
-      enable_template_arguments_snippet = true,
-      -- 关掉：clice 的括号带 $0，光标卡在括号里；交给 blink 补括号，光标落在括号后
-      insert_paren_in_function_call = true,
       -- 参数 snippet 只对逐个列出的重载生效，必须关掉重载合并（默认 true）
       bundle_overloads = false,
+    },
+    -- 响应优先、后台让路：前台保持并行，后台索引串行并推迟启动
+    workers = {
+      -- 保持打开文件编译、回答请求的 worker 数；2 个时两个文档的请求不互相排队
+      foreground = 2,
+      -- 后台索引同时最多编译 1 个文件
+      background = 1,
+      -- 编译 worker 总数上限 2：后台索引 1 个 + 前台 PCH/补全 1 个
+      max = 2,
+      -- 最后一次编辑/请求后等 8 秒再开始后台索引，避免抢前台响应
+      background_delay_ms = 8000,
+    },
+    -- 全局规则：编译库只认 <项目根>/build，不再搜索根目录和一级子目录。
+    -- initializationOptions 里的 rules 对所有项目生效，无需每个项目放 clice.toml
+    rules = {
+      { compile_commands = { "build" } },
     },
   },
   on_attach = function(client, bufnr)

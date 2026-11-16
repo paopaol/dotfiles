@@ -316,7 +316,7 @@ wk.add({
   { "gi", vim.lsp.buf.declaration,                               desc = "lsp+definition" },
   { "gv", lsp_definitions_vsplit,                                desc = "lsp+definition/vsplit", },
   { "gs", lsp_definitions_split,                                 desc = "lsp+definition/split", },
-  { "gr", search.project_lsp_ref,                                desc = "lsp+references" },
+  { "gr", search.project_lsp_ref,                                desc = "lsp+references", nowait = true },
   { "gf", vim.lsp.buf.code_action,                               desc = "quickfix" },
   { "gy", ":lua ___gdc('v')<cr>",                                desc = "comment and yank",      mode = { "n", "v" }, silent = false },
   { "gx", nil,                                                   desc = "open" },
