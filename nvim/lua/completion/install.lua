@@ -61,6 +61,10 @@ return {
         per_filetype = {
           cmake = { "lsp", "path", "snippets" },
         },
+        providers = {
+          -- cmake 里 neocmake 也会返回文件项，与 path 源重复；包装后丢掉这些文件项
+          lsp = { module = "completion.lsp_source", name = "LSP" },
+        },
       },
       fuzzy = { implementation = "prefer_rust_with_warning" },
       cmdline = {
