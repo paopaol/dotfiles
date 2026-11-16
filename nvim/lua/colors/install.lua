@@ -1,7 +1,7 @@
 return {
 	{
 		'olimorris/onedarkpro.nvim',
-		event = "VeryLazy",
+		lazy = true,
 		priority = 1000,
 		config = function()
 			require("onedarkpro").setup({
@@ -16,25 +16,25 @@ return {
 		end
 	},
 
-	{ 'Mofiqul/dracula.nvim',                config = function() require("dracula").setup() end },
+	{ 'Mofiqul/dracula.nvim',                lazy = true, config = function() require("dracula").setup() end },
 
-	{ 'polirritmico/monokai-nightasty.nvim', },
+	{ 'polirritmico/monokai-nightasty.nvim', lazy = true, },
 
-	{ "folke/tokyonight.nvim",               opts = { style = "moon" }, },
+	{ "folke/tokyonight.nvim",               lazy = true, opts = { style = "moon" }, },
 
 	{ "ofirgall/ofirkai.nvim",               config = true },
 
-	{ "nyoom-engineering/oxocarbon.nvim", },
+	{ "nyoom-engineering/oxocarbon.nvim",    lazy = true, },
 
-	{ "uloco/bluloco.nvim",                  dependencies = { 'rktjmp/lush.nvim' } },
+	{ "uloco/bluloco.nvim",                  lazy = true, dependencies = { 'rktjmp/lush.nvim' } },
 
-	{ "sekke276/dark_flat.nvim", },
+	{ "sekke276/dark_flat.nvim",             lazy = true, },
 
 	{
 		"askfiy/visual_studio_code",
-		event = "VeryLazy",
+		lazy = true,
 		config = function() require("visual_studio_code").setup({ mode = "dark" }) end,
 	},
 
-	{ "EdenEast/nightfox.nvim", event = "VeryLazy", config = require('colors.setup.nightfox').config },
+	{ "EdenEast/nightfox.nvim", lazy = true, config = require('colors.setup.nightfox').config },
 }

@@ -111,6 +111,7 @@ M.config = function()
   require("telescope").load_extension("vim_bookmarks")
   require("telescope").load_extension("git_diffs")
   require("telescope").load_extension("file_browser")
+  require("telescope").load_extension("projects")
 end
 
 return M

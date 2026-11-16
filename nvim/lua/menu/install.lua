@@ -1,20 +1,20 @@
 return {
-  { "nvim-telescope/telescope-fzf-native.nvim", event = "VeryLazy", build = "make", branch = "main" },
+  { "nvim-telescope/telescope-fzf-native.nvim", lazy = true, build = "make", branch = "main" },
 
-  { "tom-anders/telescope-vim-bookmarks.nvim",  event = "VeryLazy", branch = "main" },
+  { "tom-anders/telescope-vim-bookmarks.nvim",  lazy = true, branch = "main" },
 
   {
     "GustavoKatel/telescope-asynctasks.nvim",
-    event = "VeryLazy",
+    lazy = true,
     branch = "main",
     dependencies = { "skywind3000/asynctasks.vim", "skywind3000/asyncrun.vim", },
   },
 
-  { "nvim-telescope/telescope-ui-select.nvim", event = "VeryLazy", },
+  { "nvim-telescope/telescope-ui-select.nvim", lazy = true, },
 
   {
     'paopaol/telescope-git-diffs.nvim',
-    event = "VeryLazy",
+    lazy = true,
     dependencies = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim", },
   },
 
@@ -22,13 +22,14 @@ return {
 
   {
     "nvim-telescope/telescope-file-browser.nvim",
-    event = "VeryLazy",
+    lazy = true,
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   },
 
   {
     "nvim-telescope/telescope.nvim",
-    event = "VeryLazy",
+    lazy = true,
+    cmd = { "Telescope" },
     branch = "master",
     config = require("menu.setup.telescope").config
   },

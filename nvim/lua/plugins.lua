@@ -22,7 +22,13 @@ require("lazy").setup({
 
   { "ton/vim-bufsurf",           event = "VeryLazy" },
 
-  { "akinsho/toggleterm.nvim",   event = "VeryLazy" },
+  {
+    "akinsho/toggleterm.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("tools.toggle_term")
+    end,
+  },
 
   { "nvim-lualine/lualine.nvim", event = "VeryLazy" },
 
@@ -93,7 +99,22 @@ require("lazy").setup({
 
   { "paopaol/e-kaput.nvim",       event = "VeryLazy" },
 
-  { "ahmedkhalf/project.nvim",    event = "VeryLazy" },
+  {
+    "ahmedkhalf/project.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("project_nvim").setup({
+        manual_mode = true,
+        detection_methods = { "lsp", "pattern" },
+        patterns = { ".projectile" },
+        ignore_lsp = {},
+        exclude_dirs = { "build" },
+        show_hidden = false,
+        silent_chdir = true,
+        datapath = vim.fn.stdpath("data"),
+      })
+    end,
+  },
 
   { "kazhala/close-buffers.nvim", event = "VeryLazy" },
 

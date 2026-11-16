@@ -31,10 +31,23 @@ end, { expr = true })
 
 local wk = require("which-key")
 local utils = require("base.utils")
-local search = require("base.search")
-local bufferline = require("bufferline")
 local jz = require("base.jz")
-local telein = require("telescope.builtin")
+
+-- base.search / telescope.builtin / bufferline 的模块加载会连带拉起 telescope 全家和 bufferline，
+-- 用惰性代理把 require 推迟到第一次按键，避免它们在启动期被提前加载
+local function lazy_mod(name)
+  return setmetatable({}, {
+    __index = function(_, key)
+      return function(...)
+        return require(name)[key](...)
+      end
+    end,
+  })
+end
+
+local search = lazy_mod("base.search")
+local telein = lazy_mod("telescope.builtin")
+local bufferline = lazy_mod("bufferline")
 
 local function command(cmd)
   return function()
@@ -348,5 +361,5 @@ wk.add({
   { "<A-Up>",          ":MoveBlock(-1)<CR>",                         desc = "",              mode = "v",               silent = true },
 
   { "<A-x>",           ":",                                          desc = "",              mode = { "n", "v" },      silent = false },
-  { "<leader>tv",      require('edit.setup.hex-view').view,          desc = "hexview",       mode = { "v" },           silent = false },
+  { "<leader>tv",      function() require('edit.setup.hex-view').view() end, desc = "hexview", mode = { "v" }, silent = false },
 })
