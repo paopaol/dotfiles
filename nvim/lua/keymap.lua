@@ -156,16 +156,6 @@ wk.add({
   { "<leader>fd",  command(":Telescope file_browser path=%:p:h select_buffer=true<CR>"), desc = "file tree",          mode = "n" },
 })
 
--- debug
-wk.add({
-  { "<leader>d",  group = "debug" },
-  { "<leader>di", command("VimspectorDebugInfo"),  desc = "print info",  mode = "n" },
-  { "<leader>dl", command("VimspectorToggleLog"),  desc = "toggle log",  mode = "n" },
-  { "<leader>do", command("VimspectorShowOutput"), desc = "show output", mode = "n" },
-  { "<leader>ds", command("VimspectorReset"),      desc = "stop/reset",  mode = "n" },
-  { "<leader>dw", command("VimspectorWatch"),      desc = "watch",       mode = "n" },
-})
-
 -- open
 wk.add({
   { "<leader>o",  group = "open" },
@@ -240,7 +230,6 @@ wk.add({
   { "<leader>tl", command("setlocal wrap!"),                            desc = "line wrap",           mode = "n" },
   { "<leader>tr", command("so $VIMHOME/init.vim"),                      desc = "refresh vimrc",       mode = "n" },
   { "<leader>tm", search.man,                                           desc = "man page",            mode = "n" },
-  { "<leader>tu", command("PackerSync"),                                desc = "update plugins",      mode = "n" },
   { "<leader>td", Toggle_venn,                                          desc = "draw ascii diagrams", mode = "n" },
 })
 

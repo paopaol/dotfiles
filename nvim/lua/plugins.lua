@@ -22,13 +22,9 @@ require("lazy").setup({
 
   { "ton/vim-bufsurf",           event = "VeryLazy" },
 
-  { "nvim-neotest/nvim-nio",     event = "VeryLazy" },
-
   { "akinsho/toggleterm.nvim",   event = "VeryLazy" },
 
   { "nvim-lualine/lualine.nvim", event = "VeryLazy" },
-
-  { "nvim-lua/popup.nvim",       event = "VeryLazy" },
 
   { "nvim-lua/plenary.nvim",     event = "VeryLazy" },
 
@@ -94,8 +90,6 @@ require("lazy").setup({
   },
 
   { "vim-scripts/bufkill.vim",    event = "VeryLazy" },
-
-  { "onsails/lspkind-nvim",       event = "VeryLazy" },
 
   { "paopaol/e-kaput.nvim",       event = "VeryLazy" },
 

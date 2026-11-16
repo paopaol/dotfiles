@@ -37,15 +37,11 @@ return {
     opts = {},
   },
 
-  { "mklabs/vim-json", ft = "json" },
-
   { "cespare/vim-toml", ft = "toml" },
 
   { "othree/html5.vim", ft = "html" },
 
   { "matveyt/vim-qmake", ft = "pro" },
-
-  { "folke/lua-dev.nvim", ft = "lua", branch = "main" },
 
   { "rafamadriz/friendly-snippets", branch = "main" },
 
