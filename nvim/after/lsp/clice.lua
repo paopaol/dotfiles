@@ -207,6 +207,11 @@ return {
   root_markers = { "clice.toml", "compile_commands.json", ".git" },
 
   init_options = {
+    diagnostics = {
+      -- .clang-tidy 的 bugprone-* 带进几个编辑器内太慢的 check（如 bugprone-signed-bitwise），
+      -- clice 默认跳过但仍会每次提示；这里明确不跑，全量检查交给 clice lint / CI
+      slow_clang_tidy_checks = false,
+    },
     code_completion = {
       -- 参数 snippet 只对逐个列出的重载生效，必须关掉重载合并（默认 true）
       bundle_overloads = false,
