@@ -4,7 +4,6 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
-      "nvim-tree/nvim-web-devicons",
       's1n7ax/nvim-window-picker',
     },
     cmd = "Neotree",

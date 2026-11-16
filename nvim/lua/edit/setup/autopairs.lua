@@ -1,21 +1,10 @@
 return {
   {
-    "windwp/nvim-autopairs",
-    event = "VeryLazy",
+    -- 替代 nvim-autopairs（其 fast_wrap <M-e> 一并移除）
+    "nvim-mini/mini.pairs",
+    event = "InsertEnter",
     config = function()
-      require("nvim-autopairs").setup({
-        fast_wrap = {
-          map = "<M-e>",
-          chars = { "{", "[", "(", '"', "'" },
-          pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-          end_key = "e",
-          keys = "qwertyuiopzxcvbnmasdfghjkl",
-          check_comma = true,
-          hightlight = "Search",
-          map_cr = false,
-        },
-        ignored_next_char = "[%w%.%(%)]",
-      })
+      require("mini.pairs").setup()
     end,
   },
 }

@@ -1,5 +1,16 @@
 return {
   {
+    -- 图标来源，替代 nvim-web-devicons；mock 让 lualine/telescope/neo-tree 等无感
+    "nvim-mini/mini.icons",
+    lazy = false,
+    priority = 100,
+    config = function()
+      require("mini.icons").setup()
+      require("mini.icons").mock_nvim_web_devicons()
+    end,
+  },
+
+  {
     "akinsho/nvim-bufferline.lua",
     event = "VeryLazy",
     config = function()
@@ -32,54 +43,34 @@ return {
   },
 
   {
-    "nvim-lualine/lualine.nvim",
+    -- 替代 lualine：默认轻量，内容保持 mode / git / diagnostics / 文件信息 / 位置
+    "nvim-mini/mini.statusline",
     event = "VeryLazy",
     config = function()
-      local function project_name()
-        return ""
-      end
-
-      require("lualine").setup({
-        options = {
-          icons_enabled = true,
-          -- theme = "auto",
-          -- section_separators = { left = "", right = "" },
-          component_separators = { left = "/", right = "/" },
-          disabled_filetypes = {
-            statusline = {},
-            winbar = {},
-          },
-          ignore_focus = {},
-          always_divide_middle = true,
-          globalstatus = false,
-          refresh = {
-            statusline = 1000,
-            tabline = 1000,
-            winbar = 1000,
-          },
+      local sl = require("mini.statusline")
+      sl.setup({
+        use_icons = true,
+        content = {
+          active = function()
+            local mode, mode_hl = sl.section_mode({ trunc_width = 120 })
+            local git = sl.section_git({ trunc_width = 75 })
+            local diagnostics = sl.section_diagnostics({ trunc_width = 150 })
+            local filename = sl.section_filename({ trunc_width = 140 })
+            local fileinfo = sl.section_fileinfo({ trunc_width = 120 })
+            local location = sl.section_location({ trunc_width = 75 })
+            return sl.combine_groups({
+              { hl = mode_hl, strings = { mode } },
+              { hl = "MiniStatuslineDevinfo", strings = { git, diagnostics } },
+              "%<",
+              { hl = "MiniStatuslineFilename", strings = { filename } },
+              "%=",
+              { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
+              { hl = mode_hl, strings = { location } },
+            })
+          end,
         },
-        sections = {
-          lualine_a = { "mode" },
-          lualine_b = { "branch", "diff", "diagnostics" },
-          lualine_c = { project_name, "filename" },
-          lualine_x = { "encoding", "fileformat", "filetype" },
-          lualine_y = { "progress" },
-          lualine_z = { "location" },
-        },
-        inactive_sections = {
-          lualine_a = {},
-          lualine_b = {},
-          lualine_c = { "filename" },
-          lualine_x = { "location" },
-          lualine_y = {},
-          lualine_z = {},
-        },
-        tabline = {},
-        winbar = {},
-        inactive_winbar = {},
-        extensions = {},
       })
-    end
+    end,
   },
 
   { "paopaol/messages.nvim",  event = "VeryLazy", config = true },

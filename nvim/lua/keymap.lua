@@ -32,6 +32,7 @@ end, { expr = true })
 local wk = require("which-key")
 local utils = require("base.utils")
 local jz = require("base.jz")
+local project = require("base.project")
 
 -- base.search / telescope.builtin / bufferline 的模块加载会连带拉起 telescope 全家和 bufferline，
 -- 用惰性代理把 require 推迟到第一次按键，避免它们在启动期被提前加载
@@ -254,7 +255,7 @@ wk.add({
   { "<leader>pd", jz.SubProjectFiles,                                 desc = "Find File" },
   { "<leader>pe", command("AsyncTaskEdit"),                           desc = "async edit" },
   { "<leader>pf", search.project_files,                               desc = "project files" },
-  { "<leader>pp", command("Telescope projects"),                      desc = "projects" },
+  { "<leader>pp", project.switch,                                     desc = "projects" },
   { "<leader>pr", search.project_oldfiles,                            desc = "project recent files" },
   { "<leader>ps", command("Telescope lsp_dynamic_workspace_symbols"), desc = "workspace symbol" },
 })

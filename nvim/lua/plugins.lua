@@ -30,20 +30,18 @@ require("lazy").setup({
     end,
   },
 
-  { "nvim-lualine/lualine.nvim", event = "VeryLazy" },
-
   { "nvim-lua/plenary.nvim",     event = "VeryLazy" },
 
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     lazy = false,
-    build = ':TSUpdate'
+    build = ":TSUpdate",
   },
 
   {
     "HiPhish/rainbow-delimiters.nvim",
-    after = "nvim-treesitter",
-    requires = "nvim-treesitter/nvim-treesitter",
+    dependencies = "nvim-treesitter/nvim-treesitter",
     config = function()
       -- 超大文件（如 25 万行的 protobuf 生成代码）它是唯一在 FileType 时同步全树解析的插件，
       -- 打开要 80 秒以上；阈值与 autocmd.lua 的 big-file 一致
@@ -58,11 +56,7 @@ require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     branch = "main",
-    after = "nvim-treesitter",
-    requires = "nvim-treesitter/nvim-treesitter",
-    init = function()
-      vim.g.no_plugin_maps = true
-    end,
+    dependencies = "nvim-treesitter/nvim-treesitter",
   },
 
   {
@@ -99,23 +93,6 @@ require("lazy").setup({
 
   { "paopaol/e-kaput.nvim",       event = "VeryLazy" },
 
-  {
-    "ahmedkhalf/project.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("project_nvim").setup({
-        manual_mode = true,
-        detection_methods = { "lsp", "pattern" },
-        patterns = { ".projectile" },
-        ignore_lsp = {},
-        exclude_dirs = { "build" },
-        show_hidden = false,
-        silent_chdir = true,
-        datapath = vim.fn.stdpath("data"),
-      })
-    end,
-  },
-
   { "kazhala/close-buffers.nvim", event = "VeryLazy" },
 
   { "tpope/vim-fugitive",         event = "VeryLazy" },
@@ -128,5 +105,5 @@ require("lazy").setup({
 
   { "akinsho/git-conflict.nvim",  event = "VeryLazy", version = "*",                         config = true },
 
-  { "j-hui/fidget.nvim",          event = "VeryLazy", tag = "legacy",                        config = true },
+  { "j-hui/fidget.nvim",          event = "VeryLazy", opts = {} },
 })
