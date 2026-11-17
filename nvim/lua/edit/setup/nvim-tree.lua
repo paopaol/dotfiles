@@ -8,11 +8,17 @@ return {
     },
     cmd = "Neotree",
     opts = {
+      sources = { "filesystem" }, -- 只保留 Files，去掉 Buffers/Git
       enable_diagnostics = false,
       enable_git_status = false,
       use_popups_for_input = false,
       popup_border_style = "double",
-      source_selector = { winbar = false, statusline = true },
+      filesystem = {
+        filtered_items = {
+          -- 关闭 gitignore 过滤：该功能每次刷新都同步执行 git ls-files，大仓库很慢
+          hide_gitignored = false,
+        },
+      },
       window = {
         width = 50,
         mappings = {
