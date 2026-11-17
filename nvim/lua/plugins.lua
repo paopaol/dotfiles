@@ -111,5 +111,12 @@ require("lazy").setup({
 
   { "akinsho/git-conflict.nvim", event = "VeryLazy", version = "*", config = true },
 
-  { "j-hui/fidget.nvim", event = "VeryLazy", opts = {} },
+  {
+    "j-hui/fidget.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- 默认窗是全透明、无边框、背景用 Comment(绿)，在浅色主题下很怪
+      notification = { window = { border = "single", winblend = 0, normal_hl = "NormalFloat" } },
+    },
+  },
 })

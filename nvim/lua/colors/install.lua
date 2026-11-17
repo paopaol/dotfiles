@@ -22,7 +22,7 @@ return {
 
 	{ "folke/tokyonight.nvim",               lazy = true, opts = { style = "moon" }, },
 
-	{ "ofirgall/ofirkai.nvim",               config = true },
+	{ "ofirgall/ofirkai.nvim",               lazy = true, config = true },
 
 	{ "nyoom-engineering/oxocarbon.nvim",    lazy = true, },
 
@@ -36,5 +36,5 @@ return {
 		config = function() require("visual_studio_code").setup({ mode = "dark" }) end,
 	},
 
-	{ "EdenEast/nightfox.nvim", lazy = true, config = require('colors.setup.nightfox').config },
+	{ "EdenEast/nightfox.nvim", lazy = true },
 }

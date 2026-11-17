@@ -1,6 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
-vim.o.guifont = "DejaVu Sans Mono:h10"
+vim.o.guifont = "ZedMono NFP:h12"
 vim.o.pumheight = 10
 vim.o.numberwidth = 3
 -- 显示左侧图标指示列

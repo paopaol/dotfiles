@@ -1,1 +1,1 @@
-vim.cmd("colorscheme ofirkai")
+vim.cmd("colorscheme qtcreator")
