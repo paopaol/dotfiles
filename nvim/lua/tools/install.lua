@@ -13,10 +13,16 @@ return {
           python = { "ruff_format", "ruff_organize_imports" },
           xml = { "xmlformat" },
           json = { "prettier" },
+          fbs = { "flatbuffers_format" },
         },
         formatters = {
           xmlformat = {
             prepend_args = { "--selfclose", "--preserve-attribute" },
+          },
+          flatbuffers_format = {
+            command = "flatbuffers-format",
+            args = { "--stdin-filepath", "$FILENAME", "-" },
+            stdin = true,
           },
         },
       })

@@ -39,7 +39,6 @@ local big_file = function(bufnr)
   return vim.api.nvim_buf_line_count(bufnr) > 10000
 end
 
-
 -- treesitter 高亮由 after/ftplugin/*.lua 启动，且 ftplugin 先于本 autocmd 执行，故此处直接关掉
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("big-file-highlight-group", { clear = true }),
@@ -79,5 +78,18 @@ vim.api.nvim_create_autocmd("User", {
         return vim.api.nvim_replace_termcodes("<CR>", true, false, true)
       end
     end, { expr = true, silent = true })
+  end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "TSUpdate",
+  callback = function()
+    require("nvim-treesitter.parsers").fbs = {
+      install_info = {
+        url = "https://github.com/smpanaro/tree-sitter-flatbuffers",
+        branch = "main",
+        queries = "queries", -- 关键：同步仓库中的高亮规则文件夹
+      },
+    }
   end,
 })

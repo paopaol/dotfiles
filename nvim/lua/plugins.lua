@@ -20,7 +20,7 @@ require("lazy").setup({
   require("debugger.install"),
   require("tools.install"),
 
-  { "ton/vim-bufsurf",           event = "VeryLazy" },
+  { "ton/vim-bufsurf", event = "VeryLazy" },
 
   {
     "akinsho/toggleterm.nvim",
@@ -30,13 +30,19 @@ require("lazy").setup({
     end,
   },
 
-  { "nvim-lua/plenary.nvim",     event = "VeryLazy" },
+  { "nvim-lua/plenary.nvim", event = "VeryLazy" },
 
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
     lazy = false,
     build = ":TSUpdate",
+    config = function()
+      vim.treesitter.language.add("fbs", {
+        path = vim.fn.stdpath("data") .. "/site/parser/fbs.so",
+        symbol_name = "flatbuffers",
+      })
+    end,
   },
 
   {
@@ -85,25 +91,25 @@ require("lazy").setup({
         automatic_enable = { exclude = { "clangd" } },
       })
 
-       vim.lsp.enable("clice")
+      vim.lsp.enable("clice")
     end,
   },
 
-  { "vim-scripts/bufkill.vim",    event = "VeryLazy" },
+  { "vim-scripts/bufkill.vim", event = "VeryLazy" },
 
-  { "paopaol/e-kaput.nvim",       event = "VeryLazy" },
+  { "paopaol/e-kaput.nvim", event = "VeryLazy" },
 
   { "kazhala/close-buffers.nvim", event = "VeryLazy" },
 
-  { "tpope/vim-fugitive",         event = "VeryLazy" },
+  { "tpope/vim-fugitive", event = "VeryLazy" },
 
-  { "sindrets/diffview.nvim",     event = "VeryLazy", dependencies = "nvim-lua/plenary.nvim" },
+  { "sindrets/diffview.nvim", event = "VeryLazy", dependencies = "nvim-lua/plenary.nvim" },
 
-  { "AndrewRadev/linediff.vim",   event = "VeryLazy" },
+  { "AndrewRadev/linediff.vim", event = "VeryLazy" },
 
-  { "thinca/vim-qfreplace",       event = "VeryLazy" },
+  { "thinca/vim-qfreplace", event = "VeryLazy" },
 
-  { "akinsho/git-conflict.nvim",  event = "VeryLazy", version = "*",                         config = true },
+  { "akinsho/git-conflict.nvim", event = "VeryLazy", version = "*", config = true },
 
-  { "j-hui/fidget.nvim",          event = "VeryLazy", opts = {} },
+  { "j-hui/fidget.nvim", event = "VeryLazy", opts = {} },
 })
