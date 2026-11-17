@@ -22,7 +22,6 @@ end
 
 function M.uncolor_all_words()
   vim.cmd([[Interestingwords --remove_all]])
-  vim.g.nohlsearch = true
 end
 
 function M.rootdir()

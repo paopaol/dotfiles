@@ -242,7 +242,7 @@ wk.add({
   { "<leader>tc", command("Telescope colorscheme enable_preview=true"), desc = "colorscheme",         mode = "n" },
   { "<leader>tf", command("Telescope filetypes"),                       desc = "filetypes",           mode = "n" },
   { "<leader>tl", command("setlocal wrap!"),                            desc = "line wrap",           mode = "n" },
-  { "<leader>tr", command("so $VIMHOME/init.vim"),                      desc = "refresh vimrc",       mode = "n" },
+  { "<leader>tr", command("so $MYVIMRC"),                               desc = "refresh vimrc",       mode = "n" },
   { "<leader>tm", search.man,                                           desc = "man page",            mode = "n" },
   { "<leader>td", Toggle_venn,                                          desc = "draw ascii diagrams", mode = "n" },
 })
@@ -292,7 +292,6 @@ wk.add({
 
 wk.add({
   { "<leader>,",   group = "all-major" },
-  { "<leader>,d",  command("Dox"),                                                    desc = "anotaion func" },
   { "<leader>,c",  search.lsp_calltree,                                               desc = "calltree" },
   { "<leader>,p",  search.project_live_symbols,                                       desc = "workspace_symbolf" },
   { "<leader>,e",  function() telein.diagnostics({ cwd = rootdir(), bufnr = 0 }) end, desc = "document diagnostics", },
