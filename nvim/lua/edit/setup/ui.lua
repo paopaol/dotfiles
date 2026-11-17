@@ -14,19 +14,19 @@ return {
     "akinsho/nvim-bufferline.lua",
     event = "VeryLazy",
     config = function()
-      require "bufferline".setup {
+      require("bufferline").setup({
         options = {
-          buffer_close_icon = 'X',
+          buffer_close_icon = "X",
           -- mode = "tabs", -- can also be set to "tabs" to see tabpages
-          view = 'multiwindow', -- {'multiwindow'} | {'default'},
+          view = "multiwindow", -- {'multiwindow'} | {'default'},
           themable = false,
           numbers = "ordinal",
           custom_filter = function(buf, buf_nums)
             return vim.bo[buf].filetype ~= "qf"
           end,
 
-          show_tab_indicators = false,  -- | false,
-          separator_style = "thin",     -- | "padded_slant" | "thick" | "thin" |
+          show_tab_indicators = false, -- | false,
+          separator_style = "thin", -- | "padded_slant" | "thick" | "thin" |
           enforce_regular_tabs = false, -- false | true,
           always_show_bufferline = true,
           offsets = {
@@ -34,35 +34,52 @@ return {
               filetype = "NvimTree",
               text = "File Explorer",
               highlight = "Directory",
-              text_align = "left" -- "center" | "right" | "left"
-            }
-          }
-        }
-      }
-    end
+              text_align = "left", -- "center" | "right" | "left"
+            },
+          },
+        },
+      })
+    end,
   },
 
   {
-    -- 替代 lualine：默认轻量，内容保持 mode / git / diagnostics / 文件信息 / 位置
     "nvim-mini/mini.statusline",
     event = "VeryLazy",
+    dependencies = { "tpope/vim-fugitive", "skywind3000/asyncrun.vim" },
     config = function()
       local sl = require("mini.statusline")
+
+      local function git()
+        local ok, head = pcall(vim.fn.FugitiveHead)
+        return (ok and head ~= "") and (" " .. head) or ""
+      end
+
+      local function filename()
+        if vim.bo.buftype ~= "" then
+          return "%t"
+        end
+        local name = vim.api.nvim_buf_get_name(0)
+        if name == "" then
+          return "[No Name]"
+        end
+        local root = vim.call("asyncrun#get_root", "%")
+        local rel = root ~= "" and vim.fs.relpath(root, name) or vim.fn.fnamemodify(name, ":t")
+        return rel:gsub("%%", "%%%%") .. "%m%r"
+      end
+
       sl.setup({
         use_icons = true,
         content = {
           active = function()
             local mode, mode_hl = sl.section_mode({ trunc_width = 120 })
-            local git = sl.section_git({ trunc_width = 75 })
             local diagnostics = sl.section_diagnostics({ trunc_width = 150 })
-            local filename = sl.section_filename({ trunc_width = 140 })
             local fileinfo = sl.section_fileinfo({ trunc_width = 120 })
             local location = sl.section_location({ trunc_width = 75 })
             return sl.combine_groups({
               { hl = mode_hl, strings = { mode } },
-              { hl = "MiniStatuslineDevinfo", strings = { git, diagnostics } },
+              { hl = "MiniStatuslineDevinfo", strings = { git(), diagnostics } },
               "%<",
-              { hl = "MiniStatuslineFilename", strings = { filename } },
+              { hl = "MiniStatuslineFilename", strings = { filename() } },
               "%=",
               { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
               { hl = mode_hl, strings = { location } },
@@ -73,18 +90,18 @@ return {
     end,
   },
 
-  { "paopaol/messages.nvim",  event = "VeryLazy", config = true },
+  { "paopaol/messages.nvim", event = "VeryLazy", config = true },
 
-  { 'windwp/nvim-ts-autotag', event = "VeryLazy" },
+  { "windwp/nvim-ts-autotag", event = "VeryLazy" },
 
   {
-    'jinh0/eyeliner.nvim',
+    "jinh0/eyeliner.nvim",
     event = "VeryLazy",
     config = function()
-      require 'eyeliner'.setup {
+      require("eyeliner").setup({
         highlight_on_key = true,
         dim = true,
-      }
-    end
-  }
+      })
+    end,
+  },
 }
