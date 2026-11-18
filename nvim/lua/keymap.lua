@@ -98,6 +98,7 @@ local task_run = function()
   require("snacks").picker.pick({
     title = "AsyncTasks",
     items = items,
+    format = "text", -- 默认 format 按 file 字段渲染，自定义 items 会显示空行
     confirm = function(p, item)
       p:close()
       if item then
@@ -159,116 +160,116 @@ function _G.lsp_format_region()
 end
 
 wk.add({
-  { "<f1>",     search.project_tree,                desc = "tree",             mode = "n" },
+  { "<f1>", search.project_tree, desc = "tree", mode = "n" },
   { "<f2><f2>", utils.insert_semicolon_end_of_line, desc = "insert semicolon", mode = { "n", "i" } },
-  { "<f3>",     qf_prev,                            desc = "prev item",        mode = "n" },
-  { "<f4>",     qf_next,                            desc = "next item",        mode = "n" },
-  { "<A-,>",    show_diagnostic,                    desc = "show diagnostic",  mode = "n" },
-  { "<A-\\>",   command("ToggleTermToggleAll"),     desc = "terminal",         mode = { "n", "i", "t" } },
+  { "<f3>", qf_prev, desc = "prev item", mode = "n" },
+  { "<f4>", qf_next, desc = "next item", mode = "n" },
+  { "<A-,>", show_diagnostic, desc = "show diagnostic", mode = "n" },
+  { "<A-\\>", command("ToggleTermToggleAll"), desc = "terminal", mode = { "n", "i", "t" } },
 })
 
 -- files
 wk.add({
-  { "<leader>f",   group = "file" },
-  { "<leader>ff",  search.project_files,                  desc = "project files",      mode = "n" },
-  { "<leader>fH",  command("silent !thunar $HOME &"),     desc = "home",               mode = "n" },
-  { "<leader>fbD", command("BookmarkClearAll"),           desc = "Clear All Bookmark", mode = "n" },
-  { "<leader>fba", command("BookmarkAnnotate"),           desc = "Add Bookmark",       mode = "n" },
-  { "<leader>fbb", search.vim_book_marks,                 desc = "Bookmarks",          mode = "n" },
-  { "<leader>fbd", command("BookmarkClear"),              desc = "Clear Bookmark",     mode = "n" },
-  { "<leader>fn",  command("enew"),                       desc = "New File",           mode = "n" },
-  { "<leader>fo",  search.open_with_defualt,              desc = "externl open",       mode = "n" },
-  { "<leader>fq",  utils.open_current_file_use_qtcreator, desc = "open in qtcreator",  mode = "n" },
-  { "<leader>fr",  search.oldfiles,                       desc = "Open Recent File",   mode = "n" },
-  { "<leader>ft",  search.project_tree_focus,             desc = "file tree",          mode = "n" },
+  { "<leader>f", group = "file" },
+  { "<leader>ff", search.project_files, desc = "project files", mode = "n" },
+  { "<leader>fH", command("silent !thunar $HOME &"), desc = "home", mode = "n" },
+  { "<leader>fbD", command("BookmarkClearAll"), desc = "Clear All Bookmark", mode = "n" },
+  { "<leader>fba", command("BookmarkAnnotate"), desc = "Add Bookmark", mode = "n" },
+  { "<leader>fbb", search.vim_book_marks, desc = "Bookmarks", mode = "n" },
+  { "<leader>fbd", command("BookmarkClear"), desc = "Clear Bookmark", mode = "n" },
+  { "<leader>fn", command("enew"), desc = "New File", mode = "n" },
+  { "<leader>fo", search.open_with_defualt, desc = "externl open", mode = "n" },
+  { "<leader>fq", utils.open_current_file_use_qtcreator, desc = "open in qtcreator", mode = "n" },
+  { "<leader>fr", search.oldfiles, desc = "Open Recent File", mode = "n" },
+  { "<leader>ft", search.project_tree_focus, desc = "file tree", mode = "n" },
 })
 
 -- open
 wk.add({
-  { "<leader>o",  group = "open" },
-  { "<leader>o2", utils.open200,              desc = "200",                      mode = "n" },
+  { "<leader>o", group = "open" },
+  { "<leader>o2", utils.open200, desc = "200", mode = "n" },
   { "<leader>od", search.exploer_dir_current, desc = "externl open current dir", mode = "n" },
   { "<leader>op", search.exploer_dir_project, desc = "externl open project dir", mode = "n" },
 })
 
 -- buffer
 wk.add({
-  { "<leader>b",  group = "buffer" },
-  { "<leader>bd", jz.close_current_buffer,   desc = "nest buffer",     mode = "n" },
-  { "<leader>bk", jz.close_current_buffer,   desc = "buffer kill",     mode = "n" },
-  { "<leader>bn", command("BufSurfForward"), desc = "nest buffer",     mode = "n" },
-  { "<leader>bp", command("BufSurfBack"),    desc = "prev buffer",     mode = "n" },
-  { "<leader>bK", jz.delete_other_buffers,   desc = "buffer kill",     mode = "n" },
-  { "<leader>bb", search.buffers,            desc = "buffer list",     mode = "n" },
-  { "<leader>bB", search.project_buffers,    desc = "project buffers", mode = "n" },
+  { "<leader>b", group = "buffer" },
+  { "<leader>bd", jz.close_current_buffer, desc = "nest buffer", mode = "n" },
+  { "<leader>bk", jz.close_current_buffer, desc = "buffer kill", mode = "n" },
+  { "<leader>bn", command("BufSurfForward"), desc = "nest buffer", mode = "n" },
+  { "<leader>bp", command("BufSurfBack"), desc = "prev buffer", mode = "n" },
+  { "<leader>bK", jz.delete_other_buffers, desc = "buffer kill", mode = "n" },
+  { "<leader>bb", search.buffers, desc = "buffer list", mode = "n" },
+  { "<leader>bB", search.project_buffers, desc = "project buffers", mode = "n" },
 })
 
 -- windows
 wk.add({
-  { "<leader>w",  group = "close other window", mode = "n" },
-  { "<leader>w1", command("only"),              desc = "close other window", mode = "n" },
-  { "<leader>w=", command("wincmd ="),          desc = "balance-window",     mode = "n" },
-  { "<leader>wd", command("wincmd c"),          desc = "delete-window",      mode = "n" },
-  { "<leader>wm", command("wincmd |"),          desc = "max-window",         mode = "n" },
-  { "<leader>wn", command("tabnext"),           desc = "next tab",           mode = "n" },
-  { "<leader>wp", command("tabprevious"),       desc = "previous tab",       mode = "n" },
-  { "<leader>wq", command("qa"),                desc = "quit",               mode = "n" },
-  { "<leader>ws", command("wincmd s"),          desc = "split-window-below", mode = "n" },
-  { "<leader>wt", command("tabnew"),            desc = "new tab",            mode = "n" },
-  { "<leader>wv", command("wincmd v"),          desc = "split-window-right", mode = "n" },
-  { "<leader>ww", command("tabnew"),            desc = "new tab",            mode = "n" },
+  { "<leader>w", group = "close other window", mode = "n" },
+  { "<leader>w1", command("only"), desc = "close other window", mode = "n" },
+  { "<leader>w=", command("wincmd ="), desc = "balance-window", mode = "n" },
+  { "<leader>wd", command("wincmd c"), desc = "delete-window", mode = "n" },
+  { "<leader>wm", command("wincmd |"), desc = "max-window", mode = "n" },
+  { "<leader>wn", command("tabnext"), desc = "next tab", mode = "n" },
+  { "<leader>wp", command("tabprevious"), desc = "previous tab", mode = "n" },
+  { "<leader>wq", command("qa"), desc = "quit", mode = "n" },
+  { "<leader>ws", command("wincmd s"), desc = "split-window-below", mode = "n" },
+  { "<leader>wt", command("tabnew"), desc = "new tab", mode = "n" },
+  { "<leader>wv", command("wincmd v"), desc = "split-window-right", mode = "n" },
+  { "<leader>ww", command("tabnew"), desc = "new tab", mode = "n" },
 })
 
 -- search/symbol
 wk.add({
-  { "<leader>s",  group = "search/symbol" },
-  { "<leader>sh", command("Interestingwords --toggle"),  desc = "highlight words",          mode = "n" },
-  { "<leader>ss", search.search_current_buffer,          desc = "symbol current buffer",    mode = "n" },
-  { "<leader>sS", search.current_buffer_symbol_at_point, desc = "symbol current buffer",    mode = "n" },
-  { "<leader>si", search.lsp_document_symbols,           desc = "symbol",                   mode = "n" },
-  { "<leader>sp", search.project_current_symbols,        desc = "symbol project at point",  mode = "n" },
-  { "<leader>sP", search.project_symbol_at_point,        desc = "symbol project at point",  mode = "n" },
-  { "<leader>sd", search.directory_live_symbol,          desc = "symbol current directory", mode = "n" },
-  { "<leader>sc", utils.uncolor_all_words,               desc = "unhighlight words",        mode = "n" },
+  { "<leader>s", group = "search/symbol" },
+  { "<leader>sh", command("Interestingwords --toggle"), desc = "highlight words", mode = "n" },
+  { "<leader>ss", search.search_current_buffer, desc = "symbol current buffer", mode = "n" },
+  { "<leader>sS", search.current_buffer_symbol_at_point, desc = "symbol current buffer", mode = "n" },
+  { "<leader>si", search.lsp_document_symbols, desc = "symbol", mode = "n" },
+  { "<leader>sp", search.project_current_symbols, desc = "symbol project at point", mode = "n" },
+  { "<leader>sP", search.project_symbol_at_point, desc = "symbol project at point", mode = "n" },
+  { "<leader>sd", search.directory_live_symbol, desc = "symbol current directory", mode = "n" },
+  { "<leader>sc", utils.uncolor_all_words, desc = "unhighlight words", mode = "n" },
 })
 
 -- help
 wk.add({
-  { "<leader>h",  group = "help" },
-  { "<leader>hm", cppman,        desc = "cppman", mode = "n" },
+  { "<leader>h", group = "help" },
+  { "<leader>hm", cppman, desc = "cppman", mode = "n" },
 })
 
 -- git
 wk.add({
-  { "<leader>g",  group = "git" },
-  { "<leader>gP", command("Git pull"),  desc = "git pull",   mode = "n" },
-  { "<leader>gb", command("Git blame"), desc = "git blame",  mode = "n" },
-  { "<leader>gd", search.git_diff,      desc = "git diff",   mode = "n" },
-  { "<leader>gg", command("Neogit"),    desc = "git status", mode = "n" },
-  { "<leader>gl", command("tab Gclog"), desc = "git log",    mode = "n" },
-  { "<leader>gp", command("Git push"),  desc = "git push",   mode = "n" },
+  { "<leader>g", group = "git" },
+  { "<leader>gP", command("Git pull"), desc = "git pull", mode = "n" },
+  { "<leader>gb", command("Git blame"), desc = "git blame", mode = "n" },
+  { "<leader>gd", search.git_diff, desc = "git diff", mode = "n" },
+  { "<leader>gg", command("Neogit"), desc = "git status", mode = "n" },
+  { "<leader>gl", command("tab Gclog"), desc = "git log", mode = "n" },
+  { "<leader>gp", command("Git push"), desc = "git push", mode = "n" },
 })
 
 -- tools
 wk.add({
-  { "<leader>t",  group = "tools/toggle" },
-  { "<leader>tc", search.colorschemes,       desc = "colorscheme",         mode = "n" },
-  { "<leader>tf", search.filetypes,          desc = "filetypes",           mode = "n" },
-  { "<leader>tl", command("setlocal wrap!"), desc = "line wrap",           mode = "n" },
-  { "<leader>tr", command("so $MYVIMRC"),    desc = "refresh vimrc",       mode = "n" },
-  { "<leader>tm", search.man,                desc = "man page",            mode = "n" },
-  { "<leader>td", Toggle_venn,               desc = "draw ascii diagrams", mode = "n" },
+  { "<leader>t", group = "tools/toggle" },
+  { "<leader>tc", search.colorschemes, desc = "colorscheme", mode = "n" },
+  { "<leader>tf", search.filetypes, desc = "filetypes", mode = "n" },
+  { "<leader>tl", command("setlocal wrap!"), desc = "line wrap", mode = "n" },
+  { "<leader>tr", command("so $MYVIMRC"), desc = "refresh vimrc", mode = "n" },
+  { "<leader>tm", search.man, desc = "man page", mode = "n" },
+  { "<leader>td", Toggle_venn, desc = "draw ascii diagrams", mode = "n" },
 })
 
 -- project
 wk.add({
-  { "<leader>p",  group = "Project" },
-  { "<leader>pb", search.project_buffers,      desc = "Project buffers" },
-  { "<leader>pd", jz.SubProjectFiles,          desc = "Find File" },
-  { "<leader>pe", command("AsyncTaskEdit"),    desc = "async edit" },
-  { "<leader>pf", search.project_files,        desc = "project files" },
-  { "<leader>pp", project.switch,              desc = "projects" },
-  { "<leader>pr", search.project_oldfiles,     desc = "project recent files" },
+  { "<leader>p", group = "Project" },
+  { "<leader>pb", search.project_buffers, desc = "Project buffers" },
+  { "<leader>pd", jz.SubProjectFiles, desc = "Find File" },
+  { "<leader>pe", command("AsyncTaskEdit"), desc = "async edit" },
+  { "<leader>pf", search.project_files, desc = "project files" },
+  { "<leader>pp", project.switch, desc = "projects" },
+  { "<leader>pr", search.project_oldfiles, desc = "project recent files" },
   { "<leader>ps", search.project_live_symbols, desc = "workspace symbol" },
 })
 
@@ -284,82 +285,312 @@ wk.add({
 
 -- code
 wk.add({
-  { "<leader>c",  group = "code" },
-  { "<leader>cr", vim.lsp.buf.rename,          desc = "rename" },
+  { "<leader>c", group = "code" },
+  { "<leader>cr", vim.lsp.buf.rename, desc = "rename" },
   { "<leader>cp", search.project_live_symbols, desc = "workspace_symbolf" },
   { "<leader>ce", search.document_diagnostics, desc = "document diagnostics" },
-  { "<leader>cE", search.project_diagnostics,  desc = "workspace diagnostics" },
+  { "<leader>cE", search.project_diagnostics, desc = "workspace diagnostics" },
 })
 
 wk.add({
-  { "<leader>r",  group = "async stop" },
-  { "<leader>rr", task_run,                desc = "run" },
-  { "<leader>rs", command("AsyncStop"),    desc = "async stop" },
+  { "<leader>r", group = "async stop" },
+  { "<leader>rr", task_run, desc = "run" },
+  { "<leader>rs", command("AsyncStop"), desc = "async stop" },
   { "<leader>re", command("AsyncTask -e"), desc = "async tas edit" },
 })
 
 wk.add({
-  { "<leader>,",   group = "all-major" },
-  { "<leader>,c",  search.lsp_calltree,         desc = "calltree" },
-  { "<leader>,p",  search.project_live_symbols, desc = "workspace_symbolf" },
-  { "<leader>,e",  search.document_diagnostics, desc = "document diagnostics" },
-  { "<leader>,tt", command("Translate"),        desc = "translate" },
+  { "<leader>,", group = "all-major" },
+  { "<leader>,c", search.lsp_calltree, desc = "calltree" },
+  { "<leader>,p", search.project_live_symbols, desc = "workspace_symbolf" },
+  { "<leader>,e", search.document_diagnostics, desc = "document diagnostics" },
+  { "<leader>,tt", command("Translate"), desc = "translate" },
 })
 
 wk.add({
-  { "<leader>",  group = "gloabl" },
-  { "<leader>q", command("wincmd c"),                      desc = "delete-window" },
-  { "<leader>1", function() bufferline.go_to(1, true) end, desc = "buffer 1" },
-  { "<leader>2", function() bufferline.go_to(2, true) end, desc = "buffer 2" },
-  { "<leader>3", function() bufferline.go_to(3, true) end, desc = "buffer 3" },
-  { "<leader>4", function() bufferline.go_to(4, true) end, desc = "buffer 4" },
-  { "<leader>5", function() bufferline.go_to(5, true) end, desc = "buffer 5" },
-  { "<leader>6", function() bufferline.go_to(6, true) end, desc = "buffer 6" },
-  { "<leader>7", function() bufferline.go_to(7, true) end, desc = "buffer 7" },
-  { "<leader>8", function() bufferline.go_to(8, true) end, desc = "buffer 8" },
-  { "<leader>9", function() bufferline.go_to(9, true) end, desc = "buffer 9" },
+  { "<leader>", group = "gloabl" },
+  { "<leader>q", command("wincmd c"), desc = "delete-window" },
+  {
+    "<leader>1",
+    function()
+      bufferline.go_to(1, true)
+    end,
+    desc = "buffer 1",
+  },
+  {
+    "<leader>2",
+    function()
+      bufferline.go_to(2, true)
+    end,
+    desc = "buffer 2",
+  },
+  {
+    "<leader>3",
+    function()
+      bufferline.go_to(3, true)
+    end,
+    desc = "buffer 3",
+  },
+  {
+    "<leader>4",
+    function()
+      bufferline.go_to(4, true)
+    end,
+    desc = "buffer 4",
+  },
+  {
+    "<leader>5",
+    function()
+      bufferline.go_to(5, true)
+    end,
+    desc = "buffer 5",
+  },
+  {
+    "<leader>6",
+    function()
+      bufferline.go_to(6, true)
+    end,
+    desc = "buffer 6",
+  },
+  {
+    "<leader>7",
+    function()
+      bufferline.go_to(7, true)
+    end,
+    desc = "buffer 7",
+  },
+  {
+    "<leader>8",
+    function()
+      bufferline.go_to(8, true)
+    end,
+    desc = "buffer 8",
+  },
+  {
+    "<leader>9",
+    function()
+      bufferline.go_to(9, true)
+    end,
+    desc = "buffer 9",
+  },
 })
 
 wk.add({
-  { "g",  group = "goto" },
-  { "gd", search.lsp_definition,   desc = "lsp+definition" },
+  { "g", group = "goto" },
+  { "gd", search.lsp_definition, desc = "lsp+definition" },
   { "gi", vim.lsp.buf.declaration, desc = "lsp+definition" },
-  { "gv", lsp_definitions_vsplit,  desc = "lsp+definition/vsplit" },
-  { "gs", lsp_definitions_split,   desc = "lsp+definition/split" },
-  { "gr", search.project_lsp_ref,  desc = "lsp+references",       nowait = true },
+  { "gv", lsp_definitions_vsplit, desc = "lsp+definition/vsplit" },
+  { "gs", lsp_definitions_split, desc = "lsp+definition/split" },
+  { "gr", search.project_lsp_ref, desc = "lsp+references", nowait = true },
   { "gf", vim.lsp.buf.code_action, desc = "quickfix" },
-  { "gy", ":lua ___gdc('v')<cr>",  desc = "comment and yank",     mode = { "n", "v" }, silent = false },
-  { "gx", nil,                     desc = "open" },
+  { "gy", ":lua ___gdc('v')<cr>", desc = "comment and yank", mode = { "n", "v" }, silent = false },
+  { "gx", nil, desc = "open" },
 })
 
 wk.add({
-  { "<C-a>",           "<Home>",                                             desc = "begin of line", mode = { "i", "c" },      silent = false },
-  { "<C-e>",           "<End>",                                              desc = "end of line",   mode = { "i", "v", "c" }, silent = false },
-  { "<C-e>",           "A",                                                  desc = "end of line",   mode = { "n" },           silent = false },
-  { "<C-j>",           "<Down>",                                             desc = "next line",     mode = { "n", "i" },      silent = false },
-  { "<C-k>",           "<Up>",                                               desc = "next line",     mode = { "n", "i" },      silent = false },
-  { "<C-f>",           "<Right>",                                            desc = "forward char",  mode = { "n", "i", "c" }, silent = false },
-  { "<C-b>",           "<Left>",                                             desc = "backward char", mode = { "n", "i", "c" }, silent = false },
-  { "<A-f>",           "<C-Right>",                                          desc = "forward word",  mode = { "n", "i", "c" }, silent = false },
-  { "<A-j>",           "<C-W>j",                                             desc = "down win",      mode = { "n" },           silent = false },
-  { "<A-k>",           "<C-W>k",                                             desc = "up win",        mode = { "n" },           silent = false },
-  { "<A-h>",           "<C-W>h",                                             desc = "right win",     mode = { "n" },           silent = false },
-  { "<A-l>",           "<C-W>l",                                             desc = "left win",      mode = { "n" },           silent = false },
-  { "<C-c>",           "<esc>",                                              desc = "normal mode",   mode = { "i" },           silent = true },
-  { "Q",               ":cclose<CR>",                                        desc = "quit",          mode = { "n", "v" },      silent = true },
-  { "<A-->",           ":resize -1<CR>",                                     desc = "font -",        mode = { "n" },           silent = true },
-  { "<A-=>",           ":resize +1<CR>",                                     desc = "font +",        mode = { "n" },           silent = true },
-  { "<A-<>",           ":SidewaysLeft<CR>",                                  desc = "SidewaysLeft",  mode = { "n" },           silent = true },
-  { "<A->>",           ":SidewaysRight<CR>",                                 desc = "SidewaysRight", mode = { "n" },           silent = true },
-  { "<localleader>tt", ":Translate<cr>",                                     desc = "Translate",     mode = { "v" },           silent = true },
-  { ",!",              ":!bash<cr>",                                         desc = "",              mode = "v",               silent = true },
-  { ",,",              utils.format_buffer,                                  desc = "formatting",    mode = "v",               silent = true },
-  { "gf",              ":lua require('base.search').extract() <cr>",         desc = "",              mode = "v",               silent = true },
-  { ",g",              ":TSCppDefineClassFunc<cr>",                          desc = "",              mode = "v",               silent = true },
-  { "<A-Down>",        ":MoveLine(1)<CR>",                                   desc = "",              mode = "n",               silent = true },
-  { "<A-Up>",          ":MoveLine(-1)<CR>",                                  desc = "",              mode = "n",               silent = true },
-  { "<A-Down>",        ":MoveBlock(1)<CR>",                                  desc = "",              mode = "v",               silent = true },
-  { "<A-Up>",          ":MoveBlock(-1)<CR>",                                 desc = "",              mode = "v",               silent = true },
-  { "<A-x>",           ":",                                                  desc = "",              mode = { "n", "v" },      silent = false },
-  { "<leader>tv",      function() require("edit.setup.hex-view").view() end, desc = "hexview",       mode = { "v" },           silent = false },
+  {
+    "<C-a>",
+    "<Home>",
+    desc = "begin of line",
+    mode = { "i", "c" },
+    silent = false,
+  },
+  {
+    "<C-e>",
+    "<End>",
+    desc = "end of line",
+    mode = { "i", "v", "c" },
+    silent = false,
+  },
+  {
+    "<C-e>",
+    "A",
+    desc = "end of line",
+    mode = { "n" },
+    silent = false,
+  },
+  {
+    "<C-j>",
+    "<Down>",
+    desc = "next line",
+    mode = { "n", "i" },
+    silent = false,
+  },
+  {
+    "<C-k>",
+    "<Up>",
+    desc = "next line",
+    mode = { "n", "i" },
+    silent = false,
+  },
+  {
+    "<C-f>",
+    "<Right>",
+    desc = "forward char",
+    mode = { "n", "i", "c" },
+    silent = false,
+  },
+  {
+    "<C-b>",
+    "<Left>",
+    desc = "backward char",
+    mode = { "n", "i", "c" },
+    silent = false,
+  },
+  {
+    "<A-f>",
+    "<C-Right>",
+    desc = "forward word",
+    mode = { "n", "i", "c" },
+    silent = false,
+  },
+  {
+    "<A-j>",
+    "<C-W>j",
+    desc = "down win",
+    mode = { "n" },
+    silent = false,
+  },
+  {
+    "<A-k>",
+    "<C-W>k",
+    desc = "up win",
+    mode = { "n" },
+    silent = false,
+  },
+  {
+    "<A-h>",
+    "<C-W>h",
+    desc = "right win",
+    mode = { "n" },
+    silent = false,
+  },
+  {
+    "<A-l>",
+    "<C-W>l",
+    desc = "left win",
+    mode = { "n" },
+    silent = false,
+  },
+  {
+    "<C-c>",
+    "<esc>",
+    desc = "normal mode",
+    mode = { "i" },
+    silent = true,
+  },
+  {
+    "Q",
+    ":cclose<CR>",
+    desc = "quit",
+    mode = { "n", "v" },
+    silent = true,
+  },
+  {
+    "<A-->",
+    ":resize -1<CR>",
+    desc = "font -",
+    mode = { "n" },
+    silent = true,
+  },
+  {
+    "<A-=>",
+    ":resize +1<CR>",
+    desc = "font +",
+    mode = { "n" },
+    silent = true,
+  },
+  {
+    "<A-<>",
+    ":SidewaysLeft<CR>",
+    desc = "SidewaysLeft",
+    mode = { "n" },
+    silent = true,
+  },
+  {
+    "<A->>",
+    ":SidewaysRight<CR>",
+    desc = "SidewaysRight",
+    mode = { "n" },
+    silent = true,
+  },
+  {
+    "<localleader>tt",
+    ":Translate<cr>",
+    desc = "Translate",
+    mode = { "v" },
+    silent = true,
+  },
+  {
+    ",!",
+    ":!bash<cr>",
+    desc = "",
+    mode = "v",
+    silent = true,
+  },
+  {
+    ",,",
+    utils.format_buffer,
+    desc = "formatting",
+    mode = "v",
+    silent = true,
+  },
+  {
+    "gf",
+    ":lua require('base.search').extract() <cr>",
+    desc = "",
+    mode = "v",
+    silent = true,
+  },
+  {
+    ",g",
+    ":TSCppDefineClassFunc<cr>",
+    desc = "",
+    mode = "v",
+    silent = true,
+  },
+  {
+    "<A-Down>",
+    ":MoveLine(1)<CR>",
+    desc = "",
+    mode = "n",
+    silent = true,
+  },
+  {
+    "<A-Up>",
+    ":MoveLine(-1)<CR>",
+    desc = "",
+    mode = "n",
+    silent = true,
+  },
+  {
+    "<A-Down>",
+    ":MoveBlock(1)<CR>",
+    desc = "",
+    mode = "v",
+    silent = true,
+  },
+  {
+    "<A-Up>",
+    ":MoveBlock(-1)<CR>",
+    desc = "",
+    mode = "v",
+    silent = true,
+  },
+  {
+    "<A-x>",
+    ":",
+    desc = "",
+    mode = { "n", "v" },
+    silent = false,
+  },
+  {
+    "<leader>tv",
+    function()
+      require("edit.setup.hex-view").view()
+    end,
+    desc = "hexview",
+    mode = { "v" },
+    silent = false,
+  },
 })

@@ -102,13 +102,23 @@ M.filetypes = function()
   for _, ft in ipairs(vim.fn.getcompletion("", "filetype")) do
     items[#items + 1] = { text = ft }
   end
+  local buf = vim.api.nvim_get_current_buf()
+  local lines = vim.api.nvim_buf_get_lines(buf, 0, math.min(100, vim.api.nvim_buf_line_count(buf)), false)
   picker().pick({
     title = "Filetypes",
     items = items,
+    format = "text", -- 默认 format 按 file 字段渲染，自定义 items 会显示空行
+    preview = function(ctx)
+      ctx.preview:reset()
+      ctx.preview:minimal()
+      ctx.preview:set_title("Filetype: " .. ctx.item.text)
+      ctx.preview:set_lines(lines)
+      ctx.preview:highlight({ ft = ctx.item.text })
+    end,
     confirm = function(p, item)
       p:close()
-      if item then
-        vim.bo.filetype = item.text
+      if item and vim.api.nvim_buf_is_valid(buf) then
+        vim.bo[buf].filetype = item.text
       end
     end,
   })
