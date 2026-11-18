@@ -4,7 +4,9 @@
 local jz_layout = {
   backdrop = false,
   width = 0.99,
-  height = 0,
+  height = function()
+    return vim.o.lines - vim.o.cmdheight
+  end,
   box = "vertical",
   {
     win = "preview",
@@ -16,24 +18,6 @@ local jz_layout = {
   { win = "input", height = 1, border = "top" },
   { win = "list", border = "none" },
 }
-
--- 把父级链拼进可搜索文本，让类名+方法名能搜到
-local function lsp_symbol_transform(item)
-  if item.parent and item.parent.name then
-    local chain = {}
-    local p = item.parent
-    while p and p.name do
-      table.insert(chain, 1, p.name)
-      p = p.parent
-    end
-    item.text = table.concat({
-      item.text,
-      table.concat(chain, " "),
-      table.concat(chain, "::") .. "::" .. item.name,
-    }, " ")
-  end
-  return item
-end
 
 -- 同 telescope C-f：固定当前过滤结果，清空输入后在子集内继续过滤
 local function refine(picker)
@@ -130,8 +114,6 @@ return {
       files = {
         exclude = { "*.o", "*.so*", "*.o.d" },
       },
-      lsp_symbols = { transform = lsp_symbol_transform },
-      lsp_workspace_symbols = { transform = lsp_symbol_transform },
     },
   },
 }
