@@ -1,6 +1,6 @@
 return {
   {
-    -- 图标来源，替代 nvim-web-devicons；mock 让 lualine/telescope/neo-tree 等无感
+    -- 图标来源，替代 nvim-web-devicons；mock 让 lualine/neo-tree 等无感
     "nvim-mini/mini.icons",
     lazy = false,
     priority = 100,

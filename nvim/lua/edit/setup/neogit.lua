@@ -2,10 +2,10 @@ return {
   {
     "NeogitOrg/neogit",
     event = "VeryLazy",
-    -- 只留必需依赖：telescope/diffview/asyncrun 是可选集成，
+    -- 只留必需依赖：diffview/asyncrun 是可选集成，
     -- 声明成依赖会让 lazy 在打开 neogit 时连带加载它们（实测多 ~30-50ms）
     dependencies = { "nvim-lua/plenary.nvim" },
-    cmd = 'Neogit',
+    cmd = "Neogit",
     opts = {
       disable_signs = false,
       disable_hint = false,
@@ -25,7 +25,6 @@ return {
       },
       integrations = {
         diffview = false,
-        telescope = false,
       },
       section = {
         untracked = {
@@ -49,10 +48,10 @@ return {
         recent = {
           folded = true,
         },
-      }
+      },
     },
     config = function(_, opts)
       require("neogit").setup(opts)
-    end
+    end,
   },
 }

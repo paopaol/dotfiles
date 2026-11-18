@@ -10,7 +10,6 @@ end
 require("which-key").add({
   { "<localleader>,", format, desc = "formatting", buffer = true },
   { "<localleader>p", utils.command("MarkdownPreview"), desc = "preview", buffer = true },
-  { "<leader>si", utils.command("Telescope heading"), desc = "heading", buffer = true },
 })
 
 -- require("mkdnflow").setup({

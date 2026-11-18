@@ -7,16 +7,10 @@ return {
       "williamboman/mason.nvim",
       "jay-babu/mason-nvim-dap.nvim",
       "theHamsta/nvim-dap-virtual-text",
-      "nvim-telescope/telescope.nvim",
     },
     config = function()
       local dap = require("dap")
       local dap_view = require("dap-view")
-      local pickers = require("telescope.pickers")
-      local finders = require("telescope.finders")
-      local conf = require("telescope.config").values
-      local actions = require("telescope.actions")
-      local action_state = require("telescope.actions.state")
 
       -- 设置 cppdbg adapter
       dap.adapters.cppdbg = {
@@ -25,7 +19,7 @@ return {
         command = "OpenDebugAD7",
       }
 
-      -- 使用 Telescope 选择可执行文件
+      -- 选择可执行文件
       local function pick_executable(callback)
         local rootdir = vim.call("asyncrun#get_root", "%")
         local build_dir = rootdir ~= "" and (rootdir .. "/build") or (vim.fn.getcwd() .. "/build")
@@ -62,24 +56,12 @@ return {
           return
         end
 
-        -- 使用 Telescope 选择
-        pickers
-          .new({}, {
-            prompt_title = "Select Executable",
-            finder = finders.new_table({
-              results = executables,
-            }),
-            sorter = conf.file_sorter({}),
-            attach_mappings = function(prompt_bufnr, map)
-              actions.select_default:replace(function()
-                local selection = action_state.get_selected_entry()
-                actions.close(prompt_bufnr)
-                callback(selection[1])
-              end)
-              return true
-            end,
-          })
-          :find()
+        -- 使用 vim.ui.select 选择（由 snacks picker 接管）
+        vim.ui.select(executables, { prompt = "Select Executable" }, function(choice)
+          if choice then
+            callback(choice)
+          end
+        end)
       end
 
       -- 设置 C/C++ 调试配置

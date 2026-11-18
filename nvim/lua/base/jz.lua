@@ -2,7 +2,7 @@ local utils = require("base.utils")
 local M = {}
 
 M.SubProjectFiles = function()
-  require("telescope.builtin").fd({ cwd = vim.fn.expand("%:h") })
+  require("snacks").picker.files({ cwd = vim.fn.expand("%:h") })
 end
 
 --------------------------
