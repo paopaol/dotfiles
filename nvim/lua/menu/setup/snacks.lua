@@ -39,6 +39,47 @@ local function emit(k)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(k, true, false, true), "n", false)
 end
 
+-- snacks-file-browser 的 helm 式特化：当前目录显示在输入行左侧，C-w 空输入回上级
+local function setup_file_browser(opts)
+  if type(opts.title) ~= "string" then
+    return
+  end
+  local dir = opts.title:match("^File Browser: (.*)$")
+  if not dir then
+    return
+  end
+
+  local function prompt(path)
+    return " " .. path .. " "
+  end
+
+  opts.prompt = prompt(dir)
+  -- 上级目录项的 file 是 cwd 外的绝对路径，默认按 file 渲染会变成 "󰉋 ~/workspace/jz"
+  opts.format = function(item, picker)
+    if item.text == "../" then
+      return { { "../", "SnacksPickerDirectory" } }
+    end
+    return require("snacks").picker.format.file(item, picker)
+  end
+  opts.actions = opts.actions or {}
+  opts.actions.helm_back = function(picker)
+    local line = picker.input:get()
+    if line == "" then
+      picker:action("browse_back")
+    else
+      picker.input:set((line:gsub("%s*[^%s]*$", "")))
+    end
+  end
+  opts.win = opts.win or {}
+  opts.win.input = opts.win.input or {}
+  opts.win.input.keys = opts.win.input.keys or {}
+  opts.win.input.keys["<C-w>"] = { "helm_back", mode = { "n", "i" } }
+  -- snacks 默认的大写 <C-W> 与上面的 C-w 归一化后同名，保留会报 duplicate key
+  opts.win.input.keys["<C-W>"] = false
+
+  return prompt
+end
+
 return {
   picker = {
     -- 自定义 action 需注册在 actions 里、键位用字符串引用（直接写函数拿到的是 Window 对象）
@@ -68,10 +109,25 @@ return {
       else
         opts.layout = { layout = vim.deepcopy(jz_layout) }
       end
+      local prompt = setup_file_browser(opts)
+
       -- 禁用列表暂停，避免过滤到少量结果时列表空白
       local on_show = opts.on_show
       opts.on_show = function(picker)
         picker.list.pause = function() end
+        if prompt and not picker._helm_prompt then
+          picker._helm_prompt = true
+          -- 插件换目录只改 picker.title，这里把新目录同步到输入行 prompt
+          local update_titles = picker.update_titles
+          picker.update_titles = function(self, ...)
+            local dir = type(self.title) == "string" and self.title:match("^File Browser: (.*)$")
+            if dir then
+              self.opts.prompt = prompt(dir)
+              self.input:update()
+            end
+            return update_titles(self, ...)
+          end
+        end
         if on_show then
           on_show(picker)
         end

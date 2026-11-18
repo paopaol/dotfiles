@@ -172,6 +172,7 @@ wk.add({
 wk.add({
   { "<leader>f", group = "file" },
   { "<leader>ff", search.project_files, desc = "project files", mode = "n" },
+  { "<leader>fd", command("FileBrowser"), desc = "file browser", mode = "n" },
   { "<leader>fH", command("silent !thunar $HOME &"), desc = "home", mode = "n" },
   { "<leader>fbD", command("BookmarkClearAll"), desc = "Clear All Bookmark", mode = "n" },
   { "<leader>fba", command("BookmarkAnnotate"), desc = "Add Bookmark", mode = "n" },
