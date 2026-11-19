@@ -9,6 +9,11 @@ end
 if vim.g.neovide then
   vim.keymap.set("c", "<C-S-v>", "<C-r>+")
   vim.keymap.set("c", "<C-S-V>", "<C-r>+")
+  local paste = function()
+    vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+  end
+  vim.keymap.set("t", "<C-S-v>", paste)
+  vim.keymap.set("t", "<C-S-V>", paste)
 end
 
 
