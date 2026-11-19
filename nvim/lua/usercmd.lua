@@ -1,5 +1,6 @@
 vim.api.nvim_create_user_command("LspFormatRegion", function()
-  local r = vim.lsp.util.make_given_range_params()
+  local client = vim.lsp.get_clients({ bufnr = 0 })[1]
+  local r = vim.lsp.util.make_given_range_params(nil, nil, 0, client and client.offset_encoding or "utf-16")
   local line1 = r.range.start.line + 1
   local line2 = r.range["end"].line + 1
   vim.lsp.buf.format({ range = { start = { line1, 0 }, ["end"] = { line2, 0 } } })
