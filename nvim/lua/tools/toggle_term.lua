@@ -7,6 +7,7 @@ require("toggleterm").setup({
       return vim.o.columns * 0.5
     end
   end,
+  open_mapping = [[<c-\>]],
   hide_numbers = true, -- hide the number column in toggleterm buffers
   shade_filetypes = {},
   highlights = {
@@ -34,22 +35,3 @@ require("toggleterm").setup({
   shell = vim.o.shell, -- change the default shell
   float_opts = {},
 })
-
--- 终端固定在项目根，而不是 autochdir 后的当前文件目录
-local term = require("toggleterm.terminal").Terminal:new({ direction = "float" })
-
-local function toggle_project_term()
-  local dir = require("base.project").root()
-  -- 已有终端时先切目录；直接赋值 term.dir 会让 change_dir 认为无需切换
-  if term.bufnr and vim.api.nvim_buf_is_valid(term.bufnr) then
-    term:change_dir(dir)
-  end
-  term.dir = dir
-  term:toggle()
-end
-
-vim.keymap.set({ "n", "t" }, "<C-\\>", toggle_project_term, { desc = "terminal" })
-vim.keymap.set("i", "<C-\\>", function()
-  vim.cmd("stopinsert")
-  toggle_project_term()
-end, { desc = "terminal" })
