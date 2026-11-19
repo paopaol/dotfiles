@@ -7,13 +7,17 @@ local unsilent_keymap = function(mode, key, action)
 end
 
 if vim.g.neovide then
-  vim.keymap.set("c", "<C-S-v>", "<C-r>+")
-  vim.keymap.set("c", "<C-S-V>", "<C-r>+")
-  local paste = function()
-    vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+  if vim.g.neovide then
+    local function universal_paste()
+      vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+    end
+
+    vim.keymap.set({ "n", "i", "v", "c", "t", "s", "o" }, "<C-S-v>", universal_paste, {
+      noremap = true,
+      silent = true,
+      desc = "Universal Paste",
+    })
   end
-  vim.keymap.set("t", "<C-S-v>", paste)
-  vim.keymap.set("t", "<C-S-V>", paste)
 end
 
 
