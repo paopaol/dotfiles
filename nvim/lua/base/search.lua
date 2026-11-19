@@ -43,7 +43,7 @@ end
 
 -- 当前目录/文件
 M.directory_live_symbol = function()
-  picker().grep({ cwd = "." })
+  picker().grep({ cwd = vim.fn.expand("%:p:h") })
 end
 
 M.current_buffer_symbol_at_point = function()

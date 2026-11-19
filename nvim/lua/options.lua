@@ -45,9 +45,7 @@ vim.g.python3_host_prog = "/home/jz/.env/python3/bin/python3"
 vim.g.vim_markdown_folding_disabled = 1
 vim.opt.jumpoptions:append("stack")
 vim.cmd("syntax off")
-if not vim.g.neovide then
-  vim.opt.mouse = "" -- 禁用鼠标
-end
+vim.opt.mouse = "" -- 禁用鼠标
 vim.g.clipboard = {
   name = "OSC 52",
   copy = {
