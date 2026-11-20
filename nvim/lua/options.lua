@@ -43,7 +43,8 @@ vim.o.clipboard = "unnamedplus"
 vim.o.shortmess = "filnxtToOFcI"
 vim.g.python3_host_prog = "/home/jz/.env/python3/bin/python3"
 vim.g.vim_markdown_folding_disabled = 1
-vim.opt.jumpoptions:append("stack")
+-- view：C-o/C-i 返回时恢复原窗口视图（topline/折叠），否则只恢复光标位置，行会跑到屏幕下方
+vim.opt.jumpoptions = "stack,view"
 vim.cmd("syntax off")
 vim.opt.mouse = "" -- 禁用鼠标
 vim.g.clipboard = {

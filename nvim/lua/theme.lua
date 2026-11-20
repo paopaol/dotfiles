@@ -1,1 +1,2 @@
-vim.cmd("colorscheme qtcreator")
+vim.opt.background = "dark"
+vim.cmd.colorscheme("dracula")
