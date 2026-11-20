@@ -22,7 +22,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
     local opts = { buffer = 0 }
 
-    vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
     vim.keymap.set("n", "<A-h>", [[]], opts)
     vim.keymap.set("n", "<A-j>", [[]], opts)
     vim.keymap.set("n", "<A-k>", [[]], opts)

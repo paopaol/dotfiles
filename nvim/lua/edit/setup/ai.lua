@@ -5,9 +5,15 @@ return {
     cmd = { "Sidekick" },
     opts = {
       cli = {
+        tools = {
+          codebuddy = {
+            cmd = { "codebuddy" },
+            is_proc = "\\<codebuddy\\>",
+          },
+        },
         mux = {
           backend = "tmux",
-          enabled = true,
+          enabled = false,
           create = "split",
           split = {
             vertical = true, -- vertical or horizontal split
@@ -25,6 +31,14 @@ return {
             height = 0.9,
           },
           keys = {
+            passthrough_esc = {
+              "<Esc>",
+              function()
+                return "<Esc>"
+              end,
+              mode = "t",
+              expr = true,
+            },
             buffers = { "<c-b>", "buffers", mode = "nt", desc = "open buffer picker" },
             files = { "<c-f>", "files", mode = "nt", desc = "open file picker" },
             hide_n = { "q", "hide", mode = "n", desc = "hide the terminal window" },
