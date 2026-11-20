@@ -116,10 +116,6 @@ alias gf='gf'
 
 alias gf=gf
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-
 . "$HOME/.local/bin/env"
 
 if [ -x /usr/bin/dircolors ]; then
@@ -129,4 +125,12 @@ if [ -x /usr/bin/dircolors ]; then
   alias ll='ls -alF'
   alias la='ls -A'
   alias l='ls -CF'
+fi
+
+# 用于切换node版本
+# fnm
+FNM_PATH="/home/jz/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "$(fnm env --shell zsh)"
 fi
