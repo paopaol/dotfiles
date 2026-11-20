@@ -11,7 +11,6 @@ PATH="${(j.:.)path_dirs}"
 . "$HOME/.cargo/env"
 
 export CLAUDE_CODE_EFFORT_LEVEL=max
-##export TERM=alacritty
 export TERM=xterm-256color
 export COLORTERM=truecolor
 export ALACRITTY_WSL2_FIX=true
