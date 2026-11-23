@@ -204,7 +204,12 @@ return {
   cmd = { "taskset", "-c", "0,1", "clice", "serve" },
   filetypes = { "c", "cpp", "cuda" },
 
-  root_markers = { "clice.toml", "compile_commands.json", ".git" },
+  root_markers = { ".projectile" },
+
+  -- rules 的相对路径（compile_commands 的 "build"）以项目根为锚点。无根文件
+  -- （如 /usr/include 下的系统头文件）无法应用规则，clice 会每次挂出提示；
+  -- 这类文件本来也用不上编译数据库，干脆不启动 clice
+  workspace_required = true,
 
   init_options = {
     diagnostics = {
