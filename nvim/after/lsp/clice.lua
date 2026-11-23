@@ -201,7 +201,8 @@ end
 ---@type vim.lsp.Config
 return {
   -- 把 clice 主进程绑定到 0、1 号核心，worker 子进程继承亲和性，CPU 占用上限 2 核
-  cmd = { "taskset", "-c", "0,1", "clice", "serve" },
+  -- Windows 没有 taskset（clice 本身也不在 Windows 启用）
+  cmd = vim.fn.has("win32") == 1 and { "clice", "serve" } or { "taskset", "-c", "0,1", "clice", "serve" },
   filetypes = { "c", "cpp", "cuda" },
 
   root_markers = { ".projectile" },

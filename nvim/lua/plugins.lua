@@ -38,8 +38,9 @@ require("lazy").setup({
     lazy = false,
     build = ":TSUpdate",
     config = function()
+      local parser = vim.fn.has("win32") == 1 and "fbs.dll" or "fbs.so"
       vim.treesitter.language.add("fbs", {
-        path = vim.fn.stdpath("data") .. "/site/parser/fbs.so",
+        path = vim.fn.stdpath("data") .. "/site/parser/" .. parser,
         symbol_name = "flatbuffers",
       })
     end,
@@ -91,7 +92,10 @@ require("lazy").setup({
         automatic_enable = { exclude = { "clangd" } },
       })
 
-      vim.lsp.enable("clice")
+      -- clice 是 Linux 下自编译的二进制，Windows 上不启用
+      if vim.fn.has("win32") == 0 then
+        vim.lsp.enable("clice")
+      end
     end,
   },
 

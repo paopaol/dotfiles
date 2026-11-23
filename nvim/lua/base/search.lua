@@ -149,9 +149,8 @@ M.lsp_calltree = function()
 end
 
 local exploer_dir = function(dir)
-  if vim.fn.has("win32") then
-    vim.cmd("silent !start " .. dir)
-  end
+  local cmd = vim.fn.has("win32") == 1 and { "explorer", dir } or { "xdg-open", dir }
+  vim.fn.jobstart(cmd, { detach = true })
 end
 
 M.exploer_dir_project = function()

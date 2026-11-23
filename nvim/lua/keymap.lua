@@ -214,7 +214,7 @@ wk.add({
   { "<leader>f",   group = "file" },
   { "<leader>ff",  search.project_files,                  desc = "project files",      mode = "n" },
   { "<leader>fd",  command("FileBrowser"),                desc = "file browser",       mode = "n" },
-  { "<leader>fH",  command("silent !thunar $HOME &"),     desc = "home",               mode = "n" },
+  { "<leader>fH",  utils.open_home,                       desc = "home",               mode = "n" },
   { "<leader>fbD", command("BookmarkClearAll"),           desc = "Clear All Bookmark", mode = "n" },
   { "<leader>fba", command("BookmarkAnnotate"),           desc = "Add Bookmark",       mode = "n" },
   { "<leader>fbb", search.vim_book_marks,                 desc = "Bookmarks",          mode = "n" },
@@ -565,7 +565,7 @@ wk.add({
   },
   {
     ",!",
-    ":!bash<cr>",
+    vim.fn.has("win32") == 1 and ":!cmd<cr>" or ":!bash<cr>",
     desc = "",
     mode = "v",
     silent = true,

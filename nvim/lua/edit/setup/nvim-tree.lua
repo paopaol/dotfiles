@@ -4,7 +4,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
-      's1n7ax/nvim-window-picker',
+      "s1n7ax/nvim-window-picker",
     },
     cmd = "Neotree",
     opts = {
@@ -22,18 +22,18 @@ return {
       window = {
         width = 50,
         mappings = {
-          ["<Tab>"] = { "toggle_node", nowait = false, },
+          ["<Tab>"] = { "toggle_node", nowait = false },
           ["<cr>"] = "open_with_window_picker",
           ["S"] = "split_with_window_picker",
           ["s"] = "vsplit_with_window_picker",
           ["C"] = { "copy", config = { show_path = "absolute" } },
           ["m"] = { "move", config = { show_path = "absolute" } },
-        }
-      }
+        },
+      },
     },
     config = function(_, opts)
-      require 'window-picker'.setup({})
+      require("window-picker").setup({})
       require("neo-tree").setup(opts)
-    end
+    end,
   },
 }

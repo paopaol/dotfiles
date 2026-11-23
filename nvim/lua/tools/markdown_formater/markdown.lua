@@ -52,5 +52,4 @@ M.format_region = function()
   vim.fn.setpos(".", currnet_pos)
 end
 
-
 return M

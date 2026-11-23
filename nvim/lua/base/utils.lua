@@ -17,7 +17,13 @@ function M.has_width_gt(cols)
 end
 
 function M.open_current_file_use_qtcreator()
-  vim.cmd(string.format("silent ! qtcreator -client %s &", vim.fn.expand("%")))
+  vim.fn.jobstart({ "qtcreator", "-client", vim.fn.expand("%") }, { detach = true })
+end
+
+function M.open_home()
+  local home = vim.fn.expand("~")
+  local cmd = vim.fn.has("win32") == 1 and { "explorer", home } or { "thunar", home }
+  vim.fn.jobstart(cmd, { detach = true })
 end
 
 function M.uncolor_all_words()
@@ -53,10 +59,13 @@ function M.format_buffer()
 end
 
 function M.open200()
-  if vim.fn.has("win32") then
-    vim.cmd([[silent ! start \\192.168.0.200\共享文件目录\1.共享文件夹\6.临时文件\jinzhao]])
+  if vim.fn.has("win32") == 1 then
+    vim.fn.jobstart(
+      { "explorer", [[\\192.168.0.200\共享文件目录\1.共享文件夹\6.临时文件\jinzhao]] },
+      { detach = true }
+    )
   else
-    vim.cmd([[silent ! dolphin smb://192.168.0.200 &]])
+    vim.fn.jobstart({ "dolphin", "smb://192.168.0.200" }, { detach = true })
   end
 end
 

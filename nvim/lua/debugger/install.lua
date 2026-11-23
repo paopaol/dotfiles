@@ -19,6 +19,11 @@ return {
         command = "OpenDebugAD7",
       }
 
+      local mi_debugger = vim.fn.exepath("gdb")
+      if mi_debugger == "" then
+        mi_debugger = vim.fn.has("win32") == 1 and "gdb" or "/usr/bin/gdb"
+      end
+
       -- 选择可执行文件
       local function pick_executable(callback)
         local rootdir = vim.call("asyncrun#get_root", "%")
@@ -36,7 +41,10 @@ return {
 
         -- 收集可执行文件
         local executables = {}
-        local scan = vim.fn.systemlist(string.format("fd -tx . '%s' 2>/dev/null", build_dir))
+        local scan = {}
+        if vim.fn.executable("fd") == 1 then
+          scan = vim.fn.systemlist({ "fd", "-tx", ".", build_dir })
+        end
         for _, file in ipairs(scan) do
           if file ~= "" then
             table.insert(executables, file)
@@ -80,7 +88,7 @@ return {
           cwd = "${workspaceFolder}",
           stopAtEntry = true,
           MIMode = "gdb",
-          miDebuggerPath = "/usr/bin/gdb",
+          miDebuggerPath = mi_debugger,
           setupCommands = {
             {
               description = "Enable pretty-printing for gdb",
@@ -106,7 +114,7 @@ return {
           cwd = "${workspaceFolder}",
           stopAtEntry = true,
           MIMode = "gdb",
-          miDebuggerPath = "/usr/bin/gdb",
+          miDebuggerPath = mi_debugger,
           setupCommands = {
             {
               description = "Enable pretty-printing for gdb",
@@ -121,7 +129,7 @@ return {
           request = "launch",
           MIMode = "gdb",
           miDebuggerServerAddress = "localhost:1234",
-          miDebuggerPath = "/usr/bin/gdb",
+          miDebuggerPath = mi_debugger,
           cwd = "${workspaceFolder}",
           program = function()
             local co = coroutine.running()

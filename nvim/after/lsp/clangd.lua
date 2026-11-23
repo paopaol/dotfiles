@@ -1,27 +1,35 @@
-return {
-  cmd = {
+local cmd = {
+  "clangd",
+  "-j",
+  "1",
+  "--background-index=true",
+  "--background-index-priority=low",
+  "--pch-storage=disk",
+  "--log=error",
+  "--clang-tidy",
+  "--header-insertion=never",
+  "--compile-commands-dir=build",
+  "--completion-style=detailed",
+  "--limit-results=20",
+}
+
+-- Linux 下限制 clangd 资源占用；Windows 没有 taskset/nice/ionice
+if vim.fn.has("win32") == 0 then
+  cmd = vim.list_extend({
     "taskset",
     "-c",
-    "0,1", -- 1. 强行将 clangd 极其所有线程绑定到 0,1 号核心（你可以根据总核心数调整）
+    "0,1", -- 1. 强行将 clangd 及其所有线程绑定到 0,1 号核心（你可以根据总核心数调整）
     "nice",
     "-n",
     "19", -- 2. 把 CPU 优先级降到最低（19），有其他任务时必须让路
     "ionice",
     "-c",
     "3", -- 3. 把磁盘 IO 优先级降到最低（Idle），防止索引时卡住磁盘
-    "clangd",
-    "-j",
-    "1",
-    "--background-index=true",
-    "--background-index-priority=low",
-    "--pch-storage=disk",
-    "--log=error",
-    "--clang-tidy",
-    "--header-insertion=never",
-    "--compile-commands-dir=build",
-    "--completion-style=detailed",
-    "--limit-results=20",
-  },
+  }, cmd)
+end
+
+return {
+  cmd = cmd,
   root_markers = { ".projectile" },
   on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")

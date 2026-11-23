@@ -31,7 +31,10 @@ vim.api.nvim_create_user_command("ClangFormatRegion", function(opts)
   vim.cmd(string.format("silent %d,%d ! clang-format", opts.line1, opts.line2))
 end, { range = 2 })
 
+vim.api.nvim_create_user_command(
+  "MarkdownFormatCodeBlock",
+  require("tools.markdown_formater.markdown").format_region,
+  {}
+)
 
-vim.api.nvim_create_user_command("MarkdownFormatCodeBlock", require("tools.markdown_formater.markdown").format_region, {})
-
-vim.api.nvim_create_user_command("HexView", require('edit.setup.hex-view').view, { range = 2 })
+vim.api.nvim_create_user_command("HexView", require("edit.setup.hex-view").view, { range = 2 })

@@ -1,3 +1,5 @@
+local library = { vim.api.nvim_get_runtime_file("", true) }
+
 return {
   settings = {
     Lua = {
@@ -12,10 +14,7 @@ return {
         },
       },
       workspace = {
-        library = {
-          vim.fn.expand("/home/jz/workspace/jz/dotfiles/wireshark"),
-          vim.api.nvim_get_runtime_file("", true),
-        },
+        library = library,
         checkThirdParty = false,
       },
     },

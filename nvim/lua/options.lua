@@ -4,8 +4,8 @@ vim.o.guifont = "ZedMono NFP:h11"
 vim.o.pumheight = 10
 vim.o.numberwidth = 3
 -- 显示左侧图标指示列
-vim.g.bookmark_sign = 'B'
-vim.g.bookmark_annotation_sign = 'A'
+vim.g.bookmark_sign = "B"
+vim.g.bookmark_annotation_sign = "A"
 vim.o.signcolumn = "yes"
 vim.o.foldmethod = "manual"
 vim.o.cursorline = true
@@ -41,23 +41,26 @@ vim.o.completeopt = "menu,menuone,noselect"
 vim.o.backspace = "indent,eol,start"
 vim.o.clipboard = "unnamedplus"
 vim.o.shortmess = "filnxtToOFcI"
-vim.g.python3_host_prog = "/home/jz/.env/python3/bin/python3"
+
+if vim.fn.has("win32") == 0 then
+  vim.g.python3_host_prog = "/home/jz/.env/python3/bin/python3"
+end
 vim.g.vim_markdown_folding_disabled = 1
 -- view：C-o/C-i 返回时恢复原窗口视图（topline/折叠），否则只恢复光标位置，行会跑到屏幕下方
 vim.opt.jumpoptions = "stack,view"
 vim.cmd("syntax off")
 vim.opt.mouse = "" -- 禁用鼠标
-vim.g.clipboard = {
-  name = "OSC 52",
-  copy = {
-    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-  },
-  paste = {
-    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-  },
-}
-if vim.fn.has("win32") == 1 then
-  vim.opt.shell = "powershell"
+-- Windows 原生走 Neovim 自带剪贴板 provider（win32yank），OSC 52 在 Windows Terminal 不生效
+if vim.fn.has("win32") == 0 then
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    },
+    paste = {
+      ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    },
+  }
 end

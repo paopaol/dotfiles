@@ -1,3 +1,3 @@
 vim.treesitter.start()
 
-vim.foldmethod = 'marker'
+vim.foldmethod = "marker"
