@@ -7,17 +7,15 @@ local unsilent_keymap = function(mode, key, action)
 end
 
 if vim.g.neovide then
-  if vim.g.neovide then
-    local function universal_paste()
-      vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
-    end
-
-    vim.keymap.set({ "n", "i", "v", "c", "t", "s", "o" }, "<C-S-v>", universal_paste, {
-      noremap = true,
-      silent = true,
-      desc = "Universal Paste",
-    })
+  local function universal_paste()
+    vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
   end
+
+  vim.keymap.set({ "n", "i", "v", "c", "t", "s", "o" }, "<C-S-v>", universal_paste, {
+    noremap = true,
+    silent = true,
+    desc = "Universal Paste",
+  })
 end
 
 
@@ -204,7 +202,6 @@ wk.add({
   { "<f3>",     qf_prev,                            desc = "prev item",        mode = "n" },
   { "<f4>",     qf_next,                            desc = "next item",        mode = "n" },
   { "<A-,>",    show_diagnostic,                    desc = "show diagnostic",  mode = "n" },
-  { "<A-\\>",   command("ToggleTermToggleAll"),     desc = "terminal",         mode = { "n", "i", "t" } },
   -- M-x：模糊搜索并执行任意命令
   { "<A-x>",    mx,                                 desc = "M-x commands",     mode = { "n", "v" } },
 })
@@ -316,7 +313,13 @@ wk.add({
 })
 
 -- ai
-wk.add({ { "<leader><space>", command("Sidekick cli toggle"), desc = "AI" } })
+wk.add({ {
+  "<A-\\>",
+  command("Sidekick cli toggle"),
+  desc = "AI",
+  mode = { "n", "t", "i" },
+  silent = false,
+} })
 wk.add({
   { "<leader>a", group = "ai" },
   { "<leader>as", command("Sidekick cli send"), desc = "发送" },

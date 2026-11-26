@@ -19,8 +19,9 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 vim.api.nvim_create_autocmd("TermOpen", {
   group = vim.api.nvim_create_augroup("toggleterm-group", { clear = true }),
   pattern = "term://*", -- 匹配所有终端
-  callback = function()
-    local opts = { buffer = 0 }
+  callback = function(args)
+    local buf = args.buf
+    local opts = { buffer = buf }
 
     vim.keymap.set("n", "<A-h>", [[]], opts)
     vim.keymap.set("n", "<A-j>", [[]], opts)
