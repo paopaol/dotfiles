@@ -3,14 +3,12 @@ vim.g.maplocalleader = ","
 vim.o.guifont = "ZedMono NFP:h11"
 vim.o.pumheight = 10
 vim.o.numberwidth = 3
--- 显示左侧图标指示列
 vim.g.bookmark_sign = "B"
 vim.g.bookmark_annotation_sign = "A"
 vim.o.signcolumn = "yes"
 vim.o.foldmethod = "manual"
 vim.o.cursorline = true
 vim.o.cursorcolumn = true
--- jk移动时光标下上方保留3行
 vim.o.scrolloff = 1
 vim.o.sidescrolloff = 1
 vim.o.colorcolumn = "80"
@@ -24,14 +22,11 @@ vim.o.autoread = true
 vim.o.hlsearch = false
 vim.o.wrap = false
 vim.o.hidden = true
--- Some servers have issues with backup files, see #649.
+-- 部分服务器对备份文件有问题，见 #649
 vim.o.backup = false
 vim.o.writebackup = false
 vim.o.swapfile = false
--- Give more space for displaying messages.
 vim.o.cmdheight = 1
--- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable |
--- delays and poor user experience.
 vim.o.updatetime = 4000
 vim.o.background = "dark"
 vim.o.autoindent = true
@@ -49,7 +44,7 @@ vim.g.vim_markdown_folding_disabled = 1
 -- view：C-o/C-i 返回时恢复原窗口视图（topline/折叠），否则只恢复光标位置，行会跑到屏幕下方
 vim.opt.jumpoptions = "stack,view"
 vim.cmd("syntax off")
-vim.opt.mouse = "" -- 禁用鼠标
+vim.opt.mouse = ""
 -- Windows 原生走 Neovim 自带剪贴板 provider（win32yank），OSC 52 在 Windows Terminal 不生效
 if vim.fn.has("win32") == 0 then
   vim.g.clipboard = {

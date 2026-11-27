@@ -5,8 +5,6 @@ M.SubProjectFiles = function()
   require("snacks").picker.files({ cwd = vim.fn.expand("%:h") })
 end
 
---------------------------
-
 local filter_buffers = function(opts, unfiltered)
   local curtab_bufnrs = {}
 
@@ -15,7 +13,6 @@ local filter_buffers = function(opts, unfiltered)
     if 1 ~= vim.fn.buflisted(b) then
       excluded[b] = true
     end
-    -- only hide unloaded buffers if opts.show_all_buffers is false, keep them listed if true or nil
     if opts.show_all_buffers == false and not vim.api.nvim_buf_is_loaded(b) then
       excluded[b] = true
     end
@@ -94,7 +91,6 @@ function M.close_current_buffer()
   end
 end
 
--- "跳转到函数的参数"
 function M.jumpright()
   local save_cursor = vim.fn.getcurpos()
   vim.cmd([[SidewaysJumpRight]])

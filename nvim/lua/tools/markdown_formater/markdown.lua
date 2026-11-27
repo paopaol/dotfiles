@@ -10,8 +10,6 @@ local function code_block_end()
   return defaults.lang_conf[vim.bo.filetype][2]
 end
 
--- Parses start line to get code of the language.
--- For example: `#+BEGIN_SRC cpp` returns `cpp`.
 function get_lang(start_line)
   local start_pos = string.find(start_line, code_block_start())
   local len = string.len(code_block_start())

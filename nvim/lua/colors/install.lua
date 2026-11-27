@@ -6,7 +6,7 @@ return {
     config = function()
       require("onedarkpro").setup({
         colors = {
-          cursorline = "#9B0000", -- This is optional. The default cursorline color is based on the background
+          cursorline = "#9B0000",
         },
         options = {
           cursorline = false,

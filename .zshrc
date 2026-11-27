@@ -24,7 +24,6 @@ if [ -x /usr/bin/dircolors ]; then
   alias l='ls -CF'
 fi
 
-#a 用于切换node版本
 FNM_PATH="/home/jz/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"

@@ -12,7 +12,6 @@ return {
       local dap = require("dap")
       local dap_view = require("dap-view")
 
-      -- 设置 cppdbg adapter
       dap.adapters.cppdbg = {
         id = "cppdbg",
         type = "executable",
@@ -24,12 +23,10 @@ return {
         mi_debugger = vim.fn.has("win32") == 1 and "gdb" or "/usr/bin/gdb"
       end
 
-      -- 选择可执行文件
       local function pick_executable(callback)
         local rootdir = vim.call("asyncrun#get_root", "%")
         local build_dir = rootdir ~= "" and (rootdir .. "/build") or (vim.fn.getcwd() .. "/build")
 
-        -- 检查 build 目录是否存在
         if vim.fn.isdirectory(build_dir) == 0 then
           vim.ui.input({ prompt = "Path to executable: ", default = "", completion = "file" }, function(input)
             if input and input ~= "" then
@@ -39,7 +36,6 @@ return {
           return
         end
 
-        -- 收集可执行文件
         local executables = {}
         local scan = {}
         if vim.fn.executable("fd") == 1 then
@@ -64,7 +60,7 @@ return {
           return
         end
 
-        -- 使用 vim.ui.select 选择（由 snacks picker 接管）
+        -- 由 snacks picker 接管
         vim.ui.select(executables, { prompt = "Select Executable" }, function(choice)
           if choice then
             callback(choice)
@@ -72,7 +68,6 @@ return {
         end)
       end
 
-      -- 设置 C/C++ 调试配置
       dap.configurations.cpp = {
         {
           name = "Launch executable",
@@ -147,16 +142,13 @@ return {
           },
         },
       }
-      -- C 使用相同配置
       dap.configurations.c = dap.configurations.cpp
 
-      -- mason-nvim-dap 设置 (用于安装 cpptools)
       require("mason-nvim-dap").setup({
         ensure_installed = { "cpptools" },
         automatic_installation = true,
       })
 
-      -- dap-view 设置
       dap_view.setup({
         windows = {
           terminal = { hide = { "stack_trace" } },

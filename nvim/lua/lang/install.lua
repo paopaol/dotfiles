@@ -9,11 +9,11 @@ return {
     config = function()
       require("nt-cpp-tools").setup({
         preview = {
-          quit = "q", -- optional keymapping for quit preview
-          accept = "<tab>", -- optional keymapping for accept preview
+          quit = "q",
+          accept = "<tab>",
         },
-        header_extension = "h", -- optional
-        source_extension = "cxx", -- optional
+        header_extension = "h",
+        source_extension = "cxx",
         custom_define_class_function_commands = {
           TSCppImplWrite = {
             output_handle = require("nt-cpp-tools.output_handlers").get_add_to_cpp(),
@@ -31,8 +31,6 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = "markdown",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    -- dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" }, -- if you use the mini.nvim suite
-    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {},

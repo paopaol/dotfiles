@@ -8,7 +8,6 @@ end
 
 vim.g.colors_name = "qtcreator"
 
--- 终端 16 色
 vim.g.terminal_color_0 = "#000000"
 vim.g.terminal_color_1 = "#ff0000"
 vim.g.terminal_color_2 = "#008000"

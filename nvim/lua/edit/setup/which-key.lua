@@ -17,7 +17,7 @@ return {
           wo = {},
         },
         plugins = {
-          marks = false, -- shows a list of your marks on ' and `
+          marks = false,
           registers = false,
         },
         show_keys = true,

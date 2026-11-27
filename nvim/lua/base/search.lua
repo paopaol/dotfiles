@@ -8,7 +8,6 @@ local function picker()
   return require("snacks").picker
 end
 
--- 项目内
 M.project_files = function()
   picker().files({ cwd = rootdir() })
 end
@@ -41,7 +40,6 @@ M.project_diagnostics = function()
   picker().diagnostics({ filter = { cwd = rootdir() } })
 end
 
--- 当前目录/文件
 M.directory_live_symbol = function()
   picker().grep({ cwd = vim.fn.expand("%:p:h") })
 end
@@ -60,7 +58,6 @@ M.search_current_buffer = function()
   end
 end
 
--- 符号/跳转
 M.lsp_document_symbols = function()
   picker().lsp_symbols()
 end
@@ -69,7 +66,6 @@ M.lsp_definition = function()
   picker().lsp_definitions()
 end
 
--- 列表
 M.buffers = function()
   picker().buffers({ sort_lastused = true })
 end
@@ -128,14 +124,12 @@ M.colorschemes = function()
   picker().colorschemes()
 end
 
--- 复刻 telescope-git-diffs，实现见 base/git_diff.lua
 M.git_diff = require("base.git_diff")
 
 M.document_diagnostics = function()
   picker().diagnostics_buffer()
 end
 
--- Neotree
 M.project_tree = function()
   vim.cmd(string.format("silent :Neotree action=focus  position=left toggle=true %s", rootdir()))
 end

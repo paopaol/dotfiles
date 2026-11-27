@@ -8,7 +8,7 @@ return {
     },
     cmd = "Neotree",
     opts = {
-      sources = { "filesystem" }, -- 只保留 Files，去掉 Buffers/Git
+      sources = { "filesystem" },
       enable_diagnostics = false,
       enable_git_status = false,
       use_popups_for_input = false,

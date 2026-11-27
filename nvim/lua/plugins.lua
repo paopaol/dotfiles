@@ -68,7 +68,6 @@ require("lazy").setup({
 
   {
     "neovim/nvim-lspconfig",
-    -- event = "VeryLazy",
     dependencies = { "saghen/blink.cmp" },
   },
 

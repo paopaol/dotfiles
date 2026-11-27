@@ -8,7 +8,7 @@ Personal Neovim configuration using **lazy.nvim** as the plugin manager. Designe
 
 ```
 nvim/
-├── init.vim                 # Entry point, loads lua/init.lua
+├── init.lua                 # Entry point, loads lua/init.lua
 ├── lua/
 │   ├── init.lua             # Main init, loads all modules
 │   ├── plugins.lua          # lazy.nvim plugin definitions
@@ -17,7 +17,7 @@ nvim/
 │   ├── theme.lua            # 加载默认主题 qtcreator（实现见仓库根的 colors/）
 │   ├── base/                # Core utilities
 │   │   ├── utils.lua        # Helper functions
-│   │   ├── search.lua       # Telescope wrappers
+│   │   ├── search.lua       # Snacks picker wrappers
 │   │   └── jz.lua           # Custom buffer operations
 │   ├── code/                # LSP & Treesitter
 │   │   ├── lsp.lua          # Mason & lspconfig setup
@@ -36,8 +36,8 @@ nvim/
 │   │   ├── init.lua         # Loads all lang setups
 │   │   ├── install.lua      # Language plugins
 │   │   └── setup/           # Per-language configs
-│   ├── menu/                # Telescope & fuzzy finding
-│   │   └── setup/telescope.lua
+│   ├── menu/                # Snacks picker & fuzzy finding
+│   │   └── setup/snacks.lua
 │   ├── colors/              # 可选主题插件列表（install.lua）
 │   └── tools/               # Additional tools (conform.nvim)
 ├── colors/qtcreator.lua     # 独立主题：静态高亮表，无插件依赖
@@ -62,7 +62,7 @@ nvim/
 ### File Operations (`<leader>f`)
 | Key | Action |
 |-----|--------|
-| `<leader>ff` | Project files (Telescope) |
+| `<leader>ff` | Project files (Snacks picker) |
 | `<leader>fr` | Recent files |
 | `<leader>ft` | File tree toggle |
 | `<leader>fd` | File browser |
@@ -152,7 +152,7 @@ Uses OSC52 clipboard for terminal support (works over SSH).
 - Auto-install parsers
 
 ### AsyncRun
-Integration with Telescope for task running (`<leader>rr`).
+Integration with Snacks picker for task running (`<leader>rr`).
 
 ### Formatter
 Uses `conform.nvim` for:

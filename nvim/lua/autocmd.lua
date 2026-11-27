@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 
 vim.api.nvim_create_autocmd("TermOpen", {
   group = vim.api.nvim_create_augroup("toggleterm-group", { clear = true }),
-  pattern = "term://*", -- 匹配所有终端
+  pattern = "term://*",
   callback = function(args)
     local buf = args.buf
     local opts = { buffer = buf }
@@ -88,7 +88,7 @@ vim.api.nvim_create_autocmd("User", {
       install_info = {
         url = "https://github.com/smpanaro/tree-sitter-flatbuffers",
         branch = "main",
-        queries = "queries", -- 关键：同步仓库中的高亮规则文件夹
+        queries = "queries", -- 同步仓库中的高亮规则文件夹
       },
     }
   end,

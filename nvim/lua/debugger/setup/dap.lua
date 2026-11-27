@@ -1,6 +1,5 @@
 local M = {}
 
--- DAP 工具函数
 M.hover = function()
   local widgets = require("dap.ui.widgets")
   widgets.hover()

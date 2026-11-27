@@ -22,14 +22,11 @@ end
 unsilent_keymap("i", "<C-x><C-s>", "<c-\\><c-o>:w<cr>")
 unsilent_keymap("n", "<C-x><C-s>", ":w<cr>")
 
---- for blink.cmp snippets
 vim.keymap.set("s", "<bs>", "<C-g>c", { desc = "delete selection in insert mode" })
 
--- remap << >>
 keymap("x", ">", ">gv")
 keymap("x", "<", "<gv")
 
--- terminal
 keymap("t", "<esc>", "<C-\\><C-n>")
 
 keymap("n", "n", ":Interestingwords --navigate<cr>")
@@ -65,6 +62,10 @@ local function command(cmd)
   return function()
     pcall(vim.cmd, cmd)
   end
+end
+
+local function reload_config()
+  vim.cmd("source " .. vim.fn.stdpath("config") .. "/init.lua")
 end
 
 local qf_next = function()
@@ -172,9 +173,8 @@ function _G.lsp_format_region()
   })
 end
 
--- M-x（Alt+x）：模糊搜索命令，回车直接执行；命令报错（如缺参数）则回落到命令行
 local function mx()
-  -- visual 下触发时，把命令作用于选区
+  -- visual 模式触发时让命令作用于选区
   local range = vim.fn.mode():find("[vV\22]") and "'<,'>" or ""
   require("snacks").picker.commands({
     confirm = function(picker, item)
@@ -202,11 +202,9 @@ wk.add({
   { "<f3>",     qf_prev,                            desc = "prev item",        mode = "n" },
   { "<f4>",     qf_next,                            desc = "next item",        mode = "n" },
   { "<A-,>",    show_diagnostic,                    desc = "show diagnostic",  mode = "n" },
-  -- M-x：模糊搜索并执行任意命令
   { "<A-x>",    mx,                                 desc = "M-x commands",     mode = { "n", "v" } },
 })
 
--- files
 wk.add({
   { "<leader>f",   group = "file" },
   { "<leader>ff",  search.project_files,                  desc = "project files",      mode = "n" },
@@ -223,7 +221,6 @@ wk.add({
   { "<leader>ft",  search.project_tree_focus,             desc = "file tree",          mode = "n" },
 })
 
--- open
 wk.add({
   { "<leader>o",  group = "open" },
   { "<leader>o2", utils.open200,              desc = "200",                      mode = "n" },
@@ -231,7 +228,6 @@ wk.add({
   { "<leader>op", search.exploer_dir_project, desc = "externl open project dir", mode = "n" },
 })
 
--- buffer
 wk.add({
   { "<leader>b",  group = "buffer" },
   { "<leader>bd", jz.close_current_buffer,   desc = "nest buffer",     mode = "n" },
@@ -243,7 +239,6 @@ wk.add({
   { "<leader>bB", search.project_buffers,    desc = "project buffers", mode = "n" },
 })
 
--- windows
 wk.add({
   { "<leader>w",  group = "close other window", mode = "n" },
   { "<leader>w1", command("only"),              desc = "close other window", mode = "n" },
@@ -259,7 +254,6 @@ wk.add({
   { "<leader>ww", command("tabnew"),            desc = "new tab",            mode = "n" },
 })
 
--- search/symbol
 wk.add({
   { "<leader>s",  group = "search/symbol" },
   { "<leader>sh", command("Interestingwords --toggle"),  desc = "highlight words",          mode = "n" },
@@ -272,13 +266,11 @@ wk.add({
   { "<leader>sc", utils.uncolor_all_words,               desc = "unhighlight words",        mode = "n" },
 })
 
--- help
 wk.add({
   { "<leader>h",  group = "help" },
   { "<leader>hm", cppman,        desc = "cppman", mode = "n" },
 })
 
--- git
 wk.add({
   { "<leader>g",  group = "git" },
   { "<leader>gP", command("Git pull"),  desc = "git pull",   mode = "n" },
@@ -289,18 +281,16 @@ wk.add({
   { "<leader>gp", command("Git push"),  desc = "git push",   mode = "n" },
 })
 
--- tools
 wk.add({
   { "<leader>t",  group = "tools/toggle" },
   { "<leader>tc", search.colorschemes,       desc = "colorscheme",         mode = "n" },
   { "<leader>tf", search.filetypes,          desc = "filetypes",           mode = "n" },
   { "<leader>tl", command("setlocal wrap!"), desc = "line wrap",           mode = "n" },
-  { "<leader>tr", command("so $MYVIMRC"),    desc = "refresh vimrc",       mode = "n" },
+  { "<leader>tr", reload_config,             desc = "refresh config",      mode = "n" },
   { "<leader>tm", search.man,                desc = "man page",            mode = "n" },
   { "<leader>td", Toggle_venn,               desc = "draw ascii diagrams", mode = "n" },
 })
 
--- project
 wk.add({
   { "<leader>p",  group = "Project" },
   { "<leader>pb", search.project_buffers,      desc = "Project buffers" },
@@ -312,7 +302,6 @@ wk.add({
   { "<leader>ps", search.project_live_symbols, desc = "workspace symbol" },
 })
 
--- ai
 wk.add({ {
   "<A-\\>",
   command("Sidekick cli toggle"),
@@ -328,7 +317,6 @@ wk.add({
   { "<leader>at", command('Sidekick cli send msg="{selection}"'), desc = "selection", mode = "nv" },
 })
 
--- code
 wk.add({
   { "<leader>c",  group = "code" },
   { "<leader>cr", vim.lsp.buf.rename,          desc = "rename" },

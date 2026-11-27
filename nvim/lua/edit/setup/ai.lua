@@ -16,15 +16,15 @@ return {
           enabled = false,
           create = "split",
           split = {
-            vertical = true, -- vertical or horizontal split
-            size = 0.45, -- size of the split (0-1 for percentage)
+            vertical = true,
+            size = 0.45,
           },
         },
         win = {
           layout = "float",
           split = {
-            width = 110, -- set to 0 for default split width
-            height = 50, -- set to 0 for default split height
+            width = 110,
+            height = 50,
           },
           float = {
             width = 0.9,
