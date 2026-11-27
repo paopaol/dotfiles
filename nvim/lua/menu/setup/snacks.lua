@@ -66,6 +66,7 @@ local function setup_file_browser(opts)
       end
     end
   end
+  opts.formatters.file.filename_only = true
   opts.format = function(item, picker)
     if item.text == "../" then
       return { { "..", "SnacksPickerDirectory" } }
@@ -84,7 +85,7 @@ local function setup_file_browser(opts)
   opts.win = opts.win or {}
   opts.win.input = opts.win.input or {}
   opts.win.input.keys = opts.win.input.keys or {}
-  opts.win.input.keys["<C-w>"] = { "back", mode = { "n", "i" } }
+  opts.win.input.keys["<C-w>"] = { "helm_back", mode = { "n", "i" } }
   -- snacks 默认的大写 <C-W> 与上面的 C-w 归一化后同名，保留会报 duplicate key
   opts.win.input.keys["<C-W>"] = false
 end
