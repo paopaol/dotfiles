@@ -38,8 +38,6 @@ return {
             -- 要真正禁用必须显式写 false
             hide_n = false,
             hide_ctrl_q = false,
-            -- C-d 是 CodeBuddy 硬编码的退出键，不透传给 CLI
-            ctrl_d = { "<C-d>", function() end, mode = "t", desc = "disable exit" },
             passthrough_esc = {
               "<Esc>",
               function()

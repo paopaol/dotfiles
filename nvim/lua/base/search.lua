@@ -149,6 +149,11 @@ M.lsp_calltree = function()
 end
 
 local exploer_dir = function(dir)
+  if vim.fn.has("wsl") == 1 then
+    local winpath = vim.trim(vim.fn.system({ "wslpath", "-w", dir }))
+    vim.fn.jobstart({ "/mnt/c/Windows/explorer.exe", winpath }, { detach = true })
+    return
+  end
   local cmd = vim.fn.has("win32") == 1 and { "explorer", dir } or { "xdg-open", dir }
   vim.fn.jobstart(cmd, { detach = true })
 end
@@ -161,8 +166,8 @@ M.exploer_dir_current = function()
   exploer_dir(vim.fn.expand("%:p:h", nil, nil))
 end
 
-M.open_with_defualt = function()
-  exploer_dir(vim.fn.expand("%", nil, nil))
+M.open_with_explorer = function()
+  exploer_dir(vim.fn.expand("%:p:h", nil, nil))
 end
 
 M.extract = function()

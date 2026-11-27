@@ -217,7 +217,7 @@ wk.add({
   { "<leader>fbb", search.vim_book_marks,                 desc = "Bookmarks",          mode = "n" },
   { "<leader>fbd", command("BookmarkClear"),              desc = "Clear Bookmark",     mode = "n" },
   { "<leader>fn",  command("enew"),                       desc = "New File",           mode = "n" },
-  { "<leader>fo",  search.open_with_defualt,              desc = "externl open",       mode = "n" },
+  { "<leader>fo",  search.open_with_explorer,             desc = "open in explorer",   mode = "n" },
   { "<leader>fq",  utils.open_current_file_use_qtcreator, desc = "open in qtcreator",  mode = "n" },
   { "<leader>fr",  search.oldfiles,                       desc = "Open Recent File",   mode = "n" },
   { "<leader>ft",  search.project_tree_focus,             desc = "file tree",          mode = "n" },
