@@ -5,6 +5,8 @@ return {
 
   { "mg979/vim-visual-multi", event = "VeryLazy" },
 
+  { "xiyaowong/fast-cursor-move.nvim", event = "VeryLazy" },
+
   {
     "pseewald/vim-anyfold",
     event = "VeryLazy",

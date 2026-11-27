@@ -1,6 +1,8 @@
 return {
   {
     "NeogitOrg/neogit",
+    -- 本地性能分支；删除下一行即回到上游版本
+    dir = "/home/jz/workspace/jz/neogit",
     event = "VeryLazy",
     -- 只留必需依赖：diffview/asyncrun 是可选集成，
     -- 声明成依赖会让 lazy 在打开 neogit 时连带加载它们（实测多 ~30-50ms）
